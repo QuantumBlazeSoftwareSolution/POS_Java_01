@@ -9,7 +9,7 @@ This project is a robust **Point of Sale (POS) system** built using **Java**, **
 - **System Name**: Retail POS - JAVA
 - **Current Version**: 1.0.0  
 - **Release Date**: Pending...
-- **Developer**: **Quantum Blaze**  
+- **Develop By**: **Quantum Blaze Software Solution**  
 
 ---
 
@@ -41,21 +41,26 @@ This project is a robust **Point of Sale (POS) system** built using **Java**, **
 
 ### Frontend (Web Application)
 - **HTML5**, **CSS3**, **JavaScript**: For responsive and interactive user interfaces.
-- **Bootstrap**: Simplify UI design for web admin pages.
+- **Tailwind**: Simplify UI design for web admin pages.
 
 ### Development Tools
+- **Figma**: Design environment.
 - **NetBeans IDE**: Development environment.
 - **Git/GitHub**: Version control.
-- **Postman**: API testing and debugging.
+- **Jasper Studio**: Generate important reports
+- **MySQL Workbench**: Relation Database
+- **Heidi SQL**: Data Management
+
 
 ---
 
 ## Installation Instructions
 
 ### Prerequisites
-1. Install **NetBeans IDE**.
+1. Install **Application setup exe**.
 2. Install **MySQL Server**.
-3. Set up **GlassFish Server** for Java EE deployment.
+3. Set up **Database connection**.
+4. Finalize system **Unit Testing Proces**
 
 ---
 
