@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `rertail_pos_v_01_qb` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `rertail_pos_v_01_qb`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rertail_pos_v_01_qb
@@ -53,7 +55,10 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `category` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  `product_status_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_category_product_status1_idx` (`product_status_id`),
+  CONSTRAINT `fk_category_product_status1` FOREIGN KEY (`product_status_id`) REFERENCES `product_status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,6 +241,33 @@ LOCK TABLES `customer_has_invoice` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `damage`
+--
+
+DROP TABLE IF EXISTS `damage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `damage` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `date_time` datetime NOT NULL,
+  `reason` text NOT NULL,
+  `employee_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_damage_employee1_idx` (`employee_id`),
+  CONSTRAINT `fk_damage_employee1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `damage`
+--
+
+LOCK TABLES `damage` WRITE;
+/*!40000 ALTER TABLE `damage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `damage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `damage_item`
 --
 
@@ -246,11 +278,11 @@ CREATE TABLE `damage_item` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
   `qty` double NOT NULL,
-  `employee_id` int NOT NULL,
+  `damage_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_damage_item_product1_idx` (`product_id`),
-  KEY `fk_damage_item_employee1_idx` (`employee_id`),
-  CONSTRAINT `fk_damage_item_employee1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
+  KEY `fk_damage_item_damage1_idx` (`damage_id`),
+  CONSTRAINT `fk_damage_item_damage1` FOREIGN KEY (`damage_id`) REFERENCES `damage` (`id`),
   CONSTRAINT `fk_damage_item_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -645,7 +677,6 @@ DROP TABLE IF EXISTS `location_return`;
 CREATE TABLE `location_return` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date_time` datetime NOT NULL,
-  `sender` varchar(50) NOT NULL,
   `location_return_type_id` int NOT NULL,
   `employee_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -786,13 +817,16 @@ CREATE TABLE `product` (
   `category_id` int NOT NULL,
   `bar_code` varchar(45) NOT NULL,
   `product_type_id` int NOT NULL,
+  `product_unit_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_product_product_status1_idx` (`product_status_id`),
   KEY `fk_product_category1_idx` (`category_id`),
   KEY `fk_product_product_type1_idx` (`product_type_id`),
+  KEY `fk_product_product_unit1_idx` (`product_unit_id`),
   CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `fk_product_product_status1` FOREIGN KEY (`product_status_id`) REFERENCES `product_status` (`id`),
-  CONSTRAINT `fk_product_product_type1` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`)
+  CONSTRAINT `fk_product_product_type1` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`),
+  CONSTRAINT `fk_product_product_unit1` FOREIGN KEY (`product_unit_id`) REFERENCES `product_unit` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -815,14 +849,14 @@ DROP TABLE IF EXISTS `product_distribute`;
 CREATE TABLE `product_distribute` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date_time` varchar(45) NOT NULL,
-  `distribute_type_id` int NOT NULL,
   `employee_id` int NOT NULL,
   `receiver` varchar(50) NOT NULL,
+  `distribute_type_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_product_issue_issue_type1_idx` (`distribute_type_id`),
   KEY `fk_product_distribute_employee1_idx` (`employee_id`),
-  CONSTRAINT `fk_product_distribute_employee1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
-  CONSTRAINT `fk_product_issue_issue_type1` FOREIGN KEY (`distribute_type_id`) REFERENCES `distribute_type` (`id`)
+  KEY `fk_product_distribute_distribute_type1_idx` (`distribute_type_id`),
+  CONSTRAINT `fk_product_distribute_distribute_type1` FOREIGN KEY (`distribute_type_id`) REFERENCES `distribute_type` (`id`),
+  CONSTRAINT `fk_product_distribute_employee1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -875,6 +909,7 @@ CREATE TABLE `product_distribute_item` (
   `product_id` int NOT NULL,
   `qty` double NOT NULL,
   `product_distribute_id` int NOT NULL,
+  `product_price` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_product_distribute_item_product1_idx` (`product_id`),
   KEY `fk_product_distribute_item_product_distribute1_idx` (`product_distribute_id`),
@@ -936,6 +971,29 @@ CREATE TABLE `product_type` (
 LOCK TABLES `product_type` WRITE;
 /*!40000 ALTER TABLE `product_type` DISABLE KEYS */;
 /*!40000 ALTER TABLE `product_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_unit`
+--
+
+DROP TABLE IF EXISTS `product_unit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_unit` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `unit` varchar(45) DEFAULT NULL COMMENT 'g, ml, units, piece',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_unit`
+--
+
+LOCK TABLES `product_unit` WRITE;
+/*!40000 ALTER TABLE `product_unit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product_unit` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1364,4 +1422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-04 19:05:39
+-- Dump completed on 2025-02-05 16:35:11
