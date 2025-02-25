@@ -34,6 +34,18 @@
     -fx-background-color: transparent;
 }
 
+.bg-primary-white-10{
+    -fx-background-color: rgba(241, 241, 241, 0.1);
+}
+
+.bg-primary-white-10:hover{
+    -fx-background-color: rgba(241, 241, 241, 0.2);
+}
+
 .btn-white-hover:hover{
     -fx-background-color: #E4E4E4;
+}
+
+.outline-icon{
+    -fx-fill: none;
 }
