@@ -1,0 +1,39 @@
+.primary-gradient{
+    -fx-background-color: linear-gradient(to top, #000428, #004E92);
+}
+
+.primary-text{
+    -fx-text-fill: #004E92;
+}
+
+.system-login-left-panel{
+    -fx-background-radius: 0px 10px 10px 0px;
+}
+
+.primary-white{
+    -fx-text-fill: #f1f1f1;
+}
+
+.primary-white-50{
+    -fx-text-fill: rgba(241, 241, 241, 0.5);
+}
+
+.bg-white{
+    -fx-background-color: #fff;
+}
+
+.full-width-button {
+    -fx-max-width: infinity;
+}
+
+.button-gradient {
+    -fx-background-color: linear-gradient(to left, #000428, #004E92);
+}
+
+.button-transparent{
+    -fx-background-color: transparent;
+}
+
+.btn-white-hover:hover{
+    -fx-background-color: #E4E4E4;
+}
