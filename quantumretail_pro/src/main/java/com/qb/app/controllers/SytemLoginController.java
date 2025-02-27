@@ -2,6 +2,7 @@ package com.qb.app.controllers;
 
 import com.qb.app.App;
 import com.qb.app.model.HibernateUtil;
+import com.qb.app.model.InderfaceAction;
 import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
@@ -65,8 +66,7 @@ public class SytemLoginController implements Initializable {
         if (event.getSource() == btnLogin) {
             systemLogin();
         } else if (event.getSource() == btnExit) {
-            Stage stage = (Stage) btnExit.getScene().getWindow();
-            stage.close();
+            InderfaceAction.closeWindow(btnExit);
         }
     }
 

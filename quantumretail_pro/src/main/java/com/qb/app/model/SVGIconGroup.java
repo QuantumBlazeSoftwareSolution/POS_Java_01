@@ -1,7 +1,6 @@
 package com.qb.app.model;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,14 +10,28 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
+import javafx.scene.paint.Color;
 
 public class SVGIconGroup extends Group {
 
+    /**
+     * Constructor to create a Group containing SVGPath objects from an SVG
+     * file.
+     *
+     * @param svgFileLocation The location of the SVG file (e.g.,
+     * "/com/qb/app/assets/icons/users-solid.svg").
+     */
     public SVGIconGroup(String svgFileLocation) {
         super();
         loadSVGFromFile(svgFileLocation);
     }
 
+    /**
+     * Loads the SVG content from the specified file location and creates
+     * SVGPath objects.
+     *
+     * @param svgFileLocation The location of the SVG file.
+     */
     private void loadSVGFromFile(String svgFileLocation) {
         try (InputStream inputStream = getClass().getResourceAsStream(svgFileLocation)) {
             if (inputStream == null) {
@@ -46,66 +59,34 @@ public class SVGIconGroup extends Group {
                     String dAttribute = pathElement.getAttribute("d");
                     svgPath.setContent(dAttribute);
 
-                    // Set stroke color (if specified)
+                    // Set stroke color (if specified in the SVG)
                     String strokeColor = pathElement.getAttribute("stroke");
                     if (!strokeColor.isEmpty()) {
-                        svgPath.setStroke(Color.web(strokeColor));
+                        svgPath.setStroke(javafx.scene.paint.Color.web(strokeColor));
                     } else {
-                        svgPath.setStroke(Color.TRANSPARENT); // Default stroke color
+                        svgPath.setStroke(Color.TRANSPARENT);
                     }
 
-                    // Set stroke width (if specified)
+                    // Set stroke width (if specified in the SVG)
                     String strokeWidth = pathElement.getAttribute("stroke-width");
                     if (!strokeWidth.isEmpty()) {
                         svgPath.setStrokeWidth(Double.parseDouble(strokeWidth));
-                    } else {
-                        svgPath.setStrokeWidth(1.0); // Default stroke width
                     }
 
-                    // Set fill color (if specified)
+                    // Set fill color (if specified in the SVG)
                     String fillColor = pathElement.getAttribute("fill");
                     if (!fillColor.isEmpty()) {
-                        svgPath.setFill(Color.web(fillColor));
+                        svgPath.setFill(javafx.scene.paint.Color.web(fillColor));
                     } else {
-                        svgPath.setFill(Color.TRANSPARENT); // Default fill color
+                        svgPath.setFill(Color.TRANSPARENT);
                     }
 
-                    defaultOutlineIcon(this);
                     // Add the SVGPath to the Group
                     this.getChildren().add(svgPath);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Changes the stroke and fill colors of all SVGPath objects in the Group.
-     *
-     * @param strokeColor The new stroke color.
-     * @param fillColor The new fill color.
-     */
-    public void setIconColor(Color strokeColor, Color fillColor) {
-        for (var node : this.getChildren()) {
-            if (node instanceof SVGPath) {
-                SVGPath svgPath = (SVGPath) node;
-                svgPath.setStroke(strokeColor);
-                svgPath.setFill(fillColor);
-            }
-        }
-    }
-
-    private void defaultOutlineIcon(Group iconGroup) {
-        // Iterate through all children of the Group
-        for (var node : iconGroup.getChildren()) {
-            if (node instanceof SVGPath) {
-                SVGPath svgPath = (SVGPath) node;
-                // Set stroke to white
-                svgPath.setStroke(Color.WHITE);
-                // Set fill to transparent
-                svgPath.setFill(Color.TRANSPARENT);
-            }
         }
     }
 }
