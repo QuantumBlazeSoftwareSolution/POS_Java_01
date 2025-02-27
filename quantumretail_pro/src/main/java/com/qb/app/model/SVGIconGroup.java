@@ -70,6 +70,7 @@ public class SVGIconGroup extends Group {
                         svgPath.setFill(Color.TRANSPARENT); // Default fill color
                     }
 
+                    defaultOutlineIcon(this);
                     // Add the SVGPath to the Group
                     this.getChildren().add(svgPath);
                 }
@@ -83,7 +84,7 @@ public class SVGIconGroup extends Group {
      * Changes the stroke and fill colors of all SVGPath objects in the Group.
      *
      * @param strokeColor The new stroke color.
-     * @param fillColor   The new fill color.
+     * @param fillColor The new fill color.
      */
     public void setIconColor(Color strokeColor, Color fillColor) {
         for (var node : this.getChildren()) {
@@ -91,6 +92,19 @@ public class SVGIconGroup extends Group {
                 SVGPath svgPath = (SVGPath) node;
                 svgPath.setStroke(strokeColor);
                 svgPath.setFill(fillColor);
+            }
+        }
+    }
+
+    private void defaultOutlineIcon(Group iconGroup) {
+        // Iterate through all children of the Group
+        for (var node : iconGroup.getChildren()) {
+            if (node instanceof SVGPath) {
+                SVGPath svgPath = (SVGPath) node;
+                // Set stroke to white
+                svgPath.setStroke(Color.WHITE);
+                // Set fill to transparent
+                svgPath.setFill(Color.TRANSPARENT);
             }
         }
     }
