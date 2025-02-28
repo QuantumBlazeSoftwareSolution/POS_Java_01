@@ -5,19 +5,23 @@ import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -64,15 +68,21 @@ public class PanelCashierController implements Initializable {
     private BorderPane mainBorderLayout;
     @FXML
     private BorderPane contentBorder;
-    // </editor-fold>
+    @FXML
+    private Button btnToggleMenu; // Add this button for toggling the menu
     @FXML
     private AnchorPane root;
+    // </editor-fold>
+
+    private boolean isMenuCollapsed = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setIcons();
         setInitialState();
         setMouseEvent();
+
+        leftSideMenu.setTranslateX(0);
     }
 
     private void setIcons() {
@@ -93,6 +103,62 @@ public class PanelCashierController implements Initializable {
         }
     }
 
+    public void toggleMenu() {
+        if (isMenuCollapsed) {
+            expandMenu();
+        } else {
+            collapseMenu();
+        }
+        isMenuCollapsed = !isMenuCollapsed; // Toggle the state
+        double menuWidth = leftSideMenu.getWidth();
+        System.out.println("Menu Width: " + menuWidth);
+    }
+
+    private void collapseMenu() {
+        double menuWidth = leftSideMenu.getWidth();
+
+        leftSideMenu.setMinWidth(0); // Ensure it can shrink properly
+        leftSideMenu.setMaxWidth(menuWidth);
+
+        // Create a TranslateTransition for the side menu
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), leftSideMenu);
+        translateTransition.setToX(-menuWidth); // Move the menu to the left by its width
+
+        // Create a Timeline to animate the width of the side menu
+        Timeline widthTransition = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(leftSideMenu.prefWidthProperty(), 0)
+                )
+        );
+
+        // Combine both transitions into a ParallelTransition
+        ParallelTransition parallelTransition = new ParallelTransition(widthTransition, translateTransition);
+        parallelTransition.setOnFinished(event -> leftSideMenu.setMaxWidth(0)); // Ensure it stays collapsed
+        parallelTransition.play();
+    }
+
+    private void expandMenu() {
+        double menuWidth = 250;
+
+        leftSideMenu.setMaxWidth(menuWidth);
+
+        // Create a TranslateTransition for the side menu
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), leftSideMenu);
+        translateTransition.setToX(0); // Move the menu back to its original position
+
+        // Create a Timeline to animate the width of the side menu
+        Timeline widthTransition = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(leftSideMenu.prefWidthProperty(), menuWidth)
+                )
+        );
+
+        // Combine both transitions into a ParallelTransition
+        ParallelTransition parallelTransition = new ParallelTransition(translateTransition, widthTransition);
+        parallelTransition.setOnFinished(event -> leftSideMenu.setMinWidth(menuWidth)); // Prevent it from resizing back to 140px
+        parallelTransition.play();
+    }
+
     private void setInitialState() {
         setDefaultPanel();
     }
@@ -105,6 +171,7 @@ public class PanelCashierController implements Initializable {
             contentBorder.setTop(cashier_top_menu.load());
             Cashier_top_panelController controller = cashier_top_menu.getController();
             controller.setTitle("Dashboard");
+            controller.setPanelCashierController(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
