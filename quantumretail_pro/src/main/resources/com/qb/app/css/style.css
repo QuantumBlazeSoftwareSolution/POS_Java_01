@@ -29,6 +29,13 @@
     -fx-border-radius: 4px;
 }
 
+.primary-border-dash{
+    -fx-border-color: #004E92;
+    -fx-border-width: 1px;
+    -fx-border-style: dashed;
+    -fx-border-radius: 4px;
+}
+
 .system-login-left-panel{
     -fx-background-radius: 0px 10px 10px 0px;
 }
@@ -55,6 +62,10 @@
 
 .bg-primary-20{
     -fx-background-color: hsba(208, 100%, 57%, 0.2);
+}
+
+.bg-primary-5{
+    -fx-background-color: hsba(208, 100%, 57%, 0.05);
 }
 
 .full-width-button {
