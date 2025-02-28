@@ -2,6 +2,10 @@
     -fx-background-color: linear-gradient(to top, #000428, #004E92);
 }
 
+.primary-gradient-toLeft{
+    -fx-background-color: linear-gradient(to left, #000428, #004E92);
+}
+
 .black-gradient{
     -fx-background-color: linear-gradient(to bottom, #434343, #000000);
 }
