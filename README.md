@@ -1,12 +1,12 @@
 # Point of Sale (POS) System
 
-This project is a robust **Point of Sale (POS) system** built using **Java**, **Hibernate**, and **NetBeans** IDE for the desktop application. Additionally, it includes a **web application** for admin analysis and back-office functionalities. The system is designed for efficient retail management, covering inventory tracking, sales processing, and administrative reporting.
+This project is a robust **Point of Sale (POS) system** built using **Java**, **JavaFX**, **Hibernate**, and **NetBeans** IDE for the desktop application. Additionally, it includes a **web application** for admin analysis and back-office functionalities. The system is designed for efficient retail management, covering inventory tracking, sales processing, and administrative reporting.
 
 ---
 
 ## System Information
 
-- **System Name**: Retail POS - JAVA
+- **System Name**: Quantum Retail Pro
 - **Current Version**: 1.0.0  
 - **Release Date**: Pending...
 - **Develop By**: **Quantum Blaze Software Solution**  
@@ -46,6 +46,7 @@ This project is a robust **Point of Sale (POS) system** built using **Java**, **
 ### Development Tools
 - **Figma**: Design environment.
 - **NetBeans IDE**: Development environment.
+- **Scene Builder**: Design environment.
 - **Git/GitHub**: Version control.
 - **Jasper Studio**: Generate important reports
 - **MySQL Workbench**: Relation Database

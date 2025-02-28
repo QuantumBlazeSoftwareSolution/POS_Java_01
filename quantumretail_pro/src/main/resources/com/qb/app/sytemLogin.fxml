@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -12,11 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
@@ -57,23 +54,7 @@
                             <children>
                                 <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
                                     <children>
-                              <SVGPath fx:id="iconUsers" content="M40,60 C42,48 44,30 25,32" scaleX="1.5" scaleY="1.5">
-                                 <fill>
-                                    <LinearGradient endX="1.0" endY="1.0">
-                                       <stops>
-                                          <Stop>
-                                             <color>
-                                                <Color green="0.30588236451148987" blue="0.572549045085907" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="1.0">
-                                             <color>
-                                                <Color green="0.01568627543747425" blue="0.1568627506494522" />
-                                             </color>
-                                          </Stop>
-                                       </stops>
-                                    </LinearGradient>
-                                 </fill></SVGPath>
+                              <Group fx:id="iconUser" />
                                           <Label styleClass="primary-text" stylesheets="@css/style.css" text="User Login">
                                               <font>
                                                   <Font name="Segoe UI Bold" size="16.0" />
@@ -126,28 +107,12 @@
                                                 <String fx:value="button-transparent" />
                                     <String fx:value="btn-white-hover" />
                                             </styleClass>
-                                 <graphic>
-                                    <SVGPath fx:id="iconExit" content="M40,60 C42,48 44,30 25,32" scaleX="0.8" scaleY="0.8">
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop>
-                                                   <color>
-                                                      <Color green="0.30588236451148987" blue="0.572549045085907" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="1.0">
-                                                   <color>
-                                                      <Color green="0.01568627543747425" blue="0.1568627506494522" />
-                                                   </color>
-                                                </Stop>
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill></SVGPath>
-                                 </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                 <graphic>
+                                    <Group fx:id="iconExit" />
+                                 </graphic>
                                         </Button>
                                     </children>
                                 </VBox>

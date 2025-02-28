@@ -10,15 +10,14 @@ import java.io.IOException;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
+        primaryStage = stage;
         scene = new Scene(loadFXML("sytemLogin"));
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -26,8 +25,9 @@ public class App extends Application {
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
+        primaryStage.sizeToScene();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

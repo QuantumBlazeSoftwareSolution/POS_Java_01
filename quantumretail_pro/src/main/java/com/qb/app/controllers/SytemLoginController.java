@@ -1,19 +1,22 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.HibernateUtil;
+import com.qb.app.model.InderfaceAction;
 import com.qb.app.model.InterfaceMortion;
-import com.qb.app.model.SVGIconLoader;
+import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -42,14 +45,14 @@ public class SytemLoginController implements Initializable {
     @FXML
     private Button btnExit;
     @FXML
-    private SVGPath iconUsers;
-    @FXML
-    private SVGPath iconExit;
+    private Group iconExit;
     @FXML
     private AnchorPane root;
     @FXML
     private Circle quantumBlazeIcon;
-    //    </editor-fold>
+    @FXML
+    private Group iconUser;
+    //    </editor-fold>s
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,27 +66,29 @@ public class SytemLoginController implements Initializable {
         if (event.getSource() == btnLogin) {
             systemLogin();
         } else if (event.getSource() == btnExit) {
-            Stage stage = (Stage) btnExit.getScene().getWindow();
-            stage.close();
+            InderfaceAction.closeWindow(btnExit);
         }
     }
 
     private void systemLogin() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Employee> query = criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> entity = query.from(Employee.class);
-
-        // WHERE name='Vihanga'
-        query.select(entity).where(criteriaBuilder.equal(entity.get("name"), "Vihanga"));
-
-        List<Employee> employeeList = session.createQuery(query).getResultList();
-        System.out.println("Employee Count: " + employeeList.size());
-        for (Employee employee : employeeList) {
-            System.out.println(employee.getName() + " - " + employee.getUsername());
+        try {
+            App.setRoot("panelCashier");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        Employee employee = session.createQuery(query).getSingleResult();
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//        CriteriaQuery<Employee> query = criteriaBuilder.createQuery(Employee.class);
+//        Root<Employee> entity = query.from(Employee.class);
+//
+//        // WHERE name='Vihanga'
+//        query.select(entity).where(criteriaBuilder.equal(entity.get("name"), "Vihanga"));
+//
+//        List<Employee> employeeList = session.createQuery(query).getResultList();
+//        System.out.println("Employee Count: " + employeeList.size());
+//        for (Employee employee : employeeList) {
+//            System.out.println(employee.getName() + " - " + employee.getUsername());
+//        }
     }
 
     private void setInitialState() {
@@ -95,8 +100,8 @@ public class SytemLoginController implements Initializable {
     }
 
     private void setIcons() {
-        SVGIconLoader.loadSVGIcon(iconUsers, ("/com/qb/app/assets/icons/users-solid.svg"));
-        SVGIconLoader.loadSVGIcon(iconExit, ("/com/qb/app/assets/icons/exit-solid.svg"));
+        iconUser.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/users-solid.svg"));
+        iconExit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/exit-solid.svg"));
     }
 
     private void setMouseEvent() {
