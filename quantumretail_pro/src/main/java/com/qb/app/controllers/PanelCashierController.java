@@ -43,8 +43,6 @@ public class PanelCashierController implements Initializable {
     @FXML
     private Button btnWithdrawal;
     @FXML
-    private Button bttnRefund;
-    @FXML
     private Button BtnRePrint;
     @FXML
     private Group iconDashboard;
@@ -69,18 +67,17 @@ public class PanelCashierController implements Initializable {
     @FXML
     private BorderPane contentBorder;
     @FXML
-    private Button btnToggleMenu; // Add this button for toggling the menu
-    @FXML
     private AnchorPane root;
     // </editor-fold>
 
     private boolean isMenuCollapsed = false;
+    @FXML
+    private Button btnRefund;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setIcons();
         setInitialState();
-        setMouseEvent();
 
         leftSideMenu.setTranslateX(0);
     }
@@ -98,7 +95,21 @@ public class PanelCashierController implements Initializable {
 
     @FXML
     private void handleActionButtons(ActionEvent event) {
-        if (event.getSource() == btnExit) {
+        if (event.getSource() == btnDashboard) {
+            changeCenterPanel("/com/qb/app/cashierDashboard.fxml");
+        } else if (event.getSource() == btnSession) {
+            changeCenterPanel("/com/qb/app/cashierSession.fxml");
+        } else if (event.getSource() == btnInvoice) {
+            changeCenterPanel("/com/qb/app/cashierInvoice.fxml");
+        } else if (event.getSource() == btnCloseSale) {
+            changeCenterPanel("/com/qb/app/cashierCloseSale.fxml");
+        } else if (event.getSource() == btnWithdrawal) {
+            changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml");
+        } else if (event.getSource() == btnRefund) {
+            changeCenterPanel("/com/qb/app/cashierRefund.fxml");
+        } else if (event.getSource() == BtnRePrint) {
+            changeCenterPanel("/com/qb/app/cashierRePrint.fxml");
+        } else if (event.getSource() == btnExit) {
             InderfaceAction.closeWindow(btnExit);
         }
     }
@@ -177,8 +188,12 @@ public class PanelCashierController implements Initializable {
         }
     }
 
-    private void setMouseEvent() {
-        InterfaceMortion interfaceMortion = new InterfaceMortion();
-        interfaceMortion.enableDrag(root);
+    private void changeCenterPanel(String fxml) {
+        try {
+            FXMLLoader dashboard = new FXMLLoader(getClass().getResource(fxml));
+            contentBorder.setCenter(dashboard.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

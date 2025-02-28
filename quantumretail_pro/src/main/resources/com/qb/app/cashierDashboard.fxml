@@ -78,7 +78,5 @@
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" />
-      <VBox prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
