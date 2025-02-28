@@ -22,12 +22,18 @@ public class App extends Application {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(null);
         stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
         primaryStage.sizeToScene();
+        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("Hello");
+        primaryStage.setFullScreenExitKeyCombination(null);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
