@@ -190,8 +190,8 @@ public class PanelCashierController implements Initializable {
 
     private void changeCenterPanel(String fxml) {
         try {
-            FXMLLoader dashboard = new FXMLLoader(getClass().getResource(fxml));
-            contentBorder.setCenter(dashboard.load());
+            FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
+            contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="1024.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PanelCashierController">
    <children>
-      <BorderPane fx:id="mainBorderLayout" layoutX="224.0" layoutY="151.0" prefHeight="200.0" prefWidth="200.0" styleClass="primary-gradient-50" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="mainBorderLayout" layoutX="224.0" layoutY="151.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <BorderPane fx:id="leftSideMenu" prefHeight="640.0" prefWidth="250.0" styleClass="primary-gradient" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                <top>

@@ -15,16 +15,141 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="992.0" styleClass="bg-primary-5" stylesheets="@css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.CashierInvoiceController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="992.0" styleClass="bg-primary-5" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierInvoiceController">
    <children>
       <BorderPane layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <center>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
-               <styleClass>
-                  <String fx:value="bg-primary-5" />
-                  <String fx:value="primary-border" />
-               </styleClass>
+            <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary-5" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@css/style.css">
+                     <children>
+                        <HBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="50.0" prefWidth="968.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="80.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Code" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1 1 1 0;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Product" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="280.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1 1 1 0;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Name" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="410.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1 1 1 0;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Unit Price" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="510.0" layoutY="10.0" prefHeight="200.0" prefWidth="50.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1 1 1 0;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Qty" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1 1 1 0;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Amount" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="120.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 1 1 1 0;" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-primary-20" />
+                                          <String fx:value="primary-border" />
+                                       </styleClass>
+                                       <center>
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Action" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <VBox fx:id="invoiceItemContainer" prefWidth="968.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </content>
             </ScrollPane>
          </center>
          <top>

@@ -1,26 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
 public class CashierInvoiceController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private VBox invoiceItemContainer;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        for (int i = 0; i < 10; i++) {
+            try {
+                // Load the invoiceItem.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/invoiceItem.fxml"));
+                Node invoiceItem = loader.load(); // Load the node
+
+                // Optional: Get the controller if you need to interact with it
+                InvoiceItemController itemController = loader.getController();
+
+                // Add the invoice item to the VBox
+                invoiceItemContainer.getChildren().add(invoiceItem);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
