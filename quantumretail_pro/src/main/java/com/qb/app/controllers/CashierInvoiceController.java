@@ -22,8 +22,13 @@ public class CashierInvoiceController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/invoiceItem.fxml"));
                 Node invoiceItem = loader.load(); // Load the node
 
-                // Optional: Get the controller if you need to interact with it
                 InvoiceItemController itemController = loader.getController();
+                String itemCode = "ITEM #" + (i + 1); 
+                String itemImage = getClass().getResource("/com/qb/app/assets/images/tomato.png").toExternalForm();
+                String itemName = "Product " + (i + 1); 
+                double itemPrice = 100.00 * (i + 1); 
+                double quantity = i + 1;
+                itemController.InvoiceItemData(itemCode, itemImage, itemName, itemPrice, quantity);
 
                 // Add the invoice item to the VBox
                 invoiceItemContainer.getChildren().add(invoiceItem);
