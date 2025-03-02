@@ -68,11 +68,12 @@ public class PanelCashierController implements Initializable {
     private BorderPane contentBorder;
     @FXML
     private AnchorPane root;
+    @FXML
+    private Button btnRefund;
     // </editor-fold>
 
     private boolean isMenuCollapsed = false;
-    @FXML
-    private Button btnRefund;
+    private Cashier_top_panelController controller;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,19 +97,19 @@ public class PanelCashierController implements Initializable {
     @FXML
     private void handleActionButtons(ActionEvent event) {
         if (event.getSource() == btnDashboard) {
-            changeCenterPanel("/com/qb/app/cashierDashboard.fxml");
+            changeCenterPanel("/com/qb/app/cashierDashboard.fxml", "Dashboard");
         } else if (event.getSource() == btnSession) {
-            changeCenterPanel("/com/qb/app/cashierSession.fxml");
+            changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
         } else if (event.getSource() == btnInvoice) {
-            changeCenterPanel("/com/qb/app/cashierInvoice.fxml");
+            changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
         } else if (event.getSource() == btnCloseSale) {
-            changeCenterPanel("/com/qb/app/cashierCloseSale.fxml");
+            changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
         } else if (event.getSource() == btnWithdrawal) {
-            changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml");
+            changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml", "Withdrawal");
         } else if (event.getSource() == btnRefund) {
-            changeCenterPanel("/com/qb/app/cashierRefund.fxml");
+            changeCenterPanel("/com/qb/app/cashierRefund.fxml", "Refund");
         } else if (event.getSource() == BtnRePrint) {
-            changeCenterPanel("/com/qb/app/cashierRePrint.fxml");
+            changeCenterPanel("/com/qb/app/cashierRePrint.fxml", "Re-Print");
         } else if (event.getSource() == btnExit) {
             InderfaceAction.closeWindow(btnExit);
         }
@@ -180,7 +181,7 @@ public class PanelCashierController implements Initializable {
             contentBorder.setCenter(dashboard.load());
             FXMLLoader cashier_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/cashier_top_panel.fxml"));
             contentBorder.setTop(cashier_top_menu.load());
-            Cashier_top_panelController controller = cashier_top_menu.getController();
+            controller = cashier_top_menu.getController();
             controller.setTitle("Dashboard");
             controller.setPanelCashierController(this);
         } catch (IOException e) {
@@ -188,7 +189,7 @@ public class PanelCashierController implements Initializable {
         }
     }
 
-    private void changeCenterPanel(String fxml) {
+    private void changeCenterPanel(String fxml, String title) {
         try {
             FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
             contentBorder.setCenter(panel.load());

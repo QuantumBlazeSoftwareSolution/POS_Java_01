@@ -23,10 +23,10 @@ public class CashierInvoiceController implements Initializable {
                 Node invoiceItem = loader.load(); // Load the node
 
                 InvoiceItemController itemController = loader.getController();
-                String itemCode = "ITEM #" + (i + 1); 
+                String itemCode = "ITEM #" + (i + 1);
                 String itemImage = getClass().getResource("/com/qb/app/assets/images/tomato.png").toExternalForm();
-                String itemName = "Product " + (i + 1); 
-                double itemPrice = 100.00 * (i + 1); 
+                String itemName = "Product " + (i + 1);
+                double itemPrice = 100.00 * (i + 1);
                 double quantity = i + 1;
                 itemController.InvoiceItemData(itemCode, itemImage, itemName, itemPrice, quantity);
 

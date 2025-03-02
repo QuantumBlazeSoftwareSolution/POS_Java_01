@@ -317,7 +317,7 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" layoutX="102.0" layoutY="50.0" maxHeight="-Infinity" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #081E30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER" layoutX="102.0" layoutY="50.0" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #081E30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/style.css" text="Invoice">
                            <font>
@@ -401,10 +401,10 @@
                               <Insets />
                            </HBox.margin>
                            <padding>
-                              <Insets left="50.0" right="50.0" />
+                              <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
                            </padding>
                            <font>
-                              <Font name="Segoe UI Bold" size="14.0" />
+                              <Font name="Segoe UI Bold" size="18.0" />
                            </font>
                            <styleClass>
                               <String fx:value="bg-primary" />
