@@ -79,7 +79,6 @@ public class PanelCashierController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setIcons();
         setInitialState();
-
         leftSideMenu.setTranslateX(0);
     }
 
@@ -123,7 +122,6 @@ public class PanelCashierController implements Initializable {
         }
         isMenuCollapsed = !isMenuCollapsed; // Toggle the state
         double menuWidth = leftSideMenu.getWidth();
-        System.out.println("Menu Width: " + menuWidth);
     }
 
     private void collapseMenu() {
@@ -179,7 +177,7 @@ public class PanelCashierController implements Initializable {
         try {
             FXMLLoader dashboard = new FXMLLoader(getClass().getResource("/com/qb/app/cashierDashboard.fxml"));
             contentBorder.setCenter(dashboard.load());
-            FXMLLoader cashier_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/cashier_top_panel.fxml"));
+            FXMLLoader cashier_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/cashier_top_panel.fxml"));
             contentBorder.setTop(cashier_top_menu.load());
             controller = cashier_top_menu.getController();
             controller.setTitle("Dashboard");

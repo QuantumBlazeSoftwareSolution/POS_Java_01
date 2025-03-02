@@ -317,7 +317,7 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" layoutX="102.0" layoutY="50.0" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #081E30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER" layoutX="102.0" layoutY="50.0" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #081E30;" styleClass="border-radius" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/style.css" text="Invoice">
                            <font>
@@ -413,7 +413,7 @@
                         </Button>
                      </children>
                      <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
                      </padding>
                   </HBox>
                </children>
