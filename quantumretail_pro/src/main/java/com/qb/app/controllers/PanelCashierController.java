@@ -191,6 +191,7 @@ public class PanelCashierController implements Initializable {
         try {
             FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
             contentBorder.setCenter(panel.load());
+            controller.setTitle(title);
         } catch (IOException e) {
             e.printStackTrace();
         }

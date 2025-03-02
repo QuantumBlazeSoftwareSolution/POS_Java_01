@@ -168,6 +168,7 @@
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />
                                     <String fx:value="bg-primary-5" />
+                                    <String fx:value="primary-text" />
                                  </styleClass>
                               </TextField>
                               <TextField prefHeight="40.0" promptText="Item Code" stylesheets="@css/style.css">
@@ -175,6 +176,7 @@
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />
                                     <String fx:value="bg-primary-5" />
+                                    <String fx:value="primary-text" />
                                  </styleClass>
                               </TextField>
                               <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Product View">
@@ -328,6 +330,7 @@
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border" />
                                     <String fx:value="bg-primary-5" />
+                                    <String fx:value="primary-white" />
                                  </styleClass>
                               </TextField>
                               <TextField minWidth="250.0" prefHeight="40.0" promptText="Invoice Cut Off" style="-fx-background-color: #0C2E49;" stylesheets="@css/style.css">
@@ -335,6 +338,7 @@
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border" />
                                     <String fx:value="bg-primary-5" />
+                                    <String fx:value="primary-white" />
                                  </styleClass>
                               </TextField>
                            </children>
