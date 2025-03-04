@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="60.0" prefWidth="968.0" styleClass="invoiceItemHover" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.InvoiceItemController">
+<HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="60.0" prefWidth="968.0" styleClass="invoiceItemHover" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.RePrintInvoiceItemController">
    <children>
       <VBox layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="80.0" HBox.hgrow="ALWAYS">
          <children>
