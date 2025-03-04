@@ -170,6 +170,9 @@
                                     <String fx:value="bg-primary-5" />
                                     <String fx:value="primary-text" />
                                  </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextField>
                               <TextField prefHeight="40.0" promptText="Item Code" stylesheets="@css/style.css">
                                  <styleClass>
@@ -178,6 +181,9 @@
                                     <String fx:value="bg-primary-5" />
                                     <String fx:value="primary-text" />
                                  </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextField>
                               <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Product View">
                                  <padding>
@@ -332,6 +338,9 @@
                                     <String fx:value="bg-primary-5" />
                                     <String fx:value="primary-white" />
                                  </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextField>
                               <TextField minWidth="250.0" prefHeight="40.0" promptText="Invoice Cut Off" style="-fx-background-color: #0C2E49;" stylesheets="@css/style.css">
                                  <styleClass>
@@ -340,6 +349,9 @@
                                     <String fx:value="bg-primary-5" />
                                     <String fx:value="primary-white" />
                                  </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextField>
                            </children>
                         </VBox>

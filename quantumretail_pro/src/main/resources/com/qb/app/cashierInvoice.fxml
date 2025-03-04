@@ -17,7 +17,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="992.0" styleClass="bg-primary-5" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierInvoiceController">
    <children>
-      <BorderPane layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <center>
             <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary-5" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                <content>
@@ -169,6 +169,9 @@
                                     <String fx:value="bg-primary-5" />
                                     <String fx:value="primary-text" />
                                  </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextField>
                               <TextField prefHeight="40.0" promptText="Item Code" stylesheets="@css/style.css">
                                  <styleClass>
@@ -177,6 +180,9 @@
                                     <String fx:value="bg-primary-5" />
                                     <String fx:value="primary-text" />
                                  </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextField>
                               <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Product View">
                                  <padding>

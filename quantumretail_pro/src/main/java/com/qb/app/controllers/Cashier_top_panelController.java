@@ -10,18 +10,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 public class Cashier_top_panelController implements Initializable {
 
     @FXML
-    private Group iconMenu;
+    private BorderPane iconMenu;
     @FXML
     private Label panelTitle;
     @FXML
-    private Group iconMinimize;
+    private BorderPane iconMinimize;
     @FXML
-    private Group iconClose;
+    private BorderPane iconClose;
 
     private PanelCashierController panelCashierController; // Reference to PanelCashierController
 
@@ -63,6 +64,6 @@ public class Cashier_top_panelController implements Initializable {
         } else if (event.getSource() == iconMinimize) {
             InderfaceAction.minimizeWindow(iconMinimize);
         }
-    }
+    } 
 
 }
