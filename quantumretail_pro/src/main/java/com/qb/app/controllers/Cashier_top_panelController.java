@@ -4,25 +4,22 @@ import com.qb.app.model.InderfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.util.Duration;
+import javafx.scene.layout.StackPane;
 
 public class Cashier_top_panelController implements Initializable {
 
     @FXML
-    private BorderPane iconMenu;
+    private StackPane iconMenu;
     @FXML
     private Label panelTitle;
     @FXML
-    private BorderPane iconMinimize;
+    private StackPane iconMinimize;
     @FXML
-    private BorderPane iconClose;
+    private StackPane iconClose;
 
     private PanelCashierController panelCashierController; // Reference to PanelCashierController
 

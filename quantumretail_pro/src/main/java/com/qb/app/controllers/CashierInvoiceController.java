@@ -50,10 +50,8 @@ public class CashierInvoiceController implements Initializable {
 
                 // Add the invoice item to the VBox
                 invoiceItemContainer.getChildren().add(invoiceItem);
-                System.out.println("Component Added Successffully");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Component Error!!!");
             }
         }
     }

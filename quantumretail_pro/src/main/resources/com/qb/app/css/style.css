@@ -18,6 +18,21 @@
     -fx-background-color: linear-gradient(to top, hsba(220, 100%, 16%, 0.5), hsba(204, 100%, 57%, 0.5));
 }
 
+.buttonHover{
+    -fx-text-fill: #004E92;
+    -fx-background-color: hsba(208, 100%, 57%, 0.2);
+    -fx-background-radius: 15px;
+}
+
+.buttonHover:hover{
+    -fx-background-color: #fff;
+    -fx-border-color: #004E92;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-text-fill: #004E92;
+    -fx-border-radius: 50px;
+}
+
 .primary-text{
     -fx-text-fill: #004E92;
 }
