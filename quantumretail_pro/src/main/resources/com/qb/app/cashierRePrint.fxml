@@ -222,7 +222,47 @@
                                           </VBox>
                                        </children>
                                     </HBox>
-                                    <VBox fx:id="rePrintInvoiceItemContainer" prefWidth="968.0" VBox.vgrow="ALWAYS" />
+                                    <VBox fx:id="rePrintInvoiceItemContainer" prefWidth="968.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox minWidth="-Infinity" prefHeight="50.0">
+                                             <children>
+                                                <VBox layoutX="110.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <BorderPane fx:id="date_time" prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 1;" stylesheets="@css/style.css">
+                                                         <styleClass>
+                                                            <String fx:value="bg-primary-5" />
+                                                            <String fx:value="primary-border" />
+                                                         </styleClass>
+                                                         <center>
+                                                            <Label styleClass="primary-text" stylesheets="@css/style.css" text="Date &amp; Time" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </children>
+                                                </VBox>
+                                                <VBox layoutX="210.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 0;" stylesheets="@css/style.css">
+                                                         <styleClass>
+                                                            <String fx:value="bg-primary-5" />
+                                                            <String fx:value="primary-border" />
+                                                         </styleClass>
+                                                         <center>
+                                                            <Label fx:id="invoiceNumber" styleClass="primary-text" stylesheets="@css/style.css" text="Invoice Number" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children></VBox>
                                  </children>
                               </VBox>
                            </content>
