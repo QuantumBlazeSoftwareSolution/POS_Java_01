@@ -15,8 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -80,6 +82,7 @@ public class PanelAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setIcons();
         setInitialState();
+        setSystemLogo();
     }
 
     @FXML
@@ -177,6 +180,11 @@ public class PanelAdminController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setSystemLogo() {
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
+        systemLogo.setFill(new ImagePattern(image));
     }
 
 }

@@ -3,6 +3,9 @@ package com.qb.app.controllers;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -11,6 +14,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class AdminDashboardController implements Initializable {
 
@@ -55,6 +59,19 @@ public class AdminDashboardController implements Initializable {
         series2.getData().add(new XYChart.Data<>("Dec", 80));
 
         annualChart.getData().addAll(series1, series2);
+        
+        for (XYChart.Data<String, Number> data : series1.getData()) {
+            Text valueLabel = new Text(data.getYValue().toString());
+            valueLabel.setStyle("-fx-fill: white; -fx-font-weight: bold;");
+
+            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                if (newNode != null) {
+                    StackPane node = (StackPane) newNode;
+                    node.getChildren().add(valueLabel);
+                    valueLabel.translateYProperty().set(-20); // Moves the text above the peak
+                }
+            });
+        }
 
         XYChart.Series<Number, String> series3 = new XYChart.Series<>();
         series3.setName("2024");
@@ -69,18 +86,24 @@ public class AdminDashboardController implements Initializable {
 
         brandChart.getData().add(series3);
 
-        systemChart.getData().add(new PieChart.Data("Employee", getRandomValue()));
-        systemChart.getData().add(new PieChart.Data("Cashier", getRandomValue()));
-        systemChart.getData().add(new PieChart.Data("Product", getRandomValue()));
-        systemChart.getData().add(new PieChart.Data("Category", getRandomValue()));
-        systemChart.getData().add(new PieChart.Data("Pending Creditors", getRandomValue()));
-        systemChart.getData().add(new PieChart.Data("Supply Companies", getRandomValue()));
-        systemChart.getData().add(new PieChart.Data("Suppliers", getRandomValue()));
+        ObservableList<PieChart.Data> systemChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Employee", getRandomValue()),
+                new PieChart.Data("Cashier", getRandomValue()),
+                new PieChart.Data("Product", getRandomValue()),
+                new PieChart.Data("Category", getRandomValue()),
+                new PieChart.Data("Pending Creditors", getRandomValue()),
+                new PieChart.Data("Supply Companies", getRandomValue()),
+                new PieChart.Data("Suppliers", getRandomValue())
+        );
 
-        // Add tooltips to each slice
+        systemChart.getData().addAll(systemChartData);
+
         for (PieChart.Data data : systemChart.getData()) {
-            Tooltip tooltip = new Tooltip(data.getName() + ": " + data.getPieValue());
-            Tooltip.install(data.getNode(), tooltip);
+            data.nameProperty().bind(
+                    Bindings.concat(
+                            data.getName(), " (", data.pieValueProperty().intValue(), ")"
+                    )
+            );
         }
     }
 

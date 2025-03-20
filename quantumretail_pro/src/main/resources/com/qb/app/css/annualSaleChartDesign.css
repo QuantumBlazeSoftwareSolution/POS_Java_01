@@ -60,3 +60,7 @@
 .chart-title {
     -fx-text-fill: #3278fa; /* Color of the chart title */
 }
+
+.chart-pie-label {
+    -fx-fill: white; /* Change label color to white */
+}
