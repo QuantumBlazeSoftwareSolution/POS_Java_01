@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -12,11 +11,11 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="1024.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PanelCashierController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="1024.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PanelAdminController">
    <children>
       <BorderPane fx:id="mainBorderLayout" layoutX="224.0" layoutY="151.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <BorderPane fx:id="leftSideMenu" prefHeight="640.0" prefWidth="250.0" styleClass="primary-gradient" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+            <BorderPane fx:id="leftSideMenu" prefHeight="640.0" prefWidth="250.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
                <top>
                   <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
@@ -30,11 +29,6 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXToggleButton fx:id="trainingModeToggle" onAction="#handleTrainingModeToggle" styleClass="primary-white" stylesheets="@css/style.css" text="Training Mode" toggleColor="#004e92">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXToggleButton>
                         <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Dashboard" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
@@ -50,7 +44,7 @@
                               <Group fx:id="iconDashboard" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnSession" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Session" textFill="#f1f1f1">
+                        <Button fx:id="btnEmployee" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Employee" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
                            </font>
@@ -62,10 +56,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <Group fx:id="iconSession" />
+                              <Group fx:id="iconEmployee" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnInvoice" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Invoice" textFill="#f1f1f1">
+                        <Button fx:id="btnProduct" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Product" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
                            </font>
@@ -77,10 +71,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <Group fx:id="iconInvoice" />
+                              <Group fx:id="iconProduct" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnCloseSale" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Close Sale" textFill="#f1f1f1">
+                        <Button fx:id="btnDiscount" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Discount" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
                            </font>
@@ -92,10 +86,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <Group fx:id="iconCloseSale" />
+                              <Group fx:id="iconDiscount" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnWithdrawal" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Withdrawal" textFill="#f1f1f1">
+                        <Button fx:id="btnInventory" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Inventory" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
                            </font>
@@ -107,10 +101,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <Group fx:id="iconWithdrawal" />
+                              <Group fx:id="iconInventory" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnRefund" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Refund" textFill="#f1f1f1">
+                        <Button fx:id="btnSupplyManagement" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Supply Management" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
                            </font>
@@ -122,10 +116,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <Group fx:id="iconRefund" />
+                              <Group fx:id="iconSupplyManagement" />
                            </graphic>
                         </Button>
-                        <Button fx:id="BtnRePrint" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Re-Print" textFill="#f1f1f1">
+                        <Button fx:id="btnCustomer" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Customer" textFill="#f1f1f1">
                            <font>
                               <Font name="Roboto" size="14.0" />
                            </font>
@@ -137,7 +131,22 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <Group fx:id="iconRePrint" />
+                              <Group fx:id="iconCustomer" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnReports" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Reports" textFill="#f1f1f1">
+                           <font>
+                              <Font name="Roboto" size="14.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="full-width-button" />
+                              <String fx:value="bg-primary-white-10" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <Group fx:id="iconReport" />
                            </graphic>
                         </Button>
                      </children>

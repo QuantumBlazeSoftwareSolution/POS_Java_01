@@ -1,7 +1,7 @@
 package com.qb.app.controllers;
 
+import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.model.InderfaceAction;
-import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
@@ -11,18 +11,19 @@ import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class PanelCashierController implements Initializable {
@@ -70,13 +71,18 @@ public class PanelCashierController implements Initializable {
     private AnchorPane root;
     @FXML
     private Button btnRefund;
+    @FXML
+    private JFXToggleButton trainingModeToggle;
     // </editor-fold>
 
+    // <editor-fold desc="Initial Variables">
     private boolean isMenuCollapsed = false;
     private Cashier_top_panelController controller;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(trainingModeToggle.isSelected());
         setIcons();
         setInitialState();
         leftSideMenu.setTranslateX(0);
@@ -195,5 +201,49 @@ public class PanelCashierController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleTrainingModeToggle(ActionEvent event) {
+        if (!trainingModeToggle.isSelected() == false) {
+            disableTrainingMode();
+            openVerificationInterface();
+        } else {
+            disableTrainingMode();
+        }
+        trainingModeToggle.setFocusTraversable(false);
+    }
+
+    private void openVerificationInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlPanel/TrainingVerification.fxml"));
+            Parent root = loader.load();
+
+            // Get the verification controller
+            TrainingVerificationController verificationController = loader.getController();
+            verificationController.setMainController(this);
+
+            // Create a new stage for the verification interface
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+
+            // Pass the stage to the verification controller
+            verificationController.setStage(stage);
+
+            // Show the verification window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void enableTrainingMode() {
+        trainingModeToggle.setSelected(true);
+    }
+
+    private void disableTrainingMode() {
+        trainingModeToggle.setSelected(false);
     }
 }

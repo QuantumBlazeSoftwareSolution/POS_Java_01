@@ -52,7 +52,7 @@ public class SytemLoginController implements Initializable {
     private Circle quantumBlazeIcon;
     @FXML
     private Group iconUser;
-    //    </editor-fold>s
+    //    </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,7 +72,8 @@ public class SytemLoginController implements Initializable {
 
     private void systemLogin() {
         try {
-            App.setRoot("panelCashier");
+//            App.setRoot("panelCashier");
+            App.setRoot("panelAdmin");
         } catch (IOException e) {
             e.printStackTrace();
         }
