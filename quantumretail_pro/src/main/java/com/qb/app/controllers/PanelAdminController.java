@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.InderfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
@@ -18,13 +19,14 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 public class PanelAdminController implements Initializable {
 
-    // <editor-fold desc="FXML init component">
+    // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private AnchorPane root;
     @FXML
@@ -71,9 +73,49 @@ public class PanelAdminController implements Initializable {
     private Button btnCustomer;
     @FXML
     private Button btnReports;
+    @FXML
+    private VBox subMenuEmployee;
+    @FXML
+    private VBox subMenuProduct;
+    @FXML
+    private VBox subMenuInventory;
+    @FXML
+    private VBox subMenuSupply;
+    @FXML
+    private VBox subMenuReport;
+    @FXML
+    private Group iconEmpRegistration;
+    @FXML
+    private Group iconEmpManagement;
+    @FXML
+    private Group iconEmpRoleManagement;
+    @FXML
+    private Group iconEmpOverview;
+    @FXML
+    private Group iconProductOverview;
+    @FXML
+    private Group iconProductAnalytics;
+    @FXML
+    private Group iconProductRegistration;
+    @FXML
+    private Group iconProductManagement;
+    @FXML
+    private Group iconBrandManagement;
+    @FXML
+    private Group iconInventoryGrn;
+    @FXML
+    private Group iconInventoryDistribute;
+    @FXML
+    private Group iconInventoryDamageReturn;
+    @FXML
+    private Group iconInventoryLocationReturn;
+    @FXML
+    private Group iconInventoryStockAdjustment;
+    @FXML
+    private Group iconInventoryLocationManagement;
     // </editor-fold>
 
-    // <editor-fold desc="Initial Variables">
+    // <editor-fold desc="Initial Variables" defaultstate="collapsed">
     private boolean isMenuCollapsed = false;
     private Admin_top_panelController controller;
     // </editor-fold>
@@ -83,10 +125,34 @@ public class PanelAdminController implements Initializable {
         setIcons();
         setInitialState();
         setSystemLogo();
+        setSubMenuState();
+    }
+
+    private void subMenuToggle(VBox subMenu) {
+        subMenu.setVisible(!subMenu.isVisible());
+        subMenu.setManaged(!subMenu.isManaged());
     }
 
     @FXML
     private void handleActionButtons(ActionEvent event) {
+        if (event.getSource() == btnEmployee) {
+            subMenuToggle(subMenuEmployee);
+            setSubMenuState(subMenuEmployee);
+        } else if (event.getSource() == btnProduct) {
+            subMenuToggle(subMenuProduct);
+            setSubMenuState(subMenuProduct);
+        } else if (event.getSource() == btnInventory) {
+            subMenuToggle(subMenuInventory);
+            setSubMenuState(subMenuInventory);
+        } else if (event.getSource() == btnSupplyManagement) {
+            subMenuToggle(subMenuSupply);
+            setSubMenuState(subMenuSupply);
+        } else if (event.getSource() == btnReports) {
+            subMenuToggle(subMenuReport);
+            setSubMenuState(subMenuReport);
+        } else if (event.getSource() == btnExit) {
+            InderfaceAction.closeWindow(root);
+        }
     }
 
     private void setIcons() {
@@ -99,6 +165,24 @@ public class PanelAdminController implements Initializable {
         iconProduct.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-product.svg"));
         iconReport.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-report.svg"));
         iconSupplyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-supply-management.svg"));
+
+        iconEmpOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-overview.svg"));
+        iconEmpRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-registration.svg"));
+        iconEmpManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-management.svg"));
+        iconEmpRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-role-management.svg"));
+
+        iconProductOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-overview.svg"));
+        iconProductAnalytics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-analytics.svg"));
+        iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-registration.svg"));
+        iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-management.svg"));
+        iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/brand-management.svg"));
+        
+        iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-grn.svg"));
+        iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-distribute.svg"));
+        iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-damage-item.svg"));
+        iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-return.svg"));
+        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-stock-adjustment.svg"));
+        iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-management.svg"));
     }
 
     public void toggleMenu() {
@@ -187,4 +271,24 @@ public class PanelAdminController implements Initializable {
         systemLogo.setFill(new ImagePattern(image));
     }
 
+    private void setSubMenuState() {
+        for (VBox subMenu : getMenu()) {
+            subMenu.setVisible(false);
+            subMenu.setManaged(false);
+        }
+    }
+
+    private VBox[] getMenu() {
+        VBox[] subMenus = {subMenuEmployee, subMenuProduct, subMenuInventory, subMenuSupply, subMenuReport};
+        return subMenus;
+    }
+
+    private void setSubMenuState(VBox excludeSubMenu) {
+        for (VBox subMenu : getMenu()) {
+            if (subMenu != excludeSubMenu) { // Skip the excluded submenu
+                subMenu.setVisible(false);
+                subMenu.setManaged(false);
+            }
+        }
+    }
 }
