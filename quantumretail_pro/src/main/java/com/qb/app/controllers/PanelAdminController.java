@@ -1,10 +1,13 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.InderfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
@@ -191,7 +194,12 @@ public class PanelAdminController implements Initializable {
             subMenuToggle(subMenuReport);
             setSubMenuState(subMenuReport);
         } else if (event.getSource() == btnExit) {
-            InderfaceAction.closeWindow(root);
+            try {
+                //            InderfaceAction.closeWindow(root);
+                App.setRoot("sytemLogin");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

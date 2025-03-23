@@ -25,7 +25,7 @@ public class SytemLoginController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    //    <editor-fold desc="FXML init component">
+    //    <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private TextField tfUsername;
     @FXML
@@ -62,8 +62,8 @@ public class SytemLoginController implements Initializable {
 
     private void systemLogin() {
         try {
-//            App.setRoot("panelCashier");
-            App.setRoot("panelAdmin");
+            App.setRoot("panelCashier");
+//            App.setRoot("panelAdmin");
         } catch (IOException e) {
             e.printStackTrace();
         }

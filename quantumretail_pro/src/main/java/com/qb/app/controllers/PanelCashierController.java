@@ -1,6 +1,7 @@
 package com.qb.app.controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
+import com.qb.app.App;
 import com.qb.app.model.InderfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import javafx.util.Duration;
 
 public class PanelCashierController implements Initializable {
 
-    //<editor-fold desc="FXML init component">
+    //<editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private Circle systemLogo;
     @FXML
@@ -75,7 +76,7 @@ public class PanelCashierController implements Initializable {
     private JFXToggleButton trainingModeToggle;
     // </editor-fold>
 
-    // <editor-fold desc="Initial Variables">
+    // <editor-fold desc="Initial Variables" defaultstate="collapsed">
     private boolean isMenuCollapsed = false;
     private Cashier_top_panelController controller;
     // </editor-fold>
@@ -116,7 +117,13 @@ public class PanelCashierController implements Initializable {
         } else if (event.getSource() == BtnRePrint) {
             changeCenterPanel("/com/qb/app/cashierRePrint.fxml", "Re-Print");
         } else if (event.getSource() == btnExit) {
-            InderfaceAction.closeWindow(btnExit);
+//            InderfaceAction.closeWindow(btnExit);
+            try {
+                //            InderfaceAction.closeWindow(root);
+                App.setRoot("sytemLogin");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
