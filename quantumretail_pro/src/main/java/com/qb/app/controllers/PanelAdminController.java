@@ -113,6 +113,14 @@ public class PanelAdminController implements Initializable {
     private Group iconInventoryStockAdjustment;
     @FXML
     private Group iconInventoryLocationManagement;
+    @FXML
+    private Group iconCompanyOverview;
+    @FXML
+    private Group iconCompanyManagement;
+    @FXML
+    private Group iconSupplyOrder;
+    @FXML
+    private Group iconSupplyDamage;
     // </editor-fold>
 
     // <editor-fold desc="Initial Variables" defaultstate="collapsed">
@@ -176,13 +184,19 @@ public class PanelAdminController implements Initializable {
         iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-registration.svg"));
         iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-management.svg"));
         iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/brand-management.svg"));
-        
+
         iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-grn.svg"));
         iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-distribute.svg"));
         iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-damage-item.svg"));
         iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-return.svg"));
         iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-stock-adjustment.svg"));
         iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-management.svg"));
+
+        iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyOverview.svg"));
+        iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
+        iconSupplyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
+        iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyOrder.svg"));
+        iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyDamageReturn.svg"));
     }
 
     public void toggleMenu() {

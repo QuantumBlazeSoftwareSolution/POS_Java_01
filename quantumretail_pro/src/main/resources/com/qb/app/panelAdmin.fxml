@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.38" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.56" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -410,7 +410,7 @@
                                        <children>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconCompanyOverview" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Company Overview">
                                                    <font>
                                                       <Font size="14.0" />
@@ -427,7 +427,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconCompanyManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Company Management">
                                                    <font>
                                                       <Font size="14.0" />
@@ -444,7 +444,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconSupplyManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Supply Managemeent">
                                                    <font>
                                                       <Font size="14.0" />
@@ -461,7 +461,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconSupplyOrder" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Supply Order">
                                                    <font>
                                                       <Font size="14.0" />
@@ -478,7 +478,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconSupplyDamage" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Supply Damage Return">
                                                    <font>
                                                       <Font size="14.0" />
