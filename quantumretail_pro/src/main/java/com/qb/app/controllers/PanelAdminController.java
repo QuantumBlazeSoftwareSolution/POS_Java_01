@@ -121,12 +121,44 @@ public class PanelAdminController implements Initializable {
     private Group iconSupplyOrder;
     @FXML
     private Group iconSupplyDamage;
+    @FXML
+    private Group iconSupplierManagement;
+    @FXML
+    private Group iconReportBIN;
+    @FXML
+    private Group iconReportCashWithdrawal;
+    @FXML
+    private Group iconReportCloseSale;
+    @FXML
+    private Group iconReportCustomer;
+    @FXML
+    private Group iconReportDamage;
+    @FXML
+    private Group iconReportSale1;
+    @FXML
+    private Group iconReportSale3;
+    @FXML
+    private Group iconReportDistribute;
+    @FXML
+    private Group iconReportGRN;
+    @FXML
+    private Group iconReportLocationReturn;
+    @FXML
+    private Group iconReportProductList;
+    @FXML
+    private Group iconReportProfit;
+    @FXML
+    private Group iconReportSession;
+    @FXML
+    private Group iconReportStockBalance;
     // </editor-fold>
 
     // <editor-fold desc="Initial Variables" defaultstate="collapsed">
     private boolean isMenuCollapsed = false;
     private Admin_top_panelController controller;
     // </editor-fold>
+    @FXML
+    private Group iconReportSale2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -194,9 +226,25 @@ public class PanelAdminController implements Initializable {
 
         iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyOverview.svg"));
         iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
-        iconSupplyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
+        iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
         iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyOrder.svg"));
         iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyDamageReturn.svg"));
+
+        iconReportBIN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportCashWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportProductList.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportProfit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportSale2.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportSale3.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
     }
 
     public void toggleMenu() {

@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.56" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.87" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -444,8 +444,8 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group fx:id="iconSupplyManagement" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Supply Managemeent">
+                                                <Group fx:id="iconSupplierManagement" />
+                                                <Label stylesheets="@css/adminStyle.css" text="Supplier Management">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -532,7 +532,7 @@
                                        <children>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportBIN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="BIN Card Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -549,7 +549,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportCashWithdrawal" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Cash Withdrawal">
                                                    <font>
                                                       <Font size="14.0" />
@@ -566,7 +566,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportCloseSale" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Close Sale Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -583,7 +583,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportCustomer" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Customer Report (Creditor)">
                                                    <font>
                                                       <Font size="14.0" />
@@ -600,7 +600,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportDamage" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Damage Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -617,7 +617,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportSale1" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Detailed)">
                                                    <font>
                                                       <Font size="14.0" />
@@ -634,7 +634,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportSale2" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Summary)">
                                                    <font>
                                                       <Font size="14.0" />
@@ -651,7 +651,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportSale3" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Product Wise)">
                                                    <font>
                                                       <Font size="14.0" />
@@ -668,7 +668,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportDistribute" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Distribute Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -685,7 +685,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportGRN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="GRN Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -702,7 +702,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportLocationReturn" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Location Return Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -719,41 +719,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
-                                                <Label stylesheets="@css/adminStyle.css" text="GRN Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                             <children>
-                                                <Group />
-                                                <Label stylesheets="@css/adminStyle.css" text="Location Return Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                             <children>
-                                                <Group />
+                                                <Group fx:id="iconReportProductList" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product List Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -770,7 +736,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportProfit" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Profit Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -787,7 +753,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportSession" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Session (Attendance) Report">
                                                    <font>
                                                       <Font size="14.0" />
@@ -804,7 +770,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Group />
+                                                <Group fx:id="iconReportStockBalance" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Stock Balance Report">
                                                    <font>
                                                       <Font size="14.0" />

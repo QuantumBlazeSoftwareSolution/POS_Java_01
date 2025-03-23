@@ -9,7 +9,6 @@ module com.qb.app {
     
     requires java.naming;
     requires java.base;    
-    requires fontawesomefx;
     requires java.desktop;
     requires com.github.weisj.jsvg;
     requires com.jfoenix;
