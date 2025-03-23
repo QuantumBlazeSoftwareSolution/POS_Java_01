@@ -7,7 +7,7 @@
 }
 
 .admin-primary-blue{
-    -fx-text-fill: #2F54FE;    
+    -fx-text-fill: #2F54FE;
 }
 
 .tooltip {
@@ -15,4 +15,12 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+}
+
+.sub-menu-item{
+    -fx-background-radius: 4px 4px 4px 4px;
+}
+
+.sub-menu-item:hover{
+    -fx-background-color: rgba(241, 241, 241, 0.1);
 }

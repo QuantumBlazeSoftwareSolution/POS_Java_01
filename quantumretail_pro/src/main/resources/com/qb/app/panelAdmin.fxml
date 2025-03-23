@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.87" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.69" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -70,9 +70,9 @@
                                           <Group fx:id="iconEmployee" />
                                        </graphic>
                                     </Button>
-                                    <VBox fx:id="subMenuEmployee" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="12.0">
+                                    <VBox fx:id="subMenuEmployee" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnEmpOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconEmpOverview" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Employee Overview">
@@ -88,8 +88,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnEmpRegistration" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item">
                                              <children>
                                                 <Group fx:id="iconEmpRegistration" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Employee Registration">
@@ -105,8 +108,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnEmpManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item">
                                              <children>
                                                 <Group fx:id="iconEmpManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Employee Management">
@@ -122,8 +128,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnEmpRoleManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item">
                                              <children>
                                                 <Group fx:id="iconEmpRoleManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Role Management">
@@ -139,11 +148,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
-                                       <padding>
-                                          <Insets left="40.0" />
-                                       </padding>
                                     </VBox>
                                     <Button fx:id="btnProduct" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Product" textFill="#f1f1f1">
                                        <font>
@@ -160,9 +169,9 @@
                                           <Group fx:id="iconProduct" />
                                        </graphic>
                                     </Button>
-                                    <VBox fx:id="subMenuProduct" layoutX="10.0" layoutY="82.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="12.0">
+                                    <VBox fx:id="subMenuProduct" layoutX="10.0" layoutY="82.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnProductOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductOverview" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product Overview">
@@ -178,8 +187,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnProductAnalytics" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductAnalytics" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product Analytics">
@@ -195,8 +207,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnProductRegistration" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductRegistration" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product Rgistration">
@@ -212,8 +227,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnProductManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product Management">
@@ -229,8 +247,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnProductBrandManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconBrandManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Brand Management">
@@ -246,11 +267,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
-                                       <padding>
-                                          <Insets left="40.0" />
-                                       </padding>
                                     </VBox>
                                     <Button fx:id="btnDiscount" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Discount" textFill="#f1f1f1">
                                        <font>
@@ -282,9 +303,9 @@
                                           <Group fx:id="iconInventory" />
                                        </graphic>
                                     </Button>
-                                    <VBox fx:id="subMenuInventory" layoutX="10.0" layoutY="270.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="12.0">
+                                    <VBox fx:id="subMenuInventory" layoutX="10.0" layoutY="270.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnInventoryGRN" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryGrn" />
                                                 <Label stylesheets="@css/adminStyle.css" text="GRN">
@@ -300,8 +321,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnInventoryDistribute" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryDistribute" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Distribute">
@@ -317,8 +341,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnInventoryDamageItem" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryDamageReturn" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Damage Items">
@@ -334,8 +361,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnInventoryLocationReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryLocationReturn" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Location Return">
@@ -351,8 +381,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnInventoryStockAdjustment" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryStockAdjustment" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Stock Adjustment">
@@ -368,8 +401,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnInventoryLocationManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryLocationManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Location Management">
@@ -385,11 +421,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
-                                       <padding>
-                                          <Insets left="40.0" />
-                                       </padding>
                                     </VBox>
                                     <Button fx:id="btnSupplyManagement" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Supply Management" textFill="#f1f1f1">
                                        <font>
@@ -406,9 +442,9 @@
                                           <Group fx:id="iconSupplyManagement" />
                                        </graphic>
                                     </Button>
-                                    <VBox fx:id="subMenuSupply" layoutX="10.0" layoutY="516.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="12.0">
+                                    <VBox fx:id="subMenuSupply" layoutX="10.0" layoutY="516.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnSupplyCompanyOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconCompanyOverview" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Company Overview">
@@ -424,8 +460,14 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnSupplyCompanyManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconCompanyManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Company Management">
@@ -441,8 +483,14 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnSupplySupplierManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconSupplierManagement" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Supplier Management">
@@ -458,8 +506,14 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnSupplyOrder" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconSupplyOrder" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Supply Order">
@@ -475,8 +529,14 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox fx:id="btnSupplyDamageReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconSupplyDamage" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Supply Damage Return">
@@ -492,11 +552,14 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
-                                       <padding>
-                                          <Insets left="40.0" />
-                                       </padding>
                                     </VBox>
                                     <Button fx:id="btnCustomer" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Customer" textFill="#f1f1f1">
                                        <font>
@@ -528,9 +591,9 @@
                                           <Group fx:id="iconReport" />
                                        </graphic>
                                     </Button>
-                                    <VBox fx:id="subMenuReport" layoutX="10.0" layoutY="748.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="12.0">
+                                    <VBox fx:id="subMenuReport" layoutX="10.0" layoutY="748.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportBIN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="BIN Card Report">
@@ -546,8 +609,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCashWithdrawal" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Cash Withdrawal">
@@ -563,8 +629,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCloseSale" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Close Sale Report">
@@ -580,8 +649,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCustomer" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Customer Report (Creditor)">
@@ -597,8 +669,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportDamage" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Damage Report">
@@ -614,8 +689,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale1" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Detailed)">
@@ -631,8 +709,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale2" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Summary)">
@@ -648,8 +729,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale3" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Product Wise)">
@@ -665,8 +749,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportDistribute" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Distribute Report">
@@ -682,8 +769,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportGRN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="GRN Report">
@@ -699,8 +789,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportLocationReturn" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Location Return Report">
@@ -716,8 +809,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportProductList" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product List Report">
@@ -733,8 +829,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportProfit" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Profit Report">
@@ -750,8 +849,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSession" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Session (Attendance) Report">
@@ -767,8 +869,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportStockBalance" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Stock Balance Report">
@@ -784,11 +889,11 @@
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
-                                       <padding>
-                                          <Insets left="40.0" />
-                                       </padding>
                                     </VBox>
                                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                  </children>
