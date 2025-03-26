@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -221,11 +222,14 @@
                                                    <image>
                                                       <Image url="@assets/images/tomato.png" />
                                                    </image>
+                                                   <viewport>
+                                                      <Rectangle2D />
+                                                   </viewport>
                                                 </ImageView>
                                              </children>
                                           </Pane>
                                           <Region prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                          <Button fx:id="btnPicture" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Add Picture">
+                                          <Button fx:id="btnPicture" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="50.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Add Picture">
                                              <styleClass>
                                                 <String fx:value="button-primary" />
                                                 <String fx:value="primary-white" />
