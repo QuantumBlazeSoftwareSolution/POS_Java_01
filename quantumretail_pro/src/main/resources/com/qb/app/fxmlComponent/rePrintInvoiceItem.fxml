@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox minWidth="-Infinity" prefHeight="50.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox minHeight="50.0" minWidth="-Infinity" prefHeight="50.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="110.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS">
          <children>
-            <BorderPane fx:id="date_time" prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 1;" stylesheets="@../css/style.css">
+            <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 1;" stylesheets="@../css/style.css">
                <styleClass>
                   <String fx:value="bg-primary-5" />
                   <String fx:value="primary-border" />
