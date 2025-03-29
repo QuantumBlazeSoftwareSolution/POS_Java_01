@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.DefaultAPI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,19 +49,8 @@ public class CashierInvoiceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        invoiceScroller.valueProperty().bindBidirectional(invoiceScrollContainer.vvalueProperty());
-
-        // Configure the ScrollBar range to match the ScrollPane
-        invoiceScroller.setMin(0);
-        invoiceScroller.setMax(1);
-        invoiceScroller.setVisibleAmount(0.1); // Adjust as needed
-
-        // If you want the ScrollBar to control the viewport size
-        invoiceScroller.visibleAmountProperty().bind(
-                invoiceScrollContainer.viewportBoundsProperty()
-                        .map(bounds -> bounds.getHeight() / invoiceItemContainer.getHeight())
-        );
-
+        DefaultAPI.bindTableScroll(invoiceScroller, invoiceScrollContainer, invoiceItemContainer);
+        
         List<String> itemList = new ArrayList<>();
         itemList.add("Tomato 1KG");
         itemList.add("Chocolate 100g");
