@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.SVGIconGroup;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -63,21 +63,12 @@ public class Product_registrationController implements Initializable {
     }
 
     private void setInitialState() {
-        tfCostPrice.setTextFormatter(createNumericTextFormatter());
-        tfSalePrice.setTextFormatter(createNumericTextFormatter());
-        tfDiscount.setTextFormatter(createNumericTextFormatter());
-        tfMeasure.setTextFormatter(createNumericTextFormatter());
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
-    }
-
-    private TextFormatter<String> createNumericTextFormatter() {
-        return new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("\\d*\\.?\\d*")) { // Allows digits and optional decimal point
-                return change;
-            }
-            return null;
-        });
     }
 
     @FXML

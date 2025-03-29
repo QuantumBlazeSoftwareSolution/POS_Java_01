@@ -1,5 +1,7 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.SVGIconGroup;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -55,12 +57,15 @@ public class Product_managementController implements Initializable {
     private Button btnRegister;
     // </editor-fold>
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
 
+        iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+    }
     @FXML
     private void handleFileChooser(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -85,7 +90,7 @@ public class Product_managementController implements Initializable {
             }
         }
     }
-    
+
     private String saveToResources(File sourceFile) throws IOException {
         // Define target directory in resources
         String resourcesDir = "src/main/resources/com/qb/app/assets/images/product/";
