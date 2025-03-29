@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.TestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.TestController">
    <children>
       <HBox layoutX="114.0" layoutY="168.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #c1c1c1;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -20,22 +20,22 @@
                            <children>
                               <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Header 1" BorderPane.alignment="CENTER" />
+                                    <Label text="ID" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                               <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Header 2" BorderPane.alignment="CENTER" />
+                                    <Label text="Product Name" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                               <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Header 3" BorderPane.alignment="CENTER" />
+                                    <Label text="Price" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                               <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Header 4" BorderPane.alignment="CENTER" />
+                                    <Label text="Qty" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                            </children>

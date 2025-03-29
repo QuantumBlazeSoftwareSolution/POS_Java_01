@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 
 public class CashierInvoiceController implements Initializable {
 
+    // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private VBox invoiceItemContainer;
     @FXML
@@ -45,6 +46,7 @@ public class CashierInvoiceController implements Initializable {
     private Group invoiceItemDeleteIcon;
     @FXML
     private ScrollBar invoiceScroller;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

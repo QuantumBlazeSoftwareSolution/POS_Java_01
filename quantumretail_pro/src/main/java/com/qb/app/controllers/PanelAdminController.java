@@ -156,12 +156,6 @@ public class PanelAdminController implements Initializable {
     private Group iconReportSession;
     @FXML
     private Group iconReportStockBalance;
-    // </editor-fold>
-
-    // <editor-fold desc="Initial Variables" defaultstate="collapsed">
-    private boolean isMenuCollapsed = false;
-    private Admin_top_panelController controller;
-    // </editor-fold>
     @FXML
     private Group iconReportSale2;
     @FXML
@@ -204,6 +198,12 @@ public class PanelAdminController implements Initializable {
     private HBox btnSupplyDamageReturn;
     @FXML
     private HBox btnSupplySupplierManagement;
+    // </editor-fold>
+
+    // <editor-fold desc="Initial Variables" defaultstate="collapsed">
+    private boolean isMenuCollapsed = false;
+    private Admin_top_panelController controller;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

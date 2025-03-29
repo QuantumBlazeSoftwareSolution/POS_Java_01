@@ -11,7 +11,7 @@
 }
 
 .text-field-label{
-    -fx-text-fill: #2C58A6;    
+    -fx-text-fill: #2C58A6;
 }
 
 .tooltip {
@@ -40,7 +40,8 @@
     -fx-background-color: transparent;
 }
 
-.text-field {
+.text-field,
+.combo-box{
     -fx-border-color: #2C58A6;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
@@ -68,4 +69,27 @@
 
 .full-width-button {
     -fx-max-width: infinity;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .content {
+    -fx-padding: 0;
+}
+
+.primary-text-green{
+    -fx-text-fill: #0D9F00;
+}
+
+.primary-text-red{
+    -fx-text-fill: #FF3333;
 }
