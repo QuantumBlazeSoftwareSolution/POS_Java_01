@@ -40,15 +40,15 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Information">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
                   <HBox spacing="12.0">
                      <children>
                         <VBox HBox.hgrow="ALWAYS">
                            <children>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Information">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                               <HBox prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -91,6 +91,14 @@
                                     </VBox>
                                  </children>
                               </HBox>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Information">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
                               <HBox prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -137,6 +145,14 @@
                                     </VBox>
                                  </children>
                               </HBox>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Stock Information">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
                               <HBox prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -205,78 +221,73 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER" spacing="10.0">
-                           <children>
-                              <VBox maxWidth="-Infinity" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Image">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <VBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <Pane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="primary-border" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <ImageView fx:id="productImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@assets/images/tomato.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                             </children>
-                                          </Pane>
-                                          <Region prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                          <Button fx:id="btnPicture" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="50.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Add Picture">
-                                             <styleClass>
-                                                <String fx:value="button-primary" />
-                                                <String fx:value="primary-white" />
-                                                <String fx:value="full-width-button" />
-                                             </styleClass>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Button fx:id="btnClear" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
-                           <styleClass>
-                              <String fx:value="button-primary-outline" />
-                              <String fx:value="primary-white" />
-                              <String fx:value="full-width-button" />
-                           </styleClass>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="btnRegister" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
-                           <styleClass>
-                              <String fx:value="button-primary" />
-                              <String fx:value="primary-white" />
-                              <String fx:value="full-width-button" />
-                           </styleClass>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="btnPicture" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="50.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Add Picture">
+                                 <styleClass>
+                                    <String fx:value="button-primary" />
+                                    <String fx:value="primary-white" />
+                                    <String fx:value="full-width-button" />
+                                 </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <VBox maxHeight="-Infinity" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="primary-border" stylesheets="@css/adminStyle.css">
+                                       <children>
+                                          <ImageView fx:id="productImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/images/tomato.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <VBox alignment="BOTTOM_LEFT" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                 <styleClass>
+                                    <String fx:value="button-primary-outline" />
+                                    <String fx:value="primary-white" />
+                                    <String fx:value="full-width-button" />
+                                 </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
+                                 <styleClass>
+                                    <String fx:value="button-primary" />
+                                    <String fx:value="primary-white" />
+                                    <String fx:value="full-width-button" />
+                                 </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
                <padding>
-                  <Insets left="50.0" />
+                  <Insets left="50.0" right="50.0" />
                </padding>
                <BorderPane.margin>
                   <Insets top="20.0" />

@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.SVGIconGroup;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -66,6 +67,8 @@ public class Product_registrationController implements Initializable {
         tfSalePrice.setTextFormatter(createNumericTextFormatter());
         tfDiscount.setTextFormatter(createNumericTextFormatter());
         tfMeasure.setTextFormatter(createNumericTextFormatter());
+        
+        iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
     }
 
     private TextFormatter<String> createNumericTextFormatter() {
