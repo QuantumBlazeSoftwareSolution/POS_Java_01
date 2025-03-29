@@ -1,5 +1,7 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -31,6 +33,10 @@ public class Product_analyticsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
+        iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+        
         for (int i = 0; i < 20; i++) {
             try {
                 Random random = new Random();
