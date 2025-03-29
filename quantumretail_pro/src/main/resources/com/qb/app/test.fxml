@@ -8,393 +8,400 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.TestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.TestController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox layoutX="114.0" layoutY="168.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #c1c1c1;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" vbarPolicy="NEVER">
                      <content>
-                        <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                        <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
                            <children>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                              <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Label" BorderPane.alignment="CENTER" />
+                                    <Label text="Header 1" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                              <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Label" BorderPane.alignment="CENTER" />
+                                    <Label text="Header 2" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                              <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Label" BorderPane.alignment="CENTER" />
+                                    <Label text="Header 3" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                              <BorderPane prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label text="Label" BorderPane.alignment="CENTER" />
-                                 </center>
-                              </BorderPane>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                 <center>
-                                    <Label text="Label" BorderPane.alignment="CENTER" />
+                                    <Label text="Header 4" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                            </children>
                         </HBox>
                      </content>
                   </ScrollPane>
-                  <ScrollPane fx:id="bodySection" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                  <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                      <content>
-                        <VBox fx:id="scrollContainer" style="-fx-overflow: hidden;">
+                        <VBox fx:id="tableContainer" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
-                                       <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
                               </HBox>
-                              <HBox minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
                                  <children>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Label" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 1px; -fx-border-color: grey;" HBox.hgrow="ALWAYS">
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label text="Last" BorderPane.alignment="CENTER" />
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 1" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 2" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 3" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Column 4" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="50.0" minHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Last Row" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Last Row" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Last Row" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label text="Last Row" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
                                  </children>
@@ -405,7 +412,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <ScrollBar fx:id="scroller" maxWidth="20.0" minWidth="20.0" orientation="VERTICAL" prefWidth="20.0" stylesheets="@css/style.css" visibleAmount="50.0" />
+            <ScrollBar fx:id="tableScroller" maxWidth="20.0" minWidth="20.0" orientation="VERTICAL" visibleAmount="20.0" />
          </children>
       </HBox>
    </children>
