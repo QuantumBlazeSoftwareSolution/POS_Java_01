@@ -1,7 +1,7 @@
 package com.qb.app.controllers;
 
 import com.qb.app.App;
-import com.qb.app.model.InderfaceAction;
+import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
@@ -56,7 +56,7 @@ public class SytemLoginController implements Initializable {
         if (event.getSource() == btnLogin) {
             systemLogin();
         } else if (event.getSource() == btnExit) {
-            InderfaceAction.closeWindow(btnExit);
+            InterfaceAction.closeWindow(btnExit);
         }
     }
 

@@ -25,8 +25,6 @@ public class Developer_top_panelController implements Initializable {
     @FXML
     private StackPane iconMenu;
     @FXML
-    private Group menuIcon;
-    @FXML
     private Group iconDeveloper;
     @FXML
     private Label title;
@@ -40,14 +38,20 @@ public class Developer_top_panelController implements Initializable {
 
     @FXML
     private void toggleMenu(MouseEvent event) {
+        panelDeveloperController.toggleMenu();
     }
 
     public void setPanelDeveloperController(PanelDeveloperController panelDeveloperController) {
         this.panelDeveloperController = panelDeveloperController;
     }
-    
+
     private void setIcons() {
         iconMenu.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/menu-icon.svg"));
+        iconDeveloper.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/developer-console.svg"));
+    }
+
+    private void setTitle(String title) {
+        this.title.setText(title);
     }
 
 }

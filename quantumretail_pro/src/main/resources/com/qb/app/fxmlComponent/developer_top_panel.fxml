@@ -15,7 +15,7 @@
          <children>
             <StackPane fx:id="iconMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleMenu" prefHeight="40.0" prefWidth="40.0" styleClass="titleBarIcon" stylesheets="@../css/style.css">
                <children>
-                  <Group fx:id="menuIcon" stylesheets="@../css/style.css" StackPane.alignment="CENTER" />
+                  <Group stylesheets="@../css/style.css" StackPane.alignment="CENTER" />
                </children>
                <cursor>
                   <Cursor fx:constant="HAND" />

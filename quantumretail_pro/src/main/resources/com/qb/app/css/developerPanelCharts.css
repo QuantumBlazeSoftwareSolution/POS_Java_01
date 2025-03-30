@@ -26,9 +26,9 @@
     -fx-fill: rgba(255, 87, 51, 0.3); /* Fill color for the second series */
 }
 
-.default-color0.chart-series-area-line {
-    -fx-stroke: #3278fa; /* Line color for the first series */
-}
+/*.default-color0.chart-series-area-line {
+    -fx-stroke: #3278fa;  Line color for the first series 
+}*/
 
 /*.default-color1.chart-series-area-line {
     -fx-stroke: #ff5733;  Line color for the second series 

@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers;
 
+import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
@@ -20,17 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
 public class PanelDeveloperController implements Initializable {
 
     @FXML
@@ -74,6 +67,8 @@ public class PanelDeveloperController implements Initializable {
 
     private boolean isMenuCollapsed = false;
     private Developer_top_panelController controller;
+    @FXML
+    private AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,6 +78,9 @@ public class PanelDeveloperController implements Initializable {
 
     @FXML
     private void handleActionButtons(ActionEvent event) {
+        if (event.getSource() == btnExit) {
+            InterfaceAction.closeWindow(root);
+        }
     }
 
     @FXML
@@ -91,6 +89,12 @@ public class PanelDeveloperController implements Initializable {
 
     private void setIcons() {
         iconDashboard.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/dashboard-solid.svg"));
+
+        iconOwnershipManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/developer-ownership.svg"));
+        iconOwnershipTransferringSubMenu.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/developer-ownership-small.svg"));
+        iconOwnershipManagementSubMenu.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/developer-ownership-small.svg"));
+        iconControlPanel.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/developer-control-panel.svg"));
+        iconBasics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/developer-basics.svg"));
     }
 
     private void setDefaultPanel() {
