@@ -4,9 +4,27 @@
  */
 package com.qb.app.controllers;
 
+import com.qb.app.model.SVGIconGroup;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -15,12 +33,136 @@ import javafx.fxml.Initializable;
  */
 public class PanelDeveloperController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private BorderPane mainBorderLayout;
+    @FXML
+    private BorderPane leftSideMenu;
+    @FXML
+    private Circle systemLogo;
+    @FXML
+    private Button btnDashboard;
+    @FXML
+    private Group iconDashboard;
+    @FXML
+    private VBox subMenuEmployee;
+    @FXML
+    private Button btnExit;
+    @FXML
+    private Group iconExit;
+    @FXML
+    private BorderPane contentBorder;
+    @FXML
+    private Button btnOwnership;
+    @FXML
+    private HBox btnOwnershipTransferring;
+    @FXML
+    private HBox btnOwnershipManagement;
+    @FXML
+    private Button btnControlPanel;
+    @FXML
+    private Button btnBasics;
+    @FXML
+    private Group iconOwnershipManagement;
+    @FXML
+    private Group iconOwnershipTransferringSubMenu;
+    @FXML
+    private Group iconOwnershipManagementSubMenu;
+    @FXML
+    private Group iconControlPanel;
+    @FXML
+    private Group iconBasics;
+
+    private boolean isMenuCollapsed = false;
+    private Developer_top_panelController controller;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        setIcons();
+        setInitialState();
+    }
+
+    @FXML
+    private void handleActionButtons(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleSubMenuItems(MouseEvent event) {
+    }
+
+    private void setIcons() {
+        iconDashboard.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/dashboard-solid.svg"));
+    }
+
+    private void setDefaultPanel() {
+        try {
+            FXMLLoader dashboard = new FXMLLoader(getClass().getResource("/com/qb/app/developerDashboard.fxml"));
+            contentBorder.setCenter(dashboard.load());
+            FXMLLoader developer_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/developer_top_panel.fxml"));
+            contentBorder.setTop(developer_top_menu.load());
+            controller = developer_top_menu.getController();
+            controller.setPanelDeveloperController(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toggleMenu() {
+        if (isMenuCollapsed) {
+            expandMenu();
+        } else {
+            collapseMenu();
+        }
+        isMenuCollapsed = !isMenuCollapsed; // Toggle the state
+        double menuWidth = leftSideMenu.getWidth();
+    }
+
+    private void collapseMenu() {
+        double menuWidth = leftSideMenu.getWidth();
+
+        leftSideMenu.setMinWidth(0); // Ensure it can shrink properly
+        leftSideMenu.setMaxWidth(menuWidth);
+
+        // Create a TranslateTransition for the side menu
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), leftSideMenu);
+        translateTransition.setToX(-menuWidth); // Move the menu to the left by its width
+
+        // Create a Timeline to animate the width of the side menu
+        Timeline widthTransition = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(leftSideMenu.prefWidthProperty(), 0)
+                )
+        );
+
+        // Combine both transitions into a ParallelTransition
+        ParallelTransition parallelTransition = new ParallelTransition(widthTransition, translateTransition);
+        parallelTransition.setOnFinished(event -> leftSideMenu.setMaxWidth(0)); // Ensure it stays collapsed
+        parallelTransition.play();
+    }
+
+    private void expandMenu() {
+        double menuWidth = 250;
+
+        leftSideMenu.setMaxWidth(menuWidth);
+
+        // Create a TranslateTransition for the side menu
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), leftSideMenu);
+        translateTransition.setToX(0); // Move the menu back to its original position
+
+        // Create a Timeline to animate the width of the side menu
+        Timeline widthTransition = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(leftSideMenu.prefWidthProperty(), menuWidth)
+                )
+        );
+
+        // Combine both transitions into a ParallelTransition
+        ParallelTransition parallelTransition = new ParallelTransition(translateTransition, widthTransition);
+        parallelTransition.setOnFinished(event -> leftSideMenu.setMinWidth(menuWidth)); // Prevent it from resizing back to 140px
+        parallelTransition.play();
+    }
+
+    private void setInitialState() {
+        setDefaultPanel();
+    }
+
 }

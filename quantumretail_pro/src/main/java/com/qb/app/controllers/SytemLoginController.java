@@ -66,6 +66,8 @@ public class SytemLoginController implements Initializable {
                 App.setRoot("panelCashier");
             } else if (tfUsername.getText().equals("a")) {
                 App.setRoot("panelAdmin");
+            }else if (tfUsername.getText().equals("d")) {
+                App.setRoot("panelDeveloper");
             }
         } catch (IOException e) {
             e.printStackTrace();

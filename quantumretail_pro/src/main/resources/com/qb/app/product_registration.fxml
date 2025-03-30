@@ -23,7 +23,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Registration">
