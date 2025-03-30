@@ -72,7 +72,7 @@
                                              <content>
                                                 <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
                                                    <children>
-                                                      <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                      <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                                <font>
@@ -81,7 +81,7 @@
                                                             </Label>
                                                          </center>
                                                       </BorderPane>
-                                                      <BorderPane minWidth="-Infinity" prefWidth="200.0" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                      <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                                                                <font>
@@ -90,7 +90,7 @@
                                                             </Label>
                                                          </center>
                                                       </BorderPane>
-                                                      <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                      <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
                                                                <font>
@@ -99,7 +99,7 @@
                                                             </Label>
                                                          </center>
                                                       </BorderPane>
-                                                      <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                      <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Sale" BorderPane.alignment="CENTER">
                                                                <font>
@@ -108,7 +108,7 @@
                                                             </Label>
                                                          </center>
                                                       </BorderPane>
-                                                      <BorderPane maxWidth="350.0" prefWidth="200.0" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                      <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-radius: 0 6px 0 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Analytics (From Yesterday)" BorderPane.alignment="CENTER">
                                                                <font>

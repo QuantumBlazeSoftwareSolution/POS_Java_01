@@ -1,6 +1,6 @@
 package com.qb.app.controllers;
 
-import com.qb.app.model.InderfaceAction;
+import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,9 +57,9 @@ public class Cashier_top_panelController implements Initializable {
     @FXML
     private void titleBarActionHandler(MouseEvent event) {
         if (event.getSource() == iconClose) {
-            InderfaceAction.closeWindow(iconClose);
+            InterfaceAction.closeWindow(iconClose);
         } else if (event.getSource() == iconMinimize) {
-            InderfaceAction.minimizeWindow(iconMinimize);
+            InterfaceAction.minimizeWindow(iconMinimize);
         }
     } 
 

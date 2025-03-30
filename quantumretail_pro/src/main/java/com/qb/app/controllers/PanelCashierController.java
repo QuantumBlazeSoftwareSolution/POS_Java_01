@@ -2,7 +2,7 @@ package com.qb.app.controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.App;
-import com.qb.app.model.InderfaceAction;
+import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;

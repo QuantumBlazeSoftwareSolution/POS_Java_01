@@ -3,7 +3,7 @@ package com.qb.app.model;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class InderfaceAction {
+public class InterfaceAction {
 
     public static void closeWindow(Node node) {
         if (node != null && node.getScene() != null) {

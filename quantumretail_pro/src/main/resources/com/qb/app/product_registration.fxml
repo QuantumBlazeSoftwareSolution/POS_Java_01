@@ -23,12 +23,12 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Registration">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -153,72 +153,72 @@
                                     <Insets top="20.0" />
                                  </VBox.margin>
                               </Label>
-                              <HBox prefWidth="200.0" spacing="10.0">
+                              <VBox spacing="10.0">
                                  <children>
-                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                    <HBox prefWidth="200.0" spacing="10.0">
                                        <children>
-                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Unit">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="cbUnit" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Unit" stylesheets="@css/adminStyle.css" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Measure">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField fx:id="tfMeasure" prefHeight="45.0" stylesheets="@css/adminStyle.css">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <HBox prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Type">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Type" stylesheets="@css/adminStyle.css" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <HBox>
+                                          <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Parent ID">
+                                                <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Unit">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="(Enter - View Product List)">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
+                                                <ComboBox fx:id="cbUnit" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Unit" stylesheets="@css/adminStyle.css" />
                                              </children>
-                                          </HBox>
-                                          <TextField fx:id="tfParentID" prefHeight="45.0" stylesheets="@css/adminStyle.css">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </TextField>
+                                          </VBox>
+                                          <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Measure">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="tfMeasure" prefHeight="45.0" stylesheets="@css/adminStyle.css">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </VBox>
                                        </children>
-                                    </VBox>
+                                    </HBox>
+                                    <HBox prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Type">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Type" stylesheets="@css/adminStyle.css" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox>
+                                                   <children>
+                                                      <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Parent ID">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Region HBox.hgrow="ALWAYS" />
+                                                      <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="(Enter - View Product List)" />
+                                                   </children>
+                                                </HBox>
+                                                <TextField fx:id="tfParentID" prefHeight="45.0" stylesheets="@css/adminStyle.css">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
