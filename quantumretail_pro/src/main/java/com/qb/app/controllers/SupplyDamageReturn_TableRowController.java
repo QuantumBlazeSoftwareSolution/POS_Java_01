@@ -6,9 +6,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 
-public class InventoryGRN_TableRowController implements Initializable {
+public class SupplyDamageReturn_TableRowController implements Initializable {
 
- 
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
