@@ -58,7 +58,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfItemName" prefHeight="50.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfItemName" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -72,7 +72,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfBarCode" prefHeight="50.0" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfBarCode" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -86,7 +86,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="230.0" promptText="Ex: Munchee" stylesheets="@css/adminStyle.css" />
+                                          <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee" stylesheets="@css/adminStyle.css" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -108,7 +108,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfSalePrice" prefHeight="50.0" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfSalePrice" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -122,7 +122,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfCostPrice" prefHeight="50.0" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfCostPrice" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -136,7 +136,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfDiscount" prefHeight="50.0" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfDiscount" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -162,7 +162,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbUnit" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="230.0" promptText="Select Unit" stylesheets="@css/adminStyle.css" />
+                                          <ComboBox fx:id="cbUnit" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Unit" stylesheets="@css/adminStyle.css" />
                                        </children>
                                     </VBox>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -172,7 +172,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfMeasure" prefHeight="50.0" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfMeasure" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -190,7 +190,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="230.0" promptText="Select Type" stylesheets="@css/adminStyle.css" />
+                                          <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Type" stylesheets="@css/adminStyle.css" />
                                        </children>
                                     </VBox>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -210,7 +210,7 @@
                                                 </Label>
                                              </children>
                                           </HBox>
-                                          <TextField fx:id="tfParentID" prefHeight="50.0" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfParentID" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -227,7 +227,7 @@
                      <children>
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnPicture" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="50.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Add Picture">
+                              <Button fx:id="btnPicture" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="45.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Add Picture">
                                  <styleClass>
                                     <String fx:value="button-primary" />
                                     <String fx:value="primary-white" />
@@ -261,7 +261,7 @@
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <VBox alignment="BOTTOM_LEFT" spacing="10.0">
                            <children>
-                              <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                              <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
                                  <styleClass>
                                     <String fx:value="button-primary-outline" />
                                     <String fx:value="primary-white" />
@@ -271,7 +271,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
+                              <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
                                  <styleClass>
                                     <String fx:value="button-primary" />
                                     <String fx:value="primary-white" />
