@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -38,11 +37,7 @@
                      <children>
                         <VBox spacing="4.0">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Company">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Company">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -55,23 +50,11 @@
                         </VBox>
                         <VBox spacing="4.0">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Supplier">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Supplier">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <ComboBox prefHeight="40.0" prefWidth="230.0">
-                                 <styleClass>
-                                    <String fx:value="button-transparent" />
-                                    <String fx:value="primary-border" />
-                                 </styleClass>
-                                 <stylesheets>
-                                    <URL value="@css/style.css" />
-                                    <URL value="@css/adminStyle.css" />
-                                 </stylesheets>
+                              <ComboBox prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -84,11 +67,7 @@
                         <Pane HBox.hgrow="ALWAYS" />
                         <VBox>
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="GRN ID">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="GRN ID">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -123,11 +102,7 @@
                      <children>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Product ID">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -143,11 +118,7 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Product Name">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -163,11 +134,7 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Cost Price">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Cost Price">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -183,11 +150,7 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Qty">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -203,11 +166,7 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label stylesheets="@css/adminStyle.css" text="Amount">
-                                 <styleClass>
-                                    <String fx:value="admin-text-blue" />
-                                    <String fx:value="text-field-label" />
-                                 </styleClass>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Amount">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -250,11 +209,7 @@
                   <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <VBox prefWidth="200.0" spacing="4.0">
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Total">
-                           <styleClass>
-                              <String fx:value="admin-text-blue" />
-                              <String fx:value="text-field-label" />
-                           </styleClass>
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Total">
                            <font>
                               <Font size="14.0" />
                            </font></Label>
