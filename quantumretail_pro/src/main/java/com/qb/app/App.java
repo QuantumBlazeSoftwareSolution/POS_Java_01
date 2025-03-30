@@ -22,12 +22,22 @@ public class App extends Application {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(null);
         stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
+        if (fxml.equals("panelAdmin")) {
+            scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/annualSaleChartDesign.css").toExternalForm());
+            scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/adminStyle.css").toExternalForm());
+        }
         scene.setRoot(loadFXML(fxml));
         primaryStage.sizeToScene();
+        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("");
+        primaryStage.setFullScreenExitKeyCombination(null);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

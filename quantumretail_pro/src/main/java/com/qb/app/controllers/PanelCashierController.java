@@ -1,29 +1,35 @@
 package com.qb.app.controllers;
 
+import com.jfoenix.controls.JFXToggleButton;
+import com.qb.app.App;
 import com.qb.app.model.InderfaceAction;
-import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class PanelCashierController implements Initializable {
 
-    //<editor-fold desc="FXML init component">
+    //<editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private Circle systemLogo;
     @FXML
@@ -38,8 +44,6 @@ public class PanelCashierController implements Initializable {
     private Button btnCloseSale;
     @FXML
     private Button btnWithdrawal;
-    @FXML
-    private Button bttnRefund;
     @FXML
     private Button BtnRePrint;
     @FXML
@@ -64,15 +68,25 @@ public class PanelCashierController implements Initializable {
     private BorderPane mainBorderLayout;
     @FXML
     private BorderPane contentBorder;
-    // </editor-fold>
     @FXML
     private AnchorPane root;
+    @FXML
+    private Button btnRefund;
+    @FXML
+    private JFXToggleButton trainingModeToggle;
+    // </editor-fold>
+
+    // <editor-fold desc="Initial Variables" defaultstate="collapsed">
+    private boolean isMenuCollapsed = false;
+    private Cashier_top_panelController controller;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(trainingModeToggle.isSelected());
         setIcons();
         setInitialState();
-        setMouseEvent();
+        leftSideMenu.setTranslateX(0);
     }
 
     private void setIcons() {
@@ -88,9 +102,84 @@ public class PanelCashierController implements Initializable {
 
     @FXML
     private void handleActionButtons(ActionEvent event) {
-        if (event.getSource() == btnExit) {
-            InderfaceAction.closeWindow(btnExit);
+        if (event.getSource() == btnDashboard) {
+            changeCenterPanel("/com/qb/app/cashierDashboard.fxml", "Dashboard");
+        } else if (event.getSource() == btnSession) {
+            changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
+        } else if (event.getSource() == btnInvoice) {
+            changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
+        } else if (event.getSource() == btnCloseSale) {
+            changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
+        } else if (event.getSource() == btnWithdrawal) {
+            changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml", "Withdrawal");
+        } else if (event.getSource() == btnRefund) {
+            changeCenterPanel("/com/qb/app/cashierRefund.fxml", "Refund");
+        } else if (event.getSource() == BtnRePrint) {
+            changeCenterPanel("/com/qb/app/cashierRePrint.fxml", "Re-Print");
+        } else if (event.getSource() == btnExit) {
+//            InderfaceAction.closeWindow(btnExit);
+            try {
+                //            InderfaceAction.closeWindow(root);
+                App.setRoot("sytemLogin");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void toggleMenu() {
+        if (isMenuCollapsed) {
+            expandMenu();
+        } else {
+            collapseMenu();
+        }
+        isMenuCollapsed = !isMenuCollapsed; // Toggle the state
+        double menuWidth = leftSideMenu.getWidth();
+    }
+
+    private void collapseMenu() {
+        double menuWidth = leftSideMenu.getWidth();
+
+        leftSideMenu.setMinWidth(0); // Ensure it can shrink properly
+        leftSideMenu.setMaxWidth(menuWidth);
+
+        // Create a TranslateTransition for the side menu
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), leftSideMenu);
+        translateTransition.setToX(-menuWidth); // Move the menu to the left by its width
+
+        // Create a Timeline to animate the width of the side menu
+        Timeline widthTransition = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(leftSideMenu.prefWidthProperty(), 0)
+                )
+        );
+
+        // Combine both transitions into a ParallelTransition
+        ParallelTransition parallelTransition = new ParallelTransition(widthTransition, translateTransition);
+        parallelTransition.setOnFinished(event -> leftSideMenu.setMaxWidth(0)); // Ensure it stays collapsed
+        parallelTransition.play();
+    }
+
+    private void expandMenu() {
+        double menuWidth = 250;
+
+        leftSideMenu.setMaxWidth(menuWidth);
+
+        // Create a TranslateTransition for the side menu
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), leftSideMenu);
+        translateTransition.setToX(0); // Move the menu back to its original position
+
+        // Create a Timeline to animate the width of the side menu
+        Timeline widthTransition = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(leftSideMenu.prefWidthProperty(), menuWidth)
+                )
+        );
+
+        // Combine both transitions into a ParallelTransition
+        ParallelTransition parallelTransition = new ParallelTransition(translateTransition, widthTransition);
+        parallelTransition.setOnFinished(event -> leftSideMenu.setMinWidth(menuWidth)); // Prevent it from resizing back to 140px
+        parallelTransition.play();
     }
 
     private void setInitialState() {
@@ -101,17 +190,67 @@ public class PanelCashierController implements Initializable {
         try {
             FXMLLoader dashboard = new FXMLLoader(getClass().getResource("/com/qb/app/cashierDashboard.fxml"));
             contentBorder.setCenter(dashboard.load());
-            FXMLLoader cashier_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/cashier_top_panel.fxml"));
+            FXMLLoader cashier_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/cashier_top_panel.fxml"));
             contentBorder.setTop(cashier_top_menu.load());
-            Cashier_top_panelController controller = cashier_top_menu.getController();
+            controller = cashier_top_menu.getController();
             controller.setTitle("Dashboard");
+            controller.setPanelCashierController(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void setMouseEvent() {
-        InterfaceMortion interfaceMortion = new InterfaceMortion();
-        interfaceMortion.enableDrag(root);
+    private void changeCenterPanel(String fxml, String title) {
+        try {
+            FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
+            contentBorder.setCenter(panel.load());
+            controller.setTitle(title);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleTrainingModeToggle(ActionEvent event) {
+        if (!trainingModeToggle.isSelected() == false) {
+            disableTrainingMode();
+            openVerificationInterface();
+        } else {
+            disableTrainingMode();
+        }
+        trainingModeToggle.setFocusTraversable(false);
+    }
+
+    private void openVerificationInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlPanel/TrainingVerification.fxml"));
+            Parent root = loader.load();
+
+            // Get the verification controller
+            TrainingVerificationController verificationController = loader.getController();
+            verificationController.setMainController(this);
+
+            // Create a new stage for the verification interface
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+
+            // Pass the stage to the verification controller
+            verificationController.setStage(stage);
+
+            // Show the verification window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void enableTrainingMode() {
+        trainingModeToggle.setSelected(true);
+    }
+
+    private void disableTrainingMode() {
+        trainingModeToggle.setSelected(false);
     }
 }

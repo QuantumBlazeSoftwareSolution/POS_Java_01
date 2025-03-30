@@ -9,15 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient-50" stylesheets="@css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.CashierDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient-50" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierDashboardController">
    <children>
       <VBox alignment="CENTER" layoutX="225.0" layoutY="128.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Welcome to Digital Retail">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="Segoe UI Bold" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -29,9 +28,9 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <AnchorPane id="AnchorPane" stylesheets="@css/style.css">
                <children>
-                  <VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" spacing="6.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="400.0" prefHeight="300.0" prefWidth="400.0" spacing="6.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
                      <children>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css">
+                        <BorderPane maxWidth="400.0" prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                            <center>
                               <Label styleClass="green-gradient" stylesheets="@css/style.css" text="2025" BorderPane.alignment="CENTER">
                                  <font>
@@ -40,9 +39,9 @@
                               </Label>
                            </center>
                         </BorderPane>
-                        <HBox prefHeight="150.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                        <HBox maxWidth="400.0" prefHeight="150.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css">
+                              <BorderPane prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
                                  <center>
                                     <Label styleClass="green-gradient" stylesheets="@css/style.css" text="Feb" BorderPane.alignment="CENTER">
                                        <font>
@@ -51,7 +50,7 @@
                                     </Label>
                                  </center>
                               </BorderPane>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css">
+                              <BorderPane prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
                                  <center>
                                     <Label styleClass="green-gradient" stylesheets="@css/style.css" text="27" BorderPane.alignment="CENTER">
                                        <font>
@@ -79,7 +78,5 @@
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" />
-      <VBox prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>

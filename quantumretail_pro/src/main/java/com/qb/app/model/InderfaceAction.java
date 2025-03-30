@@ -1,12 +1,25 @@
 package com.qb.app.model;
 
-import javafx.scene.control.Button;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 public class InderfaceAction {
 
-    public static void closeWindow(Button button) {
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
+    public static void closeWindow(Node node) {
+        if (node != null && node.getScene() != null) {
+            Stage stage = (Stage) node.getScene().getWindow();
+            if (stage != null) {
+                stage.close();
+            }
+        }
+    }
+
+    public static void minimizeWindow(Node node) {
+        if (node != null && node.getScene() != null) {
+            Stage stage = (Stage) node.getScene().getWindow();
+            if (stage != null) {
+                stage.setIconified(true); // Minimizes the window
+            }
+        }
     }
 }
