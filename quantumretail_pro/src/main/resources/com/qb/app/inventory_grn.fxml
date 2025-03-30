@@ -89,9 +89,9 @@
                               </Label>
                               <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - Load previous GRN" />
                            </children>
-                           <padding>
+                           <HBox.margin>
                               <Insets right="20.0" />
-                           </padding>
+                           </HBox.margin>
                         </VBox>
                      </children>
                      <padding>
@@ -233,11 +233,11 @@
                      </styleClass>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Button>
                </children>
-               <padding>
-                  <Insets bottom="10.0" right="20.0" top="10.0" />
-               </padding>
             </HBox>
          </bottom>
          <center>
