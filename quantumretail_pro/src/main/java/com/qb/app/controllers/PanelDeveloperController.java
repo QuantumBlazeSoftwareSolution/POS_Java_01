@@ -37,8 +37,6 @@ public class PanelDeveloperController implements Initializable {
     @FXML
     private Group iconDashboard;
     @FXML
-    private VBox subMenuEmployee;
-    @FXML
     private Button btnExit;
     @FXML
     private Group iconExit;
@@ -69,6 +67,8 @@ public class PanelDeveloperController implements Initializable {
     private Developer_top_panelController controller;
     @FXML
     private AnchorPane root;
+    @FXML
+    private VBox subMenuOwnership;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -80,6 +80,46 @@ public class PanelDeveloperController implements Initializable {
     private void handleActionButtons(ActionEvent event) {
         if (event.getSource() == btnExit) {
             InterfaceAction.closeWindow(root);
+        } else if (event.getSource() == btnDashboard) {
+            loadCenterPanel("developerDashboard");
+        } else if (event.getSource() == btnOwnership) {
+            subMenuToggle(subMenuOwnership);
+            setSubMenuState(subMenuOwnership);
+        }
+    }
+
+    private void setSubMenuState(VBox excludeSubMenu) {
+        for (VBox subMenu : getMenu()) {
+            if (subMenu != excludeSubMenu) { // Skip the excluded submenu
+                subMenu.setVisible(false);
+                subMenu.setManaged(false);
+            }
+        }
+    }
+
+    private void setSubMenuState() {
+        for (VBox subMenu : getMenu()) {
+            subMenu.setVisible(false);
+            subMenu.setManaged(false);
+        }
+    }
+
+    private VBox[] getMenu() {
+        VBox[] subMenus = {subMenuOwnership};
+        return subMenus;
+    }
+
+    private void subMenuToggle(VBox subMenu) {
+        subMenu.setVisible(!subMenu.isVisible());
+        subMenu.setManaged(!subMenu.isManaged());
+    }
+
+    private void loadCenterPanel(String fxml) {
+        try {
+            FXMLLoader panel = new FXMLLoader(getClass().getResource("/com/qb/app/" + fxml + ".fxml"));
+            contentBorder.setCenter(panel.load());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -167,6 +207,7 @@ public class PanelDeveloperController implements Initializable {
 
     private void setInitialState() {
         setDefaultPanel();
+        setSubMenuState();
     }
 
 }

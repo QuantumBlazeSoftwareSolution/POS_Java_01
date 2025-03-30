@@ -70,7 +70,7 @@
                                           <Group fx:id="iconOwnershipManagement" />
                                        </graphic>
                                     </Button>
-                                    <VBox fx:id="subMenuEmployee" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
+                                    <VBox fx:id="subMenuOwnership" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
                                           <HBox fx:id="btnOwnershipTransferring" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/developerStyle.css">
                                              <children>
