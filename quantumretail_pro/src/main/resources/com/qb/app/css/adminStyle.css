@@ -97,3 +97,20 @@
 .hover-white-bg:hover{
     -fx-background-color: rgba(255, 255, 255, 0.05);
 }
+
+.separator .line {
+    -fx-border-color: red;
+    -fx-border-width: 1;
+}
+
+/* For a horizontal separator */
+.separator:horizontal .line {
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 1;
+}
+
+/* For a vertical separator */
+.separator:vertical .line {
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 1;
+}
