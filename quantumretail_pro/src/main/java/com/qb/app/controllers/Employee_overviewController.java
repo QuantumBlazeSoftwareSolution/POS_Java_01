@@ -4,9 +4,12 @@
  */
 package com.qb.app.controllers;
 
+import com.qb.app.model.SVGIconGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 
 /**
  * FXML Controller class
@@ -15,12 +18,19 @@ import javafx.fxml.Initializable;
  */
 public class Employee_overviewController implements Initializable {
 
+    @FXML
+    private Group IconEmployeeOverviewTopic;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        setIcon();
+    }
+
+    private void setIcon() {
+        IconEmployeeOverviewTopic.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+    }
+
 }
