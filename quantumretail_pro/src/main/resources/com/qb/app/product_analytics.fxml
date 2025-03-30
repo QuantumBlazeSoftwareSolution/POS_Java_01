@@ -48,7 +48,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbBrand1" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="230.0" promptText="Ex: Munchee" stylesheets="@css/adminStyle.css" />
+                                          <ComboBox fx:id="cbBrand1" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee" stylesheets="@css/adminStyle.css" />
                                        </children>
                                     </VBox>
                                     <Region HBox.hgrow="ALWAYS" />
@@ -59,7 +59,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="230.0" promptText="Ex: Sale" stylesheets="@css/adminStyle.css" />
+                                          <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Sale" stylesheets="@css/adminStyle.css" />
                                        </children>
                                     </VBox>
                                  </children>
