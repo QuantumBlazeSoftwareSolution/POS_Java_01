@@ -85,6 +85,19 @@ public class PanelDeveloperController implements Initializable {
         } else if (event.getSource() == btnOwnership) {
             subMenuToggle(subMenuOwnership);
             setSubMenuState(subMenuOwnership);
+        } else if (event.getSource() == btnControlPanel) {
+            loadCenterPanel("developerControlPanel");
+        } else if (event.getSource() == btnBasics) {
+            loadCenterPanel("developerBasics");
+        }
+    }
+
+    @FXML
+    private void handleSubMenuItems(MouseEvent event) {
+        if (event.getSource() == btnOwnershipTransferring) {
+            loadCenterPanel("developerOwnerShipTransferring");
+        } else if (event.getSource() == btnOwnershipManagement) {
+            loadCenterPanel("developerOwnerShipManagement");
         }
     }
 
@@ -121,10 +134,6 @@ public class PanelDeveloperController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void handleSubMenuItems(MouseEvent event) {
     }
 
     private void setIcons() {
