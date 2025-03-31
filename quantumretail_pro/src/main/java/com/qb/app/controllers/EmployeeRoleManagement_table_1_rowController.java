@@ -4,32 +4,23 @@
  */
 package com.qb.app.controllers;
 
-import com.qb.app.model.SVGIconGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 
 /**
  * FXML Controller class
  *
- * @author Vihanga
+ * @author user
  */
-public class Employee_role_managementController implements Initializable {
-
-    @FXML
-    private Group IconEmployeeRoleManagement;
+public class EmployeeRoleManagement_table_1_rowController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       setIcon();
+        // TODO
     }    
     
-     private void setIcon() {
-        IconEmployeeRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
-    }
 }
