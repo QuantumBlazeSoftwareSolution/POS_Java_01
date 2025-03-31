@@ -14,12 +14,14 @@ import javafx.scene.Group;
 /**
  * FXML Controller class
  *
- * @author Vihanga
+ * @author user
  */
-public class Employee_overviewController implements Initializable {
+public class EmployeeManagement_tableRowController implements Initializable {
 
     @FXML
-    private Group IconEmployeeOverviewTopic;
+    private Group editIcon;
+    @FXML
+    private Group visibleIcon;
 
     /**
      * Initializes the controller class.
@@ -28,9 +30,12 @@ public class Employee_overviewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setIcon();
     }
-
+    
     private void setIcon() {
-        IconEmployeeOverviewTopic.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+        editIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/edit_icon.svg"));
+        visibleIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/visible_icon.svg"));
     }
 
+    
+    
 }
