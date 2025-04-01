@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.PopUpCompanyListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpCompanyListController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -116,14 +115,14 @@
                                     </HBox>
                                  </content>
                               </ScrollPane>
-                              <ScrollPane fx:id="grnTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                              <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <VBox fx:id="grnTableBody" prefWidth="100.0" />
+                                    <VBox fx:id="TableBody" prefWidth="100.0" />
                                  </content>
                               </ScrollPane>
                            </children>
                         </VBox>
-                        <ScrollBar fx:id="grnTableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
+                        <ScrollBar fx:id="TableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
