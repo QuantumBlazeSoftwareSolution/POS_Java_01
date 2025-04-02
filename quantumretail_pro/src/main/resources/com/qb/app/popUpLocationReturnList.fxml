@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.PopUpLocationReturnListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpLocationReturnListController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -91,7 +90,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane maxWidth="1.7976931348623157E308" prefWidth="250.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Employee" BorderPane.alignment="CENTER">
                                                    <font>
@@ -115,7 +114,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane layoutX="82.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css">
+                                          <BorderPane layoutX="82.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefWidth="250.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Location" BorderPane.alignment="CENTER">
                                                    <font>
@@ -127,7 +126,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane maxWidth="1.7976931348623157E308" prefWidth="150.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Return Code" BorderPane.alignment="CENTER">
                                                    <font>
@@ -139,7 +138,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane maxWidth="1.7976931348623157E308" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
                                                    <font>
