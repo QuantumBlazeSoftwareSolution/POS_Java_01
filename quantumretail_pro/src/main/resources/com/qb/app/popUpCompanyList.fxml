@@ -28,7 +28,7 @@
                      </font>
                   </Label>
                   <Pane HBox.hgrow="ALWAYS" />
-                  <BorderPane prefWidth="50.0" styleClass="black-gradient" stylesheets="@css/style.css">
+                  <BorderPane prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
                      <center>
                         <Group fx:id="closeIcon" BorderPane.alignment="CENTER" />
                      </center>
