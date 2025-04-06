@@ -138,11 +138,6 @@
                               </VBox>
                               <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text-red" stylesheets="@../css/adminStyle.css" text="Coca Cola 1L">
-                                       <font>
-                                          <Font name="Aptos Bold" size="16.0" />
-                                       </font>
-                                    </Label>
                                     <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
