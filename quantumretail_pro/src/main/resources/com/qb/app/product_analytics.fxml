@@ -123,7 +123,7 @@
                                           </ScrollPane>
                                           <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                              <content>
-                                                <VBox fx:id="tableBody" prefWidth="100.0" />
+                                                <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
                                              </content>
                                           </ScrollPane>
                                        </children>

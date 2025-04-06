@@ -114,3 +114,73 @@
     -fx-border-color: #2C58A6;
     -fx-border-width: 1;
 }
+
+.date-picker {
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-background-color: transparent;
+}
+
+.date-picker .text-field {
+    -fx-text-fill: #f1f1f1;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #f1f1f1;
+}
+
+/* Style for the popup content */
+.date-picker-popup {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #004E92; /* Blue border */
+    -fx-border-radius: 4px;
+}
+
+/* DatePicker's calendar header (month and year) */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #004E92; /* Blue background */
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #f1f1f1; /* White text */
+}
+
+/* DatePicker's calendar days */
+.date-picker-popup .day-cell {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #004E92; /* Blue text */
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* Light blue on hover */
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #004E92; /* Blue background for selected date */
+    -fx-text-fill: #f1f1f1; /* White text for selected date */
+}
+
+/* DatePicker's week number cells */
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+/* DatePicker's today cell */
+.date-picker-popup .today {
+    -fx-background-color: hsba(208, 100%, 57%, 0.05); /* Light blue background for today */
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+.date-picker-popup .today:selected {
+    -fx-background-color: #004E92; /* Blue background for selected today */
+    -fx-text-fill: #f1f1f1; /* White text for selected today */
+}
