@@ -1,13 +1,10 @@
 package com.qb.app.controllers;
 
 import com.qb.app.App;
-import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
@@ -204,6 +201,36 @@ public class PanelAdminController implements Initializable {
     private boolean isMenuCollapsed = false;
     private Admin_top_panelController controller;
     // </editor-fold>
+    @FXML
+    private HBox btnReportBIN;
+    @FXML
+    private HBox btnReportCashWithdrawal;
+    @FXML
+    private HBox btnReportCloseSale;
+    @FXML
+    private HBox btnReportCustomer;
+    @FXML
+    private HBox btnReportDamage;
+    @FXML
+    private HBox btnReportDetailSale;
+    @FXML
+    private HBox btnReportSummarySale;
+    @FXML
+    private HBox btnReportProductSale;
+    @FXML
+    private HBox btnReportDistribute;
+    @FXML
+    private HBox btnReportGRN;
+    @FXML
+    private HBox btnReportLocationReturn;
+    @FXML
+    private HBox btnReportProductList;
+    @FXML
+    private HBox btnReportProfit;
+    @FXML
+    private HBox btnReportSession;
+    @FXML
+    private HBox btnReportStockBalance;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -452,6 +479,26 @@ public class PanelAdminController implements Initializable {
             loadCenterPanel("supply_supplier_management");
         } else if (event.getSource() == btnSupplyOrder) {
             loadCenterPanel("supply_order");
+        } else if (event.getSource() == btnReportBIN) {
+            loadCenterPanel("reportFXML/reportBIN");
+        } else if (event.getSource() == btnReportCashWithdrawal) {
+            loadCenterPanel("reportFXML/reportCashWithdrawal");
+        } else if (event.getSource() == btnReportDistribute) {
+            loadCenterPanel("reportFXML/reportDistribute");
+        } else if (event.getSource() == btnReportGRN) {
+            loadCenterPanel("reportFXML/reportGRN");
+        } else if (event.getSource() == btnReportLocationReturn) {
+            loadCenterPanel("reportFXML/reportLocationReturn");
+        } else if (event.getSource() == btnReportProfit) {
+            loadCenterPanel("reportFXML/reportProfit");
+        } else if (event.getSource() == btnReportDetailSale) {
+            loadCenterPanel("reportFXML/reportSaleDetail");
+        } else if (event.getSource() == btnReportProductSale) {
+            loadCenterPanel("reportFXML/reportSaleProduct");
+        } else if (event.getSource() == btnReportSummarySale) {
+            loadCenterPanel("reportFXML/reportSaleSummary");
+        } else if (event.getSource() == btnReportStockBalance) {
+            loadCenterPanel("reportFXML/reportStockBalance");
         }
     }
 
