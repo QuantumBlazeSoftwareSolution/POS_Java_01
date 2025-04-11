@@ -13,15 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="992.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.CashierCloseSaleController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierCloseSaleController">
    <children>
       <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Close Sale">
                <font>
-                  <Font name="Segoe UI Bold" size="36.0" />
+                  <Font name="Aptos Bold" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -39,7 +38,10 @@
                            <children>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -50,7 +52,10 @@
                               </VBox>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <PasswordField prefHeight="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -65,7 +70,10 @@
                            <children>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Cashier" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Cashier">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -76,7 +84,10 @@
                               </VBox>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY IN" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY IN">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -87,7 +98,10 @@
                               </VBox>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY OUT" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY OUT">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -103,7 +117,10 @@
                            <children>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5000" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5000">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -120,7 +137,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="1000" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="1000">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -137,7 +157,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="500" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="500">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -154,7 +177,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="100" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="100">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -171,7 +197,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="50" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="50">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -188,7 +217,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="20" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="20">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -205,7 +237,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="10" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="10">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -222,7 +257,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -239,7 +277,10 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Collection" />
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Collection">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
                                     <TextField prefHeight="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
@@ -256,6 +297,9 @@
                               <String fx:value="bg-primary" />
                               <String fx:value="primary-white" />
                            </styleClass>
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
                         </Button>
                      </children>
                   </VBox>
@@ -264,8 +308,14 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefWidth="100.0">
                <children>
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution" />
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com" />
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font></Label>
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                     <font>
+                        <Font name="Aptos" size="14.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />

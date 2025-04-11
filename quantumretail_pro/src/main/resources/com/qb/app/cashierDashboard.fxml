@@ -16,7 +16,7 @@
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Welcome to Digital Retail">
                <font>
-                  <Font name="Segoe UI Bold" size="36.0" />
+                  <Font name="Aptos Bold" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -28,13 +28,13 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <AnchorPane id="AnchorPane" stylesheets="@css/style.css">
                <children>
-                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="400.0" prefHeight="300.0" prefWidth="400.0" spacing="6.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+                  <VBox alignment="CENTER" maxHeight="350.0" maxWidth="500.0" prefHeight="350.0" prefWidth="500.0" spacing="6.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
                      <children>
                         <BorderPane maxWidth="400.0" prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                            <center>
                               <Label styleClass="green-gradient" stylesheets="@css/style.css" text="2025" BorderPane.alignment="CENTER">
                                  <font>
-                                    <Font name="System Bold" size="48.0" />
+                                    <Font name="Aptos Bold" size="52.0" />
                                  </font>
                               </Label>
                            </center>
@@ -45,7 +45,7 @@
                                  <center>
                                     <Label styleClass="green-gradient" stylesheets="@css/style.css" text="Feb" BorderPane.alignment="CENTER">
                                        <font>
-                                          <Font name="System Bold" size="48.0" />
+                                          <Font name="Aptos Bold" size="52.0" />
                                        </font>
                                     </Label>
                                  </center>
@@ -54,7 +54,7 @@
                                  <center>
                                     <Label styleClass="green-gradient" stylesheets="@css/style.css" text="27" BorderPane.alignment="CENTER">
                                        <font>
-                                          <Font name="System Bold" size="48.0" />
+                                          <Font name="Aptos Bold" size="52.0" />
                                        </font>
                                     </Label>
                                  </center>
@@ -68,8 +68,14 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefWidth="100.0">
                <children>
-                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution" />
-                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com" />
+                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font></Label>
+                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                     <font>
+                        <Font name="Aptos" size="14.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />

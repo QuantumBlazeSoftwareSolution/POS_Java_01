@@ -21,7 +21,7 @@
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Working Session">
                <font>
-                  <Font name="Segoe UI Bold" size="36.0" />
+                  <Font name="Aptos Bold" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -41,7 +41,7 @@
                                  <center>
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="07" BorderPane.alignment="CENTER">
                                        <font>
-                                          <Font name="Segoe UI Bold" size="72.0" />
+                                          <Font name="Aptos Bold" size="72.0" />
                                        </font>
                                     </Label>
                                  </center>
@@ -55,7 +55,7 @@
                                  <center>
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="35" BorderPane.alignment="CENTER">
                                        <font>
-                                          <Font name="Segoe UI Bold" size="72.0" />
+                                          <Font name="Aptos Bold" size="72.0" />
                                        </font>
                                     </Label>
                                  </center>
@@ -69,7 +69,7 @@
                                  <center>
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="AM" BorderPane.alignment="CENTER">
                                        <font>
-                                          <Font name="Segoe UI Bold" size="72.0" />
+                                          <Font name="Aptos Bold" size="72.0" />
                                        </font>
                                     </Label>
                                  </center>
@@ -88,12 +88,15 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                     <VBox spacing="6.0">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username" />
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font></Label>
                                           <TextField prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
@@ -104,7 +107,10 @@
                                     </VBox>
                                     <VBox spacing="6.0">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password" />
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font></Label>
                                           <PasswordField prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
@@ -115,7 +121,10 @@
                                     </VBox>
                                     <VBox spacing="6.0">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Petty Cash" />
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Petty Cash">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font></Label>
                                           <TextField prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
@@ -131,7 +140,7 @@
                                           <String fx:value="primary-white" />
                                        </styleClass>
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                  </children>
@@ -147,12 +156,15 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                     <VBox spacing="6.0">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username" />
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font></Label>
                                           <TextField prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
@@ -163,7 +175,10 @@
                                     </VBox>
                                     <VBox spacing="6.0">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password" />
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font></Label>
                                           <PasswordField prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
@@ -174,7 +189,10 @@
                                     </VBox>
                                     <VBox spacing="6.0">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Collection" />
+                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Collection">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font></Label>
                                           <TextField prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
@@ -190,7 +208,7 @@
                                           <String fx:value="primary-white" />
                                        </styleClass>
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                  </children>
@@ -204,8 +222,14 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefWidth="100.0">
                <children>
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution" />
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com" />
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font></Label>
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />
