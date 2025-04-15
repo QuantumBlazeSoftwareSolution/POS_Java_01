@@ -2,6 +2,10 @@
     -fx-background-color: linear-gradient(to top, #0F0C29, #302B63, #24243E);
 }
 
+.primary-gradient-right{
+    -fx-background-color: linear-gradient(to right, #0F0C29, #302B63, #24243E);
+}
+
 .bg-primary{
     -fx-background-color: #5E50DD;
 }
