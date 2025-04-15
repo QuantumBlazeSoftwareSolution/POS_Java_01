@@ -7,6 +7,11 @@ module com.qb.app {
     requires java.sql; // Hibernate ORM Dependency
     requires jakarta.persistence; // Hibernate ORM Dependency
     
+    requires de.mkammerer.argon2; // Password encryption dependancy
+    requires de.mkammerer.argon2.nolibs; // Password encryption dependancy
+    requires org.apache.commons.lang3; // random number generator
+    requires com.sun.jna;
+    
     requires java.naming;
     requires java.base;    
     requires java.desktop;
