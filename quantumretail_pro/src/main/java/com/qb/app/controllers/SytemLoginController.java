@@ -3,6 +3,7 @@ package com.qb.app.controllers;
 import com.qb.app.App;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
+import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
@@ -63,10 +64,13 @@ public class SytemLoginController implements Initializable {
     private void systemLogin() {
         try {
             if (tfUsername.getText().equals("c")) {
+                String hashPassword = PasswordEncryption.hashPassword(tfPassword.getText());
+                System.out.println("Encrypted: " + hashPassword);
+                System.out.println("Validation for Vheshan37: " + PasswordEncryption.verifyPassword(hashPassword, tfPassword.getText()));
                 App.setRoot("panelCashier");
             } else if (tfUsername.getText().equals("a")) {
                 App.setRoot("panelAdmin");
-            }else if (tfUsername.getText().equals("d")) {
+            } else if (tfUsername.getText().equals("d")) {
                 App.setRoot("panelDeveloper");
             }
         } catch (IOException e) {
