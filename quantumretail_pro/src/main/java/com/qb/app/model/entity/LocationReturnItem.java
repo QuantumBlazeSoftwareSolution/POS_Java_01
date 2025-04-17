@@ -22,13 +22,12 @@ import java.io.Serializable;
  * @author Vihanga
  */
 @Entity
-@Table(name = "supplier_damage_return_item")
+@Table(name = "location_return_item")
 @NamedQueries({
-    @NamedQuery(name = "SupplierDamageReturnItem.findAll", query = "SELECT s FROM SupplierDamageReturnItem s"),
-    @NamedQuery(name = "SupplierDamageReturnItem.findById", query = "SELECT s FROM SupplierDamageReturnItem s WHERE s.id = :id"),
-    @NamedQuery(name = "SupplierDamageReturnItem.findByQty", query = "SELECT s FROM SupplierDamageReturnItem s WHERE s.qty = :qty"),
-    @NamedQuery(name = "SupplierDamageReturnItem.findByReturnPrice", query = "SELECT s FROM SupplierDamageReturnItem s WHERE s.returnPrice = :returnPrice")})
-public class SupplierDamageReturnItem implements Serializable {
+    @NamedQuery(name = "LocationReturnItem.findAll", query = "SELECT l FROM LocationReturnItem l"),
+    @NamedQuery(name = "LocationReturnItem.findById", query = "SELECT l FROM LocationReturnItem l WHERE l.id = :id"),
+    @NamedQuery(name = "LocationReturnItem.findByQty", query = "SELECT l FROM LocationReturnItem l WHERE l.qty = :qty")})
+public class LocationReturnItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,27 +38,23 @@ public class SupplierDamageReturnItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "qty")
     private double qty;
-    @Basic(optional = false)
-    @Column(name = "return_price")
-    private double returnPrice;
+    @JoinColumn(name = "location_return_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private LocationReturn locationReturnId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product productId;
-    @JoinColumn(name = "supplier_damage_return_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private SupplierDamageReturn supplierDamageReturnId;
 
-    public SupplierDamageReturnItem() {
+    public LocationReturnItem() {
     }
 
-    public SupplierDamageReturnItem(Integer id) {
+    public LocationReturnItem(Integer id) {
         this.id = id;
     }
 
-    public SupplierDamageReturnItem(Integer id, double qty, double returnPrice) {
+    public LocationReturnItem(Integer id, double qty) {
         this.id = id;
         this.qty = qty;
-        this.returnPrice = returnPrice;
     }
 
     public Integer getId() {
@@ -78,12 +73,12 @@ public class SupplierDamageReturnItem implements Serializable {
         this.qty = qty;
     }
 
-    public double getReturnPrice() {
-        return returnPrice;
+    public LocationReturn getLocationReturnId() {
+        return locationReturnId;
     }
 
-    public void setReturnPrice(double returnPrice) {
-        this.returnPrice = returnPrice;
+    public void setLocationReturnId(LocationReturn locationReturnId) {
+        this.locationReturnId = locationReturnId;
     }
 
     public Product getProductId() {
@@ -92,14 +87,6 @@ public class SupplierDamageReturnItem implements Serializable {
 
     public void setProductId(Product productId) {
         this.productId = productId;
-    }
-
-    public SupplierDamageReturn getSupplierDamageReturnId() {
-        return supplierDamageReturnId;
-    }
-
-    public void setSupplierDamageReturnId(SupplierDamageReturn supplierDamageReturnId) {
-        this.supplierDamageReturnId = supplierDamageReturnId;
     }
 
     @Override
@@ -112,10 +99,10 @@ public class SupplierDamageReturnItem implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SupplierDamageReturnItem)) {
+        if (!(object instanceof LocationReturnItem)) {
             return false;
         }
-        SupplierDamageReturnItem other = (SupplierDamageReturnItem) object;
+        LocationReturnItem other = (LocationReturnItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +111,7 @@ public class SupplierDamageReturnItem implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.SupplierDamageReturnItem[ id=" + id + " ]";
+        return "com.qb.app.model.entity.LocationReturnItem[ id=" + id + " ]";
     }
     
 }

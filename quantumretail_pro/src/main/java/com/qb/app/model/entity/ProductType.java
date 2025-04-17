@@ -5,28 +5,30 @@
 package com.qb.app.model.entity;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author Vihanga
  */
 @Entity
-@Table(name = "costing")
+@Table(name = "product_type")
 @NamedQueries({
-    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
-    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
-public class Costing implements Serializable {
+    @NamedQuery(name = "ProductType.findAll", query = "SELECT p FROM ProductType p"),
+    @NamedQuery(name = "ProductType.findById", query = "SELECT p FROM ProductType p WHERE p.id = :id"),
+    @NamedQuery(name = "ProductType.findByType", query = "SELECT p FROM ProductType p WHERE p.type = :type")})
+public class ProductType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,18 +36,22 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "child_product", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product childProduct;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product parentProduct;
+    @Basic(optional = false)
+    @Column(name = "type")
+    private String type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productTypeId")
+    private Collection<Product> productCollection;
 
-    public Costing() {
+    public ProductType() {
     }
 
-    public Costing(Integer id) {
+    public ProductType(Integer id) {
         this.id = id;
+    }
+
+    public ProductType(Integer id, String type) {
+        this.id = id;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -56,20 +62,20 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getChildProduct() {
-        return childProduct;
+    public String getType() {
+        return type;
     }
 
-    public void setChildProduct(Product childProduct) {
-        this.childProduct = childProduct;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
+    public Collection<Product> getProductCollection() {
+        return productCollection;
     }
 
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
     }
 
     @Override
@@ -82,10 +88,10 @@ public class Costing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Costing)) {
+        if (!(object instanceof ProductType)) {
             return false;
         }
-        Costing other = (Costing) object;
+        ProductType other = (ProductType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +100,7 @@ public class Costing implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
+        return "com.qb.app.model.entity.ProductType[ id=" + id + " ]";
     }
     
 }

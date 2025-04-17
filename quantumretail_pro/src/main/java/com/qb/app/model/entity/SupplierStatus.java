@@ -5,28 +5,30 @@
 package com.qb.app.model.entity;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author Vihanga
  */
 @Entity
-@Table(name = "costing")
+@Table(name = "supplier_status")
 @NamedQueries({
-    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
-    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
-public class Costing implements Serializable {
+    @NamedQuery(name = "SupplierStatus.findAll", query = "SELECT s FROM SupplierStatus s"),
+    @NamedQuery(name = "SupplierStatus.findById", query = "SELECT s FROM SupplierStatus s WHERE s.id = :id"),
+    @NamedQuery(name = "SupplierStatus.findByStatus", query = "SELECT s FROM SupplierStatus s WHERE s.status = :status")})
+public class SupplierStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,18 +36,22 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "child_product", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product childProduct;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product parentProduct;
+    @Basic(optional = false)
+    @Column(name = "status")
+    private String status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierStatusId")
+    private Collection<Supplier> supplierCollection;
 
-    public Costing() {
+    public SupplierStatus() {
     }
 
-    public Costing(Integer id) {
+    public SupplierStatus(Integer id) {
         this.id = id;
+    }
+
+    public SupplierStatus(Integer id, String status) {
+        this.id = id;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -56,20 +62,20 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getChildProduct() {
-        return childProduct;
+    public String getStatus() {
+        return status;
     }
 
-    public void setChildProduct(Product childProduct) {
-        this.childProduct = childProduct;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
+    public Collection<Supplier> getSupplierCollection() {
+        return supplierCollection;
     }
 
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
+    public void setSupplierCollection(Collection<Supplier> supplierCollection) {
+        this.supplierCollection = supplierCollection;
     }
 
     @Override
@@ -82,10 +88,10 @@ public class Costing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Costing)) {
+        if (!(object instanceof SupplierStatus)) {
             return false;
         }
-        Costing other = (Costing) object;
+        SupplierStatus other = (SupplierStatus) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +100,7 @@ public class Costing implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
+        return "com.qb.app.model.entity.SupplierStatus[ id=" + id + " ]";
     }
     
 }

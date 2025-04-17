@@ -22,13 +22,12 @@ import java.io.Serializable;
  * @author Vihanga
  */
 @Entity
-@Table(name = "supplier_damage_return_item")
+@Table(name = "stock")
 @NamedQueries({
-    @NamedQuery(name = "SupplierDamageReturnItem.findAll", query = "SELECT s FROM SupplierDamageReturnItem s"),
-    @NamedQuery(name = "SupplierDamageReturnItem.findById", query = "SELECT s FROM SupplierDamageReturnItem s WHERE s.id = :id"),
-    @NamedQuery(name = "SupplierDamageReturnItem.findByQty", query = "SELECT s FROM SupplierDamageReturnItem s WHERE s.qty = :qty"),
-    @NamedQuery(name = "SupplierDamageReturnItem.findByReturnPrice", query = "SELECT s FROM SupplierDamageReturnItem s WHERE s.returnPrice = :returnPrice")})
-public class SupplierDamageReturnItem implements Serializable {
+    @NamedQuery(name = "Stock.findAll", query = "SELECT s FROM Stock s"),
+    @NamedQuery(name = "Stock.findById", query = "SELECT s FROM Stock s WHERE s.id = :id"),
+    @NamedQuery(name = "Stock.findByQty", query = "SELECT s FROM Stock s WHERE s.qty = :qty")})
+public class Stock implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,27 +38,20 @@ public class SupplierDamageReturnItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "qty")
     private double qty;
-    @Basic(optional = false)
-    @Column(name = "return_price")
-    private double returnPrice;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product productId;
-    @JoinColumn(name = "supplier_damage_return_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private SupplierDamageReturn supplierDamageReturnId;
 
-    public SupplierDamageReturnItem() {
+    public Stock() {
     }
 
-    public SupplierDamageReturnItem(Integer id) {
+    public Stock(Integer id) {
         this.id = id;
     }
 
-    public SupplierDamageReturnItem(Integer id, double qty, double returnPrice) {
+    public Stock(Integer id, double qty) {
         this.id = id;
         this.qty = qty;
-        this.returnPrice = returnPrice;
     }
 
     public Integer getId() {
@@ -78,28 +70,12 @@ public class SupplierDamageReturnItem implements Serializable {
         this.qty = qty;
     }
 
-    public double getReturnPrice() {
-        return returnPrice;
-    }
-
-    public void setReturnPrice(double returnPrice) {
-        this.returnPrice = returnPrice;
-    }
-
     public Product getProductId() {
         return productId;
     }
 
     public void setProductId(Product productId) {
         this.productId = productId;
-    }
-
-    public SupplierDamageReturn getSupplierDamageReturnId() {
-        return supplierDamageReturnId;
-    }
-
-    public void setSupplierDamageReturnId(SupplierDamageReturn supplierDamageReturnId) {
-        this.supplierDamageReturnId = supplierDamageReturnId;
     }
 
     @Override
@@ -112,10 +88,10 @@ public class SupplierDamageReturnItem implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SupplierDamageReturnItem)) {
+        if (!(object instanceof Stock)) {
             return false;
         }
-        SupplierDamageReturnItem other = (SupplierDamageReturnItem) object;
+        Stock other = (Stock) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +100,7 @@ public class SupplierDamageReturnItem implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.SupplierDamageReturnItem[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Stock[ id=" + id + " ]";
     }
     
 }

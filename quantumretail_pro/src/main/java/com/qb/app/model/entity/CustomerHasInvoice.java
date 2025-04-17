@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -22,11 +23,11 @@ import java.io.Serializable;
  * @author Vihanga
  */
 @Entity
-@Table(name = "costing")
+@Table(name = "customer_has_invoice")
 @NamedQueries({
-    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
-    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
-public class Costing implements Serializable {
+    @NamedQuery(name = "CustomerHasInvoice.findAll", query = "SELECT c FROM CustomerHasInvoice c"),
+    @NamedQuery(name = "CustomerHasInvoice.findById", query = "SELECT c FROM CustomerHasInvoice c WHERE c.id = :id")})
+public class CustomerHasInvoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,18 +35,27 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "child_product", referencedColumnName = "id")
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "description")
+    private String description;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product childProduct;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
+    private Customer customerId;
+    @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product parentProduct;
+    private Invoice invoiceId;
 
-    public Costing() {
+    public CustomerHasInvoice() {
     }
 
-    public Costing(Integer id) {
+    public CustomerHasInvoice(Integer id) {
         this.id = id;
+    }
+
+    public CustomerHasInvoice(Integer id, String description) {
+        this.id = id;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -56,20 +66,28 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getChildProduct() {
-        return childProduct;
+    public String getDescription() {
+        return description;
     }
 
-    public void setChildProduct(Product childProduct) {
-        this.childProduct = childProduct;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
+    public Customer getCustomerId() {
+        return customerId;
     }
 
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Invoice getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Invoice invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     @Override
@@ -82,10 +100,10 @@ public class Costing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Costing)) {
+        if (!(object instanceof CustomerHasInvoice)) {
             return false;
         }
-        Costing other = (Costing) object;
+        CustomerHasInvoice other = (CustomerHasInvoice) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +112,7 @@ public class Costing implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
+        return "com.qb.app.model.entity.CustomerHasInvoice[ id=" + id + " ]";
     }
     
 }

@@ -29,13 +29,12 @@ import java.util.Date;
  * @author Vihanga
  */
 @Entity
-@Table(name = "stock_adjustment")
+@Table(name = "damage")
 @NamedQueries({
-    @NamedQuery(name = "StockAdjustment.findAll", query = "SELECT s FROM StockAdjustment s"),
-    @NamedQuery(name = "StockAdjustment.findById", query = "SELECT s FROM StockAdjustment s WHERE s.id = :id"),
-    @NamedQuery(name = "StockAdjustment.findByDateTime", query = "SELECT s FROM StockAdjustment s WHERE s.dateTime = :dateTime"),
-    @NamedQuery(name = "StockAdjustment.findByLocation", query = "SELECT s FROM StockAdjustment s WHERE s.location = :location")})
-public class StockAdjustment implements Serializable {
+    @NamedQuery(name = "Damage.findAll", query = "SELECT d FROM Damage d"),
+    @NamedQuery(name = "Damage.findById", query = "SELECT d FROM Damage d WHERE d.id = :id"),
+    @NamedQuery(name = "Damage.findByDateTime", query = "SELECT d FROM Damage d WHERE d.dateTime = :dateTime")})
+public class Damage implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,29 +47,25 @@ public class StockAdjustment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
     @Basic(optional = false)
-    @Column(name = "location")
-    private String location;
-    @Basic(optional = false)
     @Lob
     @Column(name = "reason")
     private String reason;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockAdjustmentId")
-    private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Employee employeeId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "damageId")
+    private Collection<DamageItem> damageItemCollection;
 
-    public StockAdjustment() {
+    public Damage() {
     }
 
-    public StockAdjustment(Integer id) {
+    public Damage(Integer id) {
         this.id = id;
     }
 
-    public StockAdjustment(Integer id, Date dateTime, String location, String reason) {
+    public Damage(Integer id, Date dateTime, String reason) {
         this.id = id;
         this.dateTime = dateTime;
-        this.location = location;
         this.reason = reason;
     }
 
@@ -90,14 +85,6 @@ public class StockAdjustment implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getReason() {
         return reason;
     }
@@ -106,20 +93,20 @@ public class StockAdjustment implements Serializable {
         this.reason = reason;
     }
 
-    public Collection<StockAdjustmentItem> getStockAdjustmentItemCollection() {
-        return stockAdjustmentItemCollection;
-    }
-
-    public void setStockAdjustmentItemCollection(Collection<StockAdjustmentItem> stockAdjustmentItemCollection) {
-        this.stockAdjustmentItemCollection = stockAdjustmentItemCollection;
-    }
-
     public Employee getEmployeeId() {
         return employeeId;
     }
 
     public void setEmployeeId(Employee employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public Collection<DamageItem> getDamageItemCollection() {
+        return damageItemCollection;
+    }
+
+    public void setDamageItemCollection(Collection<DamageItem> damageItemCollection) {
+        this.damageItemCollection = damageItemCollection;
     }
 
     @Override
@@ -132,10 +119,10 @@ public class StockAdjustment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StockAdjustment)) {
+        if (!(object instanceof Damage)) {
             return false;
         }
-        StockAdjustment other = (StockAdjustment) object;
+        Damage other = (Damage) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -144,7 +131,7 @@ public class StockAdjustment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.StockAdjustment[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Damage[ id=" + id + " ]";
     }
     
 }

@@ -5,6 +5,7 @@
 package com.qb.app.model.entity;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,19 +15,22 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author Vihanga
  */
 @Entity
-@Table(name = "costing")
+@Table(name = "brand")
 @NamedQueries({
-    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
-    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
-public class Costing implements Serializable {
+    @NamedQuery(name = "Brand.findAll", query = "SELECT b FROM Brand b"),
+    @NamedQuery(name = "Brand.findById", query = "SELECT b FROM Brand b WHERE b.id = :id"),
+    @NamedQuery(name = "Brand.findByBrand", query = "SELECT b FROM Brand b WHERE b.brand = :brand")})
+public class Brand implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,18 +38,25 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "child_product", referencedColumnName = "id")
+    @Basic(optional = false)
+    @Column(name = "brand")
+    private String brand;
+    @JoinColumn(name = "product_status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product childProduct;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product parentProduct;
+    private ProductStatus productStatusId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brandId")
+    private Collection<Product> productCollection;
 
-    public Costing() {
+    public Brand() {
     }
 
-    public Costing(Integer id) {
+    public Brand(Integer id) {
         this.id = id;
+    }
+
+    public Brand(Integer id, String brand) {
+        this.id = id;
+        this.brand = brand;
     }
 
     public Integer getId() {
@@ -56,20 +67,28 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getChildProduct() {
-        return childProduct;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setChildProduct(Product childProduct) {
-        this.childProduct = childProduct;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
+    public ProductStatus getProductStatusId() {
+        return productStatusId;
     }
 
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
+    public void setProductStatusId(ProductStatus productStatusId) {
+        this.productStatusId = productStatusId;
+    }
+
+    public Collection<Product> getProductCollection() {
+        return productCollection;
+    }
+
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
     }
 
     @Override
@@ -82,10 +101,10 @@ public class Costing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Costing)) {
+        if (!(object instanceof Brand)) {
             return false;
         }
-        Costing other = (Costing) object;
+        Brand other = (Brand) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +113,7 @@ public class Costing implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Brand[ id=" + id + " ]";
     }
     
 }

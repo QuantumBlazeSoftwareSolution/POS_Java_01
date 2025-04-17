@@ -4,6 +4,7 @@ import com.qb.app.App;
 import com.qb.app.model.HibernateUtil;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
+import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
@@ -14,6 +15,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.IOException;
@@ -33,6 +35,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class SytemLoginController implements Initializable {
 
@@ -75,33 +78,36 @@ public class SytemLoginController implements Initializable {
     }
 
     private void systemLogin() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("storageUnit"); // replace with your persistence unit name
-        try (EntityManager em = emf.createEntityManager()) {
-            // Prepare CriteriaBuilder and Query
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
-            Root<Employee> employeeRoot = cq.from(Employee.class);
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            CriteriaBuilder cBuildere = session.getCriteriaBuilder();
+            CriteriaQuery<Employee> cQuery = cBuildere.createQuery(Employee.class);
+            Root<Employee> employeeRoot = cQuery.from(Employee.class);
 
             // Join with employeeRole (assumes proper mapping exists in Employee entity)
-            Join<Employee, EmployeeRole> roleJoin = employeeRoot.join("employeeRole");
+//            Join<Employee, EmployeeRole> roleJoin = employeeRoot.join("employeeRoleId", JoinType.INNER);
 
             // Filter by username
-            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), tfUsername.getText());
+            Predicate usernamePredicate = cBuildere.equal(employeeRoot.get("username"), tfUsername.getText());
+            cQuery.where(usernamePredicate);
 
-            cq.select(employeeRoot).where(cb.and(usernamePredicate));
+            // Execute query
+            Employee emp = session.createQuery(cQuery).uniqueResult();
 
-            List<Employee> employees = em.createQuery(cq).getResultList();
-
-            if (employees.isEmpty()) {
+            if (emp == null) {
                 System.out.println("No user found with this username");
                 return;
             }
 
-            Employee emp = employees.get(0);
             String enteredPassword = tfPassword.getText();
 
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
-                String role = emp.getEmployeeRoleId().getRole().toLowerCase();
+                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Fixed: assuming the relationship is named employeeRole
                 System.out.println("Login successful. Welcome " + role + ": " + emp.getName());
 
                 try {
@@ -121,8 +127,17 @@ public class SytemLoginController implements Initializable {
             } else {
                 System.out.println("Incorrect password");
             }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Error during login: " + e.getMessage());
         } finally {
-            emf.close();
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
     }
 

@@ -22,11 +22,11 @@ import java.io.Serializable;
  * @author Vihanga
  */
 @Entity
-@Table(name = "costing")
+@Table(name = "product_distribute_has_location")
 @NamedQueries({
-    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
-    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
-public class Costing implements Serializable {
+    @NamedQuery(name = "ProductDistributeHasLocation.findAll", query = "SELECT p FROM ProductDistributeHasLocation p"),
+    @NamedQuery(name = "ProductDistributeHasLocation.findById", query = "SELECT p FROM ProductDistributeHasLocation p WHERE p.id = :id")})
+public class ProductDistributeHasLocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,17 +34,17 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "child_product", referencedColumnName = "id")
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product childProduct;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
+    private Location locationId;
+    @JoinColumn(name = "product_distribute_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product parentProduct;
+    private ProductDistribute productDistributeId;
 
-    public Costing() {
+    public ProductDistributeHasLocation() {
     }
 
-    public Costing(Integer id) {
+    public ProductDistributeHasLocation(Integer id) {
         this.id = id;
     }
 
@@ -56,20 +56,20 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getChildProduct() {
-        return childProduct;
+    public Location getLocationId() {
+        return locationId;
     }
 
-    public void setChildProduct(Product childProduct) {
-        this.childProduct = childProduct;
+    public void setLocationId(Location locationId) {
+        this.locationId = locationId;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
+    public ProductDistribute getProductDistributeId() {
+        return productDistributeId;
     }
 
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
+    public void setProductDistributeId(ProductDistribute productDistributeId) {
+        this.productDistributeId = productDistributeId;
     }
 
     @Override
@@ -82,10 +82,10 @@ public class Costing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Costing)) {
+        if (!(object instanceof ProductDistributeHasLocation)) {
             return false;
         }
-        Costing other = (Costing) object;
+        ProductDistributeHasLocation other = (ProductDistributeHasLocation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +94,7 @@ public class Costing implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
+        return "com.qb.app.model.entity.ProductDistributeHasLocation[ id=" + id + " ]";
     }
     
 }

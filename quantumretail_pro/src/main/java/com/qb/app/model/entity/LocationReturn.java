@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -29,13 +28,12 @@ import java.util.Date;
  * @author Vihanga
  */
 @Entity
-@Table(name = "stock_adjustment")
+@Table(name = "location_return")
 @NamedQueries({
-    @NamedQuery(name = "StockAdjustment.findAll", query = "SELECT s FROM StockAdjustment s"),
-    @NamedQuery(name = "StockAdjustment.findById", query = "SELECT s FROM StockAdjustment s WHERE s.id = :id"),
-    @NamedQuery(name = "StockAdjustment.findByDateTime", query = "SELECT s FROM StockAdjustment s WHERE s.dateTime = :dateTime"),
-    @NamedQuery(name = "StockAdjustment.findByLocation", query = "SELECT s FROM StockAdjustment s WHERE s.location = :location")})
-public class StockAdjustment implements Serializable {
+    @NamedQuery(name = "LocationReturn.findAll", query = "SELECT l FROM LocationReturn l"),
+    @NamedQuery(name = "LocationReturn.findById", query = "SELECT l FROM LocationReturn l WHERE l.id = :id"),
+    @NamedQuery(name = "LocationReturn.findByDateTime", query = "SELECT l FROM LocationReturn l WHERE l.dateTime = :dateTime")})
+public class LocationReturn implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,31 +45,28 @@ public class StockAdjustment implements Serializable {
     @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
-    @Basic(optional = false)
-    @Column(name = "location")
-    private String location;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "reason")
-    private String reason;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockAdjustmentId")
-    private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Employee employeeId;
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Location locationId;
+    @JoinColumn(name = "location_return_type_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private LocationReturnType locationReturnTypeId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationReturnId")
+    private Collection<LocationReturnItem> locationReturnItemCollection;
 
-    public StockAdjustment() {
+    public LocationReturn() {
     }
 
-    public StockAdjustment(Integer id) {
+    public LocationReturn(Integer id) {
         this.id = id;
     }
 
-    public StockAdjustment(Integer id, Date dateTime, String location, String reason) {
+    public LocationReturn(Integer id, Date dateTime) {
         this.id = id;
         this.dateTime = dateTime;
-        this.location = location;
-        this.reason = reason;
     }
 
     public Integer getId() {
@@ -90,36 +85,36 @@ public class StockAdjustment implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public Collection<StockAdjustmentItem> getStockAdjustmentItemCollection() {
-        return stockAdjustmentItemCollection;
-    }
-
-    public void setStockAdjustmentItemCollection(Collection<StockAdjustmentItem> stockAdjustmentItemCollection) {
-        this.stockAdjustmentItemCollection = stockAdjustmentItemCollection;
-    }
-
     public Employee getEmployeeId() {
         return employeeId;
     }
 
     public void setEmployeeId(Employee employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public Location getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Location locationId) {
+        this.locationId = locationId;
+    }
+
+    public LocationReturnType getLocationReturnTypeId() {
+        return locationReturnTypeId;
+    }
+
+    public void setLocationReturnTypeId(LocationReturnType locationReturnTypeId) {
+        this.locationReturnTypeId = locationReturnTypeId;
+    }
+
+    public Collection<LocationReturnItem> getLocationReturnItemCollection() {
+        return locationReturnItemCollection;
+    }
+
+    public void setLocationReturnItemCollection(Collection<LocationReturnItem> locationReturnItemCollection) {
+        this.locationReturnItemCollection = locationReturnItemCollection;
     }
 
     @Override
@@ -132,10 +127,10 @@ public class StockAdjustment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StockAdjustment)) {
+        if (!(object instanceof LocationReturn)) {
             return false;
         }
-        StockAdjustment other = (StockAdjustment) object;
+        LocationReturn other = (LocationReturn) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -144,7 +139,7 @@ public class StockAdjustment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.StockAdjustment[ id=" + id + " ]";
+        return "com.qb.app.model.entity.LocationReturn[ id=" + id + " ]";
     }
     
 }
