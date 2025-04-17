@@ -4,23 +4,15 @@ import com.qb.app.App;
 import com.qb.app.model.HibernateUtil;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
-import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
-import com.qb.app.model.entity.EmployeeRole;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,13 +26,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class SytemLoginController implements Initializable {
-
-    private double xOffset = 0;
-    private double yOffset = 0;
 
     //    <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -129,7 +119,7 @@ public class SytemLoginController implements Initializable {
             }
 
             transaction.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
