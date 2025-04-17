@@ -20,7 +20,7 @@
             <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Label fx:id="panelTitle" styleClass="primary-white" stylesheets="@../css/style.css" text="Title Here...">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Aptos" size="16.0" />
                </font>
             </Label>
             <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />

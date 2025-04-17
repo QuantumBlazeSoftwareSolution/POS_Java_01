@@ -11,44 +11,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
+<AnchorPane id="AnchorPane" fx:id="root" maxWidth="700.0" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
     <children>
-        <HBox prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox maxWidth="700.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                    <children>
-                        <VBox alignment="CENTER" layoutX="53.0" layoutY="31.0" spacing="12.0">
+            <VBox maxWidth="350.0" prefWidth="350.0" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
+               <children>
+                        <VBox alignment="CENTER" spacing="12.0">
                             <children>
                         <Circle fx:id="quantumBlazeIcon" fill="DODGERBLUE" radius="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                                 <Label styleClass="primary-white" stylesheets="@css/style.css" text="Welcome to Quantum Retail Pro">
                                     <font>
-                                        <Font name="Segoe UI Bold" size="16.0" />
+                                        <Font name="Aptos Bold" size="16.0" />
                                     </font>
                                 </Label>
                             </children>
                         </VBox>
-                        <VBox alignment="CENTER" layoutX="15.0" layoutY="352.0" prefHeight="34.0" prefWidth="334.0">
+                  <Region VBox.vgrow="ALWAYS" />
+                        <VBox alignment="CENTER" prefHeight="34.0" prefWidth="334.0">
                             <children>
                                 <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
                                     <font>
-                                        <Font name="Segoe UI Bold" size="12.0" />
+                                        <Font name="Aptos Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com" />
+                                <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font>
+                        </Label>
                             </children>
                         </VBox>
-                    </children>
-                    <styleClass>
-                        <String fx:value="primary-gradient" />
-                        <String fx:value="system-login-left-panel" />
-                    </styleClass>
-                </Pane>
-                <BorderPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               </children>
+               <styleClass>
+                  <String fx:value="system-login-left-panel" />
+                  <String fx:value="primary-gradient" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
+                <BorderPane maxWidth="350.0" prefHeight="200.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
                     <center>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="bg-white" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                             <children>
@@ -57,7 +65,7 @@
                               <Group fx:id="iconUser" />
                                           <Label styleClass="primary-text" stylesheets="@css/style.css" text="User Login">
                                               <font>
-                                                  <Font name="Segoe UI Bold" size="16.0" />
+                                                  <Font name="Aptos Bold" size="18.0" />
                                               </font>
                                           </Label>
                                     </children>
@@ -66,7 +74,7 @@
                                     <children>
                                         <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username">
                                             <font>
-                                                <Font name="Segoe UI" size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
                                         <TextField fx:id="tfUsername" prefHeight="40.0" promptText="Ex: John Doe" />
@@ -76,7 +84,7 @@
                                     <children>
                                         <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password">
                                             <font>
-                                                <Font name="Segoe UI" size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
                                         <PasswordField fx:id="tfPassword" prefHeight="40.0" promptText="Ex: Aa12@#" />
@@ -91,7 +99,7 @@
                                                 <String fx:value="primary-white" />
                                             </styleClass>
                                             <font>
-                                                <Font name="Segoe UI" size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                             </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -99,7 +107,7 @@
                                         </Button>
                                         <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSystemLogin" prefHeight="36.0" stylesheets="@css/style.css" text="Exit">
                                             <font>
-                                                <Font name="Segoe UI" size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                             </font>
                                             <styleClass>
                                                 <String fx:value="full-width-button" />

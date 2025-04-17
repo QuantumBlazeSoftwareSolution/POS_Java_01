@@ -7,6 +7,11 @@ module com.qb.app {
     requires java.sql; // Hibernate ORM Dependency
     requires jakarta.persistence; // Hibernate ORM Dependency
     
+    requires de.mkammerer.argon2; // Password encryption dependancy
+    requires de.mkammerer.argon2.nolibs; // Password encryption dependancy
+    requires org.apache.commons.lang3; // random number generator
+    requires com.sun.jna;
+    
     requires java.naming;
     requires java.base;    
     requires java.desktop;
@@ -15,6 +20,7 @@ module com.qb.app {
 
     opens com.qb.app to javafx.fxml;
     opens com.qb.app.controllers to javafx.fxml;
+    opens com.qb.app.controllers.report to javafx.fxml;
     opens com.qb.app.model to javafx.fxml, javafx.base;
     opens com.qb.app.model.entity to org.hibernate.orm.core;
     exports com.qb.app;

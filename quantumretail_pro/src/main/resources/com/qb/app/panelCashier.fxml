@@ -32,12 +32,12 @@
                      <children>
                         <JFXToggleButton fx:id="trainingModeToggle" onAction="#handleTrainingModeToggle" styleClass="primary-white" stylesheets="@css/style.css" text="Training Mode" toggleColor="#004e92">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </JFXToggleButton>
                         <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Dashboard" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -52,7 +52,7 @@
                         </Button>
                         <Button fx:id="btnSession" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Session" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -67,7 +67,7 @@
                         </Button>
                         <Button fx:id="btnInvoice" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Invoice" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -82,7 +82,7 @@
                         </Button>
                         <Button fx:id="btnCloseSale" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Close Sale" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -97,7 +97,7 @@
                         </Button>
                         <Button fx:id="btnWithdrawal" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Withdrawal" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -112,7 +112,7 @@
                         </Button>
                         <Button fx:id="btnRefund" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Refund" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -127,7 +127,7 @@
                         </Button>
                         <Button fx:id="BtnRePrint" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Re-Print" textFill="#f1f1f1">
                            <font>
-                              <Font name="Roboto" size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="full-width-button" />
@@ -149,7 +149,7 @@
                <bottom>
                   <Button fx:id="btnExit" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Exit" textFill="#f1f1f1" BorderPane.alignment="TOP_LEFT">
                      <font>
-                        <Font name="Roboto" size="14.0" />
+                        <Font name="Aptos" size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="full-width-button" />

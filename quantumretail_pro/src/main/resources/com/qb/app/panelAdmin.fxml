@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.69" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="1.0" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -593,7 +593,7 @@
                                     </Button>
                                     <VBox fx:id="subMenuReport" layoutX="10.0" layoutY="748.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportBIN" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportBIN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="BIN Card Report">
@@ -613,7 +613,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportCashWithdrawal" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCashWithdrawal" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Cash Withdrawal">
@@ -633,7 +633,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportCloseSale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCloseSale" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Close Sale Report">
@@ -653,7 +653,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportCustomer" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCustomer" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Customer Report (Creditor)">
@@ -673,7 +673,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportDamage" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportDamage" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Damage Report">
@@ -693,7 +693,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportDetailSale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale1" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Detailed)">
@@ -713,7 +713,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportSummarySale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale2" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Summary)">
@@ -733,7 +733,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportProductSale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale3" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Sale Report (Product Wise)">
@@ -753,7 +753,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportDistribute" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportDistribute" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Distribute Report">
@@ -773,7 +773,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportGRN" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportGRN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="GRN Report">
@@ -793,7 +793,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportLocationReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportLocationReturn" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Location Return Report">
@@ -813,7 +813,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportProductList" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportProductList" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Product List Report">
@@ -833,7 +833,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportProfit" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportProfit" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Profit Report">
@@ -853,7 +853,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportSession" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSession" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Session (Attendance) Report">
@@ -873,7 +873,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
+                                          <HBox fx:id="btnReportStockBalance" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportStockBalance" />
                                                 <Label stylesheets="@css/adminStyle.css" text="Stock Balance Report">
