@@ -1,12 +1,24 @@
 package com.qb.app.controllers;
 
 import com.qb.app.App;
+import com.qb.app.model.HibernateUtil;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.entity.Employee;
+import com.qb.app.model.entity.EmployeeRole;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +32,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import org.hibernate.Session;
 
 public class SytemLoginController implements Initializable {
 
@@ -62,33 +75,55 @@ public class SytemLoginController implements Initializable {
     }
 
     private void systemLogin() {
-        try {
-            if (tfUsername.getText().equals("c")) {
-                String hashPassword = PasswordEncryption.hashPassword(tfPassword.getText());
-                System.out.println("Encrypted: " + hashPassword);
-                System.out.println("Validation for Vheshan37: " + PasswordEncryption.verifyPassword(hashPassword, tfPassword.getText()));
-                App.setRoot("panelCashier");
-            } else if (tfUsername.getText().equals("a")) {
-                App.setRoot("panelAdmin");
-            } else if (tfUsername.getText().equals("d")) {
-                App.setRoot("panelDeveloper");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("storageUnit"); // replace with your persistence unit name
+        try (EntityManager em = emf.createEntityManager()) {
+            // Prepare CriteriaBuilder and Query
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+            Root<Employee> employeeRoot = cq.from(Employee.class);
+
+            // Join with employeeRole (assumes proper mapping exists in Employee entity)
+            Join<Employee, EmployeeRole> roleJoin = employeeRoot.join("employeeRole");
+
+            // Filter by username
+            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), tfUsername.getText());
+
+            cq.select(employeeRoot).where(cb.and(usernamePredicate));
+
+            List<Employee> employees = em.createQuery(cq).getResultList();
+
+            if (employees.isEmpty()) {
+                System.out.println("No user found with this username");
+                return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            Employee emp = employees.get(0);
+            String enteredPassword = tfPassword.getText();
+
+            if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
+                String role = emp.getEmployeeRoleId().getRole().toLowerCase();
+                System.out.println("Login successful. Welcome " + role + ": " + emp.getName());
+
+                try {
+                    switch (role) {
+                        case "admin" ->
+                            App.setRoot("panelAdmin");
+                        case "cashier" ->
+                            App.setRoot("panelCashier");
+                        case "developer" ->
+                            App.setRoot("panelDeveloper");
+                        default ->
+                            System.out.println("Unknown role: " + role);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Navigation error: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Incorrect password");
+            }
+        } finally {
+            emf.close();
         }
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-//        CriteriaQuery<Employee> query = criteriaBuilder.createQuery(Employee.class);
-//        Root<Employee> entity = query.from(Employee.class);
-//
-//        // WHERE name='Vihanga'
-//        query.select(entity).where(criteriaBuilder.equal(entity.get("name"), "Vihanga"));
-//
-//        List<Employee> employeeList = session.createQuery(query).getResultList();
-//        System.out.println("Employee Count: " + employeeList.size());
-//        for (Employee employee : employeeList) {
-//            System.out.println(employee.getName() + " - " + employee.getUsername());
-//        }
     }
 
     private void setInitialState() {

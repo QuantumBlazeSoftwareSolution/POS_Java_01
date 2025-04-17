@@ -23,12 +23,14 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "license")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "License.findAll", query = "SELECT l FROM License l"),
+    @NamedQuery(name = "License.findById", query = "SELECT l FROM License l WHERE l.id = :id"),
+    @NamedQuery(name = "License.findByPeriod", query = "SELECT l FROM License l WHERE l.period = :period"),
+    @NamedQuery(name = "License.findByStatus", query = "SELECT l FROM License l WHERE l.status = :status"),
+    @NamedQuery(name = "License.findByCharge", query = "SELECT l FROM License l WHERE l.charge = :charge")})
+public class License implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +39,29 @@ public class EmployeeStatus implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @Column(name = "period")
+    private String period;
+    @Basic(optional = false)
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @Basic(optional = false)
+    @Column(name = "charge")
+    private double charge;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "licenseId")
+    private Collection<System> systemCollection;
 
-    public EmployeeStatus() {
+    public License() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public License(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public License(Integer id, String period, String status, double charge) {
         this.id = id;
+        this.period = period;
         this.status = status;
+        this.charge = charge;
     }
 
     public Integer getId() {
@@ -62,6 +72,14 @@ public class EmployeeStatus implements Serializable {
         this.id = id;
     }
 
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -70,12 +88,20 @@ public class EmployeeStatus implements Serializable {
         this.status = status;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public double getCharge() {
+        return charge;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setCharge(double charge) {
+        this.charge = charge;
+    }
+
+    public Collection<System> getSystemCollection() {
+        return systemCollection;
+    }
+
+    public void setSystemCollection(Collection<System> systemCollection) {
+        this.systemCollection = systemCollection;
     }
 
     @Override
@@ -88,10 +114,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof License)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        License other = (License) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +126,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.License[ id=" + id + " ]";
     }
     
 }

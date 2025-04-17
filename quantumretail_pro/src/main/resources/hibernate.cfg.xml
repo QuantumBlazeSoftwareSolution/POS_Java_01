@@ -8,9 +8,9 @@
         <property name="hibernate.connection.password">Vheshan37@37</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
-        <mapping class="com.qb.app.model.entity.Employee"/>
+<!--        <mapping class="com.qb.app.model.entity.Employee"/>
         <mapping class="com.qb.app.model.entity.EmployeePanel"/>
         <mapping class="com.qb.app.model.entity.EmployeeRole"/>
-        <mapping class="com.qb.app.model.entity.EmployeeStatus"/>
+        <mapping class="com.qb.app.model.entity.EmployeeStatus"/>-->
     </session-factory>
 </hibernate-configuration>

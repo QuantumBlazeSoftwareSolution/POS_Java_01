@@ -23,12 +23,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "supplier_status")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "SupplierStatus.findAll", query = "SELECT s FROM SupplierStatus s"),
+    @NamedQuery(name = "SupplierStatus.findById", query = "SELECT s FROM SupplierStatus s WHERE s.id = :id"),
+    @NamedQuery(name = "SupplierStatus.findByStatus", query = "SELECT s FROM SupplierStatus s WHERE s.status = :status")})
+public class SupplierStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,17 +39,17 @@ public class EmployeeStatus implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierStatusId")
+    private Collection<Supplier> supplierCollection;
 
-    public EmployeeStatus() {
+    public SupplierStatus() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public SupplierStatus(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public SupplierStatus(Integer id, String status) {
         this.id = id;
         this.status = status;
     }
@@ -70,12 +70,12 @@ public class EmployeeStatus implements Serializable {
         this.status = status;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public Collection<Supplier> getSupplierCollection() {
+        return supplierCollection;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setSupplierCollection(Collection<Supplier> supplierCollection) {
+        this.supplierCollection = supplierCollection;
     }
 
     @Override
@@ -88,10 +88,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof SupplierStatus)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        SupplierStatus other = (SupplierStatus) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.SupplierStatus[ id=" + id + " ]";
     }
     
 }

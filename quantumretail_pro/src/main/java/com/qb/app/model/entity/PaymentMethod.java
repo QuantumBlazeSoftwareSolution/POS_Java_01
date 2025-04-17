@@ -23,12 +23,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "payment_method")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "PaymentMethod.findAll", query = "SELECT p FROM PaymentMethod p"),
+    @NamedQuery(name = "PaymentMethod.findById", query = "SELECT p FROM PaymentMethod p WHERE p.id = :id"),
+    @NamedQuery(name = "PaymentMethod.findByMethod", query = "SELECT p FROM PaymentMethod p WHERE p.method = :method")})
+public class PaymentMethod implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +37,21 @@ public class EmployeeStatus implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @Column(name = "method")
+    private String method;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentMethodId")
+    private Collection<Invoice> invoiceCollection;
 
-    public EmployeeStatus() {
+    public PaymentMethod() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public PaymentMethod(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public PaymentMethod(Integer id, String method) {
         this.id = id;
-        this.status = status;
+        this.method = method;
     }
 
     public Integer getId() {
@@ -62,20 +62,20 @@ public class EmployeeStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getMethod() {
+        return method;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public Collection<Invoice> getInvoiceCollection() {
+        return invoiceCollection;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
+        this.invoiceCollection = invoiceCollection;
     }
 
     @Override
@@ -88,10 +88,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof PaymentMethod)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        PaymentMethod other = (PaymentMethod) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.PaymentMethod[ id=" + id + " ]";
     }
     
 }

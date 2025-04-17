@@ -23,12 +23,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "distribute_type")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "DistributeType.findAll", query = "SELECT d FROM DistributeType d"),
+    @NamedQuery(name = "DistributeType.findById", query = "SELECT d FROM DistributeType d WHERE d.id = :id"),
+    @NamedQuery(name = "DistributeType.findByType", query = "SELECT d FROM DistributeType d WHERE d.type = :type")})
+public class DistributeType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +37,21 @@ public class EmployeeStatus implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @Column(name = "type")
+    private String type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "distributeTypeId")
+    private Collection<ProductDistribute> productDistributeCollection;
 
-    public EmployeeStatus() {
+    public DistributeType() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public DistributeType(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public DistributeType(Integer id, String type) {
         this.id = id;
-        this.status = status;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -62,20 +62,20 @@ public class EmployeeStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getType() {
+        return type;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public Collection<ProductDistribute> getProductDistributeCollection() {
+        return productDistributeCollection;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setProductDistributeCollection(Collection<ProductDistribute> productDistributeCollection) {
+        this.productDistributeCollection = productDistributeCollection;
     }
 
     @Override
@@ -88,10 +88,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof DistributeType)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        DistributeType other = (DistributeType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.DistributeType[ id=" + id + " ]";
     }
     
 }

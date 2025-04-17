@@ -23,12 +23,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "refund_status")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "RefundStatus.findAll", query = "SELECT r FROM RefundStatus r"),
+    @NamedQuery(name = "RefundStatus.findById", query = "SELECT r FROM RefundStatus r WHERE r.id = :id"),
+    @NamedQuery(name = "RefundStatus.findByStatus", query = "SELECT r FROM RefundStatus r WHERE r.status = :status")})
+public class RefundStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,17 +39,17 @@ public class EmployeeStatus implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "refundStatusId")
+    private Collection<Refund> refundCollection;
 
-    public EmployeeStatus() {
+    public RefundStatus() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public RefundStatus(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public RefundStatus(Integer id, String status) {
         this.id = id;
         this.status = status;
     }
@@ -70,12 +70,12 @@ public class EmployeeStatus implements Serializable {
         this.status = status;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public Collection<Refund> getRefundCollection() {
+        return refundCollection;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setRefundCollection(Collection<Refund> refundCollection) {
+        this.refundCollection = refundCollection;
     }
 
     @Override
@@ -88,10 +88,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof RefundStatus)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        RefundStatus other = (RefundStatus) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.RefundStatus[ id=" + id + " ]";
     }
     
 }

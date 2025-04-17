@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -23,12 +25,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "brand")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "Brand.findAll", query = "SELECT b FROM Brand b"),
+    @NamedQuery(name = "Brand.findById", query = "SELECT b FROM Brand b WHERE b.id = :id"),
+    @NamedQuery(name = "Brand.findByBrand", query = "SELECT b FROM Brand b WHERE b.brand = :brand")})
+public class Brand implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +39,24 @@ public class EmployeeStatus implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @Column(name = "brand")
+    private String brand;
+    @JoinColumn(name = "product_status_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ProductStatus productStatusId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brandId")
+    private Collection<Product> productCollection;
 
-    public EmployeeStatus() {
+    public Brand() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public Brand(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public Brand(Integer id, String brand) {
         this.id = id;
-        this.status = status;
+        this.brand = brand;
     }
 
     public Integer getId() {
@@ -62,20 +67,28 @@ public class EmployeeStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public ProductStatus getProductStatusId() {
+        return productStatusId;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setProductStatusId(ProductStatus productStatusId) {
+        this.productStatusId = productStatusId;
+    }
+
+    public Collection<Product> getProductCollection() {
+        return productCollection;
+    }
+
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
     }
 
     @Override
@@ -88,10 +101,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof Brand)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        Brand other = (Brand) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +113,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Brand[ id=" + id + " ]";
     }
     
 }

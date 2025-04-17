@@ -5,30 +5,28 @@
 package com.qb.app.model.entity;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  *
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "costing")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
+    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
+public class Costing implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,22 +34,18 @@ public class EmployeeStatus implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @JoinColumn(name = "child_product", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Product childProduct;
+    @JoinColumn(name = "parent_product", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Product parentProduct;
 
-    public EmployeeStatus() {
+    public Costing() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public Costing(Integer id) {
         this.id = id;
-    }
-
-    public EmployeeStatus(Integer id, String status) {
-        this.id = id;
-        this.status = status;
     }
 
     public Integer getId() {
@@ -62,20 +56,20 @@ public class EmployeeStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public Product getChildProduct() {
+        return childProduct;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setChildProduct(Product childProduct) {
+        this.childProduct = childProduct;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public Product getParentProduct() {
+        return parentProduct;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setParentProduct(Product parentProduct) {
+        this.parentProduct = parentProduct;
     }
 
     @Override
@@ -88,10 +82,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof Costing)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        Costing other = (Costing) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +94,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
     }
     
 }

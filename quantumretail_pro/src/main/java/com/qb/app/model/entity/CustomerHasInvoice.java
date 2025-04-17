@@ -5,30 +5,29 @@
 package com.qb.app.model.entity;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  *
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_status")
+@Table(name = "customer_has_invoice")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeStatus.findAll", query = "SELECT e FROM EmployeeStatus e"),
-    @NamedQuery(name = "EmployeeStatus.findById", query = "SELECT e FROM EmployeeStatus e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeStatus.findByStatus", query = "SELECT e FROM EmployeeStatus e WHERE e.status = :status")})
-public class EmployeeStatus implements Serializable {
+    @NamedQuery(name = "CustomerHasInvoice.findAll", query = "SELECT c FROM CustomerHasInvoice c"),
+    @NamedQuery(name = "CustomerHasInvoice.findById", query = "SELECT c FROM CustomerHasInvoice c WHERE c.id = :id")})
+public class CustomerHasInvoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +36,26 @@ public class EmployeeStatus implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeStatusId")
-    private Collection<Employee> employeeCollection;
+    @Lob
+    @Column(name = "description")
+    private String description;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Customer customerId;
+    @JoinColumn(name = "invoice_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Invoice invoiceId;
 
-    public EmployeeStatus() {
+    public CustomerHasInvoice() {
     }
 
-    public EmployeeStatus(Integer id) {
+    public CustomerHasInvoice(Integer id) {
         this.id = id;
     }
 
-    public EmployeeStatus(Integer id, String status) {
+    public CustomerHasInvoice(Integer id, String description) {
         this.id = id;
-        this.status = status;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -62,20 +66,28 @@ public class EmployeeStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public Customer getCustomerId() {
+        return customerId;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Invoice getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Invoice invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     @Override
@@ -88,10 +100,10 @@ public class EmployeeStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeStatus)) {
+        if (!(object instanceof CustomerHasInvoice)) {
             return false;
         }
-        EmployeeStatus other = (EmployeeStatus) object;
+        CustomerHasInvoice other = (CustomerHasInvoice) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +112,7 @@ public class EmployeeStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.CustomerHasInvoice[ id=" + id + " ]";
     }
     
 }
