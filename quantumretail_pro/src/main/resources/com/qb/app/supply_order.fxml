@@ -29,7 +29,7 @@
                         <Group fx:id="supplyOrderIcon" />
                         <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supply Order">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -40,7 +40,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Company">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
                               <ComboBox prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" />
                            </children>
@@ -49,7 +49,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Supplier">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
                               <ComboBox prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" />
                            </children>
@@ -58,7 +58,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Required Date">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
                               <DatePicker prefHeight="40.0" prefWidth="200.0" styleClass="bg-transparent" stylesheets="@css/adminStyle.css" />
                            </children>
@@ -74,33 +74,42 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
                            </children>
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
                            </children>
                         </VBox>
                         <VBox layoutX="110.0" layoutY="10.0" spacing="4.0">
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                              <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
                            </children>
                         </VBox>
                         <Pane HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Add">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="button-primary" />
@@ -108,7 +117,10 @@
                            </styleClass>
                            <HBox.margin>
                               <Insets right="20.0" />
-                           </HBox.margin></Button>
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                   </HBox>
                </children>
@@ -121,14 +133,17 @@
                      <children>
                         <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Leave a message for the supplier">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font></Label>
-                        <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                        <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Order">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Aptos" size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="button-primary" />
@@ -136,7 +151,10 @@
                      </styleClass>
                      <HBox.margin>
                         <Insets right="20.0" />
-                     </HBox.margin></Button>
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </HBox>
          </bottom>
@@ -153,7 +171,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -162,7 +180,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -171,7 +189,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -182,7 +200,7 @@
                         </ScrollPane>
                         <ScrollPane fx:id="supplyOrderTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="supplyOrderTableBody" prefWidth="100.0" />
+                              <VBox fx:id="supplyOrderTableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
                            </content>
                         </ScrollPane>
                      </children>

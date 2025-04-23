@@ -26,7 +26,7 @@
                         <Circle fx:id="quantumBlazeIcon" fill="DODGERBLUE" radius="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                         <Label styleClass="primary-white" stylesheets="@css/style.css" text="Welcome to Quantum Retail Pro">
                            <font>
-                              <Font name="Segoe UI Bold" size="16.0" />
+                              <Font name="Aptos Black Italic" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -35,10 +35,13 @@
                      <children>
                         <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
                            <font>
-                              <Font name="Segoe UI Bold" size="12.0" />
+                              <Font name="Aptos Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com" />
+                        <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></Label>
                      </children>
                   </VBox>
                </children>
@@ -56,7 +59,7 @@
                               <Group fx:id="iconAdmin" />
                               <Label styleClass="primary-text" stylesheets="@css/style.css" text="Admin Verification">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="16.0" />
+                                    <Font name="Aptos Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -65,30 +68,33 @@
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Pin Number">
                                  <font>
-                                    <Font name="Segoe UI" size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="tfPassword" prefHeight="40.0" />
+                              <PasswordField fx:id="tfPinNumber" prefHeight="40.0">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></PasswordField>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
                            <children>
-                              <Button fx:id="btnVerify" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="36.0" stylesheets="@css/adminStyle.css" text="Verify">
+                              <Button fx:id="btnVerify" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="35.0" stylesheets="@css/adminStyle.css" text="Verify">
                                  <styleClass>
                                     <String fx:value="full-width-button" />
                                     <String fx:value="button-gradient" />
                                     <String fx:value="primary-white" />
                                  </styleClass>
                                  <font>
-                                    <Font name="Segoe UI" size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="36.0" stylesheets="@css/style.css" text="Exit">
+                              <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="35.0" stylesheets="@css/style.css" text="Exit">
                                  <font>
-                                    <Font name="Segoe UI" size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                                  <styleClass>
                                     <String fx:value="full-width-button" />

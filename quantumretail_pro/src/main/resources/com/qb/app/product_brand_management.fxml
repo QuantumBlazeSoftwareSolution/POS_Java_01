@@ -24,7 +24,7 @@
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Management">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -42,19 +42,19 @@
                            <children>
                               <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Registration">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <VBox prefWidth="100.0">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Item Name">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -70,6 +70,9 @@
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
                                     </Button>
                                     <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
                                        <styleClass>
@@ -80,6 +83,9 @@
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
                                     </Button>
                                  </children>
                               </HBox>
@@ -90,7 +96,7 @@
                            <children>
                               <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Update">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <HBox spacing="10.0">
@@ -99,12 +105,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand ID">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                           <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -113,12 +119,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Name">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                           <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -130,7 +136,7 @@
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Status">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <JFXToggleButton selected="true" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Active">
@@ -151,6 +157,9 @@
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
                                     </Button>
                                     <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Update Changes">
                                        <styleClass>
@@ -161,6 +170,9 @@
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
                                     </Button>
                                  </children>
                               </HBox>

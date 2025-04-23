@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -36,7 +37,7 @@
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/style.css" text="Invoice">
                            <font>
-                              <Font name="Segoe UI Bold" size="36.0" />
+                              <Font name="Aptos Black Italic" size="36.0" />
                            </font>
                         </Label>
                         <VBox maxHeight="-Infinity" spacing="6.0">
@@ -45,13 +46,13 @@
                                  <children>
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="Item(s):">
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="11">
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -60,13 +61,13 @@
                                  <children>
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="Sub Total:">
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 12'500.00">
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -75,13 +76,13 @@
                                  <children>
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="Discount:">
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                     <Label styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 500.00">
                                        <font>
-                                          <Font name="Segoe UI" size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -90,13 +91,13 @@
                                  <children>
                                     <Label style="-fx-text-fill: #827410;" text="Total">
                                        <font>
-                                          <Font name="Segoe UI Bold" size="18.0" />
+                                          <Font name="Aptos Bold" size="19.0" />
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                     <Label style="-fx-text-fill: #827410;" text="Rs. 12'000.00">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="Aptos Bold" size="19.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -119,12 +120,15 @@
                               <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
                            </padding>
                            <font>
-                              <Font name="Segoe UI Bold" size="18.0" />
+                              <Font name="Aptos Black Italic" size="18.0" />
                            </font>
                            <styleClass>
                               <String fx:value="bg-primary" />
                               <String fx:value="primary-white" />
                            </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
                      <padding>
@@ -146,7 +150,7 @@
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/style.css" text="Date">
                                  <font>
-                                    <Font name="Segoe UI" size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <DatePicker prefHeight="40.0" stylesheets="@css/style.css">
@@ -161,7 +165,7 @@
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/style.css" text="Invoice Number">
                                  <font>
-                                    <Font name="Segoe UI" size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" styleClass="bg-primary-20" stylesheets="@css/style.css" />
@@ -172,13 +176,16 @@
                               <Insets left="50.0" right="50.0" />
                            </padding>
                            <font>
-                              <Font name="Segoe UI Bold" size="14.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                            <styleClass>
                               <String fx:value="bg-primary" />
                               <String fx:value="primary-white" />
                               <String fx:value="full-width-button" />
                            </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <Separator prefWidth="200.0" />
                         <HBox VBox.vgrow="ALWAYS">
@@ -199,7 +206,7 @@
                                                          <center>
                                                             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Date &amp; Time" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font name="Segoe UI" size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>
@@ -216,7 +223,7 @@
                                                          <center>
                                                             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Invoice Number" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font name="Segoe UI" size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>
@@ -260,7 +267,7 @@
                                                    <center>
                                                       <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Code" BorderPane.alignment="CENTER">
                                                          <font>
-                                                            <Font name="Segoe UI" size="14.0" />
+                                                            <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </center>
@@ -277,7 +284,7 @@
                                                    <center>
                                                       <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Name" BorderPane.alignment="CENTER">
                                                          <font>
-                                                            <Font name="Segoe UI" size="14.0" />
+                                                            <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </center>
@@ -294,7 +301,7 @@
                                                    <center>
                                                       <Label styleClass="primary-text" stylesheets="@css/style.css" text="Unit Price" BorderPane.alignment="CENTER">
                                                          <font>
-                                                            <Font name="Segoe UI" size="14.0" />
+                                                            <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </center>
@@ -311,7 +318,7 @@
                                                    <center>
                                                       <Label styleClass="primary-text" stylesheets="@css/style.css" text="Qty" BorderPane.alignment="CENTER">
                                                          <font>
-                                                            <Font name="Segoe UI" size="14.0" />
+                                                            <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </center>
@@ -328,7 +335,7 @@
                                                    <center>
                                                       <Label styleClass="primary-text" stylesheets="@css/style.css" text="Amount" BorderPane.alignment="CENTER">
                                                          <font>
-                                                            <Font name="Segoe UI" size="14.0" />
+                                                            <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </center>

@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -22,7 +23,7 @@
                   <Group fx:id="suppierManagementIcon" />
                   <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supplier Management">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -38,32 +39,38 @@
                      <children>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Supplier Registration">
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supplier Registration">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
                            </children>
                         </HBox>
-                        <HBox spacing="20.0">
+                        <HBox spacing="10.0">
                            <children>
                               <VBox prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
                                  </children>
                               </VBox>
                               <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
                                  </children>
                               </VBox>
                            </children>
@@ -74,7 +81,7 @@
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Company">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <ComboBox prefHeight="40.0" prefWidth="400.0" styleClass="full-width-button" stylesheets="@css/adminStyle.css" />
@@ -88,12 +95,15 @@
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                        <styleClass>
-                                          <String fx:value="button-primary" />
+                                          <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
                                        </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                               </VBox>
@@ -101,12 +111,15 @@
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Add Supplier">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />
-                                       </styleClass></Button>
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
                                  </children>
                               </VBox>
                            </children>
@@ -120,32 +133,38 @@
                      <children>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Supplier Management">
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supplier Management">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
                            </children>
                         </HBox>
-                        <HBox spacing="20.0">
+                        <HBox spacing="10.0">
                            <children>
                               <VBox prefWidth="100.0" spacing="6.0">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Id">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                                    <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
                                  </children>
                               </VBox>
                               <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
                                  </children>
                               </VBox>
                            </children>
@@ -157,7 +176,7 @@
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Company">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <ComboBox prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" />
@@ -167,7 +186,7 @@
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Status">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
                                     <ComboBox prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" />
@@ -181,12 +200,15 @@
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                        <styleClass>
-                                          <String fx:value="button-primary" />
+                                          <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
                                        </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                               </VBox>
@@ -194,12 +216,15 @@
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Update Changes">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />
-                                       </styleClass></Button>
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
                                  </children>
                               </VBox>
                            </children>

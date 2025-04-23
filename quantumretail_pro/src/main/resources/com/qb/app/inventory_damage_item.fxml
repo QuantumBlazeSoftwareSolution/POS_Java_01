@@ -5,15 +5,17 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,7 +30,7 @@
                         <Group fx:id="damageItemIcom" />
                         <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Damage Item ">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -39,41 +41,57 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Stock Location">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <CheckBox mnemonicParsing="false" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Store">
+                              <Region VBox.vgrow="ALWAYS" />
+                              <RadioButton mnemonicParsing="false" selected="true" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Store">
                                  <font>
-                                    <Font size="14.0" />
-                                 </font></CheckBox>
-                              <CheckBox mnemonicParsing="false" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Stock">
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="stock_location_toggl" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton layoutX="10.0" layoutY="36.0" mnemonicParsing="false" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Stock" toggleGroup="$stock_location_toggl">
                                  <font>
-                                    <Font size="14.0" />
-                                 </font></CheckBox>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </RadioButton>
                            </children>
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="6.0">
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Damage Type">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <CheckBox mnemonicParsing="false" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="SupplyDamage">
+                              <Region VBox.vgrow="ALWAYS" />
+                              <RadioButton mnemonicParsing="false" selected="true" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supply Damage">
                                  <font>
-                                    <Font size="14.0" />
-                                 </font></CheckBox>
-                              <CheckBox mnemonicParsing="false" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Disposal">
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="damage_type_toggle" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton layoutX="10.0" layoutY="94.0" mnemonicParsing="false" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Disposal" toggleGroup="$damage_type_toggle">
                                  <font>
-                                    <Font size="14.0" />
-                                 </font></CheckBox>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </RadioButton>
                            </children>
                         </VBox>
                         <VBox prefWidth="100.0" spacing="12.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Reason">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font></TextField>
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
@@ -83,9 +101,13 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Damage Note ID">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font></TextField>
                            </children>
                            <HBox.margin>
                               <Insets right="20.0" />
@@ -100,8 +122,14 @@
                      <children>
                         <VBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Damage List" />
-                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - Load Previous Damages" />
+                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Damage List">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font></Label>
+                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - Load Previous Damages">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font></Label>
                            </children>
                            <HBox.margin>
                               <Insets bottom="10.0" right="20.0" />
@@ -111,16 +139,16 @@
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <VBox maxWidth="140.0" spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" prefWidth="100.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -130,14 +158,14 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -147,14 +175,14 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Unit Price">
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Unit Price">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" prefWidth="120.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -164,14 +192,14 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -181,14 +209,14 @@
                         </VBox>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Amount">
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Amount">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -199,7 +227,7 @@
                         <Pane HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Add">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                            <styleClass>
                               <String fx:value="button-primary" />
@@ -228,9 +256,12 @@
                      <children>
                         <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Total">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font></Label>
-                        <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                        <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
                      </children>
                      <HBox.margin>
                         <Insets top="10.0" />
@@ -238,7 +269,7 @@
                   </VBox>
                   <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Add Tom Damage ">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Aptos" size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="button-primary" />
@@ -246,7 +277,10 @@
                      </styleClass>
                      <HBox.margin>
                         <Insets right="20.0" />
-                     </HBox.margin></Button>
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </HBox>
          </bottom>
@@ -263,7 +297,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -272,7 +306,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -281,7 +315,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Unit Price" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -290,7 +324,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -299,7 +333,7 @@
                                        <center>
                                           <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -310,7 +344,7 @@
                         </ScrollPane>
                         <ScrollPane fx:id="damageItemTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="damageItemTableBody" prefWidth="100.0" />
+                              <VBox fx:id="damageItemTableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
                            </content>
                         </ScrollPane>
                      </children>

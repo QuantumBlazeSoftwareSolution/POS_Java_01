@@ -173,34 +173,34 @@
                      <children>
                         <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="4.0">
                            <children>
-                              <TextField prefHeight="40.0" promptText="Bar Code" stylesheets="@css/style.css">
+                              <TextField fx:id="tfBarCode" prefHeight="40.0" promptText="Bar Code" stylesheets="@css/style.css">
                                  <styleClass>
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />
                                     <String fx:value="bg-primary-5" />
-                                    <String fx:value="primary-text" />
+                                    <String fx:value="textFieldColor" />
                                  </styleClass>
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField prefHeight="40.0" promptText="Item Code" stylesheets="@css/style.css">
+                              <TextField fx:id="tfItemCode" prefHeight="40.0" promptText="Item Code" stylesheets="@css/style.css">
                                  <styleClass>
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />
                                     <String fx:value="bg-primary-5" />
-                                    <String fx:value="primary-text" />
+                                    <String fx:value="textFieldColor" />
                                  </styleClass>
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Product View">
+                              <Button fx:id="btnProductView" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Product View (F1)">
                                  <padding>
                                     <Insets left="50.0" right="50.0" />
                                  </padding>
                                  <font>
-                                    <Font name="Aptos Bold" size="16.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                                  <styleClass>
                                     <String fx:value="bg-primary" />
@@ -211,18 +211,27 @@
                                  </cursor>
                               </Button>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label styleClass="primary-text" stylesheets="@css/style.css" text="Invoice Number: #12457845">
-                                 <font>
-                                    <Font name="Segoe UI" size="14.0" />
-                                 </font>
-                              </Label>
+                              <HBox maxHeight="-Infinity" spacing="8.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Invoice Number:">
+                                       <font>
+                                          <Font name="Segoe UI" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="invoiceNumber" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@css/style.css" text="#12457845">
+                                       <font>
+                                          <Font name="Segoe UI" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </HBox>
                         <HBox alignment="TOP_RIGHT" prefWidth="972.0" spacing="10.0" VBox.vgrow="ALWAYS">
                            <children>
                               <VBox maxHeight="-Infinity" prefHeight="100.0" prefWidth="100.0" stylesheets="@css/style.css">
                                  <children>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="itemImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@assets/images/tomato.png" />
                                        </image>
@@ -237,12 +246,12 @@
                                  <children>
                                     <VBox maxHeight="-Infinity" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Tomato 1KG">
+                                          <Label fx:id="labelItemName" styleClass="primary-text" stylesheets="@css/style.css" text="Tomato 1KG">
                                              <font>
                                                 <Font name="Aptos Bold" size="24.0" />
                                              </font>
                                           </Label>
-                                          <Label styleClass="primary-text" stylesheets="@css/style.css" text="Rs. 620.00">
+                                          <Label fx:id="labelItemPrice" styleClass="primary-text" stylesheets="@css/style.css" text="Rs. 620.00">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -251,7 +260,7 @@
                                     </VBox>
                                     <HBox maxHeight="-Infinity" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="-">
+                                          <Button fx:id="btnDecreaseQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="-">
                                              <font>
                                                 <Font name="Segoe UI" size="14.0" />
                                              </font>
@@ -263,12 +272,12 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="buttonHover" stylesheets="@css/style.css" text="1">
+                                          <Button fx:id="btnViewQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="buttonHover" stylesheets="@css/style.css" text="1">
                                              <font>
                                                 <Font name="Segoe UI" size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="+">
+                                          <Button fx:id="btnIncreaseQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="+">
                                              <font>
                                                 <Font name="Segoe UI" size="14.0" />
                                              </font>
@@ -292,7 +301,7 @@
                                           <Insets left="50.0" right="50.0" />
                                        </padding>
                                        <font>
-                                          <Font name="Aptos Bold" size="16.0" />
+                                          <Font name="Aptos" size="14.0" />
                                        </font>
                                        <styleClass>
                                           <String fx:value="bg-primary" />
@@ -302,12 +311,12 @@
                                     </Button>
                                     <HBox spacing="6.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Clear">
+                                          <Button fx:id="btnClear" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Clear (F5)">
                                              <padding>
                                                 <Insets left="50.0" right="50.0" />
                                              </padding>
                                              <font>
-                                                <Font name="Aptos Bold" size="16.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                              <styleClass>
                                                 <String fx:value="bg-primary-20" />
@@ -318,12 +327,12 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Add">
+                                          <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Add">
                                              <padding>
                                                 <Insets left="50.0" right="50.0" />
                                              </padding>
                                              <font>
-                                                <Font name="Aptos Bold" size="16.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                              <styleClass>
                                                 <String fx:value="bg-primary" />
@@ -364,7 +373,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label styleClass="primary-white" stylesheets="@css/style.css" text="11">
+                                    <Label fx:id="invoiceItemCount" styleClass="primary-white" stylesheets="@css/style.css" text="11">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -379,7 +388,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 12'500.00">
+                                    <Label fx:id="invoiceSubTotal" styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 12'500.00">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -394,7 +403,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 500.00">
+                                    <Label fx:id="invoiceDiscount" styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 500.00">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -409,7 +418,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label style="-fx-text-fill: #827410;" text="Rs. 12'000.00">
+                                    <Label fx:id="invoiceTotal" style="-fx-text-fill: #827410;" text="Rs. 12'000.00">
                                        <font>
                                           <Font name="Aptos Bold" size="18.0" />
                                        </font>
@@ -426,7 +435,7 @@
                               <Insets />
                            </HBox.margin>
                         </Region>
-                        <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Payment">
+                        <Button fx:id="btnPayment" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Payment">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

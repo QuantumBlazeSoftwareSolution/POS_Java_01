@@ -20,7 +20,7 @@
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Control Access">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -31,7 +31,7 @@
                            <children>
                               <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System Name">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" />
@@ -41,7 +41,7 @@
                            <children>
                               <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Telephone 01">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" />
@@ -51,7 +51,7 @@
                            <children>
                               <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Telephone 02">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" />
@@ -65,7 +65,7 @@
                            <children>
                               <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Address">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <TextField prefHeight="40.0" />
@@ -77,12 +77,12 @@
                      <children>
                         <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" styleClass="button-primary-outline" stylesheets="@css/developerStyle.css" text="Update Changes">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Button>
                         <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="System Initial">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Button>
                      </children>

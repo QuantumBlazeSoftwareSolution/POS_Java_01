@@ -19,7 +19,7 @@
          <children>
             <HBox prefHeight="150.0" spacing="40.0">
                <children>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
@@ -28,19 +28,19 @@
                            <children>
                               <Label layoutX="14.0" layoutY="58.0" text="23" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" text="Brand" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
                         </Pane>
                      </left>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
@@ -49,19 +49,19 @@
                            <children>
                               <Label layoutX="14.0" layoutY="58.0" text="125" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" text="Products" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
                         </Pane>
                      </left>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
@@ -70,12 +70,12 @@
                            <children>
                               <Label layoutX="14.0" layoutY="58.0" text="120" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" text="Active Products" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -86,7 +86,7 @@
             </HBox>
             <HBox prefHeight="150.0" spacing="40.0">
                <children>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
@@ -95,12 +95,12 @@
                            <children>
                               <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="13.0" prefHeight="92.0" prefWidth="186.0" text="Munchee" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="26.0" />
+                                    <Font name="Aptos Bold" size="26.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="192.0" text="Top Selling Brand" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -109,12 +109,12 @@
                      <top>
                         <Label styleClass="primary-text-green" stylesheets="@css/adminStyle.css" text="135 (5%)" BorderPane.alignment="CENTER_RIGHT">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="Aptos Bold" size="12.0" />
                            </font>
                         </Label>
                      </top>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
@@ -123,12 +123,12 @@
                            <children>
                               <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="9.0" prefHeight="96.0" prefWidth="197.0" text="Chocolate Cream 400g" textFill="WHITE" wrapText="true">
                                  <font>
-                                    <Font name="System Bold" size="26.0" />
+                                    <Font name="Aptos Bold" size="26.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="188.0" text="Top Selling Product" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -137,12 +137,12 @@
                      <top>
                         <Label styleClass="primary-text-green" stylesheets="@css/adminStyle.css" text="48 (2%)" BorderPane.alignment="CENTER_RIGHT">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="Aptos Bold" size="12.0" />
                            </font>
                         </Label>
                      </top>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
@@ -151,12 +151,12 @@
                            <children>
                               <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="91.0" prefWidth="180.0" text="Maliban" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="26.0" />
+                                    <Font name="Aptos Bold" size="26.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="187.0" text="Least Selling Brand" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -165,7 +165,7 @@
                      <top>
                         <Label styleClass="primary-text-red" stylesheets="@css/adminStyle.css" text="130 (4%)" BorderPane.alignment="CENTER_RIGHT">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="Aptos Bold" size="12.0" />
                            </font>
                         </Label>
                      </top>
@@ -175,7 +175,7 @@
             <Separator prefHeight="0.0" prefWidth="751.0" />
             <Label text="Product Sale (2025)" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Aptos" size="16.0" />
                </font>
             </Label>
             <BarChart fx:id="productSalrChart" prefHeight="400.0">

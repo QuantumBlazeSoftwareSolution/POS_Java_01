@@ -24,7 +24,7 @@
                   <Group fx:id="pageIcon" />
                   <Label styleClass="primary-white" stylesheets="@css/style.css" text="Company List">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                   <Pane HBox.hgrow="ALWAYS" />
@@ -45,10 +45,13 @@
                            <children>
                               <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Search">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" />
+                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font></TextField>
                            </children>
                         </VBox>
                         <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -56,7 +59,7 @@
                            <children>
                               <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Filter By">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                               <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" />
@@ -79,7 +82,7 @@
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </left>
@@ -91,7 +94,7 @@
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Company Name" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </left>
@@ -103,7 +106,7 @@
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </left>
@@ -117,7 +120,7 @@
                               </ScrollPane>
                               <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <VBox fx:id="TableBody" prefWidth="100.0" />
+                                    <VBox fx:id="TableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
                                  </content>
                               </ScrollPane>
                            </children>
