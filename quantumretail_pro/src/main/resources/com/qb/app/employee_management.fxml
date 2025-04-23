@@ -25,57 +25,63 @@
                   <Group fx:id="IconEmployeeManagementTopic" />
                   <Label text="Employee Management" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <HBox prefWidth="750.0" spacing="10.0">
+            <HBox minHeight="-Infinity" prefWidth="750.0" spacing="10.0">
                <children>
-                  <VBox prefWidth="180.0" HBox.hgrow="ALWAYS">
+                  <VBox maxWidth="-Infinity" prefWidth="180.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Name" textFill="WHITE">
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" styleClass="custom-textfield" stylesheets="@css/adminStyle.css" />
+                        <TextField maxWidth="350.0" prefHeight="40.0" prefWidth="250.0" styleClass="custom-textfield" stylesheets="@css/adminStyle.css">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
-                  <VBox prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <VBox maxWidth="-Infinity" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Username" textFill="WHITE">
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Username" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" prefWidth="200.0" styleClass="custom-textfield" stylesheets="@css/adminStyle.css" />
+                        <TextField maxWidth="350.0" prefHeight="40.0" prefWidth="250.0" styleClass="custom-textfield" stylesheets="@css/adminStyle.css">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
                   <VBox prefWidth="200.0">
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Role" textFill="WHITE">
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Role" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox prefHeight="40.0" prefWidth="150.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
+                        <ComboBox prefHeight="40.0" prefWidth="250.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
                      </children>
                   </VBox>
-                  <Pane prefWidth="200.0" />
+                  <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <VBox>
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Filter" textFill="WHITE">
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Filter" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox prefHeight="40.0" prefWidth="200.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
+                        <ComboBox prefHeight="40.0" prefWidth="250.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="300.0" prefWidth="200.0" stylesheets="@css/style.css">
+            <HBox prefHeight="300.0" prefWidth="200.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
@@ -143,7 +149,7 @@
                         </ScrollPane>
                         <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="tableBody" prefWidth="100.0" />
+                              <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -157,31 +163,34 @@
             </HBox>
             <Label text="Personal Details" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Aptos" size="14.0" />
                </font>
             </Label>
-            <VBox prefWidth="200.0">
+            <VBox minHeight="-Infinity" prefWidth="200.0">
                <children>
-                  <Label prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Name" textFill="WHITE">
+                  <Label prefWidth="200.0" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Aptos" size="14.0" />
                      </font>
                   </Label>
-                  <TextField maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="custom-textfield" stylesheets="@css/adminStyle.css" />
+                  <TextField maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="custom-textfield" stylesheets="@css/adminStyle.css">
+                     <font>
+                        <Font name="Aptos" size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <Label text="Employee Details" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Aptos" size="14.0" />
                </font>
             </Label>
-            <HBox prefWidth="600.0" spacing="10.0">
+            <HBox minHeight="-Infinity" prefWidth="600.0" spacing="10.0">
                <children>
                   <VBox>
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Role" textFill="WHITE">
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Role" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
                         <ComboBox prefHeight="40.0" prefWidth="300.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
@@ -189,9 +198,9 @@
                   </VBox>
                   <VBox>
                      <children>
-                        <Label stylesheets="@css/adminStyle.css" text="Panel" textFill="WHITE">
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Panel" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
                         <ComboBox prefHeight="40.0" prefWidth="300.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
@@ -199,11 +208,11 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox spacing="10.0">
+            <HBox minHeight="-Infinity" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Aptos" size="14.0" />
                      </font></Button>
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/adminStyle.css" text="Update Changes" HBox.hgrow="ALWAYS">
                      <styleClass>
@@ -211,7 +220,7 @@
                         <String fx:value="primary-white" />
                      </styleClass>
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Aptos" size="14.0" />
                      </font></Button>
                </children>
             </HBox>

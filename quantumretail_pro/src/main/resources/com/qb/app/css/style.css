@@ -37,6 +37,10 @@
     -fx-text-fill: #004E92;
 }
 
+.textFieldColor{
+    -fx-text-fill: #1068b5;
+}
+
 .primary-border{
     -fx-border-color: #004E92;
     -fx-border-width: 0.5px;

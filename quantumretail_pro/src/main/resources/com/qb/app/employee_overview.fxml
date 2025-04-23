@@ -3,6 +3,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -20,70 +21,79 @@
                   <Group fx:id="IconEmployeeOverviewTopic" />
                   <Label text="Employee Overview" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="150.0" spacing="40.0">
+            <HBox prefHeight="150.0" spacing="20.0">
                <children>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" styleClass="employee-card" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                      <right>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="employee-rounded-image" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@assets/images/employee-card-circle.png" />
+                           </image></ImageView>
                      </right>
                      <left>
                         <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label layoutX="14.0" layoutY="58.0" text="23" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" text="Employees" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
                         </Pane>
                      </left>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" styleClass="employee-card" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                      <right>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="employee-rounded-image">
+                           <image>
+                              <Image url="@assets/images/employee-card-circle.png" />
+                           </image></ImageView>
                      </right>
                      <left>
                         <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label layoutX="14.0" layoutY="58.0" text="05" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" text="Cashiers" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>
                         </Pane>
                      </left>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" styleClass="rounded-borderpane" stylesheets="@css/s.css" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" styleClass="employee-card" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                      <right>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="employee-rounded-image" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@assets/images/employee-card-circle.png" />
+                           </image></ImageView>
                      </right>
                      <left>
                         <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label layoutX="14.0" layoutY="58.0" text="07" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
                               <Label layoutX="13.0" layoutY="105.0" text="Roles" textFill="WHITE">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
                            </children>

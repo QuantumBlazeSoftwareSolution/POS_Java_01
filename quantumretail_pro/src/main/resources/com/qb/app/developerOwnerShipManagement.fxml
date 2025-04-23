@@ -24,7 +24,7 @@
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Personal Details">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -33,17 +33,20 @@
                      <children>
                         <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Name">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" prefWidth="275.0" />
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
                   <HBox prefWidth="200.0">
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="System Credentials">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -52,40 +55,55 @@
                      <children>
                         <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Username">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" prefWidth="275.0" />
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
                   <VBox layoutX="10.0" layoutY="152.0">
                      <children>
                         <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Password">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" prefWidth="275.0" />
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
                   <VBox layoutX="10.0" layoutY="152.0">
                      <children>
                         <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="PIN Number">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" prefWidth="275.0" />
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
                      </children>
                   </VBox>
                   <VBox>
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-primary-outline" stylesheets="@css/developerStyle.css" text="Clear" />
+                        <Button maxWidth="1.7976931348623157E308" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-primary-outline" stylesheets="@css/developerStyle.css" text="Clear">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                   <HBox>
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Make a Owner" HBox.hgrow="ALWAYS" />
+                        <Button maxWidth="1.7976931348623157E308" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Make a Owner" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>

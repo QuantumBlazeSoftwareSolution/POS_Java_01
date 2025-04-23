@@ -23,7 +23,7 @@
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Analytics">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -45,7 +45,7 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                           <ComboBox fx:id="cbBrand1" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee" stylesheets="@css/adminStyle.css" />
@@ -56,7 +56,7 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Filter By">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
                                           <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Sale" stylesheets="@css/adminStyle.css" />
@@ -76,7 +76,7 @@
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>
@@ -85,7 +85,7 @@
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>
@@ -94,7 +94,7 @@
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>
@@ -103,7 +103,7 @@
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Sale" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>
@@ -112,7 +112,7 @@
                                                          <center>
                                                             <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Analytics (From Yesterday)" BorderPane.alignment="CENTER">
                                                                <font>
-                                                                  <Font size="14.0" />
+                                                                  <Font name="Aptos" size="14.0" />
                                                                </font>
                                                             </Label>
                                                          </center>

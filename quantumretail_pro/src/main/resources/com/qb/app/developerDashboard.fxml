@@ -27,7 +27,7 @@
                <children>
                   <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="System Usage">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Aptos" size="16.0" />
                      </font>
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -39,13 +39,13 @@
                                  <children>
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System Accessibility">
                                        <font>
-                                          <Font name="System Bold" size="16.0" />
+                                          <Font name="Aptos Bold" size="16.0" />
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="75%">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="Aptos Black Italic" size="24.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -70,13 +70,13 @@
                                  <children>
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Reports Accessibility">
                                        <font>
-                                          <Font name="System Bold" size="16.0" />
+                                          <Font name="Aptos Bold" size="16.0" />
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="75%">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="Aptos Black Italic" size="24.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -98,7 +98,7 @@
                                  <children>
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System License">
                                        <font>
-                                          <Font name="System Bold" size="16.0" />
+                                          <Font name="Aptos Bold" size="16.0" />
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
@@ -106,12 +106,12 @@
                                        <children>
                                           <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Temporary License">
                                              <font>
-                                                <Font name="System Bold" size="14.0" />
+                                                <Font name="Aptos Bold" size="14.0" />
                                              </font>
                                           </Label>
                                           <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="2 months">
                                              <font>
-                                                <Font name="System Bold" size="12.0" />
+                                                <Font name="Aptos Bold" size="12.0" />
                                              </font>
                                           </Label>
                                        </children>
@@ -135,13 +135,13 @@
                                  <children>
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System Accessibility">
                                        <font>
-                                          <Font name="System Bold" size="16.0" />
+                                          <Font name="Aptos Bold" size="16.0" />
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
                                     <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="2 Adjustment per month">
                                        <font>
-                                          <Font name="System Bold" size="12.0" />
+                                          <Font name="Aptos Bold" size="12.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -164,7 +164,7 @@
                      <children>
                         <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Entity List">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                         </Label>
                         <BarChart fx:id="barChart" stylesheets="@css/developerPanelCharts.css" VBox.vgrow="ALWAYS">
