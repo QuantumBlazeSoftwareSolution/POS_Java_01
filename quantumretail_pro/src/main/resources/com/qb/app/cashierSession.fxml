@@ -81,7 +81,7 @@
                            <children>
                               <VBox prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Already Sign In for Today">
+                                    <Button fx:id="signInMessage" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="...">
                                        <styleClass>
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary-20" />
@@ -155,7 +155,7 @@
                               <Separator orientation="VERTICAL" prefHeight="200.0" stylesheets="@css/style.css" />
                               <VBox prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Waiting for Sign Off">
+                                    <Button fx:id="signOffMessage" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="...">
                                        <styleClass>
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary-20" />

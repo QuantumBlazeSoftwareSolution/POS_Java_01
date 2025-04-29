@@ -1,12 +1,16 @@
 package com.qb.app.controllers;
 
 import com.qb.app.App;
-import com.qb.app.model.HibernateUtil;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
+import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -26,9 +30,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class SytemLoginController implements Initializable {
 
@@ -68,26 +69,31 @@ public class SytemLoginController implements Initializable {
     }
 
     private void systemLogin() {
-        Session session = null;
-        Transaction transaction = null;
+        EntityManager em = null;
+        EntityTransaction transaction = null;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            em = JpaUtil.getEntityManager(); // Your utility method for getting EntityManager
+            transaction = em.getTransaction();
+            transaction.begin();
 
-            CriteriaBuilder cBuildere = session.getCriteriaBuilder();
-            CriteriaQuery<Employee> cQuery = cBuildere.createQuery(Employee.class);
-            Root<Employee> employeeRoot = cQuery.from(Employee.class);
-
-            // Join with employeeRole (assumes proper mapping exists in Employee entity)
-//            Join<Employee, EmployeeRole> roleJoin = employeeRoot.join("employeeRoleId", JoinType.INNER);
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+            Root<Employee> employeeRoot = cq.from(Employee.class);
 
             // Filter by username
-            Predicate usernamePredicate = cBuildere.equal(employeeRoot.get("username"), tfUsername.getText());
-            cQuery.where(usernamePredicate);
+            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), tfUsername.getText());
+            cq.where(usernamePredicate);
 
             // Execute query
-            Employee emp = session.createQuery(cQuery).uniqueResult();
+            TypedQuery<Employee> query = em.createQuery(cq);
+            Employee emp = null;
+            try {
+                emp = query.getSingleResult();
+            } catch (NoResultException e) {
+                // No user found
+                emp = null;
+            }
 
             if (emp == null) {
                 System.out.println("No user found with this username");
@@ -97,7 +103,7 @@ public class SytemLoginController implements Initializable {
             String enteredPassword = tfPassword.getText();
 
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
-                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Fixed: assuming the relationship is named employeeRole
+                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
                 System.out.println("Login successful. Welcome " + role + ": " + emp.getName());
 
                 try {
@@ -119,14 +125,14 @@ public class SytemLoginController implements Initializable {
             }
 
             transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             System.out.println("Error during login: " + e.getMessage());
         } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
     }
