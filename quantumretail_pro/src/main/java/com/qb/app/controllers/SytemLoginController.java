@@ -7,6 +7,7 @@ import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
+import com.qb.app.session.ApplicationSession;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -90,6 +91,7 @@ public class SytemLoginController implements Initializable {
             Employee emp = null;
             try {
                 emp = query.getSingleResult();
+                ApplicationSession.setEmployee(emp);
             } catch (NoResultException e) {
                 // No user found
                 emp = null;

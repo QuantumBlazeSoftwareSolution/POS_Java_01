@@ -2,7 +2,9 @@ package com.qb.app.controllers;
 
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JpaUtil;
+import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.entity.Session;
+import com.qb.app.session.ApplicationSession;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -91,6 +93,7 @@ public class CashierSessionController implements Initializable {
                 signOffMessage.setText("Sign OFF is not activated.");
             }
 
+            transaction.commit();
         } catch (HibernateException e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
@@ -125,16 +128,59 @@ public class CashierSessionController implements Initializable {
                 alert.setContentText("Password cannot be empty!");
             } else if (tfSignInPettyCash.getText().isEmpty() || tfSignInPettyCash.getText().equals("")) {
                 alert.setContentText("Petty Cash cannot be empty!");
-            } else if (!DefaultAPI.isInteger(tfSignInPettyCash.getText())) {
+            } else if (!DefaultAPI.isDouble(tfSignInPettyCash.getText())) {
                 alert.setContentText("Invalid Cash Amount!");
+            } else {
+                if (ApplicationSession.getEmployee().getUsername().equals(tfSignInUsername.getText()) && PasswordEncryption.verifyPassword(ApplicationSession.getEmployee().getPassword(), tfSignInPassword.getText())) { // check if the employee is matching to this username and password
+
+                    Session signInSession = new Session();
+                    signInSession.setDayInTime(new Date());
+                    signInSession.setPettyCash(Double.parseDouble(tfSignInPettyCash.getText()));
+                    signInSession.setEmployeeId(ApplicationSession.getEmployee());
+
+                    saveNewSignInSession(signInSession);
+
+                    alert.setAlertType(Alert.AlertType.NONE);
+                    alert.setContentText("Successfuly Sign In for today.");
+
+                    return;
+                } else {
+                    alert.setContentText("Employee information doesn't match!");
+                }
             }
         } else {
-            System.out.println("Going to the Else block");
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("Already Sign In for Today.");
         }
+        alert.show();
     }
 
     private void sessionSignOff() {
 
+    }
+
+    private void saveNewSignInSession(Session signInSession) {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+
+        try {
+            em = JpaUtil.getEntityManager(); // Your utility method for getting EntityManager
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            em.persist(signInSession);
+            
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            System.out.println("Error during login: " + e.getMessage());
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
     }
 
 }

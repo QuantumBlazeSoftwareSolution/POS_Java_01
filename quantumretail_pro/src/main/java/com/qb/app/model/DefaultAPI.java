@@ -43,4 +43,16 @@ public class DefaultAPI {
         }
     }
 
+    public static boolean isDouble(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(value.trim());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }
