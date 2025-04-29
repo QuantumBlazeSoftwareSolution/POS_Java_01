@@ -4,6 +4,7 @@ import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -39,6 +40,8 @@ public class UnitTesting {
         }
     }
 
+    private static boolean isSignIn;
+
     private static void getSessionDetails() {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -52,7 +55,7 @@ public class UnitTesting {
             CriteriaQuery<Session> criteriaQuery = criteriaBuilder.createQuery(Session.class);
             Root<Session> sessionTable = criteriaQuery.from(Session.class);
 
-            LocalDate today = LocalDate.now();
+            LocalDate today = LocalDate.now(); // For '2025-04-27', you can use LocalDate.of(2025, 4, 27);
 
             // Build Predicate (where DATE(day_in_time) = today)
             Predicate predicate = criteriaBuilder.equal(
@@ -62,13 +65,20 @@ public class UnitTesting {
 
             criteriaQuery.select(sessionTable).where(predicate);
 
-            Session sessionsToday = em.createQuery(criteriaQuery).getSingleResult();
+            try {
+                Session sessionToday = em.createQuery(criteriaQuery).getSingleResult();
 
-            System.out.println("Today's Date: " + today);
-            if (sessionsToday != null) {
-                System.out.println("Found session(s) for today!");
-            } else {
-                System.out.println("No sessions found for today.");
+                if (sessionToday.getStatus().equals("OFF")) {
+                    System.out.println("Day Completed.");
+                } else {
+                    System.out.println("Already Sign In for Today.");
+                    System.out.println("Waiting for Sign OFF.");
+                    isSignIn = true;
+                }
+            } catch (NoResultException e) {
+                System.out.println("No session found for today.");
+                System.out.println("Waiting for Sign In.");
+                System.out.println("Sign OFF is not activated.");
             }
 
         } catch (HibernateException e) {
