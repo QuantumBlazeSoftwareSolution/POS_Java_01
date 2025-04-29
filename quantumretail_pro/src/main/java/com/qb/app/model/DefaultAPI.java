@@ -6,7 +6,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 
 public class DefaultAPI {
- 
+
     public static TextFormatter<String> createNumericTextFormatter() {
         return new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*\\.?\\d*")) { // Allows digits and optional decimal point
@@ -15,8 +15,8 @@ public class DefaultAPI {
             return null;
         });
     }
-    
-    public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, VBox vBox){
+
+    public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, VBox vBox) {
         scrollBar.valueProperty().bindBidirectional(scrollPane.vvalueProperty());
 
         // Configure the ScrollBar range to match the ScrollPane
@@ -30,5 +30,17 @@ public class DefaultAPI {
                         .map(bounds -> bounds.getHeight() / vBox.getHeight())
         );
     }
-    
+
+    public static boolean isInteger(String value) {
+        if (value == null || value.isEmpty()) {
+            return false;
+        }
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }
