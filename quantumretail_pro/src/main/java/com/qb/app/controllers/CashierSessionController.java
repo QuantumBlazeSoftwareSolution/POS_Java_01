@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JpaUtil;
 import com.qb.app.model.entity.Session;
 import jakarta.persistence.EntityManager;
@@ -12,9 +13,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.hibernate.HibernateException;
 
 public class CashierSessionController implements Initializable {
@@ -23,6 +28,24 @@ public class CashierSessionController implements Initializable {
     private Button signInMessage;
     @FXML
     private Button signOffMessage;
+    @FXML
+    private TextField tfSignInUsername;
+    @FXML
+    private PasswordField tfSignInPassword;
+    @FXML
+    private TextField tfSignInPettyCash;
+    @FXML
+    private TextField tfSignOffUsername;
+    @FXML
+    private PasswordField tfSignOffPassword;
+    @FXML
+    private TextField tfSignOffCollection;
+    @FXML
+    private Button btnSignIn;
+    @FXML
+    private Button btnSignOff;
+
+    private static boolean isSignIn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,17 +75,18 @@ public class CashierSessionController implements Initializable {
 
             criteriaQuery.select(sessionTable).where(predicate);
 
-            Session sessionsToday = em.createQuery(criteriaQuery).getSingleResult();
+            try {
+                Session sessionsToday = em.createQuery(criteriaQuery).getSingleResult();
 
-            if (sessionsToday != null) {
-                if (sessionsToday.getStatus().equals("OFF")) {
+                if (sessionsToday.getStatus().equals("OFF")) { // If record status was OFF
                     signInMessage.setText("Day Completed.");
                     signOffMessage.setText("Day Completed.");
-                } else {
+                } else { // If record status was ON
                     signInMessage.setText("Already Sign In for Today.");
                     signOffMessage.setText("Waiting for Sign OFF.");
+                    isSignIn = true;
                 }
-            } else {
+            } catch (Exception e) {
                 signInMessage.setText("Waiting for Sign In.");
                 signOffMessage.setText("Sign OFF is not activated.");
             }
@@ -77,6 +101,40 @@ public class CashierSessionController implements Initializable {
                 em.close();
             }
         }
+    }
+
+    @FXML
+    private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnSignIn) {
+            sessionSignIn();
+        } else if (event.getSource() == btnSignIn) {
+            sessionSignOff();
+        }
+    }
+
+    private void sessionSignIn() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+
+        // check if there have a Sign IN for today
+        if (!isSignIn) { // if not have a record for today
+            if (tfSignInUsername.getText().isEmpty() || tfSignInUsername.getText().equals("")) {
+                alert.setContentText("Username cannot be empty!");
+            } else if (tfSignInPassword.getText().isEmpty() || tfSignInPassword.getText().equals("")) {
+                alert.setContentText("Password cannot be empty!");
+            } else if (tfSignInPettyCash.getText().isEmpty() || tfSignInPettyCash.getText().equals("")) {
+                alert.setContentText("Petty Cash cannot be empty!");
+            } else if (!DefaultAPI.isInteger(tfSignInPettyCash.getText())) {
+                alert.setContentText("Invalid Cash Amount!");
+            }
+        } else {
+            System.out.println("Going to the Else block");
+        }
+    }
+
+    private void sessionSignOff() {
+
     }
 
 }
