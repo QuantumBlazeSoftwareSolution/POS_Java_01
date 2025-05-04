@@ -11,7 +11,7 @@ import jakarta.persistence.EntityTransaction;
  *
  * @author Vihanga
  */
-public class JPATransactio {
+public class JPATransaction {
 
     public static void runInTransaction(EntityManagerCallBack callback) {
         EntityManager em = null;

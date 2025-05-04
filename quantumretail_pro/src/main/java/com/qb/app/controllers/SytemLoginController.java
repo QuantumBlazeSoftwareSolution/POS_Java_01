@@ -31,7 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import static com.qb.app.model.JPATransactio.runInTransaction;
+import static com.qb.app.model.JPATransaction.runInTransaction;
 
 public class SytemLoginController implements Initializable {
 
