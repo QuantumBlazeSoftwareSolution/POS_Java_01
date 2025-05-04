@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 
-public class UnitTesting {
+public class UnitTestingVihanga {
 
     public static void main(String[] args) {
 //        testJPA();

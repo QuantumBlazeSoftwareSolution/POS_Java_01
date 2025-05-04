@@ -1,6 +1,9 @@
 package com.qb.app.controllers;
 
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.EntityManagerCallBack;
+import com.qb.app.model.EntityManagerFunction;
+import com.qb.app.model.JPATransactio;
 import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.entity.Session;
@@ -15,17 +18,26 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 import org.hibernate.HibernateException;
+import static com.qb.app.model.JPATransactio.runInTransaction;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javafx.scene.control.Label;
 
 public class CashierSessionController implements Initializable {
 
+    //    <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private Button signInMessage;
     @FXML
@@ -46,36 +58,25 @@ public class CashierSessionController implements Initializable {
     private Button btnSignIn;
     @FXML
     private Button btnSignOff;
+    @FXML
+    private Label sessionHours;
+    @FXML
+    private Label sessionMinutes;
+    @FXML
+    private Label sessionAMPM;
+    //    </editor-fold>
 
     private static boolean isSignIn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         getSessionDetails();
+        sessionTimer();
     }
 
     private void getSessionDetails() {
-        EntityManager em = null;
-        EntityTransaction transaction = null;
-
-        try {
-            em = JpaUtil.getEntityManager(); // Your utility method for getting EntityManager
-            transaction = em.getTransaction();
-            transaction.begin();
-
-            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-            CriteriaQuery<Session> criteriaQuery = criteriaBuilder.createQuery(Session.class);
-            Root<Session> sessionTable = criteriaQuery.from(Session.class);
-
-            LocalDate today = LocalDate.now(); // For '2025-04-27', you can use LocalDate.of(2025, 4, 27);
-
-            // Build Predicate (where DATE(day_in_time) = today)
-            Predicate predicate = criteriaBuilder.equal(
-                    criteriaBuilder.function("DATE", Date.class, sessionTable.get("dayInTime")),
-                    java.sql.Date.valueOf(today)
-            );
-
-            criteriaQuery.select(sessionTable).where(predicate);
+        runInTransaction((EntityManager em) -> {
+            CriteriaQuery<Session> criteriaQuery = getSessionQuery(em);
 
             try {
                 Session sessionsToday = em.createQuery(criteriaQuery).getSingleResult();
@@ -84,7 +85,7 @@ public class CashierSessionController implements Initializable {
                     signInMessage.setText("Day Completed.");
                     signOffMessage.setText("Day Completed.");
                 } else { // If record status was ON
-                    signInMessage.setText("Already Sign In for Today.");
+                    signInMessage.setText("You're already signed in for today");
                     signOffMessage.setText("Waiting for Sign OFF.");
                     isSignIn = true;
                 }
@@ -92,95 +93,200 @@ public class CashierSessionController implements Initializable {
                 signInMessage.setText("Waiting for Sign In.");
                 signOffMessage.setText("Sign OFF is not activated.");
             }
+        });
+    }
 
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            System.out.println("Error during login: " + e.getMessage());
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
-        }
+    private void showStyledAlert(String message, Alert.AlertType type) {
+
+        Alert alert = new Alert(type);
+        alert.setTitle("System Notification");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        // Add custom style class
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStyleClass().add("custom-alert");
+
+        alert.show();
     }
 
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnSignIn) {
             sessionSignIn();
-        } else if (event.getSource() == btnSignIn) {
+        } else if (event.getSource() == btnSignOff) {
             sessionSignOff();
         }
     }
 
     private void sessionSignIn() {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
-        alert.setHeaderText(null);
-
         // check if there have a Sign IN for today
         if (!isSignIn) { // if not have a record for today
-            if (tfSignInUsername.getText().isEmpty() || tfSignInUsername.getText().equals("")) {
-                alert.setContentText("Username cannot be empty!");
-            } else if (tfSignInPassword.getText().isEmpty() || tfSignInPassword.getText().equals("")) {
-                alert.setContentText("Password cannot be empty!");
-            } else if (tfSignInPettyCash.getText().isEmpty() || tfSignInPettyCash.getText().equals("")) {
-                alert.setContentText("Petty Cash cannot be empty!");
-            } else if (!DefaultAPI.isDouble(tfSignInPettyCash.getText())) {
-                alert.setContentText("Invalid Cash Amount!");
-            } else {
+            if (checkSignInValidation()) {
                 if (ApplicationSession.getEmployee().getUsername().equals(tfSignInUsername.getText()) && PasswordEncryption.verifyPassword(ApplicationSession.getEmployee().getPassword(), tfSignInPassword.getText())) { // check if the employee is matching to this username and password
+                    if (isTodayAvailable()) { // check if today is available for sign in
 
-                    Session signInSession = new Session();
-                    signInSession.setDayInTime(new Date());
-                    signInSession.setPettyCash(Double.parseDouble(tfSignInPettyCash.getText()));
-                    signInSession.setEmployeeId(ApplicationSession.getEmployee());
+                        Session signInSession = new Session(); // entity 'session'
+                        signInSession.setDayInTime(new Date());
+                        signInSession.setPettyCash(Double.parseDouble(tfSignInPettyCash.getText()));
+                        signInSession.setEmployeeId(ApplicationSession.getEmployee());
+                        signInSession.setStatus("ON");
 
-                    saveNewSignInSession(signInSession);
+                        saveNewSignInSession(signInSession);
+                        isSignIn = true;
+                        signInMessage.setText("Successfuly sign in for today.");
+                        signOffMessage.setText("Waiting for sign off.");
+                        MessageTransition("Sign in completed.", signInMessage);
+                    } else {
+                        signInMessage.setText("Session active: You cannot sign in multiple times per day.");
+                        MessageTransition("You're already signed in for today", signInMessage);
+                    }
 
-                    alert.setAlertType(Alert.AlertType.NONE);
-                    alert.setContentText("Successfuly Sign In for today.");
-
-                    return;
+                    showStyledAlert("Successfuly Sign In for today.", Alert.AlertType.INFORMATION);
                 } else {
-                    alert.setContentText("Employee information doesn't match!");
+                    showStyledAlert("Credentials Mismatch - Please check your username/password", Alert.AlertType.WARNING);
                 }
             }
         } else {
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setContentText("Already Sign In for Today.");
+            showStyledAlert("You're already signed in for today", Alert.AlertType.WARNING);
         }
-        alert.show();
+        cleanSignIn();
     }
 
     private void sessionSignOff() {
+        if (isSignIn) { // if have a record for today
+            if (checkSignOffValidation()) {
+                if (ApplicationSession.getEmployee().getUsername().equals(tfSignOffUsername.getText()) && PasswordEncryption.verifyPassword(ApplicationSession.getEmployee().getPassword(), tfSignOffPassword.getText())) { // check if the employee is matching to this username and password
+                    if (!isTodayAvailable()) { // check if today is not available for sign in (it means it's available for sign off)
+                        runInTransaction(em -> {
+                            CriteriaQuery<Session> criteriaQuery = getSessionQuery(em);
+                            try {
+                                Session sessionToday = em.createQuery(criteriaQuery).getSingleResult();
 
+                                if (sessionToday.getStatus().equals("ON")) { // If record status was OFF
+                                    sessionToday.setDayOutTime(new Date());
+                                    sessionToday.setCollection(Double.valueOf(tfSignOffCollection.getText()));
+                                    sessionToday.setStatus("OFF");
+                                    mergeSignOffSession(sessionToday);
+
+                                    signInMessage.setText("Day completed.");
+                                    signOffMessage.setText("Day completed.");
+                                    showStyledAlert("Successfuly Sign Off for today.", Alert.AlertType.INFORMATION);
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        });
+                    } else {
+                        signInMessage.setText("Cannot sign off: No active session detected. Sign in first.");
+                        MessageTransition("Sign OFF is not activated.", signOffMessage);
+                    }
+                } else {
+                    showStyledAlert("Credentials Mismatch - Please check your username/password", Alert.AlertType.WARNING);
+                }
+            }
+        } else {
+            showStyledAlert("You're not signed in for today, Please sign in to activate sign off option", Alert.AlertType.WARNING);
+        }
+        cleanSignOff();
+    }
+
+    private void MessageTransition(String text, Button btn) {
+        // after 5 second i want to change that message to belowe message
+        PauseTransition delay = new PauseTransition(Duration.seconds(6));
+        delay.setOnFinished(event -> {
+            btn.setText(text);
+        });
+        delay.play();
     }
 
     private void saveNewSignInSession(Session signInSession) {
-        EntityManager em = null;
-        EntityTransaction transaction = null;
-
-        try {
-            em = JpaUtil.getEntityManager(); // Your utility method for getting EntityManager
-            transaction = em.getTransaction();
-            transaction.begin();
-
-            em.persist(signInSession);
-            
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            System.out.println("Error during login: " + e.getMessage());
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
-        }
+        runInTransaction((EntityManagerCallBack) em -> em.persist(signInSession));
     }
 
+    private CriteriaQuery<Session> getSessionQuery(EntityManager em) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Session> criteriaQuery = criteriaBuilder.createQuery(Session.class);
+        Root<Session> sessionTable = criteriaQuery.from(Session.class);
+
+        LocalDate today = LocalDate.now();
+
+        // Build Predicate (where DATE(day_in_time) = today)
+        Predicate predicate = criteriaBuilder.equal(
+                criteriaBuilder.function("DATE", Date.class, sessionTable.get("dayInTime")),
+                java.sql.Date.valueOf(today)
+        );
+
+        return criteriaQuery.select(sessionTable).where(predicate);
+    }
+
+    private boolean isTodayAvailable() {
+        return runInTransaction(em -> {
+            CriteriaQuery<Session> criteriaQuery = getSessionQuery(em);
+            try {
+                em.createQuery(criteriaQuery).getSingleResult();
+                return false; // Already signed in
+            } catch (Exception e) {
+                return true; // Not signed in yet
+            }
+        });
+    }
+
+    private boolean checkSignInValidation() {
+        if (tfSignInUsername.getText().isEmpty() || tfSignInUsername.getText().equals("")) {
+            showStyledAlert("Username required - Please enter your credentials", Alert.AlertType.WARNING);
+        } else if (tfSignInPassword.getText().isEmpty() || tfSignInPassword.getText().equals("")) {
+            showStyledAlert("Password required for security verification", Alert.AlertType.WARNING);
+        } else if (tfSignInPettyCash.getText().isEmpty() || tfSignInPettyCash.getText().equals("")) {
+            showStyledAlert("Please specify the opening cash amount", Alert.AlertType.WARNING);
+        } else if (!DefaultAPI.isDouble(tfSignInPettyCash.getText())) {
+            showStyledAlert("Please enter a valid cash amount (e.g., 250.00)", Alert.AlertType.WARNING);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkSignOffValidation() {
+        if (tfSignOffUsername.getText().isEmpty() || tfSignOffUsername.getText().equals("")) {
+            showStyledAlert("Username required - Please enter your credentials", Alert.AlertType.WARNING);
+        } else if (tfSignOffPassword.getText().isEmpty() || tfSignOffPassword.getText().equals("")) {
+            showStyledAlert("Password required for security verification", Alert.AlertType.WARNING);
+        } else if (tfSignOffCollection.getText().isEmpty() || tfSignOffCollection.getText().equals("")) {
+            showStyledAlert("Please specify the closing cash amount", Alert.AlertType.WARNING);
+        } else if (!DefaultAPI.isDouble(tfSignOffCollection.getText())) {
+            showStyledAlert("Please enter a valid cash amount (e.g., 250.00)", Alert.AlertType.WARNING);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+    private void mergeSignOffSession(Session sessionToday) {
+        runInTransaction((EntityManagerCallBack) em -> em.merge(sessionToday));
+    }
+
+    private void cleanSignIn() {
+        tfSignInUsername.setText("");
+        tfSignInPassword.setText("");
+        tfSignInPettyCash.setText("");
+    }
+
+    private void cleanSignOff() {
+        tfSignOffUsername.setText("");
+        tfSignOffPassword.setText("");
+        tfSignOffCollection.setText("");
+    }
+
+    private void sessionTimer() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        Runnable task = () -> {
+            System.out.println("Task executed at: " + new java.util.Date());
+            // Your repeating logic here
+        };
+
+        // Start after 1 minute, repeat every 1 minute
+        scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.MINUTES);
+    }
 }

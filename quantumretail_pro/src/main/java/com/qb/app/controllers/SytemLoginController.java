@@ -31,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import static com.qb.app.model.JPATransactio.runInTransaction;
 
 public class SytemLoginController implements Initializable {
 
@@ -70,14 +71,7 @@ public class SytemLoginController implements Initializable {
     }
 
     private void systemLogin() {
-        EntityManager em = null;
-        EntityTransaction transaction = null;
-
-        try {
-            em = JpaUtil.getEntityManager(); // Your utility method for getting EntityManager
-            transaction = em.getTransaction();
-            transaction.begin();
-
+        runInTransaction((EntityManager em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
             Root<Employee> employeeRoot = cq.from(Employee.class);
@@ -89,9 +83,10 @@ public class SytemLoginController implements Initializable {
             // Execute query
             TypedQuery<Employee> query = em.createQuery(cq);
             Employee emp = null;
+            
             try {
                 emp = query.getSingleResult();
-                ApplicationSession.setEmployee(emp);
+                ApplicationSession.setEmployee(emp); // save in session
             } catch (NoResultException e) {
                 // No user found
                 emp = null;
@@ -125,18 +120,7 @@ public class SytemLoginController implements Initializable {
             } else {
                 System.out.println("Incorrect password");
             }
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            System.out.println("Error during login: " + e.getMessage());
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
-        }
+        });
     }
 
     private void setInitialState() {
