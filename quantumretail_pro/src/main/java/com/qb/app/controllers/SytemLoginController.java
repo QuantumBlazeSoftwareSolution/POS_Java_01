@@ -1,12 +1,17 @@
 package com.qb.app.controllers;
 
 import com.qb.app.App;
-import com.qb.app.model.HibernateUtil;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
+import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
+import com.qb.app.session.ApplicationSession;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -26,9 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import static com.qb.app.model.JPATransaction.runInTransaction;
 
 public class SytemLoginController implements Initializable {
 
@@ -68,26 +71,26 @@ public class SytemLoginController implements Initializable {
     }
 
     private void systemLogin() {
-        Session session = null;
-        Transaction transaction = null;
-
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-
-            CriteriaBuilder cBuildere = session.getCriteriaBuilder();
-            CriteriaQuery<Employee> cQuery = cBuildere.createQuery(Employee.class);
-            Root<Employee> employeeRoot = cQuery.from(Employee.class);
-
-            // Join with employeeRole (assumes proper mapping exists in Employee entity)
-//            Join<Employee, EmployeeRole> roleJoin = employeeRoot.join("employeeRoleId", JoinType.INNER);
+        runInTransaction((EntityManager em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+            Root<Employee> employeeRoot = cq.from(Employee.class);
 
             // Filter by username
-            Predicate usernamePredicate = cBuildere.equal(employeeRoot.get("username"), tfUsername.getText());
-            cQuery.where(usernamePredicate);
+            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), tfUsername.getText());
+            cq.where(usernamePredicate);
 
             // Execute query
-            Employee emp = session.createQuery(cQuery).uniqueResult();
+            TypedQuery<Employee> query = em.createQuery(cq);
+            Employee emp = null;
+            
+            try {
+                emp = query.getSingleResult();
+                ApplicationSession.setEmployee(emp); // save in session
+            } catch (NoResultException e) {
+                // No user found
+                emp = null;
+            }
 
             if (emp == null) {
                 System.out.println("No user found with this username");
@@ -97,7 +100,7 @@ public class SytemLoginController implements Initializable {
             String enteredPassword = tfPassword.getText();
 
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
-                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Fixed: assuming the relationship is named employeeRole
+                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
                 System.out.println("Login successful. Welcome " + role + ": " + emp.getName());
 
                 try {
@@ -117,18 +120,7 @@ public class SytemLoginController implements Initializable {
             } else {
                 System.out.println("Incorrect password");
             }
-
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            System.out.println("Error during login: " + e.getMessage());
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
+        });
     }
 
     private void setInitialState() {
