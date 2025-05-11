@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.EntityManagerCallBack;
 import com.qb.app.model.PasswordEncryption;
@@ -25,12 +26,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import static com.qb.app.model.JPATransaction.runInTransaction;
+import java.time.LocalTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 
-public class CashierSessionController implements Initializable {
+public class CashierSessionController implements Initializable, ControllerClose {
 
     //    <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -62,6 +65,7 @@ public class CashierSessionController implements Initializable {
     //    </editor-fold>
 
     private static boolean isSignIn;
+    private ScheduledExecutorService scheduler;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -99,9 +103,8 @@ public class CashierSessionController implements Initializable {
         alert.setContentText(message);
 
         // Add custom style class
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStyleClass().add("custom-alert");
-
+        // DialogPane dialogPane = alert.getDialogPane();
+        // dialogPane.getStyleClass().add("custom-alert");
         alert.show();
     }
 
@@ -274,14 +277,38 @@ public class CashierSessionController implements Initializable {
     }
 
     private void sessionTimer() {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
             System.out.println("Task executed at: " + new java.util.Date());
-            // Your repeating logic here
+            LocalTime now = LocalTime.now();
+            Platform.runLater(() -> {
+                sessionHours.setText(String.format("%02d", now.getHour()));
+                sessionMinutes.setText(String.format("%02d", now.getMinute()));
+                sessionAMPM.setText(now.getHour() < 12 ? "AM" : "PM");
+            });
         };
 
         // Start after 1 minute, repeat every 1 minute
         scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.MINUTES);
     }
+
+    @Override
+    public void close() {
+        if (scheduler != null) {
+            scheduler.shutdown(); // Disable new tasks from being submitted
+            try {
+                // Wait a while for existing tasks to terminate
+                if (!scheduler.awaitTermination(1, TimeUnit.SECONDS)) {
+                    scheduler.shutdownNow(); // Cancel currently executing tasks
+                }
+            } catch (InterruptedException e) {
+                // (Re-)Cancel if current thread also interrupted
+                scheduler.shutdownNow();
+                // Preserve interrupt status
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
 }

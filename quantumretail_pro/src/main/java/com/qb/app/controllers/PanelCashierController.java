@@ -2,6 +2,7 @@ package com.qb.app.controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.App;
+import com.qb.app.model.ControllerClose;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
@@ -79,6 +80,7 @@ public class PanelCashierController implements Initializable {
     // <editor-fold desc="Initial Variables" defaultstate="collapsed">
     private boolean isMenuCollapsed = false;
     private Cashier_top_panelController controller;
+    private Object currentController;
     // </editor-fold>
 
     @Override
@@ -202,11 +204,31 @@ public class PanelCashierController implements Initializable {
 
     private void changeCenterPanel(String fxml, String title) {
         try {
+            // 1. Close the previous controller (if exists and implements ControllerClose)
+            if (currentController != null && currentController instanceof ControllerClose) {
+                ((ControllerClose) currentController).close();
+            } else if (currentController != null && !(currentController instanceof ControllerClose)) {
+                throw new IllegalStateException(currentController.getClass().getSimpleName() + " Controllr class is not a instance of 'ControllerClose' interface. Please implement 'ControllerClose' interface that in 'com.qb.app.model.ControllerClose'");
+            }
+
+            // 2. Load the new FXML file
             FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
-            contentBorder.setCenter(panel.load());
+            Parent FXMLroot = panel.load(); // Must load FIRST before getting controller
+
+            // 3. Store the new controller
+            currentController = panel.getController(); // Now safe to access
+
+            // 4. Update the UI
+            contentBorder.setCenter(FXMLroot);
             controller.setTitle(title);
+
+            // Optional: Log the controller (if needed)
+            if (currentController != null) {
+                System.out.println("New controller: " + currentController.getClass().getSimpleName());
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error while excuting changeCenterPanel() " + e.getMessage());
+//            e.printStackTrace();
         }
     }
 

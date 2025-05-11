@@ -67,7 +67,7 @@ public class Product_registrationController implements Initializable {
         tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        
+
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
     }
 
@@ -141,5 +141,16 @@ public class Product_registrationController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnRegister) {
+            productRegister();
+        }
+    }
+
+    private void productRegister() {
+        
     }
 }

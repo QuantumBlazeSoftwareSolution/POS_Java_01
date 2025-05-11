@@ -3,13 +3,11 @@ package com.qb.app.controllers;
 import com.qb.app.App;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
-import com.qb.app.model.JpaUtil;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.session.ApplicationSession;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -32,6 +30,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import static com.qb.app.model.JPATransaction.runInTransaction;
+import javafx.scene.control.Alert;
 
 public class SytemLoginController implements Initializable {
 
@@ -59,6 +58,7 @@ public class SytemLoginController implements Initializable {
         setMouseEvent();
         setInitialState();
         setQBImage();
+        loadORM();
     }
 
     @FXML
@@ -83,7 +83,7 @@ public class SytemLoginController implements Initializable {
             // Execute query
             TypedQuery<Employee> query = em.createQuery(cq);
             Employee emp = null;
-            
+
             try {
                 emp = query.getSingleResult();
                 ApplicationSession.setEmployee(emp); // save in session
@@ -102,20 +102,30 @@ public class SytemLoginController implements Initializable {
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
                 String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
                 System.out.println("Login successful. Welcome " + role + ": " + emp.getName());
+                String status = emp.getEmployeeStatusId().getStatus();
 
-                try {
-                    switch (role) {
-                        case "admin" ->
-                            App.setRoot("panelAdmin");
-                        case "cashier" ->
-                            App.setRoot("panelCashier");
-                        case "developer" ->
-                            App.setRoot("panelDeveloper");
-                        default ->
-                            System.out.println("Unknown role: " + role);
+                if (status.equals("Active")) {
+                    try {
+                        switch (role) {
+                            case "admin" ->
+                                App.setRoot("panelAdmin");
+                            case "cashier" ->
+                                App.setRoot("panelCashier");
+                            case "developer" ->
+                                App.setRoot("panelDeveloper");
+                            default ->
+                                System.out.println("Unknown role: " + role);
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Navigation error: " + e.getMessage());
                     }
-                } catch (IOException e) {
-                    System.out.println("Navigation error: " + e.getMessage());
+                } else {
+                    System.out.println("Incorrect password");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("System Login Warning!!!");
+                    alert.setHeaderText("Inactive Employee");
+                    alert.setContentText("Your employee status is 'Inactive'. Please inform your supervisor");
+                    alert.show();
                 }
             } else {
                 System.out.println("Incorrect password");
@@ -144,5 +154,11 @@ public class SytemLoginController implements Initializable {
     private void setQBImage() {
         Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
         quantumBlazeIcon.setFill(new ImagePattern(image));
+    }
+
+    private void loadORM() {
+        runInTransaction((em) -> {
+            System.out.println("ORM is Loading.......");
+        });
     }
 }
