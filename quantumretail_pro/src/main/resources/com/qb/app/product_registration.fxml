@@ -249,7 +249,7 @@
                                        <children>
                                           <ImageView fx:id="productImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@assets/images/tomato.png" />
+                                                <Image url="@assets/images/new_product_image.png" />
                                              </image>
                                              <viewport>
                                                 <Rectangle2D />
@@ -267,7 +267,7 @@
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <VBox alignment="BOTTOM_LEFT" spacing="10.0">
                            <children>
-                              <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                              <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
                                  <styleClass>
                                     <String fx:value="button-primary-outline" />
                                     <String fx:value="primary-white" />
@@ -280,7 +280,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
+                              <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
                                  <styleClass>
                                     <String fx:value="button-primary" />
                                     <String fx:value="primary-white" />

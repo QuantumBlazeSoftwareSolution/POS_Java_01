@@ -32,7 +32,7 @@
                      <children>
                         <BorderPane maxWidth="400.0" prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                            <center>
-                              <Label styleClass="green-gradient" stylesheets="@css/style.css" text="2025" BorderPane.alignment="CENTER">
+                              <Label fx:id="labelYear" styleClass="green-gradient" stylesheets="@css/style.css" text="2025" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font name="Aptos Bold" size="52.0" />
                                  </font>
@@ -43,7 +43,7 @@
                            <children>
                               <BorderPane prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label styleClass="green-gradient" stylesheets="@css/style.css" text="Feb" BorderPane.alignment="CENTER">
+                                    <Label fx:id="labelMonth" styleClass="green-gradient" stylesheets="@css/style.css" text="Feb" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font name="Aptos Bold" size="52.0" />
                                        </font>
@@ -52,7 +52,7 @@
                               </BorderPane>
                               <BorderPane prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
                                  <center>
-                                    <Label styleClass="green-gradient" stylesheets="@css/style.css" text="27" BorderPane.alignment="CENTER">
+                                    <Label fx:id="labelDate" styleClass="green-gradient" stylesheets="@css/style.css" text="27" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font name="Aptos Bold" size="52.0" />
                                        </font>

@@ -18,7 +18,7 @@ public class UnitTestingVihanga {
 
     public static void main(String[] args) {
 //        testJPA();
-        getSessionDetails();
+//        getSessionDetails();
     }
 
     private static void testJPA() {
