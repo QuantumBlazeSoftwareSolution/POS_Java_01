@@ -158,7 +158,7 @@ public class SytemLoginController implements Initializable {
 
     private void loadORM() {
         runInTransaction((em) -> {
-            System.out.println("ORM is Loading.......");
+            System.out.println("ORM is Loaded");
         });
     }
 }

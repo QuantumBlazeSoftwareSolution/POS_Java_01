@@ -1,7 +1,16 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.ComboBoxUtils;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.entity.Brand;
+import com.qb.app.model.entity.ProductType;
+import com.qb.app.model.entity.ProductUnit;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -9,7 +18,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +31,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +48,7 @@ public class Product_registrationController implements Initializable {
     @FXML
     private TextField tfBarCode;
     @FXML
-    private ComboBox<?> cbBrand;
+    private ComboBox<Brand> cbBrand;
     @FXML
     private TextField tfSalePrice;
     @FXML
@@ -40,11 +56,11 @@ public class Product_registrationController implements Initializable {
     @FXML
     private TextField tfDiscount;
     @FXML
-    private ComboBox<?> cbUnit;
+    private ComboBox<ProductUnit> cbUnit;
     @FXML
     private TextField tfMeasure;
     @FXML
-    private ComboBox<?> cbType;
+    private ComboBox<ProductType> cbType;
     @FXML
     private TextField tfParentID;
     @FXML
@@ -69,6 +85,7 @@ public class Product_registrationController implements Initializable {
         tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
 
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+        loadComboBoxData();
     }
 
     @FXML
@@ -91,7 +108,7 @@ public class Product_registrationController implements Initializable {
                 displayImage(destPath);
 
             } catch (IOException e) {
-                showErrorAlert("Error saving image", e.getMessage());
+                CustomAlert.showStyledAlert(e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
             }
         }
     }
@@ -126,7 +143,7 @@ public class Product_registrationController implements Initializable {
             //     "/com/qb/app/assets/images/product/" + Paths.get(imagePath).getFileName()));
             productImage.setImage(image);
         } catch (Exception e) {
-            showErrorAlert("Error loading image", e.getMessage());
+            CustomAlert.showStyledAlert(e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
         }
     }
 
@@ -135,14 +152,13 @@ public class Product_registrationController implements Initializable {
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex);
     }
 
-    private void showErrorAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
+//    private void showErrorAlert(String title, String message) {
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle(title);
+//        alert.setHeaderText(null);
+//        alert.setContentText(message);
+//        alert.showAndWait();
+//    }
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnRegister) {
@@ -151,6 +167,55 @@ public class Product_registrationController implements Initializable {
     }
 
     private void productRegister() {
-        
+        if (IsProductValid()) {
+
+        }
+    }
+
+    private boolean IsProductValid() {
+        boolean status = false;
+        if (tfItemName.getText().isEmpty() || tfItemName.getText().equals("")) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else if (tfBarCode.getText().isEmpty() || tfBarCode.getText().equals("")) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else if (tfSalePrice.getText().isEmpty() || tfSalePrice.getText().equals("")) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else if (!DefaultAPI.isDouble(tfSalePrice.getText())) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else if (tfCostPrice.getText().isEmpty() || tfCostPrice.getText().equals("")) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else if (!tfDiscount.getText().isEmpty()) {
+            if (!DefaultAPI.isDouble(tfDiscount.getText())) {
+                CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+            }
+        } else if (tfMeasure.getText().isEmpty() || tfMeasure.getText().equals("")) {
+            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
+        } else {
+            status = true;
+        }
+        return status;
+    }
+
+    private void loadComboBoxData() {
+        loadBrandList();
+    }
+
+    private void loadBrandList() {
+        try {
+            JPATransaction.runInTransaction((em) -> {
+                CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+                CriteriaQuery<Brand> cQuery = cBuilder.createQuery(Brand.class);
+                Root<Brand> brandTable = cQuery.from(Brand.class);
+                cQuery.orderBy(cBuilder.asc(brandTable.get("brand")));
+                List<Brand> brandList = em.createQuery(cQuery).getResultList();
+
+                // add items to comboBox
+                ComboBoxUtils.configureComboBox(cbBrand, brandList, Brand::getBrand);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

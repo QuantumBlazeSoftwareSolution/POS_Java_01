@@ -1,5 +1,6 @@
 package com.qb.app.model;
 
+import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
 import jakarta.persistence.EntityManager;
@@ -12,6 +13,8 @@ import jakarta.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.hibernate.HibernateException;
 
 public class UnitTestingVihanga {
@@ -19,6 +22,7 @@ public class UnitTestingVihanga {
     public static void main(String[] args) {
 //        testJPA();
 //        getSessionDetails();
+        loadComboBoxData();
     }
 
     private static void testJPA() {
@@ -90,6 +94,27 @@ public class UnitTestingVihanga {
             if (em != null && em.isOpen()) {
                 em.close();
             }
+        }
+    }
+
+    private static void loadComboBoxData() {
+        try {
+            JPATransaction.runInTransaction((em) -> {
+                CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+                CriteriaQuery<Brand> cQuery = cBuilder.createQuery(Brand.class);
+                Root<Brand> brandTable = cQuery.from(Brand.class);
+
+                cQuery.orderBy(cBuilder.asc(brandTable.get("brand")));
+
+                List<Brand> brandList = em.createQuery(cQuery).getResultList();
+
+                ObservableList<Brand> observableList = FXCollections.observableArrayList(brandList);
+                for (Brand brand : observableList) {
+                    System.out.println(brand.getBrand());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
