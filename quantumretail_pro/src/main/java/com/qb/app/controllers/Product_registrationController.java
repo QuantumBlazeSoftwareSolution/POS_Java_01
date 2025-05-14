@@ -6,24 +6,29 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Brand;
+import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
+import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.ProductUnit;
+import com.qb.app.model.entity.Stock;
+import com.qb.app.model.entity.Store;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,12 +36,13 @@ import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 public class Product_registrationController implements Initializable {
 
@@ -71,7 +77,11 @@ public class Product_registrationController implements Initializable {
     private Button btnClear;
     @FXML
     private Button btnRegister;
+    @FXML
+    private Label registrationMessage;
 //    </editor-fold>
+
+    private File selectedImageFile; // Stores the selected image file temporarily
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,24 +101,18 @@ public class Product_registrationController implements Initializable {
     @FXML
     private void handleFileChooser(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif")
+        );
 
-        // Set extension filters
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter(
-                "Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif");
-        fileChooser.getExtensionFilters().add(imageFilter);
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-        if (selectedFile != null) {
+        selectedImageFile = fileChooser.showOpenDialog(null);
+        if (selectedImageFile != null) {
             try {
-                // 1. Save to resources folder
-                String destPath = saveToResources(selectedFile);
-
-                // 2. Display in ImageView
-                displayImage(destPath);
-
-            } catch (IOException e) {
-                CustomAlert.showStyledAlert(e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
+                // Display preview
+                productImage.setImage(new Image(selectedImageFile.toURI().toString()));
+            } catch (Exception e) {
+                CustomAlert.showStyledAlert("Error loading image: " + e.getMessage(),
+                        "Image Error", Alert.AlertType.ERROR);
             }
         }
     }
@@ -152,70 +156,326 @@ public class Product_registrationController implements Initializable {
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex);
     }
 
-//    private void showErrorAlert(String title, String message) {
-//        Alert alert = new Alert(Alert.AlertType.ERROR);
-//        alert.setTitle(title);
-//        alert.setHeaderText(null);
-//        alert.setContentText(message);
-//        alert.showAndWait();
-//    }
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnRegister) {
             productRegister();
+        } else if (event.getSource() == btnClear) {
+            clearRegistrationField();
         }
     }
 
     private void productRegister() {
         if (IsProductValid()) {
-
+            if (!isProductExist()) {
+                if (cbType.getValue().getType().equals("Child")) {
+                    if (tfParentID.getText().isEmpty()) {
+                        displayRegistrationMessage("Parent ID is required for Child Products. Please enter the parent product ID.", false);
+                    } else {
+                        // Register child product
+                        saveProduct("Child");
+                    }
+                } else if (cbType.getValue().getType().equals("Parent")) {
+                    // Register parent product
+                    saveProduct("parent");
+                }
+            } else {
+                displayRegistrationMessage("Product with this name or barcode already exists!", false);
+            }
         }
     }
 
     private boolean IsProductValid() {
-        boolean status = false;
-        if (tfItemName.getText().isEmpty() || tfItemName.getText().equals("")) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else if (tfBarCode.getText().isEmpty() || tfBarCode.getText().equals("")) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else if (tfSalePrice.getText().isEmpty() || tfSalePrice.getText().equals("")) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else if (!DefaultAPI.isDouble(tfSalePrice.getText())) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else if (tfCostPrice.getText().isEmpty() || tfCostPrice.getText().equals("")) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else if (!tfDiscount.getText().isEmpty()) {
-            if (!DefaultAPI.isDouble(tfDiscount.getText())) {
-                CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-            }
-        } else if (tfMeasure.getText().isEmpty() || tfMeasure.getText().equals("")) {
-            CustomAlert.showStyledAlert("Product name is required.", Alert.AlertType.WARNING);
-        } else {
-            status = true;
+        if (tfItemName.getText().isEmpty()) {
+            displayRegistrationMessage("Product name is required.", false);
+            tfItemName.requestFocus();
+            return false;
         }
-        return status;
+
+        if (tfBarCode.getText().isEmpty()) {
+            displayRegistrationMessage("Barcode is required.", false);
+            tfBarCode.requestFocus();
+            return false;
+        }
+
+        if (tfSalePrice.getText().isEmpty()) {
+            displayRegistrationMessage("Sale price is required.", false);
+            tfSalePrice.requestFocus();
+            return false;
+        }
+
+        if (!DefaultAPI.isDouble(tfSalePrice.getText())) {
+            displayRegistrationMessage("Invalid sale price format.", false);
+            tfSalePrice.requestFocus();
+            return false;
+        }
+
+        if (tfCostPrice.getText().isEmpty()) {
+            displayRegistrationMessage("Cost price is required.", false);
+            tfCostPrice.requestFocus();
+            return false;
+        }
+
+        if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
+            displayRegistrationMessage("Invalid cost price format.", false);
+            tfCostPrice.requestFocus();
+            return false;
+        }
+
+        if (!tfDiscount.getText().isEmpty() && !DefaultAPI.isDouble(tfDiscount.getText())) {
+            displayRegistrationMessage("Invalid discount format.", false);
+            tfDiscount.requestFocus();
+            return false;
+        }
+
+        if (tfMeasure.getText().isEmpty()) {
+            displayRegistrationMessage("Measurement is required.", false);
+            tfMeasure.requestFocus();
+            return false;
+        }
+
+        if (cbBrand.getValue() == null) {
+            displayRegistrationMessage("Please select a brand.", false);
+            cbBrand.requestFocus();
+            return false;
+        }
+
+        if (cbUnit.getValue() == null) {
+            displayRegistrationMessage("Please select a unit.", false);
+            cbUnit.requestFocus();
+            return false;
+        }
+
+        if (cbType.getValue() == null) {
+            displayRegistrationMessage("Please select a product type.", false);
+            cbType.requestFocus();
+            return false;
+        }
+
+        // Additional validations
+        double salePrice = Double.parseDouble(tfSalePrice.getText());
+        double costPrice = Double.parseDouble(tfCostPrice.getText());
+
+        if (salePrice <= 0) {
+            displayRegistrationMessage("Sale price must be greater than 0.", false);
+            tfSalePrice.requestFocus();
+            return false;
+        }
+
+        if (costPrice <= 0) {
+            displayRegistrationMessage("Cost price must be greater than 0.", false);
+            tfCostPrice.requestFocus();
+            return false;
+        }
+
+        if (salePrice < costPrice) {
+            displayRegistrationMessage("Sale price cannot be less than cost price.", false);
+            tfSalePrice.requestFocus();
+            return false;
+        }
+
+        if (!tfDiscount.getText().isEmpty()) {
+            double discount = Double.parseDouble(tfDiscount.getText());
+            if (discount < 0 || discount >= 100) {
+                displayRegistrationMessage("Discount must be between 0 and 100%.", false);
+                tfDiscount.requestFocus();
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void loadComboBoxData() {
-        loadBrandList();
+        ComboBoxUtils.loadComboBoxValues(cbBrand, Brand.class, "brand", Brand::getBrand);
+        ComboBoxUtils.loadComboBoxValues(cbUnit, ProductUnit.class, "unit", ProductUnit::getUnit);
+        ComboBoxUtils.loadComboBoxValues(cbType, ProductType.class, "type", ProductType::getType);
+
+        // Set default selection to "Parent" after loading
+        Platform.runLater(() -> {
+            cbType.getItems().stream()
+                    .filter(type -> "Parent".equals(type.getType()))
+                    .findFirst()
+                    .ifPresent(parentType -> cbType.getSelectionModel().select(parentType));
+        });
     }
 
-    private void loadBrandList() {
-        try {
-            JPATransaction.runInTransaction((em) -> {
-                CriteriaBuilder cBuilder = em.getCriteriaBuilder();
-                CriteriaQuery<Brand> cQuery = cBuilder.createQuery(Brand.class);
-                Root<Brand> brandTable = cQuery.from(Brand.class);
-                cQuery.orderBy(cBuilder.asc(brandTable.get("brand")));
-                List<Brand> brandList = em.createQuery(cQuery).getResultList();
+    private boolean isProductExist() {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Product> cQuery = cBuilder.createQuery(Product.class);
+            Root<Product> productTable = cQuery.from(Product.class);
 
-                // add items to comboBox
-                ComboBoxUtils.configureComboBox(cbBrand, brandList, Brand::getBrand);
-            });
+            Predicate productPredicate1 = cBuilder.equal(
+                    cBuilder.lower(productTable.get("product")),
+                    tfItemName.getText().toLowerCase()
+            );
+
+            Predicate productPredicate2 = cBuilder.equal(
+                    cBuilder.lower(productTable.get("barCode")),
+                    tfBarCode.getText().toLowerCase()
+            );
+
+            // Use OR instead of AND
+            cQuery.where(cBuilder.or(productPredicate1, productPredicate2));
+
+            return !em.createQuery(cQuery).getResultList().isEmpty();
+        });
+    }
+
+    private ProductStatus getProductStatus() {
+        return JPATransaction.runInTransaction((em) -> {
+            try {
+                // Using JPA Criteria API
+                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaQuery<ProductStatus> cq = cb.createQuery(ProductStatus.class);
+                Root<ProductStatus> root = cq.from(ProductStatus.class);
+
+                cq.where(cb.equal(root.get("status"), "Enable"));
+
+                return em.createQuery(cq).getSingleResult();
+
+            } catch (NoResultException e) {
+                // Handle case where no "Enable" status exists
+                System.err.println("No ProductStatus with status='Enable' found");
+                return null;
+            }
+        });
+    }
+
+    private void clearRegistrationField() {
+        cbBrand.setValue(null);
+        cbUnit.setValue(null);
+        cbType.setValue(null);
+        cbBrand.setPromptText("Ex: Munche");
+        cbUnit.setPromptText("Select Unit");
+        cbType.setPromptText("Select Type");
+        tfBarCode.setText("");
+        tfCostPrice.setText("");
+        tfDiscount.setText("");
+        tfItemName.setText("");
+        tfMeasure.setText("");
+        tfParentID.setText("");
+        tfSalePrice.setText("");
+        loadDefaultImage();
+    }
+
+    private void loadDefaultImage() {
+        try {
+            // Absolute path from classpath root
+            String imagePath = "/com/qb/app/assets/images/new_product_image.png";
+            InputStream stream = getClass().getResourceAsStream(imagePath);
+
+            if (stream != null) {
+                productImage.setImage(new Image(stream));
+            } else {
+                System.err.println("Image not found: " + imagePath);
+                productImage.setImage(null); // Clear or set placeholder
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            productImage.setImage(null);
         }
+    }
+
+    private void saveProduct(String type) {
+        JPATransaction.runInTransaction((em) -> {
+            try {
+                Product parentProduct = null;
+                if (type.equals("Child")) {
+                    parentProduct = em.find(Product.class, tfParentID.getText());
+                    if (parentProduct == null) {
+//                        CustomAlert.showStyledAlert("No parent product found with ID: " + tfParentID.getText(), Alert.AlertType.WARNING);
+                        displayRegistrationMessage("No parent product found with ID: " + tfParentID.getText(), false);
+                        tfParentID.requestFocus();
+                        return;
+                    }
+                }
+
+                // save new product
+                Product product = new Product();
+                product.setProduct(tfItemName.getText());
+                product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
+                product.setCostPrice(Double.parseDouble(tfCostPrice.getText()));
+                product.setDiscount(tfDiscount.getText().isEmpty() ? 0.0
+                        : Double.parseDouble(tfDiscount.getText()));
+                product.setMeasure(Float.parseFloat(tfMeasure.getText()));
+                product.setBarCode(tfBarCode.getText());
+                product.setProductUnitId(cbUnit.getValue());
+                product.setBrandId(cbBrand.getValue());
+                product.setProductStatusId(getProductStatus());
+                em.persist(product);
+                System.out.println("New Product Saved");
+
+                // save new product's product_has_product_type
+                ProductHasProductType productHasProductType = new ProductHasProductType();
+                productHasProductType.setProductId(product);
+                productHasProductType.setProductTypeId(cbType.getValue());
+                // check if this product is a parent product or a child product
+                if (type.equals("Child")) {
+                    productHasProductType.setReferenceId(parentProduct);
+                } else {
+                    productHasProductType.setReferenceId(product);
+                }
+                em.persist(productHasProductType);
+                System.out.println("New Product Saved");
+
+                if (selectedImageFile != null) {
+                    String extension = getFileExtension(selectedImageFile.getName());
+                    String imageName = "product_" + product.getId() + "_" + System.currentTimeMillis() + extension;
+                    String imagePath = saveProductImage(selectedImageFile, imageName);
+                    System.out.println("Image saved to: " + imagePath);
+                }
+
+                // save this product in the store
+                Store store = new Store();
+                store.setProductId(product);
+                store.setQty(0);
+                em.persist(store);
+                System.out.println("Save this product in the 'Store'");
+
+                // save this product in the stock
+                Stock stock = new Stock();
+                stock.setProductId(product);
+                stock.setQty(0);
+                em.persist(stock);
+                System.out.println("Save this product in the 'Stock'");
+
+                displayRegistrationMessage("Product successfully added to inventory.", true);
+
+                clearRegistrationField();
+            } catch (NumberFormatException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private String saveProductImage(File sourceFile, String fileName) throws IOException {
+        String targetDir = "src/main/resources/com/qb/app/assets/images/product/";
+        Path dirPath = Paths.get(targetDir);
+
+        if (!Files.exists(dirPath)) {
+            Files.createDirectories(dirPath);
+        }
+
+        Path destination = Paths.get(targetDir + fileName);
+        Files.copy(sourceFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+        return destination.toString();
+    }
+
+    private void displayRegistrationMessage(String message, boolean action) {
+        if (action) {
+            registrationMessage.setStyle("-fx-text-fill: #0D9F00;"); // Green
+        } else {
+            registrationMessage.setStyle("-fx-text-fill: #FF3333;"); // Red
+        }
+        // Set professional message
+        registrationMessage.setText(message);
+
+        // Schedule message clearance
+        PauseTransition delay = new PauseTransition(Duration.seconds(10));
+        delay.setOnFinished(event -> registrationMessage.setText(""));
+        delay.play();
     }
 }

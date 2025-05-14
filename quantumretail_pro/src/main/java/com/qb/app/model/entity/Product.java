@@ -67,9 +67,9 @@ public class Product implements Serializable {
     private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<RefundItem> refundItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "childProduct")
-    private Collection<Costing> costingCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentProduct")
+    private Collection<Costing> costingCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "childProduct")
     private Collection<Costing> costingCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<SupplierDamageReturnItem> supplierDamageReturnItemCollection;
@@ -81,15 +81,16 @@ public class Product implements Serializable {
     private Collection<GrnItem> grnItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<InvoiceItem> invoiceItemCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<ProductHasProductType> productHasProductTypeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "referenceId")
+    private Collection<ProductHasProductType> productHasProductTypeCollection1;
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Brand brandId;
     @JoinColumn(name = "product_status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ProductStatus productStatusId;
-    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private ProductType productTypeId;
     @JoinColumn(name = "product_unit_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ProductUnit productUnitId;
@@ -253,6 +254,22 @@ public class Product implements Serializable {
         this.invoiceItemCollection = invoiceItemCollection;
     }
 
+    public Collection<ProductHasProductType> getProductHasProductTypeCollection() {
+        return productHasProductTypeCollection;
+    }
+
+    public void setProductHasProductTypeCollection(Collection<ProductHasProductType> productHasProductTypeCollection) {
+        this.productHasProductTypeCollection = productHasProductTypeCollection;
+    }
+
+    public Collection<ProductHasProductType> getProductHasProductTypeCollection1() {
+        return productHasProductTypeCollection1;
+    }
+
+    public void setProductHasProductTypeCollection1(Collection<ProductHasProductType> productHasProductTypeCollection1) {
+        this.productHasProductTypeCollection1 = productHasProductTypeCollection1;
+    }
+
     public Brand getBrandId() {
         return brandId;
     }
@@ -267,14 +284,6 @@ public class Product implements Serializable {
 
     public void setProductStatusId(ProductStatus productStatusId) {
         this.productStatusId = productStatusId;
-    }
-
-    public ProductType getProductTypeId() {
-        return productTypeId;
-    }
-
-    public void setProductTypeId(ProductType productTypeId) {
-        this.productTypeId = productTypeId;
     }
 
     public ProductUnit getProductUnitId() {

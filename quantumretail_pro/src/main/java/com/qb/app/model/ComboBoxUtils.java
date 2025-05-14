@@ -4,8 +4,12 @@
  */
 package com.qb.app.model;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.function.Function;
+import javafx.application.Platform;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 
@@ -44,5 +48,26 @@ public class ComboBoxUtils {
                 setText(empty || item == null ? null : displayProperty.apply(item));
             }
         });
+    }
+
+    public static <T> void loadComboBoxValues(ComboBox<T> comboBox,
+            Class<T> entityClass,
+            String sortProperty,
+            Function<T, String> displayProperty) {
+        try {
+            JPATransaction.runInTransaction((em) -> {
+                CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+                CriteriaQuery<T> cQuery = cBuilder.createQuery(entityClass);
+                Root<T> root = cQuery.from(entityClass);
+                cQuery.orderBy(cBuilder.asc(root.get(sortProperty)));
+                List<T> items = em.createQuery(cQuery).getResultList();
+
+                Platform.runLater(() -> {
+                    ComboBoxUtils.configureComboBox(comboBox, items, displayProperty);
+                });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

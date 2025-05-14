@@ -30,12 +30,12 @@
                <children>
                   <VBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="employeeName" styleClass="admin-primary-blue" stylesheets="@../css/adminStyle.css" text="Vihanga Heshan">
+                        <Label fx:id="employeeName" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Vihanga Heshan">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="employeeType" layoutX="10.0" layoutY="10.0" styleClass="admin-primary-blue" stylesheets="@../css/adminStyle.css" text="Admin" />
+                        <Label fx:id="employeeType" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Admin" />
                      </children>
                      <padding>
                         <Insets bottom="6.0" top="6.0" />

@@ -58,7 +58,7 @@ public class Session implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "collection")
     private Double collection;
-    @Column(name = "status", length = 3)
+    @Column(name = "status")
     private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
     private Collection<CloseSale> closeSaleCollection;
@@ -117,20 +117,20 @@ public class Session implements Serializable {
         this.pettyCash = pettyCash;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Double getCollection() {
         return collection;
     }
 
     public void setCollection(Double collection) {
         this.collection = collection;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Collection<CloseSale> getCloseSaleCollection() {
@@ -197,5 +197,5 @@ public class Session implements Serializable {
     public String toString() {
         return "com.qb.app.model.entity.Session[ id=" + id + " ]";
     }
-
+    
 }

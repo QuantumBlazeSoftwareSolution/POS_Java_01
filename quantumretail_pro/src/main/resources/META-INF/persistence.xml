@@ -53,6 +53,8 @@
     <class>com.qb.app.model.entity.Employee</class>
     <class>com.qb.app.model.entity.EmployeeRoleType</class>
     <class>com.qb.app.model.entity.Stock</class>
+    <class>com.qb.app.model.entity.Ctrl_1</class>
+    <class>com.qb.app.model.entity.ProductHasProductType</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quantum_retail_pro?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="jakarta.persistence.jdbc.user" value="root"/>
