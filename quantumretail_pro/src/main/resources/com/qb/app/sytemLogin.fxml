@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" maxWidth="700.0" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
+<AnchorPane id="AnchorPane" fx:id="root" maxWidth="700.0" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
     <children>
         <HBox maxWidth="700.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -77,7 +77,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="tfUsername" prefHeight="40.0" promptText="Ex: John Doe" />
+                                        <TextField fx:id="tfUsername" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: John Doe" />
                                     </children>
                                 </VBox>
                                 <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
@@ -87,7 +87,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
-                                        <PasswordField fx:id="tfPassword" prefHeight="40.0" promptText="Ex: Aa12@#" />
+                                        <PasswordField fx:id="tfPassword" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: Aa12@#" />
                                     </children>
                                 </VBox>
                                 <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
