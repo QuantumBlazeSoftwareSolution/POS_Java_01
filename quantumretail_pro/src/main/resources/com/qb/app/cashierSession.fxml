@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierSessionController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierSessionController">
    <children>
       <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -40,7 +40,7 @@
                            <children>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" stylesheets="@css/style.css">
                                  <center>
-                                    <Label styleClass="primary-white" stylesheets="@css/style.css" text="07" BorderPane.alignment="CENTER">
+                                    <Label fx:id="sessionHours" styleClass="primary-white" stylesheets="@css/style.css" text="07" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font name="Aptos Bold" size="72.0" />
                                        </font>
@@ -54,7 +54,7 @@
                               </Label>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" stylesheets="@css/style.css">
                                  <center>
-                                    <Label styleClass="primary-white" stylesheets="@css/style.css" text="35" BorderPane.alignment="CENTER">
+                                    <Label fx:id="sessionMinutes" styleClass="primary-white" stylesheets="@css/style.css" text="35" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font name="Aptos Bold" size="72.0" />
                                        </font>
@@ -68,7 +68,7 @@
                               </Label>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" stylesheets="@css/style.css">
                                  <center>
-                                    <Label styleClass="primary-white" stylesheets="@css/style.css" text="AM" BorderPane.alignment="CENTER">
+                                    <Label fx:id="sessionAMPM" styleClass="primary-white" stylesheets="@css/style.css" text="AM" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font name="Aptos Bold" size="72.0" />
                                        </font>
@@ -81,7 +81,7 @@
                            <children>
                               <VBox prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Already Sign In for Today">
+                                    <Button fx:id="signInMessage" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="...">
                                        <styleClass>
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary-20" />
@@ -98,7 +98,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignInUsername" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -113,7 +113,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <PasswordField prefHeight="40.0" stylesheets="@css/style.css">
+                                          <PasswordField fx:id="tfSignInPassword" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -128,7 +128,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignInPettyCash" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -137,7 +137,7 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Sign In">
+                                    <Button fx:id="btnSignIn" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Sign In">
                                        <styleClass>
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary" />
@@ -155,7 +155,7 @@
                               <Separator orientation="VERTICAL" prefHeight="200.0" stylesheets="@css/style.css" />
                               <VBox prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Waiting for Sign Off">
+                                    <Button fx:id="signOffMessage" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="...">
                                        <styleClass>
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary-20" />
@@ -172,7 +172,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignOffUsername" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -187,7 +187,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <PasswordField prefHeight="40.0" stylesheets="@css/style.css">
+                                          <PasswordField fx:id="tfSignOffPassword" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -202,7 +202,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignOffCollection" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -211,7 +211,7 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Sign Off">
+                                    <Button fx:id="btnSignOff" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Sign Off">
                                        <styleClass>
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary" />

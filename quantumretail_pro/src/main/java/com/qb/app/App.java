@@ -1,5 +1,6 @@
 package com.qb.app;
 
+import com.qb.app.model.ControllerClose;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage primaryStage;
+    private static Object currentController; // Store current controller
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,11 +29,28 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
+        // Call close() on previous controller if applicable
+        if (currentController instanceof ControllerClose controllerClose) {
+            System.out.println("instanceof ControllerClose: Going to trigger close method.");
+            controllerClose.close();
+        } else {
+            System.out.println("Not instanceof ControllerClose");
+        }
+
+        // Load new FXML
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        Parent root = fxmlLoader.load();
+
+        // Save the new controller
+        currentController = fxmlLoader.getController();
+
+        // Load additional stylesheets if needed
         if (fxml.equals("panelAdmin")) {
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/annualSaleChartDesign.css").toExternalForm());
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/adminStyle.css").toExternalForm());
         }
-        scene.setRoot(loadFXML(fxml));
+
+        scene.setRoot(root);
         primaryStage.sizeToScene();
         primaryStage.setMaximized(true);
         primaryStage.setFullScreen(true);
@@ -41,11 +60,12 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent root = fxmlLoader.load();
+        currentController = fxmlLoader.getController(); // Store the initial controller
+        return root;
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }

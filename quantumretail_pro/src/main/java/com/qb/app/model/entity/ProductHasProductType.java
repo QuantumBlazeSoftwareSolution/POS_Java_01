@@ -22,11 +22,11 @@ import java.io.Serializable;
  * @author Vihanga
  */
 @Entity
-@Table(name = "costing")
+@Table(name = "product_has_product_type")
 @NamedQueries({
-    @NamedQuery(name = "Costing.findAll", query = "SELECT c FROM Costing c"),
-    @NamedQuery(name = "Costing.findById", query = "SELECT c FROM Costing c WHERE c.id = :id")})
-public class Costing implements Serializable {
+    @NamedQuery(name = "ProductHasProductType.findAll", query = "SELECT p FROM ProductHasProductType p"),
+    @NamedQuery(name = "ProductHasProductType.findById", query = "SELECT p FROM ProductHasProductType p WHERE p.id = :id")})
+public class ProductHasProductType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,17 +34,20 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product parentProduct;
-    @JoinColumn(name = "child_product", referencedColumnName = "id")
+    private Product productId;
+    @JoinColumn(name = "reference_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product childProduct;
+    private Product referenceId;
+    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ProductType productTypeId;
 
-    public Costing() {
+    public ProductHasProductType() {
     }
 
-    public Costing(Integer id) {
+    public ProductHasProductType(Integer id) {
         this.id = id;
     }
 
@@ -56,20 +59,28 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
+    public Product getProductId() {
+        return productId;
     }
 
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
 
-    public Product getChildProduct() {
-        return childProduct;
+    public Product getReferenceId() {
+        return referenceId;
     }
 
-    public void setChildProduct(Product childProduct) {
-        this.childProduct = childProduct;
+    public void setReferenceId(Product referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public ProductType getProductTypeId() {
+        return productTypeId;
+    }
+
+    public void setProductTypeId(ProductType productTypeId) {
+        this.productTypeId = productTypeId;
     }
 
     @Override
@@ -82,10 +93,10 @@ public class Costing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Costing)) {
+        if (!(object instanceof ProductHasProductType)) {
             return false;
         }
-        Costing other = (Costing) object;
+        ProductHasProductType other = (ProductHasProductType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +105,7 @@ public class Costing implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Costing[ id=" + id + " ]";
+        return "com.qb.app.model.entity.ProductHasProductType[ id=" + id + " ]";
     }
     
 }

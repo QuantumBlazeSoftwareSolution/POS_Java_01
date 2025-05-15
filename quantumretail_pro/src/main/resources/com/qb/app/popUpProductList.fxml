@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpProductListController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpProductListController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -31,10 +31,13 @@
                      </font>
                   </Label>
                   <Pane HBox.hgrow="ALWAYS" />
-                  <BorderPane prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
+                  <BorderPane onMouseClicked="#closePopUp" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
                      <center>
                         <Group fx:id="closeIcon" BorderPane.alignment="CENTER" />
                      </center>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </BorderPane>
                </children>
             </HBox>
@@ -50,9 +53,9 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0">
+                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyPressed="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
                                  <font>
-                                    <Font name="Aptos" size="1.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font></TextField>
                            </children>
                         </VBox>
@@ -77,7 +80,7 @@
                            <children>
                               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
                                  <content>
-                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-radius: 6px; -fx-border-width: 0 0.5 0 0.5;" styleClass="primary-border" stylesheets="@css/adminStyle.css">
                                        <children>
                                           <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
@@ -193,7 +196,7 @@
                               </ScrollPane>
                               <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <VBox fx:id="TableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
+                                    <VBox fx:id="TableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
                                  </content>
                               </ScrollPane>
                            </children>

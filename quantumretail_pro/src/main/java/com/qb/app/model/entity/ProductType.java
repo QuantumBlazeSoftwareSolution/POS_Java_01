@@ -40,7 +40,7 @@ public class ProductType implements Serializable {
     @Column(name = "type")
     private String type;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productTypeId")
-    private Collection<Product> productCollection;
+    private Collection<ProductHasProductType> productHasProductTypeCollection;
 
     public ProductType() {
     }
@@ -70,12 +70,12 @@ public class ProductType implements Serializable {
         this.type = type;
     }
 
-    public Collection<Product> getProductCollection() {
-        return productCollection;
+    public Collection<ProductHasProductType> getProductHasProductTypeCollection() {
+        return productHasProductTypeCollection;
     }
 
-    public void setProductCollection(Collection<Product> productCollection) {
-        this.productCollection = productCollection;
+    public void setProductHasProductTypeCollection(Collection<ProductHasProductType> productHasProductTypeCollection) {
+        this.productHasProductTypeCollection = productHasProductTypeCollection;
     }
 
     @Override

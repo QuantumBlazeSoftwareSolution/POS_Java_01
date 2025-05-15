@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.ControllerClose;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
-public class CashierRefundController implements Initializable {
+public class CashierRefundController implements Initializable, ControllerClose {
 
     @FXML
     private VBox refundItemContainer;
@@ -52,6 +53,10 @@ public class CashierRefundController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void close() {
     }
 
 }

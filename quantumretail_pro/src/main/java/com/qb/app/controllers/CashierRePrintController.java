@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
 import java.io.IOException;
 import java.net.URL;
@@ -11,10 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class CashierRePrintController implements Initializable {
+public class CashierRePrintController implements Initializable, ControllerClose {
 
     @FXML
     private VBox rePrintInvoiceItemContainer;
@@ -46,5 +46,9 @@ public class CashierRePrintController implements Initializable {
         
         DefaultAPI.bindTableScroll(rePrintInvoiceScroller, rePrintInvoiceScrollContainer, rePrintItemContainer);
         DefaultAPI.bindTableScroll(rePrintInvoiceItemScroller, rePrintInvoiceItemScrollContainer, rePrintInvoiceItemContainer);
+    }
+
+    @Override
+    public void close() {
     }
 }

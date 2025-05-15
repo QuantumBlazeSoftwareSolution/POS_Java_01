@@ -30,7 +30,8 @@ import java.util.Collection;
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
     @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
-    @NamedQuery(name = "Employee.findByUsername", query = "SELECT e FROM Employee e WHERE e.username = :username")})
+    @NamedQuery(name = "Employee.findByUsername", query = "SELECT e FROM Employee e WHERE e.username = :username"),
+    @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -72,7 +73,7 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(Integer id, String name, String username, String password, int employeePanelId) {
+    public Employee(Integer id, String name, String username, String password) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -191,5 +192,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "com.qb.app.model.entity.Employee[ id=" + id + " ]";
     }
-
+    
 }

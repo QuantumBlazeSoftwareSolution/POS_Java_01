@@ -19,7 +19,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Management">
@@ -47,12 +47,12 @@
                               </Label>
                               <VBox prefWidth="100.0">
                                  <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Item Name">
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Name">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="tfPrimaryBrandName" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -61,7 +61,7 @@
                               </VBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                    <Button fx:id="btnPrimaryClear" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
@@ -74,7 +74,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
+                                    <Button fx:id="btnPrimaryRegister" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />

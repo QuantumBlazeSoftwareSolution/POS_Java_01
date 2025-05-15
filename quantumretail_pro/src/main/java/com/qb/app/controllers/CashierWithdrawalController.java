@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers;
 
+import com.qb.app.model.ControllerClose;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -13,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Vihanga
  */
-public class CashierWithdrawalController implements Initializable {
+public class CashierWithdrawalController implements Initializable, ControllerClose {
 
     /**
      * Initializes the controller class.
@@ -22,5 +23,8 @@ public class CashierWithdrawalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
+
+    @Override
+    public void close() {
+    }    
 }

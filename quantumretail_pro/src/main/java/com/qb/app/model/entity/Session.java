@@ -35,7 +35,8 @@ import java.util.Date;
     @NamedQuery(name = "Session.findByDayInTime", query = "SELECT s FROM Session s WHERE s.dayInTime = :dayInTime"),
     @NamedQuery(name = "Session.findByDayOutTime", query = "SELECT s FROM Session s WHERE s.dayOutTime = :dayOutTime"),
     @NamedQuery(name = "Session.findByPettyCash", query = "SELECT s FROM Session s WHERE s.pettyCash = :pettyCash"),
-    @NamedQuery(name = "Session.findByCollection", query = "SELECT s FROM Session s WHERE s.collection = :collection")})
+    @NamedQuery(name = "Session.findByCollection", query = "SELECT s FROM Session s WHERE s.collection = :collection"),
+    @NamedQuery(name = "Session.findByStatus", query = "SELECT s FROM Session s WHERE s.status = :status")})
 public class Session implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,6 +58,8 @@ public class Session implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "collection")
     private Double collection;
+    @Column(name = "status")
+    private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
     private Collection<CloseSale> closeSaleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
@@ -120,6 +123,14 @@ public class Session implements Serializable {
 
     public void setCollection(Double collection) {
         this.collection = collection;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Collection<CloseSale> getCloseSaleCollection() {

@@ -258,3 +258,14 @@
 .subMenuHover:hover{
     -fx-text-fill: #0095FF;
 }
+
+.custom-alert {
+    -fx-background-color: #f8f9fa;
+}
+.custom-alert .header-panel {
+    -fx-background-color: #4a6fa5;
+}
+.custom-alert .content.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
