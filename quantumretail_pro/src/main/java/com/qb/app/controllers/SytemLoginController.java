@@ -30,7 +30,12 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import static com.qb.app.model.JPATransaction.runInTransaction;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 public class SytemLoginController implements Initializable {
 
@@ -52,6 +57,8 @@ public class SytemLoginController implements Initializable {
     @FXML
     private Group iconUser;
     //    </editor-fold>
+    @FXML
+    private Label loginMessage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,7 +100,7 @@ public class SytemLoginController implements Initializable {
             }
 
             if (emp == null) {
-                System.out.println("No user found with this username");
+                displayLoginMessage("No user found with this username", false);
                 return;
             }
 
@@ -101,7 +108,7 @@ public class SytemLoginController implements Initializable {
 
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
                 String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
-                System.out.println("Login successful. Welcome " + role + ": " + emp.getName());
+                displayLoginMessage("Login successful. Welcome " + role + ": " + emp.getName(), false);
                 String status = emp.getEmployeeStatusId().getStatus();
 
                 if (status.equals("Active")) {
@@ -120,15 +127,10 @@ public class SytemLoginController implements Initializable {
                         System.out.println("Navigation error: " + e.getMessage());
                     }
                 } else {
-                    System.out.println("Incorrect password");
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("System Login Warning!!!");
-                    alert.setHeaderText("Inactive Employee");
-                    alert.setContentText("Your employee status is 'Inactive'. Please inform your supervisor");
-                    alert.show();
+                    displayLoginMessage("Access Denied", false);
                 }
             } else {
-                System.out.println("Incorrect password");
+                displayLoginMessage("Incorrect Password", false);
             }
         });
     }
@@ -160,5 +162,27 @@ public class SytemLoginController implements Initializable {
         runInTransaction((em) -> {
             System.out.println("ORM is Loaded");
         });
+    }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            systemLogin();
+        }
+    }
+
+    private void displayLoginMessage(String message, boolean action) {
+        if (action) {
+            loginMessage.setStyle("-fx-text-fill: #0D9F00;"); // Green
+        } else {
+            loginMessage.setStyle("-fx-text-fill: #FF3333;"); // Red
+        }
+        // Set professional message
+        loginMessage.setText(message);
+
+        // Schedule message clearance
+        PauseTransition delay = new PauseTransition(Duration.seconds(10));
+        delay.setOnFinished(event -> loginMessage.setText(""));
+        delay.play();
     }
 }

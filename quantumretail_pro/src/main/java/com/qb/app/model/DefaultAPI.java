@@ -1,9 +1,17 @@
 package com.qb.app.model;
 
+import com.qb.app.App;
+import java.io.IOException;
+import java.util.function.Consumer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class DefaultAPI {
 
@@ -52,6 +60,26 @@ public class DefaultAPI {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    public static void showPopup(String fxmlPath, String title, Consumer<Object> controllerSetup) {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+
+            if (controllerSetup != null) {
+                controllerSetup.accept(loader.getController());
+            }
+
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

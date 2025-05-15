@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
@@ -31,8 +32,12 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -40,8 +45,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Product_registrationController implements Initializable {
@@ -358,6 +369,7 @@ public class Product_registrationController implements Initializable {
         tfParentID.setText("");
         tfSalePrice.setText("");
         loadDefaultImage();
+        tfCostPrice.setDisable(false);
     }
 
     private void loadDefaultImage() {
@@ -396,7 +408,13 @@ public class Product_registrationController implements Initializable {
                 Product product = new Product();
                 product.setProduct(tfItemName.getText());
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                product.setCostPrice(Double.parseDouble(tfCostPrice.getText()));
+                double costPrice;
+                if ("Child".equals(cbType.getValue().getType())) {
+                    costPrice = 0.0; // Set cost price to 0 for child products
+                } else {
+                    costPrice = Double.parseDouble(tfCostPrice.getText());
+                }
+                product.setCostPrice(costPrice);
                 product.setDiscount(tfDiscount.getText().isEmpty() ? 0.0
                         : Double.parseDouble(tfDiscount.getText()));
                 product.setMeasure(Float.parseFloat(tfMeasure.getText()));
@@ -405,7 +423,6 @@ public class Product_registrationController implements Initializable {
                 product.setBrandId(cbBrand.getValue());
                 product.setProductStatusId(getProductStatus());
                 em.persist(product);
-                System.out.println("New Product Saved");
 
                 // save new product's product_has_product_type
                 ProductHasProductType productHasProductType = new ProductHasProductType();
@@ -418,13 +435,11 @@ public class Product_registrationController implements Initializable {
                     productHasProductType.setReferenceId(product);
                 }
                 em.persist(productHasProductType);
-                System.out.println("New Product Saved");
 
                 if (selectedImageFile != null) {
                     String extension = getFileExtension(selectedImageFile.getName());
                     String imageName = "product_" + product.getId() + "_" + System.currentTimeMillis() + extension;
                     String imagePath = saveProductImage(selectedImageFile, imageName);
-                    System.out.println("Image saved to: " + imagePath);
                 }
 
                 // save this product in the store
@@ -432,14 +447,12 @@ public class Product_registrationController implements Initializable {
                 store.setProductId(product);
                 store.setQty(0);
                 em.persist(store);
-                System.out.println("Save this product in the 'Store'");
 
                 // save this product in the stock
                 Stock stock = new Stock();
                 stock.setProductId(product);
                 stock.setQty(0);
                 em.persist(stock);
-                System.out.println("Save this product in the 'Stock'");
 
                 displayRegistrationMessage("Product successfully added to inventory.", true);
 
@@ -477,5 +490,67 @@ public class Product_registrationController implements Initializable {
         PauseTransition delay = new PauseTransition(Duration.seconds(10));
         delay.setOnFinished(event -> registrationMessage.setText(""));
         delay.play();
+    }
+
+    public void setParentID(String id) {
+        tfParentID.setText(id);
+    }
+
+    @FXML
+    private void handlePopUpProductView(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (tfParentID.getText().isEmpty()) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpProductList.fxml"));
+                    Parent root = loader.load();
+
+                    // Create a new stage for the popup
+                    Stage popupStage = new Stage();
+                    popupStage.initOwner(tfParentID.getScene().getWindow());
+                    popupStage.initModality(Modality.APPLICATION_MODAL);
+
+                    // Get screen dimensions
+                    Screen screen = Screen.getPrimary();
+                    Rectangle2D bounds = screen.getVisualBounds();
+
+                    // Create scene with full width but original height
+                    Scene scene = new Scene(root);
+                    popupStage.setScene(scene);
+
+                    // Set width to screen width and position at x=0
+                    popupStage.setWidth(bounds.getWidth());
+                    popupStage.setX(0); // This ensures no left gap
+
+                    // Set fixed height (adjust as needed)
+                    popupStage.setHeight(600);
+
+                    // Center the popup vertically
+                    popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+
+                    popupStage.initStyle(StageStyle.TRANSPARENT);
+
+                    // Get controller reference
+                    PopUpProductListController controller = loader.getController();
+                    controller.saveProductRegistrationController(this);
+
+                    popupStage.showAndWait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void handleProductType(ActionEvent event) {
+        if (cbType.getValue().getType().equals("Child")) {
+            tfParentID.setDisable(false);
+            tfCostPrice.setDisable(true);
+            tfCostPrice.setText("");
+        } else {
+            tfParentID.setDisable(true);
+            tfParentID.setText("");
+            tfCostPrice.setDisable(false);
+        }
     }
 }
