@@ -47,7 +47,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private Label labelItemPrice;
     @FXML
     private Button btnDecreaseQty;
-    // </editor-fold>
     @FXML
     private Button btnViewQty;
     @FXML
@@ -66,6 +65,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private Label invoiceTotal;
     @FXML
     private Button btnPayment;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
