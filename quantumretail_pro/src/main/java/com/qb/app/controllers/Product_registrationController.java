@@ -221,10 +221,12 @@ public class Product_registrationController implements Initializable {
             return false;
         }
 
-        if (tfCostPrice.getText().isEmpty()) {
-            displayRegistrationMessage("Cost price is required.", false);
-            tfCostPrice.requestFocus();
-            return false;
+        if (cbType.getValue() == null || cbType.getValue().getType().equals("Parent")) {
+            if (tfCostPrice.getText().isEmpty()) {
+                displayRegistrationMessage("Cost price is required.", false);
+                tfCostPrice.requestFocus();
+                return false;
+            }
         }
 
         if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
@@ -438,8 +440,8 @@ public class Product_registrationController implements Initializable {
 
                 if (selectedImageFile != null) {
                     String extension = getFileExtension(selectedImageFile.getName());
-                    String imageName = "product_" + product.getId() + "_" + System.currentTimeMillis() + extension;
-                    String imagePath = saveProductImage(selectedImageFile, imageName);
+                    String imageName = "product_" + product.getId() + extension;
+                    saveProductImage(selectedImageFile, imageName);
                 }
 
                 // save this product in the store

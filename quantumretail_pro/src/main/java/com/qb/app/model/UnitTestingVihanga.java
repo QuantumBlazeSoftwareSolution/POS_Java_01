@@ -22,7 +22,8 @@ public class UnitTestingVihanga {
     public static void main(String[] args) {
 //        testJPA();
 //        getSessionDetails();
-        loadComboBoxData();
+//        loadComboBoxData();
+        testRun();
     }
 
     private static void testJPA() {
@@ -116,5 +117,11 @@ public class UnitTestingVihanga {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void testRun() {
+        double unitPrice = 0;
+        double itemQty = 1;
+        System.out.println(String.format("Rs. %.2f", unitPrice * itemQty));
     }
 }
