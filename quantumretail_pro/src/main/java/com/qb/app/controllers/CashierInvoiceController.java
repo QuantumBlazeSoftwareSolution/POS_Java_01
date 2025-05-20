@@ -1,30 +1,39 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
-import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Product;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class CashierInvoiceController implements Initializable, ControllerClose {
 
@@ -98,45 +107,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         DefaultAPI.bindTableScroll(invoiceScroller, invoiceScrollContainer, invoiceItemContainer);
         tfItemCode.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-
         setEventListener();
-
-//        List<String> itemList = new ArrayList<>();
-//        itemList.add("Tomato 1KG");
-//        itemList.add("Chocolate 100g");
-//        itemList.add("Chocolate 400g");
-//        itemList.add("Coca Cola 1L");
-//        itemList.add("Rice 5KG");
-//        itemList.add("Coconut 1 Unit");
-//        itemList.add("Milk Powder 400g");
-//        itemList.add("Tea Leaves 200g");
-//        itemList.add("Chilli Powder 250g Chilli Powder 250g Chilli Powder 250g");
-//
-//        for (int i = 0; i < 20; i++) {
-//            try {
-//                Random random = new Random();
-//
-//                // Load the invoiceItem.fxml file
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/invoiceItem.fxml"));
-//                Node invoiceItem = loader.load(); // Load the node
-//
-//                InvoiceItemController itemController = loader.getController();
-//                String itemCode = "ITEM #" + (i + 1);
-//                String itemImage = getClass().getResource("/com/qb/app/assets/images/tomato.png").toExternalForm();
-//                String itemName = itemList.get(random.nextInt(itemList.size()));
-//                double itemPrice = 100.00 * (i + 1);
-//                double quantity = i + 1;
-//                itemController.InvoiceItemData(itemCode, itemImage, itemName, itemPrice, quantity);
-//
-//                // Add the invoice item to the VBox
-//                invoiceItemContainer.getChildren().add(invoiceItem);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @Override
@@ -145,12 +118,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     @FXML
     private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnClear) {
+            clearLoadProduct();
+        } else if (event.getSource() == btnPayment) {
+            openPaymentPanel();
+        }
     }
 
     @FXML
     private void itemCodePressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.SHIFT) {
-            System.out.println("SHIFT KEY PRESSED");
+        if (event.getCode() == KeyCode.MULTIPLY) {
             loadPreviewProduct();
         }
     }
@@ -172,14 +149,17 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     Product product = em.find(Product.class, productId);
 
                     if (product != null) {
+                        double productPrice = product.getSalePrice() - product.getDiscount();
                         this.product = product;
                         setItemQty(1);
                         btnViewQty.setText("1");
 
                         Platform.runLater(() -> {
+                            String imagePath = findProductImage(this.product.getId());
+                            itemImage.setImage(new Image(imagePath));
                             labelItemName.setText(product.getProduct());
-                            labelItemPrice.setText(String.format("%.2f", product.getSalePrice()));
-                            setUnitPrice(product.getSalePrice());
+                            labelItemPrice.setText(String.format("%, .2f", productPrice));
+                            setUnitPrice(productPrice);
                             setItemPrice();
                         });
                         isProductLoaded = true;
@@ -198,23 +178,32 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     private void setItemPrice() {
         double itemPrice = getUnitPrice() * getItemQty();
-        this.itemPrice.setText(String.format("Rs. %.2f", itemPrice));
+        this.itemPrice.setText(String.format("Rs. %, .2f", itemPrice));
     }
 
     private void setEventListener() {
         root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.PLUS || event.getCode() == KeyCode.ADD) {
-                System.out.println("PLUS PRESSED");
-                event.consume();
-                increaseQty();
-            } else if (event.getCode() == KeyCode.MINUS || event.getCode() == KeyCode.SUBTRACT) {
-                System.out.println("MINUS PRESSED");
-                decreaseQty();
-                event.consume();
-            } else if (event.getCode() == KeyCode.ENTER) {
-                if (isProductLoaded) {
-                    addInvoiceItem();
-                    isProductLoaded = false;
+            if (null != event.getCode()) {
+                switch (event.getCode()) {
+                    case PLUS, ADD -> {
+                        event.consume();
+                        increaseQty();
+                    }
+                    case MINUS, SUBTRACT -> {
+                        decreaseQty();
+                        event.consume();
+                    }
+                    case ENTER -> {
+                        if (isProductLoaded) {
+                            addInvoiceItem();
+                            isProductLoaded = false;
+                        }
+                    }
+                    case F5 -> {
+                        clearLoadProduct();
+                    }
+                    default -> {
+                    }
                 }
             }
             System.out.println("Ky Code: " + event.getCode());
@@ -222,39 +211,65 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     }
 
     private void increaseQty() {
-        setItemQty(getItemQty() + 1);
-        setItemPrice();
-        btnViewQty.setText(String.valueOf(getItemQty()));
+        if (isProductLoaded) {
+            setItemQty(getItemQty() + 1);
+            setItemPrice();
+            btnViewQty.setText(String.valueOf(getItemQty()));
+        }
     }
 
     private void decreaseQty() {
-        if (getItemQty() > 1) {
-            setItemQty(getItemQty() - 1);
-            setItemPrice();
-        } else {
-            System.out.println("Quantity is less than 1");
+        if (isProductLoaded) {
+            if (getItemQty() > 1) {
+                setItemQty(getItemQty() - 1);
+                setItemPrice();
+            } else {
+                System.out.println("Quantity is less than 1");
+            }
+            btnViewQty.setText(String.valueOf(getItemQty()));
         }
-        btnViewQty.setText(String.valueOf(getItemQty()));
     }
+
+    List<InvoiceItemController> invoiceItemList = new ArrayList<>();
 
     private void addInvoiceItem() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/invoiceItem.fxml"));
             Node invoiceItem = loader.load();
             InvoiceItemController itemController = loader.getController();
+            itemController.saveInvoiceController(this);
 
             // Get the product image path (check for multiple possible extensions)
             String imagePath = findProductImage(this.product.getId());
 
             itemController.InvoiceItemData(
-                    this.product.getId().toString(),
                     imagePath,
-                    this.product.getProduct(),
-                    this.product.getSalePrice(),
-                    getItemQty()
+                    getItemQty(),
+                    this.product,
+                    invoiceItem
             );
 
-            invoiceItemContainer.getChildren().add(invoiceItem);
+            boolean productExists = false;
+
+            // Check if product already exists in the list
+            for (InvoiceItemController invoiceItemController : invoiceItemList) {
+                if (invoiceItemController.getProductID() == this.product.getId()) {
+                    invoiceItemController.setProductQty(invoiceItemController.getProductQty() + getItemQty());
+                    invoiceItemController.refreshDisplay();
+                    productExists = true;
+                    tfItemCode.setText("");
+                    break;
+                }
+            }
+
+            // If product doesn't exist, add new item
+            if (!productExists) {
+                invoiceItemList.add(itemController);
+                invoiceItemContainer.getChildren().add(invoiceItem);
+                tfItemCode.setText("");
+            }
+            calculateInvoiceSummary();
+            clearLoadProduct();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -286,5 +301,90 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
         // Return default image if none found
         return getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm();
+    }
+
+    private void clearLoadProduct() {
+        tfItemCode.setText("");
+        tfBarCode.setText("");
+        labelItemName.setText("Product name");
+        labelItemPrice.setText("Rs. 0.00");
+        itemPrice.setText("Rs. 0.00");
+        btnViewQty.setText("0");
+        itemImage.setImage(new Image(getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm()));
+        isProductLoaded = false;
+    }
+
+    public void calculateInvoiceSummary() {
+        double itemCount = 0;
+        double subTotal = 0;
+        double discount = 0;
+        for (InvoiceItemController invoiceItemController : invoiceItemList) {
+            itemCount += invoiceItemController.getProductQty();
+            subTotal += invoiceItemController.getProduct().getSalePrice() * invoiceItemController.getProductQty();
+            discount += invoiceItemController.getProduct().getDiscount() * invoiceItemController.getProductQty();
+        }
+        invoiceItemCount.setText(String.valueOf(itemCount));
+        invoiceSubTotal.setText(String.format("Rs. %, .2f", subTotal));
+        invoiceDiscount.setText(String.format("Rs. %, .2f", discount));
+        invoiceTotal.setText(String.format("Rs. %, .2f", (subTotal - discount)));
+    }
+
+    public void removeInvoiceItem(InvoiceItemController itemToRemove) {
+        Node nodeToRemove = itemToRemove.getRootNode();
+
+        invoiceItemList.remove(itemToRemove);
+        invoiceItemContainer.getChildren().remove(nodeToRemove);
+
+        calculateInvoiceSummary();
+    }
+
+    @FXML
+    private void handleQuantityAmount(ActionEvent event) {
+        if (event.getSource() == btnIncreaseQty) {
+            increaseQty();
+        } else if (event.getSource() == btnDecreaseQty) {
+            decreaseQty();
+        }
+    }
+
+    private void openPaymentPanel() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("fxmlPanel/InvoicePayment.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the popup
+            Stage popupStage = new Stage();
+            popupStage.initOwner(btnPayment.getScene().getWindow());
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get screen dimensions
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            // Create scene with full width but original height
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+            // Set width to screen width and position at x=0
+            popupStage.setWidth(bounds.getWidth());
+            popupStage.setX(0); // This ensures no left gap
+
+            // Set fixed height (adjust as needed)
+//            popupStage.setHeight(600);
+
+            // Center the popup vertically
+            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+
+            popupStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Get controller reference
+            InvoicePaymentController controller = loader.getController();
+            controller.saveProductRegistrationController(this);
+            controller.setItems(invoiceItemList);
+
+            popupStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

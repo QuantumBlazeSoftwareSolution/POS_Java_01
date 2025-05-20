@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.InvoicePaymentController">
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.InvoicePaymentController">
    <children>
       <BorderPane layoutX="313.0" layoutY="94.0" maxHeight="-Infinity" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -30,7 +29,7 @@
                      </HBox.margin>
                   </Label>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <StackPane fx:id="closeIcon" prefHeight="40.0" prefWidth="40.0" styleClass="titleBarIcon" stylesheets="@../css/style.css">
+                  <StackPane fx:id="closeIcon" onMouseClicked="#closeWindow" prefHeight="40.0" prefWidth="40.0" styleClass="titleBarIcon" stylesheets="@../css/style.css">
                      <children>
                         <Group />
                      </children>
@@ -68,7 +67,7 @@
                                           <String fx:value="primary-white" />
                                        </styleClass>
                                     </Button>
-                                    <TextField minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfCashAmount" minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -92,7 +91,7 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                     </Button>
-                                    <TextField minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfCardAmount" minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -116,7 +115,7 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                     </Button>
-                                    <TextField minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfCreditAmount" minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -126,6 +125,19 @@
                               </VBox>
                            </children>
                         </HBox>
+                        <Button fx:id="btnAction" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@../css/style.css" text="Calculate Invoice">
+                           <padding>
+                              <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font name="Segoe UI Bold" size="18.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="bg-primary" />
+                              <String fx:value="primary-white" />
+                              <String fx:value="full-width-button" />
+                           </styleClass>
+                        </Button>
                      </children>
                   </VBox>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -177,7 +189,7 @@
          <bottom>
             <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #081E30;" styleClass="border-radius" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Rs. 12'000.00">
+                  <Button fx:id="btnInvoiceAmount" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/style.css" text="Rs. 0.00">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -213,7 +225,7 @@
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="11">
+                              <Label fx:id="invoiceItemCount" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="0">
                                  <font>
                                     <Font name="Segoe UI" size="14.0" />
                                  </font>
@@ -228,7 +240,7 @@
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 12'500.00">
+                              <Label fx:id="invoiceSubTotal" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
                                  <font>
                                     <Font name="Segoe UI" size="14.0" />
                                  </font>
@@ -243,7 +255,7 @@
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 500.00">
+                              <Label fx:id="invoiceDiscount" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
                                  <font>
                                     <Font name="Segoe UI" size="14.0" />
                                  </font>
@@ -258,7 +270,7 @@
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 500.00">
+                              <Label fx:id="invoiceCreditAmount" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
                                  <font>
                                     <Font name="Segoe UI" size="14.0" />
                                  </font>
@@ -273,7 +285,7 @@
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 11'500.00">
+                              <Label fx:id="invoicePaidAmount" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
                                  <font>
                                     <Font name="Segoe UI" size="14.0" />
                                  </font>
@@ -288,7 +300,7 @@
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Rs. -500.00">
+                              <Label fx:id="invoiceBalance" minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Rs. 0.00">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

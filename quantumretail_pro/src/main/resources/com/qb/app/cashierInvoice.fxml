@@ -246,12 +246,12 @@
                                  <children>
                                     <VBox maxHeight="-Infinity" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label fx:id="labelItemName" styleClass="primary-text" stylesheets="@css/style.css" text="**********">
+                                          <Label fx:id="labelItemName" styleClass="primary-text" stylesheets="@css/style.css" text="Product name">
                                              <font>
                                                 <Font name="Aptos Bold" size="24.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelItemPrice" styleClass="primary-text" stylesheets="@css/style.css" text="**********">
+                                          <Label fx:id="labelItemPrice" styleClass="primary-text" stylesheets="@css/style.css" text="Rs. 0.00">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -260,7 +260,7 @@
                                     </VBox>
                                     <HBox maxHeight="-Infinity" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Button fx:id="btnDecreaseQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="-">
+                                          <Button fx:id="btnDecreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="-">
                                              <font>
                                                 <Font name="Segoe UI" size="18.0" />
                                              </font>
@@ -277,7 +277,7 @@
                                                 <Font name="Segoe UI" size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btnIncreaseQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="+">
+                                          <Button fx:id="btnIncreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="+">
                                              <font>
                                                 <Font name="Segoe UI" size="18.0" />
                                              </font>
@@ -296,7 +296,7 @@
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <VBox alignment="CENTER" prefWidth="300.0" spacing="6.0">
                                  <children>
-                                    <Button fx:id="itemPrice" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="**********" VBox.vgrow="ALWAYS">
+                                    <Button fx:id="itemPrice" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Rs. 0.00" VBox.vgrow="ALWAYS">
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
                                        </padding>
@@ -375,7 +375,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="invoiceItemCount" styleClass="primary-white" stylesheets="@css/style.css" text="11">
+                                    <Label fx:id="invoiceItemCount" styleClass="primary-white" stylesheets="@css/style.css" text="0">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -390,7 +390,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="invoiceSubTotal" styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 12'500.00">
+                                    <Label fx:id="invoiceSubTotal" styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 0.00">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -405,7 +405,7 @@
                                        </font>
                                     </Label>
                                     <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="invoiceDiscount" styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 500.00">
+                                    <Label fx:id="invoiceDiscount" styleClass="primary-white" stylesheets="@css/style.css" text="Rs. 0.00">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -420,7 +420,7 @@
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="invoiceTotal" minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Rs. 12'000.00">
+                                    <Label fx:id="invoiceTotal" minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Rs. 0.00">
                                        <font>
                                           <Font name="Aptos Bold" size="18.0" />
                                        </font>

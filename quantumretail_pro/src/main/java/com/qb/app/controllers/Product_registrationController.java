@@ -47,7 +47,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -93,6 +93,8 @@ public class Product_registrationController implements Initializable {
 //    </editor-fold>
 
     private File selectedImageFile; // Stores the selected image file temporarily
+    @FXML
+    private AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,7 +124,7 @@ public class Product_registrationController implements Initializable {
                 // Display preview
                 productImage.setImage(new Image(selectedImageFile.toURI().toString()));
             } catch (Exception e) {
-                CustomAlert.showStyledAlert("Error loading image: " + e.getMessage(),
+                CustomAlert.showStyledAlert(root, "Error loading image: " + e.getMessage(),
                         "Image Error", Alert.AlertType.ERROR);
             }
         }
@@ -158,7 +160,7 @@ public class Product_registrationController implements Initializable {
             //     "/com/qb/app/assets/images/product/" + Paths.get(imagePath).getFileName()));
             productImage.setImage(image);
         } catch (Exception e) {
-            CustomAlert.showStyledAlert(e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
+            CustomAlert.showStyledAlert(root, e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
         }
     }
 
