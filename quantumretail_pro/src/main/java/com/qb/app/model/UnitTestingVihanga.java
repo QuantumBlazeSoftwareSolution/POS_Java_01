@@ -22,7 +22,10 @@ public class UnitTestingVihanga {
     public static void main(String[] args) {
 //        testJPA();
 //        getSessionDetails();
-        loadComboBoxData();
+//        loadComboBoxData();
+//        testRun();
+//        passwordTest();
+        testDatabaseResults();
     }
 
     private static void testJPA() {
@@ -112,6 +115,36 @@ public class UnitTestingVihanga {
                 for (Brand brand : observableList) {
                     System.out.println(brand.getBrand());
                 }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void testRun() {
+        double unitPrice = 0;
+        double itemQty = 1;
+        System.out.println(String.format("Rs. %.2f", unitPrice * itemQty));
+    }
+
+    private static void passwordTest() {
+        System.out.println(PasswordEncryption.hashPassword("ASD123"));
+        if (PasswordEncryption.verifyPassword("$argon2i$v=19$m=65536,t=10,p=4$eazGlsy3aWcg9pCFadMIzw$w162xY1rop7uRn5fFqCdrSLmviESEO3PXKUr9QgmBow", "asd321")) {
+        }
+    }
+
+    private static void testDatabaseResults() {
+        try {
+            JPATransaction.runInTransaction((em) -> {
+                CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+                CriteriaQuery<Employee> cQuery = cBuilder.createQuery(Employee.class);
+                Root<Employee> rootTable = cQuery.from(Employee.class);
+
+                Predicate condition = cBuilder.equal(rootTable.get("username"), "Cashier");
+                cQuery.where(condition);
+
+                Employee emp = em.createQuery(cQuery).getSingleResult();
+                System.out.println("Employee Name: " + emp.getName());
             });
         } catch (Exception e) {
             e.printStackTrace();

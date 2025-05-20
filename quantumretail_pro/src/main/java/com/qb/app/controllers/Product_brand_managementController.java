@@ -21,6 +21,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.List;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 
 public class Product_brand_managementController implements Initializable {
 
@@ -34,6 +35,8 @@ public class Product_brand_managementController implements Initializable {
     @FXML
     private Button btnPrimaryRegister;
     //</editor-fold>
+    @FXML
+    private AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,14 +55,14 @@ public class Product_brand_managementController implements Initializable {
             if (!isBrandExist()) {
                 registerNewBrand();
             } else {
-                CustomAlert.showStyledAlert("This brand name is already registered. Please choose a different name.", Alert.AlertType.WARNING);
+                CustomAlert.showStyledAlert(root, "This brand name is already registered. Please choose a different name.", Alert.AlertType.WARNING);
             }
         }
     }
 
     private boolean checkRegistrationValidity() {
         if (tfPrimaryBrandName.getText().isEmpty() || tfPrimaryBrandName.getText().equals("")) {
-            CustomAlert.showStyledAlert("Brand name is required and cannot be blank.", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Brand name is required and cannot be blank.", Alert.AlertType.WARNING);
         } else {
             return true;
         }
@@ -105,7 +108,7 @@ public class Product_brand_managementController implements Initializable {
             } catch (Exception e) {
                 productStatus = null;
             }
-            
+
             if (productStatus == null) {
                 System.out.println("Cannot find the product status");
                 return;
