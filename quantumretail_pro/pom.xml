@@ -134,21 +134,31 @@
             <version>2.2.3</version>
         </dependency>
         
-        <!-- Jasper Retporting Dependencies -->
+        <!-- Jasper Reporting Dependencies -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>7.0.3</version>
+            <version>6.20.5</version>
         </dependency>
         <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-            <version>4.2.2</version>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId> <!-- Note the artifactId change -->
+            <version>5.5.13.4</version> <!-- Newer version compatible with JasperReports -->
         </dependency>
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
-            <version>7.0.3</version>
+            <version>6.20.5</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.barbecue</groupId>
+            <artifactId>barbecue</artifactId>
+            <version>1.5-beta1</version>
         </dependency>
     </dependencies>
     <build>

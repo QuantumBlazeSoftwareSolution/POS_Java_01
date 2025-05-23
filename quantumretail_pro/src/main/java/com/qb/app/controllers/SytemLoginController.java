@@ -30,6 +30,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import static com.qb.app.model.JPATransaction.runInTransaction;
+import com.qb.app.model.entity.Session;
+import java.time.LocalDate;
+import java.util.Date;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -94,6 +97,7 @@ public class SytemLoginController implements Initializable {
             try {
                 emp = query.getSingleResult();
                 ApplicationSession.setEmployee(emp); // save in session
+                checkSession();
             } catch (NoResultException e) {
                 // No user found
                 emp = null;
@@ -184,5 +188,32 @@ public class SytemLoginController implements Initializable {
         PauseTransition delay = new PauseTransition(Duration.seconds(10));
         delay.setOnFinished(event -> loginMessage.setText(""));
         delay.play();
+    }
+
+    private void checkSession() {
+        runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            // Check for existing session for today
+            CriteriaQuery<Session> sessionCq = cb.createQuery(Session.class);
+            Root<Session> sessionRoot = sessionCq.from(Session.class);
+
+            // Create predicates for employee match and today's date
+            LocalDate today = LocalDate.now();
+            Predicate employeePredicate = cb.equal(sessionRoot.get("employeeId"), ApplicationSession.getEmployee());
+            Predicate datePredicate = cb.equal(
+                    cb.function("DATE", Date.class, sessionRoot.get("dayInTime")),
+                    java.sql.Date.valueOf(today)
+            );
+
+            sessionCq.where(cb.and(employeePredicate, datePredicate));
+
+            try {
+                Session activeSession = em.createQuery(sessionCq).getSingleResult();
+                ApplicationSession.setSession(activeSession);
+                System.out.println("Session found for today");
+            } catch (NoResultException e) {
+                System.out.println("Session not found for today");
+            }
+        });
     }
 }

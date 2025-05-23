@@ -3,8 +3,10 @@ package com.qb.app.controllers;
 import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.session.ApplicationSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -109,7 +112,11 @@ public class PanelCashierController implements Initializable {
         } else if (event.getSource() == btnSession) {
             changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
         } else if (event.getSource() == btnInvoice) {
-            changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
+            if (ApplicationSession.getSession() != null) {
+                changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
+            } else {
+                CustomAlert.showStyledAlert(root, "Please authenticate to access this feature", "Sign-in Required", Alert.AlertType.WARNING);
+            }
         } else if (event.getSource() == btnCloseSale) {
             changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
         } else if (event.getSource() == btnWithdrawal) {

@@ -61,9 +61,6 @@ public class Invoice implements Serializable {
     private Collection<InvoiceItem> invoiceItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
     private Collection<CustomerHasInvoice> customerHasInvoiceCollection;
-    @JoinColumn(name = "payment_method_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private PaymentMethod paymentMethodId;
     @JoinColumn(name = "session_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Session sessionId;
@@ -137,14 +134,6 @@ public class Invoice implements Serializable {
 
     public void setCustomerHasInvoiceCollection(Collection<CustomerHasInvoice> customerHasInvoiceCollection) {
         this.customerHasInvoiceCollection = customerHasInvoiceCollection;
-    }
-
-    public PaymentMethod getPaymentMethodId() {
-        return paymentMethodId;
-    }
-
-    public void setPaymentMethodId(PaymentMethod paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
     }
 
     public Session getSessionId() {

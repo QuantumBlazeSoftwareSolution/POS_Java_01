@@ -1,6 +1,7 @@
 package com.qb.app.controllers;
 
 import com.qb.app.model.ControllerClose;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.EntityManagerCallBack;
 import com.qb.app.model.PasswordEncryption;
@@ -31,6 +32,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class CashierSessionController implements Initializable, ControllerClose {
 
@@ -61,6 +63,8 @@ public class CashierSessionController implements Initializable, ControllerClose 
     private Label sessionMinutes;
     @FXML
     private Label sessionAMPM;
+    @FXML
+    private AnchorPane root;
     //    </editor-fold>
 
     private static boolean isSignIn;
@@ -94,19 +98,18 @@ public class CashierSessionController implements Initializable, ControllerClose 
         });
     }
 
-    private void showStyledAlert(String message, Alert.AlertType type) {
-
-        Alert alert = new Alert(type);
-        alert.setTitle("System Notification");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        // Add custom style class
-        // DialogPane dialogPane = alert.getDialogPane();
-        // dialogPane.getStyleClass().add("custom-alert");
-        alert.show();
-    }
-
+//    private void showStyledAlert(String message, Alert.AlertType type) {
+//
+//        Alert alert = new Alert(type);
+//        alert.setTitle("System Notification");
+//        alert.setHeaderText(null);
+//        alert.setContentText(message);
+//
+//        // Add custom style class
+//        // DialogPane dialogPane = alert.getDialogPane();
+//        // dialogPane.getStyleClass().add("custom-alert");
+//        alert.show();
+//    }
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnSignIn) {
@@ -130,6 +133,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
                         signInSession.setStatus("ON");
 
                         saveNewSignInSession(signInSession);
+                        ApplicationSession.setSession(signInSession);
                         isSignIn = true;
                         signInMessage.setText("Successfuly sign in for today.");
                         signOffMessage.setText("Waiting for sign off.");
@@ -139,13 +143,13 @@ public class CashierSessionController implements Initializable, ControllerClose 
                         MessageTransition("You're already signed in for today", signInMessage);
                     }
 
-                    showStyledAlert("Successfuly Sign In for today.", Alert.AlertType.INFORMATION);
+                    CustomAlert.showStyledAlert(root, "Successfuly Sign In for today.", Alert.AlertType.INFORMATION);
                 } else {
-                    showStyledAlert("Credentials Mismatch - Please check your username/password", Alert.AlertType.WARNING);
+                    CustomAlert.showStyledAlert(root, "Credentials Mismatch - Please check your username/password", Alert.AlertType.WARNING);
                 }
             }
         } else {
-            showStyledAlert("You're already signed in for today", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "You're already signed in for today", Alert.AlertType.WARNING);
         }
         cleanSignIn();
     }
@@ -168,7 +172,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
 
                                     signInMessage.setText("Day completed.");
                                     signOffMessage.setText("Day completed.");
-                                    showStyledAlert("Successfuly Sign Off for today.", Alert.AlertType.INFORMATION);
+                                    CustomAlert.showStyledAlert(root, "Successfuly Sign Off for today.", Alert.AlertType.INFORMATION);
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println(e.getMessage());
@@ -179,11 +183,11 @@ public class CashierSessionController implements Initializable, ControllerClose 
                         MessageTransition("Sign OFF is not activated.", signOffMessage);
                     }
                 } else {
-                    showStyledAlert("Credentials Mismatch - Please check your username/password", Alert.AlertType.WARNING);
+                    CustomAlert.showStyledAlert(root, "Credentials Mismatch - Please check your username/password", Alert.AlertType.WARNING);
                 }
             }
         } else {
-            showStyledAlert("You're not signed in for today, Please sign in to activate sign off option", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "You're not signed in for today, Please sign in to activate sign off option", Alert.AlertType.WARNING);
         }
         cleanSignOff();
     }
@@ -231,13 +235,13 @@ public class CashierSessionController implements Initializable, ControllerClose 
 
     private boolean checkSignInValidation() {
         if (tfSignInUsername.getText().isEmpty() || tfSignInUsername.getText().equals("")) {
-            showStyledAlert("Username required - Please enter your credentials", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Username required - Please enter your credentials", Alert.AlertType.WARNING);
         } else if (tfSignInPassword.getText().isEmpty() || tfSignInPassword.getText().equals("")) {
-            showStyledAlert("Password required for security verification", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Password required for security verification", Alert.AlertType.WARNING);
         } else if (tfSignInPettyCash.getText().isEmpty() || tfSignInPettyCash.getText().equals("")) {
-            showStyledAlert("Please specify the opening cash amount", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Please specify the opening cash amount", Alert.AlertType.WARNING);
         } else if (!DefaultAPI.isDouble(tfSignInPettyCash.getText())) {
-            showStyledAlert("Please enter a valid cash amount (e.g., 250.00)", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Please enter a valid cash amount (e.g., 250.00)", Alert.AlertType.WARNING);
         } else {
             return true;
         }
@@ -246,13 +250,13 @@ public class CashierSessionController implements Initializable, ControllerClose 
 
     private boolean checkSignOffValidation() {
         if (tfSignOffUsername.getText().isEmpty() || tfSignOffUsername.getText().equals("")) {
-            showStyledAlert("Username required - Please enter your credentials", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Username required - Please enter your credentials", Alert.AlertType.WARNING);
         } else if (tfSignOffPassword.getText().isEmpty() || tfSignOffPassword.getText().equals("")) {
-            showStyledAlert("Password required for security verification", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Password required for security verification", Alert.AlertType.WARNING);
         } else if (tfSignOffCollection.getText().isEmpty() || tfSignOffCollection.getText().equals("")) {
-            showStyledAlert("Please specify the closing cash amount", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Please specify the closing cash amount", Alert.AlertType.WARNING);
         } else if (!DefaultAPI.isDouble(tfSignOffCollection.getText())) {
-            showStyledAlert("Please enter a valid cash amount (e.g., 250.00)", Alert.AlertType.WARNING);
+            CustomAlert.showStyledAlert(root, "Please enter a valid cash amount (e.g., 250.00)", Alert.AlertType.WARNING);
         } else {
             return true;
         }

@@ -5,6 +5,7 @@
 package com.qb.app.session;
 
 import com.qb.app.model.entity.Employee;
+import com.qb.app.model.entity.Session;
 
 /**
  *
@@ -13,12 +14,21 @@ import com.qb.app.model.entity.Employee;
 public class ApplicationSession {
 
     private static Employee employee;
+    private static Session session;
 
     public static Employee getEmployee() {
         return employee;
     }
 
-    public static void setEmployee(Employee emp) {
-        employee = emp;
+    public static void setEmployee(Employee param) {
+        employee = param;
+    }
+
+    public static Session getSession() {
+        return session;
+    }
+
+    public static void setSession(Session param) {
+        session = param;
     }
 }
