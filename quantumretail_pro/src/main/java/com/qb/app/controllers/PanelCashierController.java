@@ -116,6 +116,7 @@ public class PanelCashierController implements Initializable {
                 changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
             } else {
                 CustomAlert.showStyledAlert(root, "Please authenticate to access this feature", "Sign-in Required", Alert.AlertType.WARNING);
+                changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
             }
         } else if (event.getSource() == btnCloseSale) {
             changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");

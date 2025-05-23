@@ -121,7 +121,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         if (event.getSource() == btnClear) {
             clearLoadProduct();
         } else if (event.getSource() == btnPayment) {
-            openPaymentPanel();
+            if (!invoiceItemList.isEmpty()) {
+                openPaymentPanel();
+            }
         }
     }
 
@@ -338,6 +340,12 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         calculateInvoiceSummary();
     }
 
+    public void removeAll() {
+        invoiceItemList.clear();
+        invoiceItemContainer.getChildren().clear();
+        calculateInvoiceSummary();
+    }
+
     @FXML
     private void handleQuantityAmount(ActionEvent event) {
         if (event.getSource() == btnIncreaseQty) {
@@ -371,7 +379,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             // Set fixed height (adjust as needed)
 //            popupStage.setHeight(600);
-
             // Center the popup vertically
             popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
 

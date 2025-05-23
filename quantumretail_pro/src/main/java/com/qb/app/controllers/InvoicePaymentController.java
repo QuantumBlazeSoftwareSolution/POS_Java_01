@@ -29,6 +29,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import net.sf.jasperreports.engine.JRException;
@@ -109,11 +111,15 @@ public class InvoicePaymentController implements Initializable {
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnAction) {
-            if (isPaymentActive) {
-                createInvoice();
-            }
-            calculateInvoice();
+            makeInvoice();
         }
+    }
+
+    private void makeInvoice() {
+        if (isPaymentActive) {
+            createInvoice();
+        }
+        calculateInvoice();
     }
 
     private void calculateInvoice() {
@@ -212,8 +218,7 @@ public class InvoicePaymentController implements Initializable {
             CriteriaQuery<InvoiceItemType> cq = cb.createQuery(InvoiceItemType.class);
             Root<InvoiceItemType> invoiceItemTypeRoot = cq.from(InvoiceItemType.class);
 
-            cq.select(invoiceItemTypeRoot)
-                    .where(cb.equal(invoiceItemTypeRoot.get("type"), "Sell"));
+            cq.select(invoiceItemTypeRoot).where(cb.equal(invoiceItemTypeRoot.get("type"), "Sell"));
 
             InvoiceItemType sellItemType = em.createQuery(cq).getSingleResult();
 
@@ -244,7 +249,9 @@ public class InvoicePaymentController implements Initializable {
             JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
+            CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
+        controller.removeAll();
     }
 
     private Map<String, Object> getJRParams() {
@@ -300,6 +307,13 @@ public class InvoicePaymentController implements Initializable {
             collection.add(bean);
         }
         return collection;
+    }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            makeInvoice();
+        }
     }
 
 }
