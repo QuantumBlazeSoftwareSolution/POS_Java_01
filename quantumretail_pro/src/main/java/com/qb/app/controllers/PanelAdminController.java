@@ -1,6 +1,6 @@
 package com.qb.app.controllers;
 
-import com.qb.app.App;
+import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import java.io.IOException;
 import java.net.URL;
@@ -263,12 +263,8 @@ public class PanelAdminController implements Initializable {
             subMenuToggle(subMenuReport);
             setSubMenuState(subMenuReport);
         } else if (event.getSource() == btnExit) {
-            try {
-                //            InderfaceAction.closeWindow(root);
-                App.setRoot("sytemLogin");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            InterfaceAction.closeWindow(root);
+            // App.setRoot("sytemLogin");
         } else if (event.getSource() == btnDiscount) {
             loadCenterPanel("discount");
         } else if (event.getSource() == btnDashboard) {

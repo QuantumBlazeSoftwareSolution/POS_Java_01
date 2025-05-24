@@ -1,7 +1,6 @@
 package com.qb.app.controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
-import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.InterfaceAction;
@@ -115,11 +114,16 @@ public class PanelCashierController implements Initializable {
             if (ApplicationSession.getSession() != null) {
                 changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
             } else {
-                CustomAlert.showStyledAlert(root, "Please authenticate to access this feature", "Sign-in Required", Alert.AlertType.WARNING);
+                CustomAlert.showStyledAlert(root, "You must sign in before accessing invoice operations.", "Daily Sign-In Required", Alert.AlertType.WARNING);
                 changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
             }
         } else if (event.getSource() == btnCloseSale) {
-            changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
+            if (ApplicationSession.getSession() != null && ApplicationSession.getSession().getStatus().equals("OFF")) {
+                changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
+            } else {
+                CustomAlert.showStyledAlert(root, "Please complete your daily sign-off before proceeding with this operation.", "Daily Sign-Off Required", Alert.AlertType.WARNING);
+                changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
+            }
         } else if (event.getSource() == btnWithdrawal) {
             changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml", "Withdrawal");
         } else if (event.getSource() == btnRefund) {
@@ -127,13 +131,8 @@ public class PanelCashierController implements Initializable {
         } else if (event.getSource() == BtnRePrint) {
             changeCenterPanel("/com/qb/app/cashierRePrint.fxml", "Re-Print");
         } else if (event.getSource() == btnExit) {
-//            InderfaceAction.closeWindow(btnExit);
-            try {
-                //            InderfaceAction.closeWindow(root);
-                App.setRoot("sytemLogin");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            InterfaceAction.closeWindow(root);
+            // App.setRoot("sytemLogin");
         }
     }
 
