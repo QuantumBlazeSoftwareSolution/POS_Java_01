@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers;
 
+import com.qb.app.model.ControllerClose;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.entity.CloseSale;
+import com.qb.app.session.ApplicationControllers;
 import com.qb.app.session.ApplicationSession;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -22,12 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
-public class CashierCloseSaleController implements Initializable {
+public class CashierCloseSaleController implements Initializable, ControllerClose {
 
     @FXML
     private TextField tfUsername;
@@ -87,6 +82,7 @@ public class CashierCloseSaleController implements Initializable {
     }
 
     private void initializingTextFields() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         tf5000Qty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tf1000Qty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tf500Qty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
@@ -95,6 +91,11 @@ public class CashierCloseSaleController implements Initializable {
         tf20Qty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tf10Qty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tf5Qty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        if (ApplicationSession.getSession() != null) {
+            tfCashier.setText(ApplicationSession.getSession().getEmployeeId().getName());
+            tfDayIn.setText(dateFormat.format(ApplicationSession.getSession().getDayInTime()));
+            tfDayOff.setText(dateFormat.format(ApplicationSession.getSession().getDayOutTime()));
+        }
     }
 
     @FXML
@@ -183,7 +184,7 @@ public class CashierCloseSaleController implements Initializable {
             } else if (tfPassword.getText().isEmpty()) {
                 CustomAlert.showStyledAlert(root, "Password field cannot be empty. Please enter your password.", "Password Required", Alert.AlertType.WARNING);
             } else {
-                if (tfUsername.getText().equals(ApplicationSession.getEmployee().getUsername()) && tfPassword.getText().equals(ApplicationSession.getEmployee().getPassword())) {
+                if (tfUsername.getText().equals(ApplicationSession.getEmployee().getUsername()) && PasswordEncryption.verifyPassword(ApplicationSession.getSession().getEmployeeId().getPassword(), tfPassword.getText())) {
                     JPATransaction.runInTransaction((em) -> {
                         CloseSale closeSale = new CloseSale();
                         closeSale.setC5(Integer.parseInt(tf5Qty.getText()));
@@ -196,12 +197,50 @@ public class CashierCloseSaleController implements Initializable {
                         closeSale.setC5000(Integer.parseInt(tf5000Qty.getText()));
                         closeSale.setDateTime(new Date());
                         closeSale.setSessionId(ApplicationSession.getSession());
+                        em.persist(closeSale);
+
+                        clearCloseSale();
+                        CustomAlert.showStyledAlert(root, "The sale has been successfully closed.", "Sale Closed Successfully", Alert.AlertType.INFORMATION);
+                        ApplicationControllers.getPanelCashierController().changePanel(
+                                "/com/qb/app/cashierDashboard.fxml",
+                                "Dashboard"
+                        );
                     });
                 } else {
                     CustomAlert.showStyledAlert(root, "The username or password you entered is incorrect. Please try again.", "Invalid Credentials", Alert.AlertType.WARNING);
                 }
             }
         }
+    }
+
+    private void clearCloseSale() {
+        tf5Qty.setText("");
+        tf10Qty.setText("");
+        tf20Qty.setText("");
+        tf50Qty.setText("");
+        tf100Qty.setText("");
+        tf500Qty.setText("");
+        tf1000Qty.setText("");
+        tf5000Qty.setText("");
+        tf5Value.setText("");
+        tf10Value.setText("");
+        tf20Value.setText("");
+        tf50Value.setText("");
+        tf100Value.setText("");
+        tf500Value.setText("");
+        tf1000Value.setText("");
+        tf5000Value.setText("");
+        tfUsername.setText("");
+        tfPassword.setText("");
+        tfCollection.setText("");
+        tfDayIn.setText("");
+        tfDayOff.setText("");
+        tfCashier.setText("");
+    }
+
+    @Override
+    public void close() {
+        
     }
 
 }

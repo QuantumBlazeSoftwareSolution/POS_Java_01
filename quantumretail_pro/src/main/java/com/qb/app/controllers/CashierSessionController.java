@@ -26,6 +26,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import static com.qb.app.model.JPATransaction.runInTransaction;
+import com.qb.app.session.ApplicationControllers;
 import java.time.LocalTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -169,10 +170,20 @@ public class CashierSessionController implements Initializable, ControllerClose 
                                     sessionToday.setCollection(Double.valueOf(tfSignOffCollection.getText()));
                                     sessionToday.setStatus("OFF");
                                     mergeSignOffSession(sessionToday);
+                                    ApplicationSession.setSession(sessionToday);
 
                                     signInMessage.setText("Day completed.");
                                     signOffMessage.setText("Day completed.");
                                     CustomAlert.showStyledAlert(root, "Successfuly Sign Off for today.", Alert.AlertType.INFORMATION);
+
+                                    PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                                    delay.setOnFinished(event -> {
+                                        ApplicationControllers.getPanelCashierController().changePanel(
+                                                "/com/qb/app/cashierDashboard.fxml",
+                                                "Dashboard"
+                                        );
+                                    });
+                                    delay.play();
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println(e.getMessage());

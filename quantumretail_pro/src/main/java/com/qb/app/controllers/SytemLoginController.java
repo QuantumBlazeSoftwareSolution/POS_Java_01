@@ -65,10 +65,15 @@ public class SytemLoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnLogin.setDisable(true);
         setMouseEvent();
         setInitialState();
         setQBImage();
-        loadORM();
+        Thread thread = new Thread(() -> {
+            loadORM();
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     @FXML
@@ -165,6 +170,7 @@ public class SytemLoginController implements Initializable {
     private void loadORM() {
         runInTransaction((em) -> {
             System.out.println("ORM is Loaded");
+            btnLogin.setDisable(false);
         });
     }
 
@@ -210,9 +216,7 @@ public class SytemLoginController implements Initializable {
             try {
                 Session activeSession = em.createQuery(sessionCq).getSingleResult();
                 ApplicationSession.setSession(activeSession);
-                System.out.println("Session found for today");
             } catch (NoResultException e) {
-                System.out.println("Session not found for today");
             }
         });
     }

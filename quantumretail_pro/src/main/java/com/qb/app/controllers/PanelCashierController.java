@@ -4,10 +4,21 @@ import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.InterfaceAction;
+import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.entity.CloseSale;
+import com.qb.app.model.entity.Session;
+import com.qb.app.session.ApplicationControllers;
 import com.qb.app.session.ApplicationSession;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -87,10 +98,14 @@ public class PanelCashierController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(trainingModeToggle.isSelected());
         setIcons();
         setInitialState();
         leftSideMenu.setTranslateX(0);
+        ApplicationControllers.setPanelCashierController(this);
+    }
+
+    public void changePanel(String panel, String title) {
+        changeCenterPanel(panel, title);
     }
 
     private void setIcons() {
@@ -109,23 +124,43 @@ public class PanelCashierController implements Initializable {
         if (event.getSource() == btnDashboard) {
             changeCenterPanel("/com/qb/app/cashierDashboard.fxml", "Dashboard");
         } else if (event.getSource() == btnSession) {
-            changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
+            if (!isSessionFinished()) {
+                changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
+            } else {
+                CustomAlert.showStyledAlert(root, "Today's session is finished.", "Information", Alert.AlertType.INFORMATION);
+            }
         } else if (event.getSource() == btnInvoice) {
             if (ApplicationSession.getSession() != null) {
-                changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
+                if (ApplicationSession.getSession().getStatus().equals("ON")) {
+                    changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
+                } else {
+                    CustomAlert.showStyledAlert(root, "Invoice operations are currently unavailable. Please ensure your session is active.", "Session Not Active", Alert.AlertType.INFORMATION);
+                }
             } else {
                 CustomAlert.showStyledAlert(root, "You must sign in before accessing invoice operations.", "Daily Sign-In Required", Alert.AlertType.WARNING);
                 changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
             }
         } else if (event.getSource() == btnCloseSale) {
-            if (ApplicationSession.getSession() != null && ApplicationSession.getSession().getStatus().equals("OFF")) {
-                changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
+            if (closeSaleAvailable()) {
+                if (ApplicationSession.getSession() != null && ApplicationSession.getSession().getStatus().equals("OFF")) {
+                    changeCenterPanel("/com/qb/app/cashierCloseSale.fxml", "Close Sale");
+                } else {
+                    CustomAlert.showStyledAlert(root, "Please complete your daily sign-off before proceeding with this operation.", "Daily Sign-Off Required", Alert.AlertType.WARNING);
+                    changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
+                }
             } else {
-                CustomAlert.showStyledAlert(root, "Please complete your daily sign-off before proceeding with this operation.", "Daily Sign-Off Required", Alert.AlertType.WARNING);
-                changeCenterPanel("/com/qb/app/cashierSession.fxml", "Session");
+                CustomAlert.showStyledAlert(root, "Sale is already closed.", "Information", Alert.AlertType.INFORMATION);
             }
         } else if (event.getSource() == btnWithdrawal) {
-            changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml", "Withdrawal");
+            if (ApplicationSession.getSession() != null) {
+                if (!isSessionFinished()) {
+                    changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml", "Withdrawal");
+                } else {
+                    CustomAlert.showStyledAlert(root, "Today's session is finished.", "Information", Alert.AlertType.INFORMATION);
+                }
+            } else {
+                CustomAlert.showStyledAlert(root, "You must activate your session before accessing withdrawal operations.", "Session activation Required", Alert.AlertType.INFORMATION);
+            }
         } else if (event.getSource() == btnRefund) {
             changeCenterPanel("/com/qb/app/cashierRefund.fxml", "Refund");
         } else if (event.getSource() == BtnRePrint) {
@@ -281,5 +316,59 @@ public class PanelCashierController implements Initializable {
 
     private void disableTrainingMode() {
         trainingModeToggle.setSelected(false);
+    }
+
+    private boolean closeSaleAvailable() {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<CloseSale> cQuery = cBuilder.createQuery(CloseSale.class);
+            Root<CloseSale> closeSaleRoot = cQuery.from(CloseSale.class);
+
+            LocalDate today = LocalDate.now();
+            Predicate datePredicate = cBuilder.equal(
+                    cBuilder.function("DATE", Date.class, closeSaleRoot.get("dateTime")),
+                    java.sql.Date.valueOf(today)
+            );
+
+            cQuery.where(datePredicate);
+            try {
+                em.createQuery(cQuery).getSingleResult();
+                return false;
+            } catch (Exception e) {                
+                return true;
+            }
+        });
+    }
+
+    private boolean isSessionFinished() {
+        Session currentSession = ApplicationSession.getSession();
+        if (currentSession == null) {
+            return false;
+        }
+
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Session> cq = cb.createQuery(Session.class);
+            Root<Session> sessionRoot = cq.from(Session.class);
+
+            Predicate sessionPredicate = cb.equal(
+                    sessionRoot.get("id"),
+                    currentSession.getId()
+            );
+
+            LocalDate today = LocalDate.now();
+            Predicate datePredicate = cb.equal(
+                    cb.function("DATE", Date.class, sessionRoot.get("dayInTime")),
+                    java.sql.Date.valueOf(today)
+            );
+
+            cq.where(cb.and(sessionPredicate, datePredicate));
+            try {
+                Session session = em.createQuery(cq).getSingleResult();
+                return "OFF".equals(session.getStatus());
+            } catch (NoResultException e) {
+                return false;
+            }
+        });
     }
 }

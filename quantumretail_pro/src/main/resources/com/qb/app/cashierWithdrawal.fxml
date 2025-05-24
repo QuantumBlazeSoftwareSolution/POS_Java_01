@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierWithdrawalController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierWithdrawalController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -41,7 +41,7 @@
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tfAvailableCash" prefHeight="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -55,7 +55,7 @@
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tfCashAmount" prefHeight="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -69,7 +69,7 @@
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tfDateTime" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -85,7 +85,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" stylesheets="@css/style.css">
+                              <TextField fx:id="tfReason" prefHeight="40.0" stylesheets="@css/style.css">
                                  <styleClass>
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border" />
@@ -93,7 +93,7 @@
                                  </styleClass></TextField>
                            </children>
                         </VBox>
-                        <Button mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Withdraw" VBox.vgrow="ALWAYS">
+                        <Button fx:id="btnWithrawal" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Withdraw" VBox.vgrow="ALWAYS">
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="primary-white" />
