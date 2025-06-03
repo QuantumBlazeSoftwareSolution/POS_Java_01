@@ -36,6 +36,7 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -244,8 +245,8 @@ public class InvoicePaymentController implements Initializable {
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//            JasperPrintManager.printReport(report, false);
             JasperViewer.viewReport(report, false);
+            JasperPrintManager.printReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
