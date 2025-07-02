@@ -1,3 +1,4 @@
 Able to manage more than one cashier location (centralize network for database)
 Can be monitor admin panel from another computer with centralize network
 Online POS system
+Double side interface (Both Cashier and the Customer)
