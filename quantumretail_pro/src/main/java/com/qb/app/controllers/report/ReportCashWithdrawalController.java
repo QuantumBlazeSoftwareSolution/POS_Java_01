@@ -6,7 +6,13 @@ package com.qb.app.controllers.report;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -14,6 +20,23 @@ import javafx.fxml.Initializable;
  * @author Vihanga
  */
 public class ReportCashWithdrawalController implements Initializable {
+
+    @FXML
+    private Group iconPage;
+    @FXML
+    private Button btnRegister1;
+    @FXML
+    private ScrollPane tableScrollContainer;
+    @FXML
+    private VBox tableBody;
+    @FXML
+    private ScrollBar tableScroller;
+    @FXML
+    private Button btnClear11;
+    @FXML
+    private Button btnRegister11;
+    @FXML
+    private Button btnRegister111;
 
     /**
      * Initializes the controller class.

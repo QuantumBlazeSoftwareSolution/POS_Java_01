@@ -23,11 +23,24 @@
 }
 
 .subMenuHover:hover{
-    -fx-text-fill: #5E50DD;
+    /*-fx-text-fill: #5E50DD;*/
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
+}
+
+.scale-down-pressed:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.95;
 }
 
 .primary-white{
     -fx-text-fill: #f1f1f1;
+}
+
+.bg-white{
+    -fx-background-color:  #f1f1f1;
 }
 
 .dashboard-item-hover{
@@ -54,7 +67,7 @@
 
 .button-primary{
     -fx-background-color: #5E50DD;
-        -fx-text-fill: #f1f1f1;
+    -fx-text-fill: #f1f1f1;
 }
 
 .button-primary-outline{
@@ -82,14 +95,233 @@
 
 .radio-button .radio {
     -fx-background-color: transparent;
-    -fx-border-color: #5E50DD; 
+    -fx-border-color: #5E50DD;
     -fx-border-width: 2px;
     -fx-border-radius: 50%;
 }
 
 .radio-button:selected .radio {
-    -fx-background-color: #5E50DD; 
+    -fx-background-color: #5E50DD;
 }
 .radio-button:selected .radio .dot {
-    -fx-background-color: white; 
+    -fx-background-color: white;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #5E50DD;
+    -fx-border-width: 0.5px;
+    -fx-padding: 0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #302B63;
+    -fx-background-radius: 10px 10px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #302B63;
+    -fx-background-radius: 10;
+    -fx-padding: 10px;
+    -fx-pref-height: 40px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #5E50DD;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #f1f1f1;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #1A163B;
+    -fx-text-fill: #f1f1f1;
+    -fx-border-color: #24243E;
+    -fx-border-width: 0 0 0.5px 0;
+    -fx-cell-size: 35px;
+    -fx-padding: 8px 0 8px 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #231D52;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #5E50DD;
+    -fx-text-fill: white;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #f1f1f1;
+    -fx-padding: 10px;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #5E50DD;
+    -fx-background-radius: 5px;
+}
+
+.table-view .scroll-bar .increment-button,
+.table-view .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 5px 0 5px;
+}
+
+.table-view:focused {
+    -fx-background-insets: 0;
+}
+
+/* Scroll Pane Styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+/*    -fx-border-color: #5E50DD;
+    -fx-border-width: 0.5px;
+    -fx-border-radius: 4px;*/
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+/* Scroll Bar Styling */
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 5px 0 5px;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: rgba(30, 27, 75, 0.5);
+    -fx-border-color: transparent;
+    -fx-background-radius: 2px;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to right, #5E50DD, #302B63);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 14px;   /* Increased from default */
+    -fx-min-width: 14px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: linear-gradient(to right, #5E50DD, #24243E);    
+    -fx-cursor: hand;
+}
+
+/* Corner Styling */
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+/* Special hover effects */
+.scroll-pane:hover {
+    /*-fx-border-color: #5E50DD;*/
+    /*-fx-effect: dropshadow(gaussian, rgba(94, 80, 221, 0.3), 10, 0.2, 0, 0);*/
+}
+
+/* For dark content areas */
+.scroll-pane.dark-content {
+    -fx-background-color: rgba(26, 22, 59, 0.7);
+}
+
+.scroll-pane.dark-content .viewport {
+    -fx-background-color: rgba(26, 22, 59, 0.7);
+}
+
+/* Checkbox Styling with Consistent Sizing */
+.check-box {
+    -fx-text-fill: #f1f1f1;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 0 5px 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Box - Fixed size container */
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #5E50DD;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px; /* Internal padding for checkmark */
+    -fx-min-width: 20px;
+    -fx-max-width: 20px;
+    -fx-min-height: 20px;
+    -fx-max-height: 20px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+}
+
+/* Checkmark - Perfectly centered */
+.check-box:selected .mark {
+    -fx-background-color: white;
+    -fx-shape: "M 0 4 L 4 8 L 10 0";
+    -fx-scale-shape: false;
+    -fx-padding: 4px 4px 4px 3px; /* Fine-tuned alignment */
+    -fx-translate-x: -1px; /* Pixel-perfect horizontal adjustment */
+    -fx-translate-y: -1px; /* Pixel-perfect vertical adjustment */
+}
+
+/* Selected state - maintains exact same dimensions */
+.check-box:selected .box {
+    -fx-background-color: #5E50DD;
+    -fx-border-color: #5E50DD;
+    -fx-padding: 3px; /* Must match unselected state */
+    -fx-min-width: 20px;
+    -fx-max-width: 20px;
+    -fx-min-height: 20px;
+    -fx-max-height: 20px;
+}
+
+/* Hover states - no size change */
+.check-box:hover .box {
+    -fx-border-color: #7D6AFF;
+    -fx-effect: dropshadow(gaussian, rgba(94, 80, 221, 0.5), 5, 0.2, 0, 0);
+    /* No dimension changes */
+}
+
+/* Focused state - visual feedback without resizing */
+.check-box:focused .box {
+    -fx-effect: innershadow(gaussian, rgba(94, 80, 221, 0.8), 5, 0.5, 0, 0);
+    /* No dimension changes */
 }

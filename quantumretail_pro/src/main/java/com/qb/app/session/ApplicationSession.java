@@ -28,6 +28,10 @@ public class ApplicationSession {
         return session;
     }
 
+    public static String getTest() {
+        return "Test";
+    }
+
     public static void setSession(Session param) {
         session = param;
     }

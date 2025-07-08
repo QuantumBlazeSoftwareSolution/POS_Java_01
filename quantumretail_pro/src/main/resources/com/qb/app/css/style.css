@@ -33,12 +33,25 @@
     -fx-border-radius: 50px;
 }
 
+.scale-down-pressed:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.95;
+}
+
 .primary-text{
     -fx-text-fill: #004E92;
 }
 
+.text-developer{
+    -fx-text-fill: #5E50DD;
+}
+
 .textFieldColor{
     -fx-text-fill: #1068b5;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
 }
 
 .primary-border{
