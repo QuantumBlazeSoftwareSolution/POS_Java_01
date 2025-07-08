@@ -7,7 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 
 public class App extends Application {
@@ -19,6 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
+        primaryStage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         scene = new Scene(loadFXML("sytemLogin"));
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -31,10 +35,10 @@ public class App extends Application {
     public static void setRoot(String fxml) throws IOException {
         // Call close() on previous controller if applicable
         if (currentController instanceof ControllerClose controllerClose) {
-            System.out.println("instanceof ControllerClose: Going to trigger close method.");
+//            System.out.println("instanceof ControllerClose: Going to trigger close method.");
             controllerClose.close();
         } else {
-            System.out.println("Not instanceof ControllerClose");
+//            System.out.println("Not instanceof ControllerClose");
         }
 
         // Load new FXML
@@ -51,11 +55,35 @@ public class App extends Application {
         }
 
         scene.setRoot(root);
-        primaryStage.sizeToScene();
-        primaryStage.setMaximized(true);
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint("");
-        primaryStage.setFullScreenExitKeyCombination(null);
+
+        if (fxml.equals("admin/adminVerification") || fxml.equals("sytemLogin") || fxml.equals("developer/developerVerification")) {
+            primaryStage.setMaximized(false);
+            primaryStage.sizeToScene();
+            centerStageOnScreen();
+        } else {
+            // Default behavior for other windows
+            primaryStage.setMaximized(true);
+            resetWindowPosition(); // Reset to top-left when maximizing
+        }
+
+//        primaryStage.setMaximized(true);
+//        primaryStage.sizeToScene();
+//        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreenExitHint("");
+//        primaryStage.setFullScreenExitKeyCombination(null);
+    }
+
+    private static void centerStageOnScreen() {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        double centerX = (screenBounds.getWidth() - primaryStage.getWidth()) / 2;
+        double centerY = (screenBounds.getHeight() - primaryStage.getHeight()) / 2;
+        primaryStage.setX(centerX);
+        primaryStage.setY(centerY);
+    }
+
+    private static void resetWindowPosition() {
+        primaryStage.setX(0);
+        primaryStage.setY(0);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
