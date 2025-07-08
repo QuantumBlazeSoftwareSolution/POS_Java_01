@@ -55,11 +55,19 @@
     <class>com.qb.app.model.entity.Stock</class>
     <class>com.qb.app.model.entity.Ctrl_1</class>
     <class>com.qb.app.model.entity.ProductHasProductType</class>
+    <class>com.qb.app.model.entity.EmployeePanel</class>
+    <class>com.qb.app.model.entity.LocationSupplyItem</class>
+    <class>com.qb.app.model.entity.Category</class>
+    <class>com.qb.app.model.entity.Interface</class>
+    <class>com.qb.app.model.entity.StockStatus</class>
+    <class>com.qb.app.model.entity.DamageExpire</class>
+    <class>com.qb.app.model.entity.LocationSupplyType</class>
+    <class>com.qb.app.model.entity.LocationSupply</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quantum_retail_pro?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
-      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.user" value="${DB_USER}"/>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="jakarta.persistence.jdbc.password" value="Vheshan37@37"/>
+      <property name="jakarta.persistence.jdbc.password" value="${DB_PASSWORD}"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </properties>
   </persistence-unit>
