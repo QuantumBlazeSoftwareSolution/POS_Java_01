@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,12 +29,12 @@ import java.util.Date;
  * @author Vihanga
  */
 @Entity
-@Table(name = "location_return")
+@Table(name = "location_supply")
 @NamedQueries({
-    @NamedQuery(name = "LocationReturn.findAll", query = "SELECT l FROM LocationReturn l"),
-    @NamedQuery(name = "LocationReturn.findById", query = "SELECT l FROM LocationReturn l WHERE l.id = :id"),
-    @NamedQuery(name = "LocationReturn.findByDateTime", query = "SELECT l FROM LocationReturn l WHERE l.dateTime = :dateTime")})
-public class LocationReturn implements Serializable {
+    @NamedQuery(name = "LocationSupply.findAll", query = "SELECT l FROM LocationSupply l"),
+    @NamedQuery(name = "LocationSupply.findById", query = "SELECT l FROM LocationSupply l WHERE l.id = :id"),
+    @NamedQuery(name = "LocationSupply.findByDateTime", query = "SELECT l FROM LocationSupply l WHERE l.dateTime = :dateTime")})
+public class LocationSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,25 +47,25 @@ public class LocationReturn implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee employeeId;
     @JoinColumn(name = "location_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Location locationId;
-    @JoinColumn(name = "location_return_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private LocationReturnType locationReturnTypeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationReturnId")
-    private Collection<LocationReturnItem> locationReturnItemCollection;
+    @JoinColumn(name = "location_supply_type_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private LocationSupplyType locationSupplyTypeId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationSupplyId", fetch = FetchType.EAGER)
+    private Collection<LocationSupplyItem> locationSupplyItemCollection;
 
-    public LocationReturn() {
+    public LocationSupply() {
     }
 
-    public LocationReturn(Integer id) {
+    public LocationSupply(Integer id) {
         this.id = id;
     }
 
-    public LocationReturn(Integer id, Date dateTime) {
+    public LocationSupply(Integer id, Date dateTime) {
         this.id = id;
         this.dateTime = dateTime;
     }
@@ -101,20 +102,20 @@ public class LocationReturn implements Serializable {
         this.locationId = locationId;
     }
 
-    public LocationReturnType getLocationReturnTypeId() {
-        return locationReturnTypeId;
+    public LocationSupplyType getLocationSupplyTypeId() {
+        return locationSupplyTypeId;
     }
 
-    public void setLocationReturnTypeId(LocationReturnType locationReturnTypeId) {
-        this.locationReturnTypeId = locationReturnTypeId;
+    public void setLocationSupplyTypeId(LocationSupplyType locationSupplyTypeId) {
+        this.locationSupplyTypeId = locationSupplyTypeId;
     }
 
-    public Collection<LocationReturnItem> getLocationReturnItemCollection() {
-        return locationReturnItemCollection;
+    public Collection<LocationSupplyItem> getLocationSupplyItemCollection() {
+        return locationSupplyItemCollection;
     }
 
-    public void setLocationReturnItemCollection(Collection<LocationReturnItem> locationReturnItemCollection) {
-        this.locationReturnItemCollection = locationReturnItemCollection;
+    public void setLocationSupplyItemCollection(Collection<LocationSupplyItem> locationSupplyItemCollection) {
+        this.locationSupplyItemCollection = locationSupplyItemCollection;
     }
 
     @Override
@@ -127,10 +128,10 @@ public class LocationReturn implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LocationReturn)) {
+        if (!(object instanceof LocationSupply)) {
             return false;
         }
-        LocationReturn other = (LocationReturn) object;
+        LocationSupply other = (LocationSupply) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -139,7 +140,7 @@ public class LocationReturn implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.LocationReturn[ id=" + id + " ]";
+        return "com.qb.app.model.entity.LocationSupply[ id=" + id + " ]";
     }
     
 }

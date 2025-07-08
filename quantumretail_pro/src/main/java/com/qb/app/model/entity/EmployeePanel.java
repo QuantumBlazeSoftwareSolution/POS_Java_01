@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,12 +24,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "employee_role_type")
+@Table(name = "employee_panel")
 @NamedQueries({
-    @NamedQuery(name = "EmployeeRoleType.findAll", query = "SELECT e FROM EmployeeRoleType e"),
-    @NamedQuery(name = "EmployeeRoleType.findById", query = "SELECT e FROM EmployeeRoleType e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeRoleType.findByType", query = "SELECT e FROM EmployeeRoleType e WHERE e.type = :type")})
-public class EmployeeRoleType implements Serializable {
+    @NamedQuery(name = "EmployeePanel.findAll", query = "SELECT e FROM EmployeePanel e"),
+    @NamedQuery(name = "EmployeePanel.findById", query = "SELECT e FROM EmployeePanel e WHERE e.id = :id"),
+    @NamedQuery(name = "EmployeePanel.findByType", query = "SELECT e FROM EmployeePanel e WHERE e.type = :type")})
+public class EmployeePanel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,17 +40,17 @@ public class EmployeeRoleType implements Serializable {
     @Basic(optional = false)
     @Column(name = "type")
     private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeRoleTypeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeePanelId", fetch = FetchType.EAGER)
     private Collection<EmployeeRole> employeeRoleCollection;
 
-    public EmployeeRoleType() {
+    public EmployeePanel() {
     }
 
-    public EmployeeRoleType(Integer id) {
+    public EmployeePanel(Integer id) {
         this.id = id;
     }
 
-    public EmployeeRoleType(Integer id, String type) {
+    public EmployeePanel(Integer id, String type) {
         this.id = id;
         this.type = type;
     }
@@ -88,10 +89,10 @@ public class EmployeeRoleType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmployeeRoleType)) {
+        if (!(object instanceof EmployeePanel)) {
             return false;
         }
-        EmployeeRoleType other = (EmployeeRoleType) object;
+        EmployeePanel other = (EmployeePanel) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +101,7 @@ public class EmployeeRoleType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.EmployeeRoleType[ id=" + id + " ]";
+        return "com.qb.app.model.entity.EmployeePanel[ id=" + id + " ]";
     }
     
 }

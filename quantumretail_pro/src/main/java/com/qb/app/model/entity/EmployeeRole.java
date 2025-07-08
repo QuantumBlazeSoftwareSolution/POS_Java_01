@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,13 +42,13 @@ public class EmployeeRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "role")
     private String role;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeRoleId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeRoleId", fetch = FetchType.EAGER)
     private Collection<EmployeeRoleHasInterface> employeeRoleHasInterfaceCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeRoleId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeRoleId", fetch = FetchType.EAGER)
     private Collection<Employee> employeeCollection;
-    @JoinColumn(name = "employee_role_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private EmployeeRoleType employeeRoleTypeId;
+    @JoinColumn(name = "employee_panel_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private EmployeePanel employeePanelId;
 
     public EmployeeRole() {
     }
@@ -93,12 +94,12 @@ public class EmployeeRole implements Serializable {
         this.employeeCollection = employeeCollection;
     }
 
-    public EmployeeRoleType getEmployeeRoleTypeId() {
-        return employeeRoleTypeId;
+    public EmployeePanel getEmployeePanelId() {
+        return employeePanelId;
     }
 
-    public void setEmployeeRoleTypeId(EmployeeRoleType employeeRoleTypeId) {
-        this.employeeRoleTypeId = employeeRoleTypeId;
+    public void setEmployeePanelId(EmployeePanel employeePanelId) {
+        this.employeePanelId = employeePanelId;
     }
 
     @Override

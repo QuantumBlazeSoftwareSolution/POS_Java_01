@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,12 +39,12 @@ public class DamageItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "qty")
     private double qty;
-    @JoinColumn(name = "damage_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Damage damageId;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product productId;
+    @JoinColumn(name = "damage_expire_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private DamageExpire damageExpireId;
+    @JoinColumn(name = "stock_batch_id", referencedColumnName = "batch_id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Stock stockBatchId;
 
     public DamageItem() {
     }
@@ -73,20 +74,20 @@ public class DamageItem implements Serializable {
         this.qty = qty;
     }
 
-    public Damage getDamageId() {
-        return damageId;
+    public DamageExpire getDamageExpireId() {
+        return damageExpireId;
     }
 
-    public void setDamageId(Damage damageId) {
-        this.damageId = damageId;
+    public void setDamageExpireId(DamageExpire damageExpireId) {
+        this.damageExpireId = damageExpireId;
     }
 
-    public Product getProductId() {
-        return productId;
+    public Stock getStockBatchId() {
+        return stockBatchId;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setStockBatchId(Stock stockBatchId) {
+        this.stockBatchId = stockBatchId;
     }
 
     @Override

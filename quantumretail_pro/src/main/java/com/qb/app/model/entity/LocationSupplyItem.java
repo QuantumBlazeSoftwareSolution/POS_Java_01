@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,12 +23,12 @@ import java.io.Serializable;
  * @author Vihanga
  */
 @Entity
-@Table(name = "store")
+@Table(name = "location_supply_item")
 @NamedQueries({
-    @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s"),
-    @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
-    @NamedQuery(name = "Store.findByQty", query = "SELECT s FROM Store s WHERE s.qty = :qty")})
-public class Store implements Serializable {
+    @NamedQuery(name = "LocationSupplyItem.findAll", query = "SELECT l FROM LocationSupplyItem l"),
+    @NamedQuery(name = "LocationSupplyItem.findById", query = "SELECT l FROM LocationSupplyItem l WHERE l.id = :id"),
+    @NamedQuery(name = "LocationSupplyItem.findByQty", query = "SELECT l FROM LocationSupplyItem l WHERE l.qty = :qty")})
+public class LocationSupplyItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,18 +39,24 @@ public class Store implements Serializable {
     @Basic(optional = false)
     @Column(name = "qty")
     private double qty;
+    @JoinColumn(name = "location_supply_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private LocationSupply locationSupplyId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Product productId;
+    @JoinColumn(name = "stock_batch_id", referencedColumnName = "batch_id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Stock stockBatchId;
 
-    public Store() {
+    public LocationSupplyItem() {
     }
 
-    public Store(Integer id) {
+    public LocationSupplyItem(Integer id) {
         this.id = id;
     }
 
-    public Store(Integer id, double qty) {
+    public LocationSupplyItem(Integer id, double qty) {
         this.id = id;
         this.qty = qty;
     }
@@ -70,12 +77,28 @@ public class Store implements Serializable {
         this.qty = qty;
     }
 
+    public LocationSupply getLocationSupplyId() {
+        return locationSupplyId;
+    }
+
+    public void setLocationSupplyId(LocationSupply locationSupplyId) {
+        this.locationSupplyId = locationSupplyId;
+    }
+
     public Product getProductId() {
         return productId;
     }
 
     public void setProductId(Product productId) {
         this.productId = productId;
+    }
+
+    public Stock getStockBatchId() {
+        return stockBatchId;
+    }
+
+    public void setStockBatchId(Stock stockBatchId) {
+        this.stockBatchId = stockBatchId;
     }
 
     @Override
@@ -88,10 +111,10 @@ public class Store implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Store)) {
+        if (!(object instanceof LocationSupplyItem)) {
             return false;
         }
-        Store other = (Store) object;
+        LocationSupplyItem other = (LocationSupplyItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +123,7 @@ public class Store implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Store[ id=" + id + " ]";
+        return "com.qb.app.model.entity.LocationSupplyItem[ id=" + id + " ]";
     }
     
 }

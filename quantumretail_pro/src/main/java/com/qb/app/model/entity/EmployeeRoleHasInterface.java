@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,8 +26,7 @@ import java.io.Serializable;
 @Table(name = "employee_role_has_interface")
 @NamedQueries({
     @NamedQuery(name = "EmployeeRoleHasInterface.findAll", query = "SELECT e FROM EmployeeRoleHasInterface e"),
-    @NamedQuery(name = "EmployeeRoleHasInterface.findById", query = "SELECT e FROM EmployeeRoleHasInterface e WHERE e.id = :id"),
-    @NamedQuery(name = "EmployeeRoleHasInterface.findByInterfaceId", query = "SELECT e FROM EmployeeRoleHasInterface e WHERE e.interfaceId = :interfaceId")})
+    @NamedQuery(name = "EmployeeRoleHasInterface.findById", query = "SELECT e FROM EmployeeRoleHasInterface e WHERE e.id = :id")})
 public class EmployeeRoleHasInterface implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,23 +35,18 @@ public class EmployeeRoleHasInterface implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "interface_id")
-    private int interfaceId;
     @JoinColumn(name = "employee_role_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private EmployeeRole employeeRoleId;
+    @JoinColumn(name = "interface_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Interface interfaceId;
 
     public EmployeeRoleHasInterface() {
     }
 
     public EmployeeRoleHasInterface(Integer id) {
         this.id = id;
-    }
-
-    public EmployeeRoleHasInterface(Integer id, int interfaceId) {
-        this.id = id;
-        this.interfaceId = interfaceId;
     }
 
     public Integer getId() {
@@ -62,20 +57,20 @@ public class EmployeeRoleHasInterface implements Serializable {
         this.id = id;
     }
 
-    public int getInterfaceId() {
-        return interfaceId;
-    }
-
-    public void setInterfaceId(int interfaceId) {
-        this.interfaceId = interfaceId;
-    }
-
     public EmployeeRole getEmployeeRoleId() {
         return employeeRoleId;
     }
 
     public void setEmployeeRoleId(EmployeeRole employeeRoleId) {
         this.employeeRoleId = employeeRoleId;
+    }
+
+    public Interface getInterfaceId() {
+        return interfaceId;
+    }
+
+    public void setInterfaceId(Interface interfaceId) {
+        this.interfaceId = interfaceId;
     }
 
     @Override

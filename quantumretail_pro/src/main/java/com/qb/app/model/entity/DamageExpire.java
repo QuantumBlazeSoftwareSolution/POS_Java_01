@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,12 +30,12 @@ import java.util.Date;
  * @author Vihanga
  */
 @Entity
-@Table(name = "damage")
+@Table(name = "damage_expire")
 @NamedQueries({
-    @NamedQuery(name = "Damage.findAll", query = "SELECT d FROM Damage d"),
-    @NamedQuery(name = "Damage.findById", query = "SELECT d FROM Damage d WHERE d.id = :id"),
-    @NamedQuery(name = "Damage.findByDateTime", query = "SELECT d FROM Damage d WHERE d.dateTime = :dateTime")})
-public class Damage implements Serializable {
+    @NamedQuery(name = "DamageExpire.findAll", query = "SELECT d FROM DamageExpire d"),
+    @NamedQuery(name = "DamageExpire.findById", query = "SELECT d FROM DamageExpire d WHERE d.id = :id"),
+    @NamedQuery(name = "DamageExpire.findByDateTime", query = "SELECT d FROM DamageExpire d WHERE d.dateTime = :dateTime")})
+public class DamageExpire implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,19 +52,19 @@ public class Damage implements Serializable {
     @Column(name = "reason")
     private String reason;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee employeeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "damageId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "damageExpireId", fetch = FetchType.EAGER)
     private Collection<DamageItem> damageItemCollection;
 
-    public Damage() {
+    public DamageExpire() {
     }
 
-    public Damage(Integer id) {
+    public DamageExpire(Integer id) {
         this.id = id;
     }
 
-    public Damage(Integer id, Date dateTime, String reason) {
+    public DamageExpire(Integer id, Date dateTime, String reason) {
         this.id = id;
         this.dateTime = dateTime;
         this.reason = reason;
@@ -119,10 +120,10 @@ public class Damage implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Damage)) {
+        if (!(object instanceof DamageExpire)) {
             return false;
         }
-        Damage other = (Damage) object;
+        DamageExpire other = (DamageExpire) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -131,7 +132,7 @@ public class Damage implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Damage[ id=" + id + " ]";
+        return "com.qb.app.model.entity.DamageExpire[ id=" + id + " ]";
     }
     
 }

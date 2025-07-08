@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -53,13 +54,13 @@ public class Refund implements Serializable {
     @Basic(optional = false)
     @Column(name = "refund_amount")
     private double refundAmount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "refundId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "refundId", fetch = FetchType.EAGER)
     private Collection<RefundItem> refundItemCollection;
     @JoinColumn(name = "refund_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private RefundStatus refundStatusId;
     @JoinColumn(name = "session_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Session sessionId;
 
     public Refund() {

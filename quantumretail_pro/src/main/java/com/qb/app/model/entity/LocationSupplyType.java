@@ -8,11 +8,10 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -25,12 +24,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "brand")
+@Table(name = "location_supply_type")
 @NamedQueries({
-    @NamedQuery(name = "Brand.findAll", query = "SELECT b FROM Brand b"),
-    @NamedQuery(name = "Brand.findById", query = "SELECT b FROM Brand b WHERE b.id = :id"),
-    @NamedQuery(name = "Brand.findByBrand", query = "SELECT b FROM Brand b WHERE b.brand = :brand")})
-public class Brand implements Serializable {
+    @NamedQuery(name = "LocationSupplyType.findAll", query = "SELECT l FROM LocationSupplyType l"),
+    @NamedQuery(name = "LocationSupplyType.findById", query = "SELECT l FROM LocationSupplyType l WHERE l.id = :id"),
+    @NamedQuery(name = "LocationSupplyType.findByType", query = "SELECT l FROM LocationSupplyType l WHERE l.type = :type")})
+public class LocationSupplyType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,24 +38,21 @@ public class Brand implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "brand")
-    private String brand;
-    @JoinColumn(name = "product_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private ProductStatus productStatusId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brandId")
-    private Collection<Product> productCollection;
+    @Column(name = "type")
+    private String type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationSupplyTypeId", fetch = FetchType.EAGER)
+    private Collection<LocationSupply> locationSupplyCollection;
 
-    public Brand() {
+    public LocationSupplyType() {
     }
 
-    public Brand(Integer id) {
+    public LocationSupplyType(Integer id) {
         this.id = id;
     }
 
-    public Brand(Integer id, String brand) {
+    public LocationSupplyType(Integer id, String type) {
         this.id = id;
-        this.brand = brand;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -67,28 +63,20 @@ public class Brand implements Serializable {
         this.id = id;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getType() {
+        return type;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public ProductStatus getProductStatusId() {
-        return productStatusId;
+    public Collection<LocationSupply> getLocationSupplyCollection() {
+        return locationSupplyCollection;
     }
 
-    public void setProductStatusId(ProductStatus productStatusId) {
-        this.productStatusId = productStatusId;
-    }
-
-    public Collection<Product> getProductCollection() {
-        return productCollection;
-    }
-
-    public void setProductCollection(Collection<Product> productCollection) {
-        this.productCollection = productCollection;
+    public void setLocationSupplyCollection(Collection<LocationSupply> locationSupplyCollection) {
+        this.locationSupplyCollection = locationSupplyCollection;
     }
 
     @Override
@@ -101,10 +89,10 @@ public class Brand implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Brand)) {
+        if (!(object instanceof LocationSupplyType)) {
             return false;
         }
-        Brand other = (Brand) object;
+        LocationSupplyType other = (LocationSupplyType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -113,7 +101,7 @@ public class Brand implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Brand[ id=" + id + " ]";
+        return "com.qb.app.model.entity.LocationSupplyType[ id=" + id + " ]";
     }
     
 }

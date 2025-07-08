@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -42,10 +43,10 @@ public class SupplierOrder implements Serializable {
     @Column(name = "required_date")
     @Temporal(TemporalType.DATE)
     private Date requiredDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierOrderId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierOrderId", fetch = FetchType.EAGER)
     private Collection<SupplierOrderItem> supplierOrderItemCollection;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Supplier supplierId;
 
     public SupplierOrder() {

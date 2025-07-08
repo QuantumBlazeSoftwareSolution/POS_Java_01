@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,12 +24,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "location_return_type")
+@Table(name = "stock_status")
 @NamedQueries({
-    @NamedQuery(name = "LocationReturnType.findAll", query = "SELECT l FROM LocationReturnType l"),
-    @NamedQuery(name = "LocationReturnType.findById", query = "SELECT l FROM LocationReturnType l WHERE l.id = :id"),
-    @NamedQuery(name = "LocationReturnType.findByType", query = "SELECT l FROM LocationReturnType l WHERE l.type = :type")})
-public class LocationReturnType implements Serializable {
+    @NamedQuery(name = "StockStatus.findAll", query = "SELECT s FROM StockStatus s"),
+    @NamedQuery(name = "StockStatus.findById", query = "SELECT s FROM StockStatus s WHERE s.id = :id"),
+    @NamedQuery(name = "StockStatus.findByStatus", query = "SELECT s FROM StockStatus s WHERE s.status = :status")})
+public class StockStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +38,21 @@ public class LocationReturnType implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "type")
-    private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationReturnTypeId")
-    private Collection<LocationReturn> locationReturnCollection;
+    @Column(name = "status")
+    private String status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockStatusId", fetch = FetchType.EAGER)
+    private Collection<Stock> stockCollection;
 
-    public LocationReturnType() {
+    public StockStatus() {
     }
 
-    public LocationReturnType(Integer id) {
+    public StockStatus(Integer id) {
         this.id = id;
     }
 
-    public LocationReturnType(Integer id, String type) {
+    public StockStatus(Integer id, String status) {
         this.id = id;
-        this.type = type;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -62,20 +63,20 @@ public class LocationReturnType implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Collection<LocationReturn> getLocationReturnCollection() {
-        return locationReturnCollection;
+    public Collection<Stock> getStockCollection() {
+        return stockCollection;
     }
 
-    public void setLocationReturnCollection(Collection<LocationReturn> locationReturnCollection) {
-        this.locationReturnCollection = locationReturnCollection;
+    public void setStockCollection(Collection<Stock> stockCollection) {
+        this.stockCollection = stockCollection;
     }
 
     @Override
@@ -88,10 +89,10 @@ public class LocationReturnType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LocationReturnType)) {
+        if (!(object instanceof StockStatus)) {
             return false;
         }
-        LocationReturnType other = (LocationReturnType) object;
+        StockStatus other = (StockStatus) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +101,7 @@ public class LocationReturnType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.LocationReturnType[ id=" + id + " ]";
+        return "com.qb.app.model.entity.StockStatus[ id=" + id + " ]";
     }
     
 }

@@ -8,9 +8,12 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -23,12 +26,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "discount_type")
+@Table(name = "category")
 @NamedQueries({
-    @NamedQuery(name = "DiscountType.findAll", query = "SELECT d FROM DiscountType d"),
-    @NamedQuery(name = "DiscountType.findById", query = "SELECT d FROM DiscountType d WHERE d.id = :id"),
-    @NamedQuery(name = "DiscountType.findByType", query = "SELECT d FROM DiscountType d WHERE d.type = :type")})
-public class DiscountType implements Serializable {
+    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
+    @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id"),
+    @NamedQuery(name = "Category.findByCategory", query = "SELECT c FROM Category c WHERE c.category = :category")})
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +40,24 @@ public class DiscountType implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "type")
-    private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "discountTypeId")
-    private Collection<System> systemCollection;
+    @Column(name = "category")
+    private String category;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.EAGER)
+    private Collection<Product> productCollection;
+    @JoinColumn(name = "product_status_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private ProductStatus productStatusId;
 
-    public DiscountType() {
+    public Category() {
     }
 
-    public DiscountType(Integer id) {
+    public Category(Integer id) {
         this.id = id;
     }
 
-    public DiscountType(Integer id, String type) {
+    public Category(Integer id, String category) {
         this.id = id;
-        this.type = type;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -62,20 +68,28 @@ public class DiscountType implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getCategory() {
+        return category;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public Collection<System> getSystemCollection() {
-        return systemCollection;
+    public Collection<Product> getProductCollection() {
+        return productCollection;
     }
 
-    public void setSystemCollection(Collection<System> systemCollection) {
-        this.systemCollection = systemCollection;
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
+    }
+
+    public ProductStatus getProductStatusId() {
+        return productStatusId;
+    }
+
+    public void setProductStatusId(ProductStatus productStatusId) {
+        this.productStatusId = productStatusId;
     }
 
     @Override
@@ -88,10 +102,10 @@ public class DiscountType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DiscountType)) {
+        if (!(object instanceof Category)) {
             return false;
         }
-        DiscountType other = (DiscountType) object;
+        Category other = (Category) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +114,7 @@ public class DiscountType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.DiscountType[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Category[ id=" + id + " ]";
     }
     
 }

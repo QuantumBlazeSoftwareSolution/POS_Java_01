@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,8 +27,9 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name = "GrnItem.findAll", query = "SELECT g FROM GrnItem g"),
     @NamedQuery(name = "GrnItem.findById", query = "SELECT g FROM GrnItem g WHERE g.id = :id"),
+    @NamedQuery(name = "GrnItem.findByQty", query = "SELECT g FROM GrnItem g WHERE g.qty = :qty"),
     @NamedQuery(name = "GrnItem.findByCostPrice", query = "SELECT g FROM GrnItem g WHERE g.costPrice = :costPrice"),
-    @NamedQuery(name = "GrnItem.findByQty", query = "SELECT g FROM GrnItem g WHERE g.qty = :qty")})
+    @NamedQuery(name = "GrnItem.findBySalePrice", query = "SELECT g FROM GrnItem g WHERE g.salePrice = :salePrice")})
 public class GrnItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,16 +39,19 @@ public class GrnItem implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @Column(name = "qty")
+    private double qty;
+    @Basic(optional = false)
     @Column(name = "cost_price")
     private double costPrice;
     @Basic(optional = false)
-    @Column(name = "qty")
-    private double qty;
+    @Column(name = "sale_price")
+    private double salePrice;
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Grn grnId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Product productId;
 
     public GrnItem() {
@@ -56,10 +61,11 @@ public class GrnItem implements Serializable {
         this.id = id;
     }
 
-    public GrnItem(Integer id, double costPrice, double qty) {
+    public GrnItem(Integer id, double qty, double costPrice, double salePrice) {
         this.id = id;
-        this.costPrice = costPrice;
         this.qty = qty;
+        this.costPrice = costPrice;
+        this.salePrice = salePrice;
     }
 
     public Integer getId() {
@@ -70,6 +76,14 @@ public class GrnItem implements Serializable {
         this.id = id;
     }
 
+    public double getQty() {
+        return qty;
+    }
+
+    public void setQty(double qty) {
+        this.qty = qty;
+    }
+
     public double getCostPrice() {
         return costPrice;
     }
@@ -78,12 +92,12 @@ public class GrnItem implements Serializable {
         this.costPrice = costPrice;
     }
 
-    public double getQty() {
-        return qty;
+    public double getSalePrice() {
+        return salePrice;
     }
 
-    public void setQty(double qty) {
-        this.qty = qty;
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
     }
 
     public Grn getGrnId() {

@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,10 +48,10 @@ public class Location implements Serializable {
     @Basic(optional = false)
     @Column(name = "telephone_2")
     private String telephone2;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationId")
-    private Collection<LocationReturn> locationReturnCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationId")
-    private Collection<ProductDistributeHasLocation> productDistributeHasLocationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationId", fetch = FetchType.EAGER)
+    private Collection<LocationSupply> locationSupplyCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationId", fetch = FetchType.EAGER)
+    private Collection<ProductDistribute> productDistributeCollection;
 
     public Location() {
     }
@@ -98,20 +99,20 @@ public class Location implements Serializable {
         this.telephone2 = telephone2;
     }
 
-    public Collection<LocationReturn> getLocationReturnCollection() {
-        return locationReturnCollection;
+    public Collection<LocationSupply> getLocationSupplyCollection() {
+        return locationSupplyCollection;
     }
 
-    public void setLocationReturnCollection(Collection<LocationReturn> locationReturnCollection) {
-        this.locationReturnCollection = locationReturnCollection;
+    public void setLocationSupplyCollection(Collection<LocationSupply> locationSupplyCollection) {
+        this.locationSupplyCollection = locationSupplyCollection;
     }
 
-    public Collection<ProductDistributeHasLocation> getProductDistributeHasLocationCollection() {
-        return productDistributeHasLocationCollection;
+    public Collection<ProductDistribute> getProductDistributeCollection() {
+        return productDistributeCollection;
     }
 
-    public void setProductDistributeHasLocationCollection(Collection<ProductDistributeHasLocation> productDistributeHasLocationCollection) {
-        this.productDistributeHasLocationCollection = productDistributeHasLocationCollection;
+    public void setProductDistributeCollection(Collection<ProductDistribute> productDistributeCollection) {
+        this.productDistributeCollection = productDistributeCollection;
     }
 
     @Override

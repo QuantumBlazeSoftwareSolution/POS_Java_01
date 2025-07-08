@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,12 +24,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "distribute_type")
+@Table(name = "interface")
 @NamedQueries({
-    @NamedQuery(name = "DistributeType.findAll", query = "SELECT d FROM DistributeType d"),
-    @NamedQuery(name = "DistributeType.findById", query = "SELECT d FROM DistributeType d WHERE d.id = :id"),
-    @NamedQuery(name = "DistributeType.findByType", query = "SELECT d FROM DistributeType d WHERE d.type = :type")})
-public class DistributeType implements Serializable {
+    @NamedQuery(name = "Interface.findAll", query = "SELECT i FROM Interface i"),
+    @NamedQuery(name = "Interface.findById", query = "SELECT i FROM Interface i WHERE i.id = :id"),
+    @NamedQuery(name = "Interface.findByInterface1", query = "SELECT i FROM Interface i WHERE i.interface1 = :interface1")})
+public class Interface implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +38,21 @@ public class DistributeType implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "type")
-    private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "distributeTypeId")
-    private Collection<ProductDistribute> productDistributeCollection;
+    @Column(name = "interface")
+    private String interface1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "interfaceId", fetch = FetchType.EAGER)
+    private Collection<EmployeeRoleHasInterface> employeeRoleHasInterfaceCollection;
 
-    public DistributeType() {
+    public Interface() {
     }
 
-    public DistributeType(Integer id) {
+    public Interface(Integer id) {
         this.id = id;
     }
 
-    public DistributeType(Integer id, String type) {
+    public Interface(Integer id, String interface1) {
         this.id = id;
-        this.type = type;
+        this.interface1 = interface1;
     }
 
     public Integer getId() {
@@ -62,20 +63,20 @@ public class DistributeType implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getInterface1() {
+        return interface1;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setInterface1(String interface1) {
+        this.interface1 = interface1;
     }
 
-    public Collection<ProductDistribute> getProductDistributeCollection() {
-        return productDistributeCollection;
+    public Collection<EmployeeRoleHasInterface> getEmployeeRoleHasInterfaceCollection() {
+        return employeeRoleHasInterfaceCollection;
     }
 
-    public void setProductDistributeCollection(Collection<ProductDistribute> productDistributeCollection) {
-        this.productDistributeCollection = productDistributeCollection;
+    public void setEmployeeRoleHasInterfaceCollection(Collection<EmployeeRoleHasInterface> employeeRoleHasInterfaceCollection) {
+        this.employeeRoleHasInterfaceCollection = employeeRoleHasInterfaceCollection;
     }
 
     @Override
@@ -88,10 +89,10 @@ public class DistributeType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DistributeType)) {
+        if (!(object instanceof Interface)) {
             return false;
         }
-        DistributeType other = (DistributeType) object;
+        Interface other = (Interface) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +101,7 @@ public class DistributeType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.DistributeType[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Interface[ id=" + id + " ]";
     }
     
 }

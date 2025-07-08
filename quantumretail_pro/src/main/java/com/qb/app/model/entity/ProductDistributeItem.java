@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,10 +44,10 @@ public class ProductDistributeItem implements Serializable {
     @Column(name = "product_price")
     private double productPrice;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Product productId;
     @JoinColumn(name = "product_distribute_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private ProductDistribute productDistributeId;
 
     public ProductDistributeItem() {
