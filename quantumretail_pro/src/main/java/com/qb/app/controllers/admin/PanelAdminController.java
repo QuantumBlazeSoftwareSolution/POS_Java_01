@@ -271,11 +271,11 @@ public class PanelAdminController  implements Initializable{
         getLogger.logger().warning(e.toString());
             }
         } else if (event.getSource() == btnDiscount) {
-            loadCenterPanel("discount");
+            loadCenterPanel("admin/discount");
         } else if (event.getSource() == btnDashboard) {
-            loadCenterPanel("adminDashboard");
+            loadCenterPanel("admin/adminDashboard");
         } else if (event.getSource() == btnCustomer) {
-            loadCenterPanel("customer");
+            loadCenterPanel("admin/customer");
         }
     }
 
