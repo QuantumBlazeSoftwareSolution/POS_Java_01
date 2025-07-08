@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,10 +40,10 @@ public class ProductStatus implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productStatusId")
-    private Collection<Brand> brandCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productStatusId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productStatusId", fetch = FetchType.EAGER)
     private Collection<Product> productCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productStatusId", fetch = FetchType.EAGER)
+    private Collection<Category> categoryCollection;
 
     public ProductStatus() {
     }
@@ -72,20 +73,20 @@ public class ProductStatus implements Serializable {
         this.status = status;
     }
 
-    public Collection<Brand> getBrandCollection() {
-        return brandCollection;
-    }
-
-    public void setBrandCollection(Collection<Brand> brandCollection) {
-        this.brandCollection = brandCollection;
-    }
-
     public Collection<Product> getProductCollection() {
         return productCollection;
     }
 
     public void setProductCollection(Collection<Product> productCollection) {
         this.productCollection = productCollection;
+    }
+
+    public Collection<Category> getCategoryCollection() {
+        return categoryCollection;
+    }
+
+    public void setCategoryCollection(Collection<Category> categoryCollection) {
+        this.categoryCollection = categoryCollection;
     }
 
     @Override

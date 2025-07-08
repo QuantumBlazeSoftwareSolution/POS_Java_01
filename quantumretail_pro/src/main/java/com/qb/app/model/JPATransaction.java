@@ -18,7 +18,7 @@ public class JPATransaction {
         EntityTransaction tx = null;
 
         try {
-            em = JpaUtil.getEntityManager();
+            em = JpaUtil.getEntityManager();    
             tx = em.getTransaction();
             tx.begin();
 

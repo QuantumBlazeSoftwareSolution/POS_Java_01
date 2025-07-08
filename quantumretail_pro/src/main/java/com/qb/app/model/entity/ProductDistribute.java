@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,16 +46,14 @@ public class ProductDistribute implements Serializable {
     @Basic(optional = false)
     @Column(name = "receiver")
     private String receiver;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDistributeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDistributeId", fetch = FetchType.EAGER)
     private Collection<ProductDistributeItem> productDistributeItemCollection;
-    @JoinColumn(name = "distribute_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private DistributeType distributeTypeId;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee employeeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDistributeId")
-    private Collection<ProductDistributeHasLocation> productDistributeHasLocationCollection;
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Location locationId;
 
     public ProductDistribute() {
     }
@@ -101,14 +100,6 @@ public class ProductDistribute implements Serializable {
         this.productDistributeItemCollection = productDistributeItemCollection;
     }
 
-    public DistributeType getDistributeTypeId() {
-        return distributeTypeId;
-    }
-
-    public void setDistributeTypeId(DistributeType distributeTypeId) {
-        this.distributeTypeId = distributeTypeId;
-    }
-
     public Employee getEmployeeId() {
         return employeeId;
     }
@@ -117,12 +108,12 @@ public class ProductDistribute implements Serializable {
         this.employeeId = employeeId;
     }
 
-    public Collection<ProductDistributeHasLocation> getProductDistributeHasLocationCollection() {
-        return productDistributeHasLocationCollection;
+    public Location getLocationId() {
+        return locationId;
     }
 
-    public void setProductDistributeHasLocationCollection(Collection<ProductDistributeHasLocation> productDistributeHasLocationCollection) {
-        this.productDistributeHasLocationCollection = productDistributeHasLocationCollection;
+    public void setLocationId(Location locationId) {
+        this.locationId = locationId;
     }
 
     @Override

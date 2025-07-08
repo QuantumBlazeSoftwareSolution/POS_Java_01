@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,12 +29,13 @@ import java.util.Date;
 @Table(name = "close_sale")
 @NamedQueries({
     @NamedQuery(name = "CloseSale.findAll", query = "SELECT c FROM CloseSale c"),
-    @NamedQuery(name = "CloseSale.findByIdcloseSale", query = "SELECT c FROM CloseSale c WHERE c.idcloseSale = :idcloseSale"),
+    @NamedQuery(name = "CloseSale.findById", query = "SELECT c FROM CloseSale c WHERE c.id = :id"),
     @NamedQuery(name = "CloseSale.findByC5000", query = "SELECT c FROM CloseSale c WHERE c.c5000 = :c5000"),
     @NamedQuery(name = "CloseSale.findByC1000", query = "SELECT c FROM CloseSale c WHERE c.c1000 = :c1000"),
     @NamedQuery(name = "CloseSale.findByC500", query = "SELECT c FROM CloseSale c WHERE c.c500 = :c500"),
     @NamedQuery(name = "CloseSale.findByC100", query = "SELECT c FROM CloseSale c WHERE c.c100 = :c100"),
     @NamedQuery(name = "CloseSale.findByC50", query = "SELECT c FROM CloseSale c WHERE c.c50 = :c50"),
+    @NamedQuery(name = "CloseSale.findByC20", query = "SELECT c FROM CloseSale c WHERE c.c20 = :c20"),
     @NamedQuery(name = "CloseSale.findByC10", query = "SELECT c FROM CloseSale c WHERE c.c10 = :c10"),
     @NamedQuery(name = "CloseSale.findByC5", query = "SELECT c FROM CloseSale c WHERE c.c5 = :c5"),
     @NamedQuery(name = "CloseSale.findByDateTime", query = "SELECT c FROM CloseSale c WHERE c.dateTime = :dateTime")})
@@ -43,8 +45,8 @@ public class CloseSale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idclose_sale")
-    private Integer idcloseSale;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "c5000")
     private int c5000;
@@ -61,6 +63,9 @@ public class CloseSale implements Serializable {
     @Column(name = "c50")
     private int c50;
     @Basic(optional = false)
+    @Column(name = "c20")
+    private int c20;
+    @Basic(optional = false)
     @Column(name = "c10")
     private int c10;
     @Basic(optional = false)
@@ -71,34 +76,35 @@ public class CloseSale implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
     @JoinColumn(name = "session_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Session sessionId;
 
     public CloseSale() {
     }
 
-    public CloseSale(Integer idcloseSale) {
-        this.idcloseSale = idcloseSale;
+    public CloseSale(Integer id) {
+        this.id = id;
     }
 
-    public CloseSale(Integer idcloseSale, int c5000, int c1000, int c500, int c100, int c50, int c10, int c5, Date dateTime) {
-        this.idcloseSale = idcloseSale;
+    public CloseSale(Integer id, int c5000, int c1000, int c500, int c100, int c50, int c20, int c10, int c5, Date dateTime) {
+        this.id = id;
         this.c5000 = c5000;
         this.c1000 = c1000;
         this.c500 = c500;
         this.c100 = c100;
         this.c50 = c50;
+        this.c20 = c20;
         this.c10 = c10;
         this.c5 = c5;
         this.dateTime = dateTime;
     }
 
-    public Integer getIdcloseSale() {
-        return idcloseSale;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdcloseSale(Integer idcloseSale) {
-        this.idcloseSale = idcloseSale;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getC5000() {
@@ -141,6 +147,14 @@ public class CloseSale implements Serializable {
         this.c50 = c50;
     }
 
+    public int getC20() {
+        return c20;
+    }
+
+    public void setC20(int c20) {
+        this.c20 = c20;
+    }
+
     public int getC10() {
         return c10;
     }
@@ -176,7 +190,7 @@ public class CloseSale implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idcloseSale != null ? idcloseSale.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -187,7 +201,7 @@ public class CloseSale implements Serializable {
             return false;
         }
         CloseSale other = (CloseSale) object;
-        if ((this.idcloseSale == null && other.idcloseSale != null) || (this.idcloseSale != null && !this.idcloseSale.equals(other.idcloseSale))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -195,7 +209,7 @@ public class CloseSale implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.CloseSale[ idcloseSale=" + idcloseSale + " ]";
+        return "com.qb.app.model.entity.CloseSale[ id=" + id + " ]";
     }
     
 }

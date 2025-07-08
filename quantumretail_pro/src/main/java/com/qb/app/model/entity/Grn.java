@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,8 @@ import java.util.Date;
     @NamedQuery(name = "Grn.findAll", query = "SELECT g FROM Grn g"),
     @NamedQuery(name = "Grn.findById", query = "SELECT g FROM Grn g WHERE g.id = :id"),
     @NamedQuery(name = "Grn.findByGrnCode", query = "SELECT g FROM Grn g WHERE g.grnCode = :grnCode"),
-    @NamedQuery(name = "Grn.findByDateTime", query = "SELECT g FROM Grn g WHERE g.dateTime = :dateTime")})
+    @NamedQuery(name = "Grn.findByDateTime", query = "SELECT g FROM Grn g WHERE g.dateTime = :dateTime"),
+    @NamedQuery(name = "Grn.findByDiscount", query = "SELECT g FROM Grn g WHERE g.discount = :discount")})
 public class Grn implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,11 +51,16 @@ public class Grn implements Serializable {
     @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId")
-    private Collection<GrnItem> grnItemCollection;
+    @Basic(optional = false)
+    @Column(name = "discount")
+    private double discount;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId", fetch = FetchType.EAGER)
+    private Collection<Stock> stockCollection;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Supplier supplierId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId", fetch = FetchType.EAGER)
+    private Collection<GrnItem> grnItemCollection;
 
     public Grn() {
     }
@@ -62,10 +69,11 @@ public class Grn implements Serializable {
         this.id = id;
     }
 
-    public Grn(Integer id, String grnCode, Date dateTime) {
+    public Grn(Integer id, String grnCode, Date dateTime, double discount) {
         this.id = id;
         this.grnCode = grnCode;
         this.dateTime = dateTime;
+        this.discount = discount;
     }
 
     public Integer getId() {
@@ -92,12 +100,20 @@ public class Grn implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public Collection<GrnItem> getGrnItemCollection() {
-        return grnItemCollection;
+    public double getDiscount() {
+        return discount;
     }
 
-    public void setGrnItemCollection(Collection<GrnItem> grnItemCollection) {
-        this.grnItemCollection = grnItemCollection;
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public Collection<Stock> getStockCollection() {
+        return stockCollection;
+    }
+
+    public void setStockCollection(Collection<Stock> stockCollection) {
+        this.stockCollection = stockCollection;
     }
 
     public Supplier getSupplierId() {
@@ -106,6 +122,14 @@ public class Grn implements Serializable {
 
     public void setSupplierId(Supplier supplierId) {
         this.supplierId = supplierId;
+    }
+
+    public Collection<GrnItem> getGrnItemCollection() {
+        return grnItemCollection;
+    }
+
+    public void setGrnItemCollection(Collection<GrnItem> grnItemCollection) {
+        this.grnItemCollection = grnItemCollection;
     }
 
     @Override

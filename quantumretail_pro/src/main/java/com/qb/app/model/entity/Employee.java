@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,8 @@ import java.util.Collection;
     @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
     @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
     @NamedQuery(name = "Employee.findByUsername", query = "SELECT e FROM Employee e WHERE e.username = :username"),
-    @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")})
+    @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password"),
+    @NamedQuery(name = "Employee.findByPin", query = "SELECT e FROM Employee e WHERE e.pin = :pin")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,22 +51,24 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    @Column(name = "pin")
+    private String pin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.EAGER)
+    private Collection<DamageExpire> damageExpireCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.EAGER)
+    private Collection<Session> sessionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.EAGER)
     private Collection<StockAdjustment> stockAdjustmentCollection;
     @JoinColumn(name = "employee_role_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private EmployeeRole employeeRoleId;
     @JoinColumn(name = "employee_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private EmployeeStatus employeeStatusId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.EAGER)
+    private Collection<LocationSupply> locationSupplyCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.EAGER)
     private Collection<ProductDistribute> productDistributeCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private Collection<Damage> damageCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private Collection<Session> sessionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private Collection<LocationReturn> locationReturnCollection;
 
     public Employee() {
     }
@@ -112,6 +116,30 @@ public class Employee implements Serializable {
         this.password = password;
     }
 
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public Collection<DamageExpire> getDamageExpireCollection() {
+        return damageExpireCollection;
+    }
+
+    public void setDamageExpireCollection(Collection<DamageExpire> damageExpireCollection) {
+        this.damageExpireCollection = damageExpireCollection;
+    }
+
+    public Collection<Session> getSessionCollection() {
+        return sessionCollection;
+    }
+
+    public void setSessionCollection(Collection<Session> sessionCollection) {
+        this.sessionCollection = sessionCollection;
+    }
+
     public Collection<StockAdjustment> getStockAdjustmentCollection() {
         return stockAdjustmentCollection;
     }
@@ -136,36 +164,20 @@ public class Employee implements Serializable {
         this.employeeStatusId = employeeStatusId;
     }
 
+    public Collection<LocationSupply> getLocationSupplyCollection() {
+        return locationSupplyCollection;
+    }
+
+    public void setLocationSupplyCollection(Collection<LocationSupply> locationSupplyCollection) {
+        this.locationSupplyCollection = locationSupplyCollection;
+    }
+
     public Collection<ProductDistribute> getProductDistributeCollection() {
         return productDistributeCollection;
     }
 
     public void setProductDistributeCollection(Collection<ProductDistribute> productDistributeCollection) {
         this.productDistributeCollection = productDistributeCollection;
-    }
-
-    public Collection<Damage> getDamageCollection() {
-        return damageCollection;
-    }
-
-    public void setDamageCollection(Collection<Damage> damageCollection) {
-        this.damageCollection = damageCollection;
-    }
-
-    public Collection<Session> getSessionCollection() {
-        return sessionCollection;
-    }
-
-    public void setSessionCollection(Collection<Session> sessionCollection) {
-        this.sessionCollection = sessionCollection;
-    }
-
-    public Collection<LocationReturn> getLocationReturnCollection() {
-        return locationReturnCollection;
-    }
-
-    public void setLocationReturnCollection(Collection<LocationReturn> locationReturnCollection) {
-        this.locationReturnCollection = locationReturnCollection;
     }
 
     @Override

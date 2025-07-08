@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -54,10 +55,10 @@ public class StockAdjustment implements Serializable {
     @Lob
     @Column(name = "reason")
     private String reason;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockAdjustmentId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockAdjustmentId", fetch = FetchType.EAGER)
     private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee employeeId;
 
     public StockAdjustment() {

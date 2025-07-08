@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,7 +40,7 @@ public class SupplierStatus implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierStatusId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierStatusId", fetch = FetchType.EAGER)
     private Collection<Supplier> supplierCollection;
 
     public SupplierStatus() {

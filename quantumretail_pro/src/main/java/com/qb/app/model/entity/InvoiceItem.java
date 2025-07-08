@@ -7,6 +7,7 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,14 +48,17 @@ public class InvoiceItem implements Serializable {
     @Column(name = "cost_price")
     private double costPrice;
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Invoice invoiceId;
     @JoinColumn(name = "invoice_item_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private InvoiceItemType invoiceItemTypeId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Product productId;
+    @JoinColumn(name = "stock_batch_id", referencedColumnName = "batch_id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Stock stockBatchId;
 
     public InvoiceItem() {
     }
@@ -124,6 +128,14 @@ public class InvoiceItem implements Serializable {
 
     public void setProductId(Product productId) {
         this.productId = productId;
+    }
+
+    public Stock getStockBatchId() {
+        return stockBatchId;
+    }
+
+    public void setStockBatchId(Stock stockBatchId) {
+        this.stockBatchId = stockBatchId;
     }
 
     @Override

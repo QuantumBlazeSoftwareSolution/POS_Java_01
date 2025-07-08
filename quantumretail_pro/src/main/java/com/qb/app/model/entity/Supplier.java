@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,17 +47,19 @@ public class Supplier implements Serializable {
     @Column(name = "telephone")
     private String telephone;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Company companyId;
     @JoinColumn(name = "supplier_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private SupplierStatus supplierStatusId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
-    private Collection<SupplierDamageReturn> supplierDamageReturnCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
-    private Collection<SupplierOrder> supplierOrderCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    private Collection<Stock> stockCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
     private Collection<Grn> grnCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    private Collection<SupplierDamageReturn> supplierDamageReturnCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    private Collection<SupplierOrder> supplierOrderCollection;
 
     public Supplier() {
     }
@@ -111,6 +114,22 @@ public class Supplier implements Serializable {
         this.supplierStatusId = supplierStatusId;
     }
 
+    public Collection<Stock> getStockCollection() {
+        return stockCollection;
+    }
+
+    public void setStockCollection(Collection<Stock> stockCollection) {
+        this.stockCollection = stockCollection;
+    }
+
+    public Collection<Grn> getGrnCollection() {
+        return grnCollection;
+    }
+
+    public void setGrnCollection(Collection<Grn> grnCollection) {
+        this.grnCollection = grnCollection;
+    }
+
     public Collection<SupplierDamageReturn> getSupplierDamageReturnCollection() {
         return supplierDamageReturnCollection;
     }
@@ -125,14 +144,6 @@ public class Supplier implements Serializable {
 
     public void setSupplierOrderCollection(Collection<SupplierOrder> supplierOrderCollection) {
         this.supplierOrderCollection = supplierOrderCollection;
-    }
-
-    public Collection<Grn> getGrnCollection() {
-        return grnCollection;
-    }
-
-    public void setGrnCollection(Collection<Grn> grnCollection) {
-        this.grnCollection = grnCollection;
     }
 
     @Override

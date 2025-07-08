@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -57,15 +58,12 @@ public class Invoice implements Serializable {
     @Basic(optional = false)
     @Column(name = "credit_amount")
     private double creditAmount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
-    private Collection<InvoiceItem> invoiceItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId", fetch = FetchType.EAGER)
     private Collection<CustomerHasInvoice> customerHasInvoiceCollection;
-    @JoinColumn(name = "payment_method_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private PaymentMethod paymentMethodId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId", fetch = FetchType.EAGER)
+    private Collection<InvoiceItem> invoiceItemCollection;
     @JoinColumn(name = "session_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Session sessionId;
 
     public Invoice() {
@@ -123,14 +121,6 @@ public class Invoice implements Serializable {
         this.creditAmount = creditAmount;
     }
 
-    public Collection<InvoiceItem> getInvoiceItemCollection() {
-        return invoiceItemCollection;
-    }
-
-    public void setInvoiceItemCollection(Collection<InvoiceItem> invoiceItemCollection) {
-        this.invoiceItemCollection = invoiceItemCollection;
-    }
-
     public Collection<CustomerHasInvoice> getCustomerHasInvoiceCollection() {
         return customerHasInvoiceCollection;
     }
@@ -139,12 +129,12 @@ public class Invoice implements Serializable {
         this.customerHasInvoiceCollection = customerHasInvoiceCollection;
     }
 
-    public PaymentMethod getPaymentMethodId() {
-        return paymentMethodId;
+    public Collection<InvoiceItem> getInvoiceItemCollection() {
+        return invoiceItemCollection;
     }
 
-    public void setPaymentMethodId(PaymentMethod paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+    public void setInvoiceItemCollection(Collection<InvoiceItem> invoiceItemCollection) {
+        this.invoiceItemCollection = invoiceItemCollection;
     }
 
     public Session getSessionId() {

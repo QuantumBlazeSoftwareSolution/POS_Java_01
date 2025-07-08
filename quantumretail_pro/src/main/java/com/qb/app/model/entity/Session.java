@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,17 +61,17 @@ public class Session implements Serializable {
     private Double collection;
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
-    private Collection<CloseSale> closeSaleCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
-    private Collection<Refund> refundCollection;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee employeeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
     private Collection<CashWithdrawal> cashWithdrawalCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    private Collection<CloseSale> closeSaleCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
     private Collection<Invoice> invoiceCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    private Collection<Refund> refundCollection;
 
     public Session() {
     }
@@ -133,22 +134,6 @@ public class Session implements Serializable {
         this.status = status;
     }
 
-    public Collection<CloseSale> getCloseSaleCollection() {
-        return closeSaleCollection;
-    }
-
-    public void setCloseSaleCollection(Collection<CloseSale> closeSaleCollection) {
-        this.closeSaleCollection = closeSaleCollection;
-    }
-
-    public Collection<Refund> getRefundCollection() {
-        return refundCollection;
-    }
-
-    public void setRefundCollection(Collection<Refund> refundCollection) {
-        this.refundCollection = refundCollection;
-    }
-
     public Employee getEmployeeId() {
         return employeeId;
     }
@@ -165,12 +150,28 @@ public class Session implements Serializable {
         this.cashWithdrawalCollection = cashWithdrawalCollection;
     }
 
+    public Collection<CloseSale> getCloseSaleCollection() {
+        return closeSaleCollection;
+    }
+
+    public void setCloseSaleCollection(Collection<CloseSale> closeSaleCollection) {
+        this.closeSaleCollection = closeSaleCollection;
+    }
+
     public Collection<Invoice> getInvoiceCollection() {
         return invoiceCollection;
     }
 
     public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
         this.invoiceCollection = invoiceCollection;
+    }
+
+    public Collection<Refund> getRefundCollection() {
+        return refundCollection;
+    }
+
+    public void setRefundCollection(Collection<Refund> refundCollection) {
+        this.refundCollection = refundCollection;
     }
 
     @Override

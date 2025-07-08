@@ -125,7 +125,7 @@
                <center>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="6.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 40px; -fx-background-radius: 40px;" stylesheets="@../css/style.css">
+                        <Button fx:id="btnDecrease" alignment="CENTER" mnemonicParsing="false" onAction="#invoiceItemAction" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 40px; -fx-background-radius: 40px;" stylesheets="@../css/style.css">
                            <graphic>
                               <Group fx:id="invoiceItemMinusIcon" />
                            </graphic>
@@ -137,7 +137,7 @@
                               <String fx:value="invoiceActionButton" />
                            </styleClass>
                         </Button>
-                        <Button alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 40px; -fx-background-radius: 40px;" stylesheets="@../css/style.css">
+                        <Button fx:id="btnIncrease" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#invoiceItemAction" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 40px; -fx-background-radius: 40px;" stylesheets="@../css/style.css">
                            <graphic>
                               <Group fx:id="invoiceItemAddIcon" />
                            </graphic>
@@ -149,7 +149,7 @@
                               <String fx:value="invoiceActionButton" />
                            </styleClass>
                         </Button>
-                        <Button alignment="CENTER" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 40px; -fx-background-radius: 40px;" stylesheets="@../css/style.css">
+                        <Button fx:id="btnDelete" alignment="CENTER" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#invoiceItemAction" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 40px; -fx-background-radius: 40px;" stylesheets="@../css/style.css">
                            <graphic>
                               <Group fx:id="invoiceItemDeleteIcon" />
                            </graphic>
