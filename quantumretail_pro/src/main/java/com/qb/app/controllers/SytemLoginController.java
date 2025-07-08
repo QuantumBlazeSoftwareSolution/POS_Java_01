@@ -27,14 +27,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Session;
+import com.qb.app.model.getLogger;
+import com.qb.app.system.SystemConfiguration;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Date;
 import javafx.animation.PauseTransition;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -42,7 +45,13 @@ import javafx.util.Duration;
 
 public class SytemLoginController implements Initializable {
 
-    //    <editor-fold desc="FXML init component" defaultstate="collapsed">
+    // <editor-fold desc="FXML init component" defaultstate="collapsed">
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Rectangle quantumBlazeIcon;
+    @FXML
+    private Group iconUser;
     @FXML
     private TextField tfUsername;
     @FXML
@@ -54,21 +63,18 @@ public class SytemLoginController implements Initializable {
     @FXML
     private Group iconExit;
     @FXML
-    private AnchorPane root;
-    @FXML
-    private Circle quantumBlazeIcon;
-    @FXML
-    private Group iconUser;
-    //    </editor-fold>
-    @FXML
     private Label loginMessage;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnLogin.setDisable(true);
+        Path encryptedFilePath = Paths.get("system configuration.enc");
+        if (!Files.exists(encryptedFilePath)) {
+            SystemConfiguration.createConfigurationFile();
+        }
+        setAppLogo();
         setMouseEvent();
         setInitialState();
-        setQBImage();
         Thread thread = new Thread(() -> {
             loadORM();
         });
@@ -85,6 +91,36 @@ public class SytemLoginController implements Initializable {
         }
     }
 
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            systemLogin();
+        }
+    }
+
+    private void setAppLogo() {
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
+        quantumBlazeIcon.setFill(new ImagePattern(image));
+    }
+
+    private void setMouseEvent() {
+        InterfaceMortion interfaceMortion = new InterfaceMortion();
+        interfaceMortion.enableDrag(root);
+    }
+
+    private void setInitialState() {
+        setIcons();
+        Rectangle clip = new Rectangle(root.getPrefWidth(), root.getPrefHeight());
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+        root.setClip(clip);
+    }
+
+    private void setIcons() {
+        iconUser.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/users-solid.svg"));
+        iconExit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/exit-solid.svg"));
+    }
+
     private void systemLogin() {
         runInTransaction((EntityManager em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -92,7 +128,11 @@ public class SytemLoginController implements Initializable {
             Root<Employee> employeeRoot = cq.from(Employee.class);
 
             // Filter by username
-            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), tfUsername.getText());
+//            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), tfUsername.getText());
+            Predicate usernamePredicate = cb.equal(
+                    cb.function("BINARY", String.class, employeeRoot.get("username")),
+                    tfUsername.getText()
+            );
             cq.where(usernamePredicate);
 
             // Execute query
@@ -116,69 +156,34 @@ public class SytemLoginController implements Initializable {
             String enteredPassword = tfPassword.getText();
 
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
-                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
-                displayLoginMessage("Login successful. Welcome " + role + ": " + emp.getName(), false);
+                String panel = emp.getEmployeeRoleId().getEmployeePanelId().getType().toLowerCase();
+                displayLoginMessage("Login successful. Welcome " + panel + ": " + emp.getName(), true);
                 String status = emp.getEmployeeStatusId().getStatus();
 
                 if (status.equals("Active")) {
                     try {
-                        switch (role) {
+                        switch (panel) {
                             case "admin" ->
-                                App.setRoot("panelAdmin");
+                                App.setRoot("admin/adminVerification");
                             case "cashier" ->
-                                App.setRoot("panelCashier");
+                                App.setRoot("cashier/panelCashier");
                             case "developer" ->
-                                App.setRoot("panelDeveloper");
+                                App.setRoot("developer/developerVerification");
                             default ->
-                                System.out.println("Unknown role: " + role);
+                                ApplicationSession.setEmployee(emp);
                         }
                     } catch (IOException e) {
-                        System.out.println("Navigation error: " + e.getMessage());
+                        getLogger.logger().warning(e.toString());
+                        e.printStackTrace();
                     }
                 } else {
                     displayLoginMessage("Access Denied", false);
                 }
             } else {
                 displayLoginMessage("Incorrect Password", false);
+                ApplicationSession.setEmployee(null); // save in session
             }
         });
-    }
-
-    private void setInitialState() {
-        setIcons();
-        Rectangle clip = new Rectangle(root.getPrefWidth(), root.getPrefHeight());
-        clip.setArcWidth(20);
-        clip.setArcHeight(20);
-        root.setClip(clip);
-    }
-
-    private void setIcons() {
-        iconUser.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/users-solid.svg"));
-        iconExit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/exit-solid.svg"));
-    }
-
-    private void setMouseEvent() {
-        InterfaceMortion interfaceMortion = new InterfaceMortion();
-        interfaceMortion.enableDrag(root);
-    }
-
-    private void setQBImage() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
-        quantumBlazeIcon.setFill(new ImagePattern(image));
-    }
-
-    private void loadORM() {
-        runInTransaction((em) -> {
-            System.out.println("ORM is Loaded");
-            btnLogin.setDisable(false);
-        });
-    }
-
-    @FXML
-    private void handleKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            systemLogin();
-        }
     }
 
     private void displayLoginMessage(String message, boolean action) {
@@ -218,6 +223,12 @@ public class SytemLoginController implements Initializable {
                 ApplicationSession.setSession(activeSession);
             } catch (NoResultException e) {
             }
+        });
+    }
+
+    private void loadORM() {
+        runInTransaction((em) -> {
+            btnLogin.setDisable(false);
         });
     }
 }
