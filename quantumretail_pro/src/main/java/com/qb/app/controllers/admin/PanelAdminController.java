@@ -27,7 +27,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-public class PanelAdminController implements Initializable {
+public class PanelAdminController  implements Initializable{
 
     // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -268,7 +268,7 @@ public class PanelAdminController implements Initializable {
                 App.setRoot("sytemLogin");
             } catch (Exception e) {
                 e.printStackTrace();
-                getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
             }
         } else if (event.getSource() == btnDiscount) {
             loadCenterPanel("discount");
@@ -400,6 +400,7 @@ public class PanelAdminController implements Initializable {
             controller.setPanelAdminController(this);
         } catch (IOException e) {
             e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -408,7 +409,8 @@ public class PanelAdminController implements Initializable {
             FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -441,45 +443,45 @@ public class PanelAdminController implements Initializable {
     @FXML
     private void handleSubMenuItems(MouseEvent event) {
         if (event.getSource() == btnEmpOverview) {
-            loadCenterPanel("employee_overview");
+            loadCenterPanel("employee/employee_overview");
         } else if (event.getSource() == btnEmpRegistration) {
-            loadCenterPanel("employee_registration");
+            loadCenterPanel("employee/employee_registration");
         } else if (event.getSource() == btnEmpManagement) {
-            loadCenterPanel("employee_management");
+            loadCenterPanel("employee/employee_management");
         } else if (event.getSource() == btnEmpRoleManagement) {
-            loadCenterPanel("employee_role_management");
+            loadCenterPanel("employee/employee_role_management");
         } else if (event.getSource() == btnProductAnalytics) {
-            loadCenterPanel("product_analytics");
+            loadCenterPanel("product/product_analytics");
         } else if (event.getSource() == btnProductBrandManagement) {
-            loadCenterPanel("product_brand_management");
+            loadCenterPanel("product/product_brand_management");
         } else if (event.getSource() == btnProductManagement) {
-            loadCenterPanel("product_management");
+            loadCenterPanel("product/product_management");
         } else if (event.getSource() == btnProductOverview) {
-            loadCenterPanel("product_overview");
+            loadCenterPanel("product/product_overview");
         } else if (event.getSource() == btnProductRegistration) {
-            loadCenterPanel("product_registration");
+            loadCenterPanel("product/product_registration");
         } else if (event.getSource() == btnInventoryDamageItem) {
-            loadCenterPanel("inventory_damage_item");
+            loadCenterPanel("inventory/inventory_damage_item");
         } else if (event.getSource() == btnInventoryDistribute) {
-            loadCenterPanel("inventory_distribute");
+            loadCenterPanel("inventory/inventory_distribute");
         } else if (event.getSource() == btnInventoryGRN) {
-            loadCenterPanel("inventory_grn");
+            loadCenterPanel("inventory/inventory_grn");
         } else if (event.getSource() == btnInventoryLocationManagement) {
-            loadCenterPanel("inventory_location_management");
+            loadCenterPanel("inventory/inventory_location_management");
         } else if (event.getSource() == btnInventoryLocationReturn) {
-            loadCenterPanel("inventory_location_return");
+            loadCenterPanel("inventory/inventory_location_return");
         } else if (event.getSource() == btnInventoryStockAdjustment) {
-            loadCenterPanel("inventory_stock_adjustment");
+            loadCenterPanel("inventory/inventory_stock_adjustment");
         } else if (event.getSource() == btnSupplyCompanyManagement) {
-            loadCenterPanel("supply_company_management");
+            loadCenterPanel("supply/supply_company_management");
         } else if (event.getSource() == btnSupplyCompanyOverview) {
-            loadCenterPanel("supply_company_overview");
+            loadCenterPanel("supply/supply_company_overview");
         } else if (event.getSource() == btnSupplyDamageReturn) {
-            loadCenterPanel("supply_damage_return");
+            loadCenterPanel("supply/supply_damage_return");
         } else if (event.getSource() == btnSupplySupplierManagement) {
-            loadCenterPanel("supply_supplier_management");
+            loadCenterPanel("supply/supply_supplier_management");
         } else if (event.getSource() == btnSupplyOrder) {
-            loadCenterPanel("supply_order");
+            loadCenterPanel("supply/supply_order");
         } else if (event.getSource() == btnReportBIN) {
             loadCenterPanel("reportFXML/reportBIN");
         } else if (event.getSource() == btnReportCashWithdrawal) {
@@ -505,11 +507,13 @@ public class PanelAdminController implements Initializable {
 
     private void loadCenterPanel(String fxml) {
         try {
-            FXMLLoader panel = new FXMLLoader(getClass().getResource("/com/qb/app/" + fxml + ".fxml"));
+            FXMLLoader panel = new FXMLLoader(getClass().getResource("/com/qb/app/admin/" + fxml + ".fxml"));
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
+
 
 }

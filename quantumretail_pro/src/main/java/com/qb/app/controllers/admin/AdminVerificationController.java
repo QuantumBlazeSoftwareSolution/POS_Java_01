@@ -22,7 +22,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-public class AdminVerificationController implements Initializable {
+public class AdminVerificationController  implements Initializable{
 
     @FXML
     private AnchorPane root;
@@ -95,7 +95,7 @@ public class AdminVerificationController implements Initializable {
             App.setRoot("sytemLogin");
         } catch (IOException e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
     }
     
@@ -108,7 +108,7 @@ public class AdminVerificationController implements Initializable {
             App.setRoot("admin/panelAdmin");
         } catch (IOException e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
     }
 

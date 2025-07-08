@@ -1,6 +1,7 @@
 package com.qb.app.system;
 
 import com.qb.app.model.AESUtil;
+import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -96,10 +97,12 @@ public class SystemConfiguration {
             } catch (Exception e) {
                 System.err.println("Error encrypting config file: " + e.getMessage());
                 e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             }
         } catch (IOException | JSONException e) {
             System.err.println("Error handling config file: " + e.getMessage());
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 }
