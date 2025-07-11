@@ -10,6 +10,7 @@ import java.io.IOException;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 
@@ -21,6 +22,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Font.loadFont(
+            getClass().getResource("/com/qb/app/assets/fonts/Roboto-Regular.ttf").toExternalForm(),
+            10
+        );
         primaryStage = stage;
         primaryStage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         scene = new Scene(loadFXML("sytemLogin"));

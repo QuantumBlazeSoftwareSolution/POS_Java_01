@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,14 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.supply.Supply_supplier_managementController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.supply.Supply_supplier_managementController">
    <children>
       <BorderPane layoutX="104.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="suppierManagementIcon" />
-                  <Label styleClass="primary-white" text="Supplier Management">
+                  <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Supplier Management">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -39,7 +40,7 @@
                      <children>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="primary-white" text="Supplier Registration">
+                              <Label styleClass="primary-text" text="Supplier Registration">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
@@ -100,6 +101,7 @@
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
+                                          <String fx:value="scale-down-pressed" />
                                        </styleClass>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -116,6 +118,7 @@
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />
+                                          <String fx:value="scale-down-pressed" />
                                        </styleClass>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -129,11 +132,12 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <VBox layoutX="30.0" layoutY="30.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="primary-white" text="Supplier Management">
+                              <Label styleClass="primary-text" text="Supplier Management">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
@@ -169,7 +173,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Label styleClass="admin-primary-blue" text="Enter - View Supplier List" />
+                        <Label style="-fx-font-size: 12;" styleClass="primary-text" text="Enter - View Supplier List" />
                         <HBox spacing="10.0">
                            <children>
                               <VBox prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
@@ -205,6 +209,7 @@
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
+                                          <String fx:value="scale-down-pressed" />
                                        </styleClass>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -221,6 +226,7 @@
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />
+                                          <String fx:value="scale-down-pressed" />
                                        </styleClass>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
