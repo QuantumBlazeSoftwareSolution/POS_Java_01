@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -52,9 +51,9 @@ public class DamageExpire implements Serializable {
     @Column(name = "reason")
     private String reason;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Employee employeeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "damageExpireId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "damageExpireId")
     private Collection<DamageItem> damageItemCollection;
 
     public DamageExpire() {

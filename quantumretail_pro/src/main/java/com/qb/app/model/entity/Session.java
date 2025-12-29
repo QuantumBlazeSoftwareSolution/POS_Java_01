@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -62,15 +61,15 @@ public class Session implements Serializable {
     @Column(name = "status")
     private String status;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Employee employeeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
     private Collection<CashWithdrawal> cashWithdrawalCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
     private Collection<CloseSale> closeSaleCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
     private Collection<Invoice> invoiceCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId")
     private Collection<Refund> refundCollection;
 
     public Session() {

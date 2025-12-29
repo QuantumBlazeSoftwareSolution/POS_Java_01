@@ -63,6 +63,7 @@
     <class>com.qb.app.model.entity.DamageExpire</class>
     <class>com.qb.app.model.entity.LocationSupplyType</class>
     <class>com.qb.app.model.entity.LocationSupply</class>
+    <class>com.qb.app.model.entity.CategoryHasBrand</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quantum_retail_pro?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="jakarta.persistence.jdbc.user" value="${DB_USER}"/>

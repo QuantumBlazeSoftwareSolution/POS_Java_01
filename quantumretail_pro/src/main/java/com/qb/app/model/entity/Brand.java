@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -23,12 +25,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "interface")
+@Table(name = "brand")
 @NamedQueries({
-    @NamedQuery(name = "Interface.findAll", query = "SELECT i FROM Interface i"),
-    @NamedQuery(name = "Interface.findById", query = "SELECT i FROM Interface i WHERE i.id = :id"),
-    @NamedQuery(name = "Interface.findByInterface1", query = "SELECT i FROM Interface i WHERE i.interface1 = :interface1")})
-public class Interface implements Serializable {
+    @NamedQuery(name = "Brand.findAll", query = "SELECT b FROM Brand b"),
+    @NamedQuery(name = "Brand.findById", query = "SELECT b FROM Brand b WHERE b.id = :id"),
+    @NamedQuery(name = "Brand.findByBrand", query = "SELECT b FROM Brand b WHERE b.brand = :brand")})
+public class Brand implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,21 +39,24 @@ public class Interface implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "interface")
-    private String interface1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "interfaceId")
-    private Collection<EmployeeRoleHasInterface> employeeRoleHasInterfaceCollection;
+    @Column(name = "brand")
+    private String brand;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brandId")
+    private Collection<CategoryHasBrand> categoryHasBrandCollection;
+    @JoinColumn(name = "product_status_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ProductStatus productStatusId;
 
-    public Interface() {
+    public Brand() {
     }
 
-    public Interface(Integer id) {
+    public Brand(Integer id) {
         this.id = id;
     }
 
-    public Interface(Integer id, String interface1) {
+    public Brand(Integer id, String brand) {
         this.id = id;
-        this.interface1 = interface1;
+        this.brand = brand;
     }
 
     public Integer getId() {
@@ -62,20 +67,28 @@ public class Interface implements Serializable {
         this.id = id;
     }
 
-    public String getInterface1() {
-        return interface1;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setInterface1(String interface1) {
-        this.interface1 = interface1;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public Collection<EmployeeRoleHasInterface> getEmployeeRoleHasInterfaceCollection() {
-        return employeeRoleHasInterfaceCollection;
+    public Collection<CategoryHasBrand> getCategoryHasBrandCollection() {
+        return categoryHasBrandCollection;
     }
 
-    public void setEmployeeRoleHasInterfaceCollection(Collection<EmployeeRoleHasInterface> employeeRoleHasInterfaceCollection) {
-        this.employeeRoleHasInterfaceCollection = employeeRoleHasInterfaceCollection;
+    public void setCategoryHasBrandCollection(Collection<CategoryHasBrand> categoryHasBrandCollection) {
+        this.categoryHasBrandCollection = categoryHasBrandCollection;
+    }
+
+    public ProductStatus getProductStatusId() {
+        return productStatusId;
+    }
+
+    public void setProductStatusId(ProductStatus productStatusId) {
+        this.productStatusId = productStatusId;
     }
 
     @Override
@@ -88,10 +101,10 @@ public class Interface implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Interface)) {
+        if (!(object instanceof Brand)) {
             return false;
         }
-        Interface other = (Interface) object;
+        Brand other = (Brand) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +113,7 @@ public class Interface implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.Interface[ id=" + id + " ]";
+        return "com.qb.app.model.entity.Brand[ id=" + id + " ]";
     }
     
 }

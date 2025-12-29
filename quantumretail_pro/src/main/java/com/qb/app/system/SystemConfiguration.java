@@ -93,7 +93,7 @@ public class SystemConfiguration {
                 AESUtil.saveEncryptedFile("system configuration.enc", json);
                 System.out.println("Config file encrypted and saved as config.enc");
 
-                Files.deleteIfExists(path);
+//                Files.deleteIfExists(path);
             } catch (Exception e) {
                 System.err.println("Error encrypting config file: " + e.getMessage());
                 e.printStackTrace();

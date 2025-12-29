@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,15 +46,15 @@ public class LocationSupply implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Employee employeeId;
     @JoinColumn(name = "location_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Location locationId;
     @JoinColumn(name = "location_supply_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private LocationSupplyType locationSupplyTypeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationSupplyId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationSupplyId")
     private Collection<LocationSupplyItem> locationSupplyItemCollection;
 
     public LocationSupply() {

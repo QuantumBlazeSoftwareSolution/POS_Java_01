@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,10 +41,10 @@ public class Category implements Serializable {
     @Basic(optional = false)
     @Column(name = "category")
     private String category;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.EAGER)
-    private Collection<Product> productCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
+    private Collection<CategoryHasBrand> categoryHasBrandCollection;
     @JoinColumn(name = "product_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private ProductStatus productStatusId;
 
     public Category() {
@@ -76,12 +75,12 @@ public class Category implements Serializable {
         this.category = category;
     }
 
-    public Collection<Product> getProductCollection() {
-        return productCollection;
+    public Collection<CategoryHasBrand> getCategoryHasBrandCollection() {
+        return categoryHasBrandCollection;
     }
 
-    public void setProductCollection(Collection<Product> productCollection) {
-        this.productCollection = productCollection;
+    public void setCategoryHasBrandCollection(Collection<CategoryHasBrand> categoryHasBrandCollection) {
+        this.categoryHasBrandCollection = categoryHasBrandCollection;
     }
 
     public ProductStatus getProductStatusId() {

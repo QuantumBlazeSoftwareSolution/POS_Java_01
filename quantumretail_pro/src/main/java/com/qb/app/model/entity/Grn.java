@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -54,12 +53,12 @@ public class Grn implements Serializable {
     @Basic(optional = false)
     @Column(name = "discount")
     private double discount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId")
     private Collection<Stock> stockCollection;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Supplier supplierId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId")
     private Collection<GrnItem> grnItemCollection;
 
     public Grn() {
