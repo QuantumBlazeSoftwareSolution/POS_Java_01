@@ -60,25 +60,30 @@ public class Product_registrationController implements Initializable {
     private Button btnClear;
     @FXML
     private Button btnRegister;
+    @FXML
     private ComboBox<Category> cbCategory;
+    @FXML
     private ComboBox<ProductType> cbProductType;
+    @FXML
     private TextField tfUnitMeasure;
+    @FXML
     private TableView<ProductRegistrationTable> tableView;
+    @FXML
     private TableColumn<ProductRegistrationTable, String> colType;
+    @FXML
     private TableColumn<ProductRegistrationTable, Double> colCostPrice;
+    @FXML
     private TableColumn<ProductRegistrationTable, Double> colSalePrice;
+    @FXML
     private TableColumn<ProductRegistrationTable, Double> colDiscount;
+    @FXML
     private TableColumn<ProductRegistrationTable, Double> colUnitMeasure;
+    @FXML
     private TableColumn<ProductRegistrationTable, String> colBarCode;
+    @FXML
     private Button btnAdd;
     @FXML
-    private ComboBox<?> cbUnit;
-    @FXML
-    private TextField tfMeasure;
-    @FXML
-    private ComboBox<?> cbType;
-    @FXML
-    private TextField tfParentID;
+    private TextField tfParentId;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -281,12 +286,5 @@ public class Product_registrationController implements Initializable {
         );
     }
 
-    @FXML
-    private void handleProductType(ActionEvent event) {
-    }
-
-    @FXML
-    private void handlePopUpProductView(KeyEvent event) {
-    }
 
 }
