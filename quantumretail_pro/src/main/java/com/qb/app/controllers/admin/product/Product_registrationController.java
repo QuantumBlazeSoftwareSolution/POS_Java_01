@@ -155,8 +155,8 @@ public class Product_registrationController implements Initializable {
     private void registerProducts() {
         List<ProductRegistrationTable> productsList = tableView.getItems();
 
-        for (ProductRegistrationTable productRegistrationTable : productsList) {
-            ProductCRUD.createProduct(productRegistrationTable.getProduct(), productRegistrationTable.getType());
+        for (ProductRegistrationTable productRegistrationTable : productsList) {            
+            ProductCRUD.bulkProductRegistration(productRegistrationTable.getProduct(), productRegistrationTable.getType());
         }
 
     }
