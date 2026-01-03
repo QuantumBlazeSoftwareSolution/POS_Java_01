@@ -24,7 +24,5 @@ public class ProductTypeCRUD {
                 return null;
             }
         });
-
     }
-
 }

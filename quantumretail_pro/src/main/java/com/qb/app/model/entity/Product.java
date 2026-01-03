@@ -49,7 +49,6 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "measure")
     private float measure;
-    @Basic(optional = false)
     @Column(name = "bar_code")
     private String barCode;
     @Basic(optional = false)
@@ -81,9 +80,6 @@ public class Product implements Serializable {
     @JoinColumn(name = "product_status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ProductStatus productStatusId;
-    @JoinColumn(name = "product_unit_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private ProductUnit productUnitId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<LocationSupplyItem> locationSupplyItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -100,11 +96,10 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String product, float measure, String barCode, double costPrice, double salePrice, double discount) {
+    public Product(Integer id, String product, float measure, double costPrice, double salePrice, double discount) {
         this.id = id;
         this.product = product;
         this.measure = measure;
-        this.barCode = barCode;
         this.costPrice = costPrice;
         this.salePrice = salePrice;
         this.discount = discount;
@@ -236,14 +231,6 @@ public class Product implements Serializable {
 
     public void setProductStatusId(ProductStatus productStatusId) {
         this.productStatusId = productStatusId;
-    }
-
-    public ProductUnit getProductUnitId() {
-        return productUnitId;
-    }
-
-    public void setProductUnitId(ProductUnit productUnitId) {
-        this.productUnitId = productUnitId;
     }
 
     public Collection<LocationSupplyItem> getLocationSupplyItemCollection() {

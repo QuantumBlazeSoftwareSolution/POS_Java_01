@@ -1,5 +1,7 @@
 package com.qb.app.controllers.admin.product.tables;
 
+import com.qb.app.model.entity.Brand;
+import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductType;
 
@@ -13,22 +15,30 @@ public class ProductRegistrationTable {
     private double discount;
     private double unitMeasure;
     private String barCode;
-    private final Product product;
+    private Product product;
+    private Brand brand;
+    private Category category;
 
     public ProductRegistrationTable(Product product) {
         this.product = product;
     }
 
-    public ProductRegistrationTable(ProductType type, Product product) {
-        this.itemName=product.getProduct();
+    public ProductRegistrationTable(ProductType type, Product product, Brand brand, Category category) {
+        this.itemName = product.getProduct();
         this.type = type;
         this.typeStr = type.getType();
         this.costPrice = product.getCostPrice();
         this.salePrice = product.getSalePrice();
         this.discount = product.getDiscount();
-        this.barCode = product.getBarCode();
+        if (!product.getBarCode().isEmpty() || product.getBarCode() != null) {
+            this.barCode = product.getBarCode();
+        } else {
+            this.barCode = "";
+        }
         this.unitMeasure = product.getMeasure();
         this.product = product;
+        this.brand = brand;
+        this.category = category;
     }
 
     public String getItemName() {
@@ -93,5 +103,29 @@ public class ProductRegistrationTable {
 
     public void setBarCode(String barCode) {
         this.barCode = barCode;
+    }
+
+    public void setTypeStr(String typeStr) {
+        this.typeStr = typeStr;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
