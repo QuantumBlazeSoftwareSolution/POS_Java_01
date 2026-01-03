@@ -1,0 +1,6 @@
+Jan 03, 2026 6:37:02 PM com.qb.app.controllers.admin.product.Product_registrationController openProductPopup
+WARNING: java.lang.IllegalStateException: Location is not set.
+Jan 03, 2026 6:39:43 PM com.qb.app.controllers.admin.product.Product_registrationController openProductPopup
+WARNING: javafx.fxml.LoadException: 
+/D:/Quantum%20Blaze/Projects/Research%20Project/POS%20Systems/POS_Java_01/quantumretail_pro/target/classes/com/qb/app/popup/popUpProductList.fxml:18
+

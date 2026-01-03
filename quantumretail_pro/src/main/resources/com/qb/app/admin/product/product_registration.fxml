@@ -168,11 +168,20 @@
                                                             <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="tfParentId" disable="true" minHeight="45.0" prefHeight="45.0" styleClass="primary-text">
-                                                         <font>
-                                                            <Font name="Aptos" size="14.0" />
-                                                         </font>
-                                                      </TextField>
+                                                      <HBox spacing="6.0">
+                                                         <children>
+                                                            <TextField fx:id="tfParentId" disable="true" minHeight="45.0" prefHeight="45.0" styleClass="primary-text">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </TextField>
+                                                            <Button fx:id="btnProductPopup" minHeight="45.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="45.0" styleClass="button-primary" HBox.hgrow="ALWAYS">
+                                                               <graphic>
+                                                                  <Group fx:id="iconProductPopup" />
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
                                                    </children>
                                                 </VBox>
                                                 <VBox prefWidth="100.0" spacing="4.0" HBox.hgrow="ALWAYS">

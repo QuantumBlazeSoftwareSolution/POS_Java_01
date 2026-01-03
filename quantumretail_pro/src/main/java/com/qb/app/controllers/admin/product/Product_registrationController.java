@@ -1,15 +1,20 @@
 package com.qb.app.controllers.admin.product;
 
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
+import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.database_crud.ProductCRUD;
 import com.qb.app.database_crud.ProductTypeCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.OperationResult;
+import com.qb.app.model.PopUp;
+import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductType;
+import com.qb.app.model.getLogger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -89,6 +94,10 @@ public class Product_registrationController implements Initializable {
     private Button btnAdd;
     @FXML
     private TextField tfParentId;
+    @FXML
+    private Button btnProductPopup;
+    @FXML
+    private Group iconProductPopup;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,9 +105,15 @@ public class Product_registrationController implements Initializable {
         configureInputs();
         loadComboBoxes();
 
+        setIcons();
+
         // Safe default
         cbProductType.getSelectionModel().selectedItemProperty()
                 .addListener((obs, old, val) -> handleProductTypeSelector());
+    }
+
+    private void setIcons() {
+        iconProductPopup.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/products-popup.svg"));
     }
 
     private void loadComboBoxes() {
@@ -136,12 +151,44 @@ public class Product_registrationController implements Initializable {
             handleProductTypeSelector();
         } else if (event.getSource() == btnRegister) {
             registerProducts();
+        } else if (event.getSource() == btnProductPopup) {
+            openProductPopup();
         }
+    }
+
+    private void openProductPopup() {
+        try {
+            PopUp.showPopupAndWait(
+                    "popup/popUpProductList.fxml",
+                    root,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (PopUpProductListController controller) -> {
+                        controller.saveProductRegistrationController(this);
+                    }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
+    private Product parentProduct;
+
+    public void setParentProduct(Product product) {
+        parentProduct = product;
     }
 
     private void registerProducts() {
         List<ProductRegistrationTable> productsList = tableView.getItems();
-        ProductCRUD.bulkProductRegistration(productsList);
+        OperationResult result = ProductCRUD.bulkProductRegistration(tableView.getItems());
+
+        CustomAlert.showStyledAlert(
+                root,
+                result.getMessage(),
+                result.isSuccess() ? "Success" : "Error",
+                result.isSuccess() ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR
+        );
     }
 
     private void handleProductTypeSelector() {
@@ -170,7 +217,7 @@ public class Product_registrationController implements Initializable {
                 );
 
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                if (!tfBarCode.getText().isEmpty()) {
+                if (!tfBarCode.getText().isEmpty() || tfBarCode.getText() != null) {
                     product.setBarCode(tfBarCode.getText());
                 }
 
@@ -178,7 +225,13 @@ public class Product_registrationController implements Initializable {
                     product.setDiscount(Double.parseDouble(tfDiscount.getText()));
                 }
 
-                ProductRegistrationTable productRegistrationTable = new ProductRegistrationTable(cbProductType.getValue(), product);
+                ProductRegistrationTable productRegistrationTable
+                        = new ProductRegistrationTable(
+                                cbProductType.getValue(),
+                                product,
+                                cbBrand.getValue(),
+                                cbCategory.getValue()
+                        );
 
                 if (!isParentCreated && "parent".equals(cbProductType.getValue().getType())) {
                     isParentCreated = true;
