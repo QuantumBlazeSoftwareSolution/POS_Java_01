@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -67,23 +66,25 @@ public class Stock implements Serializable {
     @Column(name = "expire_date")
     @Temporal(TemporalType.DATE)
     private Date expireDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
+    private Collection<StockAdjustment> stockAdjustmentCollection;
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Grn grnId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Product productId;
     @JoinColumn(name = "stock_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private StockStatus stockStatusId;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Supplier supplierId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
     private Collection<DamageItem> damageItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
     private Collection<LocationSupplyItem> locationSupplyItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
     private Collection<InvoiceItem> invoiceItemCollection;
 
     public Stock() {
@@ -157,6 +158,14 @@ public class Stock implements Serializable {
 
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public Collection<StockAdjustment> getStockAdjustmentCollection() {
+        return stockAdjustmentCollection;
+    }
+
+    public void setStockAdjustmentCollection(Collection<StockAdjustment> stockAdjustmentCollection) {
+        this.stockAdjustmentCollection = stockAdjustmentCollection;
     }
 
     public Grn getGrnId() {

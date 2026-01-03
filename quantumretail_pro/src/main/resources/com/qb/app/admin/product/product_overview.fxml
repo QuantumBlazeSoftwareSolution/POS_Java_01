@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,25 +15,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.product.Product_overviewController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.product.Product_overviewController">
    <children>
       <VBox layoutX="35.0" layoutY="50.0" spacing="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="40.0">
          <children>
             <HBox prefHeight="150.0" spacing="40.0">
                <children>
-                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" style="-fx-background-radius: 6;" styleClass="primary-gradient" HBox.hgrow="ALWAYS">
                      <right>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../../assets/images/grid-item-circle-image.png" />
+                           </image></ImageView>
                      </right>
                      <left>
                         <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="14.0" layoutY="58.0" text="23" textFill="WHITE">
+                              <Label layoutX="14.0" layoutY="58.0" style="-fx-font-size: 30;" styleClass="primary-text" text="23" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="13.0" layoutY="105.0" text="Brand" textFill="WHITE">
+                              <Label layoutX="13.0" layoutY="105.0" styleClass="primary-text" text="Brand" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -40,19 +45,22 @@
                         </Pane>
                      </left>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" style="-fx-background-radius: 6;" styleClass="primary-gradient" HBox.hgrow="ALWAYS">
                      <right>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../../assets/images/grid-item-circle-image.png" />
+                           </image></ImageView>
                      </right>
                      <left>
                         <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="14.0" layoutY="58.0" text="125" textFill="WHITE">
+                              <Label layoutX="14.0" layoutY="58.0" style="-fx-font-size: 30;" styleClass="primary-text" text="125" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="13.0" layoutY="105.0" text="Products" textFill="WHITE">
+                              <Label layoutX="13.0" layoutY="105.0" styleClass="primary-text" text="Products" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -61,19 +69,22 @@
                         </Pane>
                      </left>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" style="-fx-background-radius: 6;" styleClass="primary-gradient" HBox.hgrow="ALWAYS">
                      <right>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../../assets/images/grid-item-circle-image.png" />
+                           </image></ImageView>
                      </right>
                      <left>
                         <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="14.0" layoutY="58.0" text="120" textFill="WHITE">
+                              <Label layoutX="14.0" layoutY="58.0" style="-fx-font-size: 30;" styleClass="primary-text" text="120" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="13.0" layoutY="105.0" text="Active Products" textFill="WHITE">
+                              <Label layoutX="13.0" layoutY="105.0" styleClass="primary-text" text="Active Products" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -86,19 +97,19 @@
             </HBox>
             <HBox prefHeight="150.0" spacing="40.0">
                <children>
-                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" style="-fx-background-radius: 6;" styleClass="primary-gradient" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
+                        <Pane prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="13.0" prefHeight="92.0" prefWidth="186.0" text="Munchee" textFill="WHITE">
+                              <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="13.0" prefHeight="92.0" prefWidth="186.0" style="-fx-font-size: 26;" styleClass="primary-text" text="Munchee" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Aptos Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="192.0" text="Top Selling Brand" textFill="WHITE">
+                              <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="192.0" styleClass="primary-text" text="Top Selling Brand" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -113,20 +124,23 @@
                            </font>
                         </Label>
                      </top>
+                     <padding>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </padding>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" style="-fx-background-radius: 6;" styleClass="primary-gradient" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
+                        <Pane prefWidth="102.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="9.0" prefHeight="96.0" prefWidth="197.0" text="Chocolate Cream 400g" textFill="WHITE" wrapText="true">
+                              <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="9.0" prefHeight="96.0" prefWidth="197.0" style="-fx-font-size: 26;" styleClass="primary-text" text="Chocolate Cream 400g" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Aptos Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="188.0" text="Top Selling Product" textFill="WHITE">
+                              <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="188.0" styleClass="primary-text" text="Top Selling Product" textFill="WHITE">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -141,27 +155,14 @@
                            </font>
                         </Label>
                      </top>
+                     <padding>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </padding>
                   </BorderPane>
-                  <BorderPane prefHeight="150.0" HBox.hgrow="ALWAYS">
+                  <BorderPane prefHeight="150.0" style="-fx-background-radius: 6;" styleClass="primary-gradient" HBox.hgrow="ALWAYS">
                      <right>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </right>
-                     <left>
-                        <Pane prefHeight="119.0" prefWidth="102.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="91.0" prefWidth="180.0" text="Maliban" textFill="WHITE">
-                                 <font>
-                                    <Font name="Aptos Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="187.0" text="Least Selling Brand" textFill="WHITE">
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                     </left>
                      <top>
                         <Label styleClass="primary-text-red" text="130 (4%)" BorderPane.alignment="CENTER_RIGHT">
                            <font>
@@ -169,11 +170,30 @@
                            </font>
                         </Label>
                      </top>
+                     <padding>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </padding>
+                     <center>
+                        <Pane prefWidth="102.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="91.0" prefWidth="180.0" style="-fx-font-size: 26;" styleClass="primary-text" text="Maliban" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Aptos Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="13.0" layoutY="105.0" prefHeight="25.0" prefWidth="187.0" styleClass="primary-text" text="Least Selling Brand" textFill="WHITE">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </center>
                   </BorderPane>
                </children>
             </HBox>
             <Separator prefHeight="0.0" prefWidth="751.0" />
-            <Label text="Product Sale (2025)" textFill="WHITE">
+            <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Product Sale (2025)" textFill="WHITE">
                <font>
                   <Font name="Aptos" size="16.0" />
                </font>

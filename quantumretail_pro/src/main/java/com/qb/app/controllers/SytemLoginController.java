@@ -173,8 +173,8 @@ public class SytemLoginController implements Initializable {
                                 ApplicationSession.setEmployee(emp);
                         }
                     } catch (IOException e) {
-                        getLogger.logger().warning(e.toString());
                         e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
                     }
                 } else {
                     displayLoginMessage("Access Denied", false);
@@ -231,4 +231,5 @@ public class SytemLoginController implements Initializable {
             btnLogin.setDisable(false);
         });
     }
+
 }

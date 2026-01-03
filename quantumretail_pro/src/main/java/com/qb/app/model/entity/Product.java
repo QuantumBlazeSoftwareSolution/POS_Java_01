@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +31,10 @@ import java.util.Collection;
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
     @NamedQuery(name = "Product.findByProduct", query = "SELECT p FROM Product p WHERE p.product = :product"),
     @NamedQuery(name = "Product.findByMeasure", query = "SELECT p FROM Product p WHERE p.measure = :measure"),
-    @NamedQuery(name = "Product.findByBarCode", query = "SELECT p FROM Product p WHERE p.barCode = :barCode")})
+    @NamedQuery(name = "Product.findByBarCode", query = "SELECT p FROM Product p WHERE p.barCode = :barCode"),
+    @NamedQuery(name = "Product.findByCostPrice", query = "SELECT p FROM Product p WHERE p.costPrice = :costPrice"),
+    @NamedQuery(name = "Product.findBySalePrice", query = "SELECT p FROM Product p WHERE p.salePrice = :salePrice"),
+    @NamedQuery(name = "Product.findByDiscount", query = "SELECT p FROM Product p WHERE p.discount = :discount")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,36 +52,45 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "bar_code")
     private String barCode;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @Basic(optional = false)
+    @Column(name = "cost_price")
+    private double costPrice;
+    @Basic(optional = false)
+    @Column(name = "sale_price")
+    private double salePrice;
+    @Basic(optional = false)
+    @Column(name = "discount")
+    private double discount;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<ProductDistributeItem> productDistributeItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<ProductHasProductType> productHasProductTypeCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "referenceId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "referenceId")
     private Collection<ProductHasProductType> productHasProductTypeCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<RefundItem> refundItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<SupplierDamageReturnItem> supplierDamageReturnItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<Stock> stockCollection;
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Category categoryId;
+    @JoinColumn(name = "category_has_brand_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private CategoryHasBrand categoryHasBrandId;
     @JoinColumn(name = "product_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private ProductStatus productStatusId;
     @JoinColumn(name = "product_unit_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private ProductUnit productUnitId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<LocationSupplyItem> locationSupplyItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<SupplierOrderItem> supplierOrderItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<GrnItem> grnItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<InvoiceItem> invoiceItemCollection;
 
     public Product() {
@@ -89,11 +100,14 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String product, float measure, String barCode) {
+    public Product(Integer id, String product, float measure, String barCode, double costPrice, double salePrice, double discount) {
         this.id = id;
         this.product = product;
         this.measure = measure;
         this.barCode = barCode;
+        this.costPrice = costPrice;
+        this.salePrice = salePrice;
+        this.discount = discount;
     }
 
     public Integer getId() {
@@ -126,6 +140,30 @@ public class Product implements Serializable {
 
     public void setBarCode(String barCode) {
         this.barCode = barCode;
+    }
+
+    public double getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(double costPrice) {
+        this.costPrice = costPrice;
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public Collection<ProductDistributeItem> getProductDistributeItemCollection() {
@@ -184,12 +222,12 @@ public class Product implements Serializable {
         this.stockCollection = stockCollection;
     }
 
-    public Category getCategoryId() {
-        return categoryId;
+    public CategoryHasBrand getCategoryHasBrandId() {
+        return categoryHasBrandId;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryHasBrandId(CategoryHasBrand categoryHasBrandId) {
+        this.categoryHasBrandId = categoryHasBrandId;
     }
 
     public ProductStatus getProductStatusId() {

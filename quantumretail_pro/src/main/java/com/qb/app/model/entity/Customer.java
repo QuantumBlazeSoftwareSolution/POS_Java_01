@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,7 +47,7 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "credit_amount")
     private double creditAmount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private Collection<CustomerHasInvoice> customerHasInvoiceCollection;
 
     public Customer() {

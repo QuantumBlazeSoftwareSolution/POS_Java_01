@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,13 +50,13 @@ public class SupplierDamageReturn implements Serializable {
     @Lob
     @Column(name = "reason")
     private String reason;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierDamageReturnId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierDamageReturnId")
     private Collection<SupplierDamageReturnItem> supplierDamageReturnItemCollection;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Supplier supplierId;
     @JoinColumn(name = "supply_damage_return_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private SupplyDamageReturnStatus supplyDamageReturnStatusId;
 
     public SupplierDamageReturn() {

@@ -72,10 +72,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="tfPassword" prefHeight="40.0" styleClass="text-developer" stylesheets="@../css/style.css">
-                                 <font>
-                                    <Font name="Aptos" size="12.0" />
-                                 </font></PasswordField>
+                              <PasswordField fx:id="tfPassword" onKeyPressed="#handleKeyEvent" prefHeight="40.0" styleClass="text-developer" stylesheets="@../css/style.css" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">

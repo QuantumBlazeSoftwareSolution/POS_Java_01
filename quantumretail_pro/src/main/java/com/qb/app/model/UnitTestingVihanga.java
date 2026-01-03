@@ -135,7 +135,7 @@ public class UnitTestingVihanga {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+//            HandleTheException.takeCareOfIt(e);
         }
     }
 
@@ -163,7 +163,7 @@ public class UnitTestingVihanga {
                 System.out.println("Employee Name: " + emp.getName());
             });
         } catch (Exception e) {
-            e.printStackTrace();
+//            HandleTheException.takeCareOfIt(e);
         }
     }
 
@@ -239,11 +239,11 @@ public class UnitTestingVihanga {
                 Files.deleteIfExists(path);
             } catch (Exception e) {
                 System.err.println("Error encrypting config file: " + e.getMessage());
-                e.printStackTrace();
+//                HandleTheException.takeCareOfIt(e);
             }
         } catch (IOException | JSONException e) {
             System.err.println("Error handling config file: " + e.getMessage());
-            e.printStackTrace();
+//            HandleTheException.takeCareOfIt(e);
         }
     }
 
@@ -258,7 +258,7 @@ public class UnitTestingVihanga {
             System.out.println(system_config.license.expire_date);
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            HandleTheException.takeCareOfIt(e);
         }
     }
 

@@ -42,6 +42,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -57,6 +58,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -72,6 +74,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -87,6 +90,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -102,6 +106,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -117,6 +122,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -132,6 +138,7 @@
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary-white-10" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -154,6 +161,7 @@
                      <styleClass>
                         <String fx:value="full-width-button" />
                         <String fx:value="bg-primary-white-10" />
+                        <String fx:value="scale-down-pressed" />
                      </styleClass>
                      <cursor>
                         <Cursor fx:constant="HAND" />

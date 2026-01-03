@@ -2,7 +2,6 @@ package com.qb.app.controllers.developer;
 
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
-import com.qb.app.model.HandleTheException;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PasswordEncryption;
 import com.qb.app.model.PopUp;
@@ -10,6 +9,7 @@ import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.EmployeePanel;
 import com.qb.app.model.entity.EmployeeRole;
 import com.qb.app.model.entity.EmployeeStatus;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -28,7 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class DeveloperOwnerShipTransferringController implements Initializable {
+public class DeveloperOwnerShipTransferringController implements Initializable{
 
     @FXML
     private TextField tfName;
@@ -112,6 +112,7 @@ public class DeveloperOwnerShipTransferringController implements Initializable {
         JPATransaction.runInTransaction((em) -> {
             em.persist(employee);
             showTransferSuccessMessage();
+            clearInterface();
         });
     }
 
@@ -167,9 +168,12 @@ public class DeveloperOwnerShipTransferringController implements Initializable {
         try {
             if (checkTheDeveloperVerification()) {
                 action.run();
+            }else{
+                clearInterface();
             }
         } catch (Exception e) {
-            HandleTheException.takeCareOfIt(e);
+            e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 

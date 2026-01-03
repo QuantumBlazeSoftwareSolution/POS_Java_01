@@ -14,12 +14,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierCloseSaleController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierCloseSaleController">
    <children>
-      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label styleClass="primary-text" stylesheets="@css/style.css" text="Close Sale">
+            <Label styleClass="primary-text" text="Close Sale">
                <font>
                   <Font name="Aptos ExtraBold" size="36.0" />
                </font>
@@ -31,7 +31,7 @@
                </padding>
             </Label>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <AnchorPane id="AnchorPane" stylesheets="@css/style.css">
+            <AnchorPane id="AnchorPane">
                <children>
                   <VBox alignment="CENTER" prefWidth="400.0" spacing="12.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                      <children>
@@ -39,11 +39,11 @@
                            <children>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username">
+                                    <Label styleClass="primary-text" text="Username">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tfUsername" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tfUsername" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -54,11 +54,11 @@
                               </VBox>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password">
+                                    <Label styleClass="primary-text" text="Password">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <PasswordField fx:id="tfPassword" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <PasswordField fx:id="tfPassword" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -73,11 +73,11 @@
                            <children>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Cashier">
+                                    <Label styleClass="primary-text" text="Cashier">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tfCashier" editable="false" prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                                    <TextField fx:id="tfCashier" editable="false" prefHeight="40.0" VBox.vgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -91,11 +91,11 @@
                               </VBox>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY IN">
+                                    <Label styleClass="primary-text" text="DAY IN">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tfDayIn" editable="false" prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                                    <TextField fx:id="tfDayIn" editable="false" prefHeight="40.0" VBox.vgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -109,11 +109,11 @@
                               </VBox>
                               <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY OFF">
+                                    <Label styleClass="primary-text" text="DAY OFF">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tfDayOff" editable="false" prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                                    <TextField fx:id="tfDayOff" editable="false" prefHeight="40.0" VBox.vgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -132,18 +132,18 @@
                            <children>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5000">
+                                    <Label styleClass="primary-text" text="5000">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf5000Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf5000Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf5000Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf5000Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -157,18 +157,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="1000">
+                                    <Label styleClass="primary-text" text="1000">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf1000Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf1000Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf1000Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf1000Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -182,18 +182,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="500">
+                                    <Label styleClass="primary-text" text="500">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf500Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf500Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf500Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf500Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -207,18 +207,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="100">
+                                    <Label styleClass="primary-text" text="100">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf100Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf100Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf100Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf100Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -232,18 +232,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="50">
+                                    <Label styleClass="primary-text" text="50">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf50Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf50Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf50Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf50Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -257,18 +257,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="20">
+                                    <Label styleClass="primary-text" text="20">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf20Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf20Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf20Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf20Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -282,18 +282,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="10">
+                                    <Label styleClass="primary-text" text="10">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf10Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf10Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf10Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf10Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -307,18 +307,18 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5">
+                                    <Label styleClass="primary-text" text="5">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tf5Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf5Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                           <String fx:value="textFieldColor" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="tf5Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tf5Value" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -332,11 +332,11 @@
                               </HBox>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Collection">
+                                    <Label styleClass="primary-text" text="Collection">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></Label>
-                                    <TextField fx:id="tfCollection" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                    <TextField fx:id="tfCollection" editable="false" prefHeight="40.0">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -350,7 +350,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Button fx:id="btnAction" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Close">
+                        <Button fx:id="btnAction" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="40.0" text="Close">
                            <styleClass>
                               <String fx:value="full-width-button" />
                               <String fx:value="bg-primary" />
@@ -370,11 +370,11 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefWidth="100.0">
                <children>
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
+                  <Label styleClass="primary-text" text="Developed by Quantum Blaze software solution">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font></Label>
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                  <Label styleClass="primary-text" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
                      <font>
                         <Font name="Aptos" size="14.0" />
                      </font></Label>

@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -20,14 +21,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.product.Product_managementController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.product.Product_managementController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
-                  <Label styleClass="primary-white" text="Product Management">
+                  <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Product Management">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -41,19 +42,10 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox spacing="12.0">
+                  <HBox spacing="20.0">
                      <children>
-                        <VBox HBox.hgrow="ALWAYS">
+                        <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="primary-white" text="Product Information">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
                               <HBox prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -96,14 +88,6 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label styleClass="primary-white" text="Cost Information">
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </Label>
                               <HBox prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -150,14 +134,6 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label styleClass="primary-white" text="Stock Information">
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </Label>
                               <VBox spacing="10.0">
                                  <children>
                                     <HBox prefWidth="200.0" spacing="10.0">
@@ -202,7 +178,7 @@
                                           </VBox>
                                           <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <HBox>
+                                                <HBox alignment="BOTTOM_LEFT">
                                                    <children>
                                                       <Label styleClass="text-field-label" text="Parent ID">
                                                          <font>
@@ -210,9 +186,9 @@
                                                          </font>
                                                       </Label>
                                                       <Region HBox.hgrow="ALWAYS" />
-                                                      <Label styleClass="admin-primary-blue" text="(Enter - View Product List)">
+                                                      <Label style="-fx-font-size: 12;" styleClass="primary-text" text="(Enter - View Product List)">
                                                          <font>
-                                                            <Font name="Aptos" size="12.0" />
+                                                            <Font name="Aptos" size="10.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
@@ -230,25 +206,27 @@
                               </VBox>
                            </children>
                         </VBox>
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnPicture" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="45.0" prefWidth="150.0" text="Add Picture">
-                                 <styleClass>
-                                    <String fx:value="button-primary" />
-                                    <String fx:value="primary-white" />
-                                    <String fx:value="full-width-button" />
-                                 </styleClass>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                              </Button>
+                              <VBox alignment="BOTTOM_LEFT" prefHeight="65.0">
+                                 <children>
+                                    <Button fx:id="btnPicture" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleFileChooser" prefHeight="45.0" prefWidth="150.0" text="Add Picture">
+                                       <styleClass>
+                                          <String fx:value="button-primary" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                          <String fx:value="scale-down-pressed" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
                               <VBox maxHeight="-Infinity" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="primary-border">
@@ -268,44 +246,50 @@
                                     <Insets />
                                  </VBox.margin>
                               </VBox>
+                              <VBox alignment="BOTTOM_LEFT" spacing="10.0">
+                                 <children>
+                                    <JFXToggleButton selected="true" styleClass="primary-text" text="Active Product">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </JFXToggleButton>
+                                    <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Clear">
+                                       <styleClass>
+                                          <String fx:value="button-primary-outline" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                          <String fx:value="scale-down-pressed" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Update Changes">
+                                       <styleClass>
+                                          <String fx:value="button-primary" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                          <String fx:value="scale-down-pressed" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="BOTTOM_LEFT" spacing="10.0">
-                           <children>
-                              <JFXToggleButton selected="true" styleClass="primary-white" text="Active Product">
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                              </JFXToggleButton>
-                              <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Clear">
-                                 <styleClass>
-                                    <String fx:value="button-primary-outline" />
-                                    <String fx:value="primary-white" />
-                                    <String fx:value="full-width-button" />
-                                 </styleClass>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Update Changes">
-                                 <styleClass>
-                                    <String fx:value="button-primary" />
-                                    <String fx:value="primary-white" />
-                                    <String fx:value="full-width-button" />
-                                 </styleClass>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <font>
-                                    <Font name="Aptos" size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT">
+                     <children>
+                        <Label fx:id="registrationMessage" text="Label" />
                      </children>
                   </HBox>
                </children>

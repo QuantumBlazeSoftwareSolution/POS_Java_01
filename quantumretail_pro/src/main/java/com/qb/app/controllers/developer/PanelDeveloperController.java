@@ -1,7 +1,6 @@
 package com.qb.app.controllers.developer;
 
 import com.qb.app.App;
-import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.getLogger;
 import java.io.IOException;
@@ -29,7 +28,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class PanelDeveloperController implements Initializable {
+public class PanelDeveloperController  implements Initializable{
 
     // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -90,7 +89,7 @@ public class PanelDeveloperController implements Initializable {
                 App.setRoot("sytemLogin");
             } catch (IOException e) {
                 e.printStackTrace();
-                getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
             }
         } else if (event.getSource() == btnDashboard) {
             loadCenterPanel("developer/developerDashboard");
@@ -145,6 +144,7 @@ public class PanelDeveloperController implements Initializable {
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -170,6 +170,7 @@ public class PanelDeveloperController implements Initializable {
             controller.setPanelDeveloperController(this);
         } catch (IOException e) {
             e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 

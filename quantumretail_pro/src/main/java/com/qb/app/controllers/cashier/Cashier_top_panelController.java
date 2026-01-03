@@ -6,7 +6,6 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import java.io.IOException;
-import static java.lang.System.getLogger;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -22,7 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Cashier_top_panelController implements Initializable {
+public class Cashier_top_panelController  implements Initializable{
 
     @FXML
     private StackPane iconMenu;
@@ -60,7 +59,7 @@ public class Cashier_top_panelController implements Initializable {
                         App.setRoot("sytemLogin");
                     } catch (IOException e) {
                         e.printStackTrace();
-                        getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -81,7 +80,7 @@ public class Cashier_top_panelController implements Initializable {
                             App.setRoot("sytemLogin");
                         } catch (IOException e) {
                             e.printStackTrace();
-                            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
                         }
                     }
                 }
@@ -90,7 +89,7 @@ public class Cashier_top_panelController implements Initializable {
                     App.setRoot("sytemLogin");
                 } catch (IOException e) {
                     e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
                 }
             }
         } else if (event.getSource() == iconMinimize) {
