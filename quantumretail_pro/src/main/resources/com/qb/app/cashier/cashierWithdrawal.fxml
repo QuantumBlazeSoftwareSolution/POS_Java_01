@@ -98,6 +98,7 @@
                               <String fx:value="full-width-button" />
                               <String fx:value="primary-white" />
                               <String fx:value="bg-primary" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <font>
                               <Font name="Aptos" size="14.0" />

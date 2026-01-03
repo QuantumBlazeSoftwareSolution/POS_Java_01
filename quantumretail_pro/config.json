@@ -1,0 +1,62 @@
+{
+  "license": {
+    "previous_expiry_date": "",
+    "init_date": "",
+    "licenseType": {
+      "TRIAL": "trial",
+      "LIFETIME": "life-time"
+    },
+    "period": 0,
+    "charge": 0,
+    "previous_period": 0,
+    "expiry_date": "",
+    "isLicenseActive": false,
+    "status": ""
+  },
+  "address": "",
+  "system": {
+    "employee_management": false,
+    "expire_tracking": false,
+    "bill_discount": false,
+    "inventory_management": false,
+    "product_discount": false,
+    "cash_withdrawal": false,
+    "credit_payment": false,
+    "multi_stock": false,
+    "refund": false
+  },
+  "bill_discount": {
+    "amount": 0,
+    "valueType": {
+      "CASH": "cash",
+      "PERCENTAGE": "percentage"
+    },
+    "type": "cash"
+  },
+  "telephone_01": "",
+  "telephone_02": "",
+  "system_name": "",
+  "isInitialized": false,
+  "report": {
+    "damage": false,
+    "grn": false,
+    "bin": false,
+    "cash_withdrawal": false,
+    "session": false,
+    "sale_summary": false,
+    "stock_balance": false,
+    "close_sale": false,
+    "supplyOrder": false,
+    "sale_detail": false,
+    "location_return": false,
+    "sale_product": false,
+    "distribute": false,
+    "product_list": false,
+    "profit": false,
+    "customer": false
+  },
+  "stock_adjustment": {
+    "adjustment_count": 1,
+    "tempory_chance": 0
+  }
+}

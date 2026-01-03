@@ -18,11 +18,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-public class DeveloperVerificationController implements Initializable {
+public class DeveloperVerificationController  implements Initializable{
 
     @FXML
     private AnchorPane root;
@@ -79,8 +81,8 @@ public class DeveloperVerificationController implements Initializable {
         try {
             App.setRoot("sytemLogin");
         } catch (IOException e) {
-            e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+           e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -103,7 +105,14 @@ public class DeveloperVerificationController implements Initializable {
             App.setRoot("developer/panelDeveloper");
         } catch (IOException e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
+        }
+    }
+
+    @FXML
+    private void handleKeyEvent(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            verifyDeveloper();
         }
     }
 }

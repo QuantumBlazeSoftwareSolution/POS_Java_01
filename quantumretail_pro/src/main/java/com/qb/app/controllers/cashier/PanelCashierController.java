@@ -48,7 +48,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class PanelCashierController implements Initializable {
+public class PanelCashierController  implements Initializable{
 
     // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -190,7 +190,7 @@ public class PanelCashierController implements Initializable {
                         App.setRoot("sytemLogin");
                     } catch (IOException e) {
                         e.printStackTrace();
-                        getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -210,8 +210,8 @@ public class PanelCashierController implements Initializable {
                         try {
                             App.setRoot("sytemLogin");
                         } catch (IOException e) {
-                            e.printStackTrace();
-                            getLogger.logger().warning(e.toString());
+                           e.printStackTrace();
+        getLogger.logger().warning(e.toString());
                         }
                     }
                 }
@@ -220,7 +220,7 @@ public class PanelCashierController implements Initializable {
                     App.setRoot("sytemLogin");
                 } catch (IOException e) {
                     e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
                 }
             }
         }
@@ -296,6 +296,7 @@ public class PanelCashierController implements Initializable {
             controller.setPanelCashierController(this);
         } catch (IOException e) {
             e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -325,6 +326,8 @@ public class PanelCashierController implements Initializable {
             }
         } catch (IOException e) {
             System.out.println("Error while excuting changeCenterPanel() " + e.getMessage());
+            e.printStackTrace();
+        getLogger.logger().warning(e.toString());
 //            e.printStackTrace();
         }
     }
@@ -364,6 +367,7 @@ public class PanelCashierController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -428,5 +432,6 @@ public class PanelCashierController implements Initializable {
             }
         });
     }
+
 
 }

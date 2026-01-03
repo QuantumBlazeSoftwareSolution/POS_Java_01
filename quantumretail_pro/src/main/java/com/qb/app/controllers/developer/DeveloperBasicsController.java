@@ -4,7 +4,6 @@ import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
-import com.qb.app.model.HandleTheException;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.getLogger;
 import java.net.URL;
@@ -49,7 +48,8 @@ public class DeveloperBasicsController implements Initializable {
             config = ConfigManager.loadConfig();
             loadTheContent();
         } catch (Exception e) {
-            HandleTheException.takeCareOfIt(e);
+            e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -83,7 +83,8 @@ public class DeveloperBasicsController implements Initializable {
                 action.run();
             }
         } catch (Exception e) {
-            HandleTheException.takeCareOfIt(e);
+            e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -150,7 +151,8 @@ public class DeveloperBasicsController implements Initializable {
                 CustomAlert.showStyledAlert(root, message, "Success", Alert.AlertType.INFORMATION);
                 checkIfSystemInitialized();
             } catch (Exception e) {
-                HandleTheException.takeCareOfIt(e);
+                e.printStackTrace();
+        getLogger.logger().warning(e.toString());
             }
         }
     }

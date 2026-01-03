@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,18 +46,18 @@ public class Supplier implements Serializable {
     @Column(name = "telephone")
     private String telephone;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Company companyId;
     @JoinColumn(name = "supplier_status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private SupplierStatus supplierStatusId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Collection<Stock> stockCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Collection<Grn> grnCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Collection<SupplierDamageReturn> supplierDamageReturnCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Collection<SupplierOrder> supplierOrderCollection;
 
     public Supplier() {

@@ -7,7 +7,6 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,10 +40,10 @@ public class CustomerHasInvoice implements Serializable {
     @Column(name = "description")
     private String description;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Customer customerId;
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Invoice invoiceId;
 
     public CustomerHasInvoice() {

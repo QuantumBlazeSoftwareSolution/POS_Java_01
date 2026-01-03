@@ -8,7 +8,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,7 +39,7 @@ public class Interface implements Serializable {
     @Basic(optional = false)
     @Column(name = "interface")
     private String interface1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "interfaceId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "interfaceId")
     private Collection<EmployeeRoleHasInterface> employeeRoleHasInterfaceCollection;
 
     public Interface() {

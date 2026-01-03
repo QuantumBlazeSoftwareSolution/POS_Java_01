@@ -165,6 +165,7 @@
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary" />
                                           <String fx:value="primary-white" />
+                                          <String fx:value="scale-down-pressed" />
                                        </styleClass>
                                        <font>
                                           <Font name="Aptos" size="16.0" />
@@ -239,6 +240,7 @@
                                           <String fx:value="full-width-button" />
                                           <String fx:value="bg-primary" />
                                           <String fx:value="primary-white" />
+                                          <String fx:value="scale-down-pressed" />
                                        </styleClass>
                                        <font>
                                           <Font name="Aptos" size="16.0" />

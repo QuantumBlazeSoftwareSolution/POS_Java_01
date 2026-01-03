@@ -10,6 +10,7 @@ import java.io.IOException;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 
@@ -21,6 +22,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Font.loadFont(
+            getClass().getResource("/com/qb/app/assets/fonts/Roboto-Regular.ttf").toExternalForm(),
+            10
+        );
         primaryStage = stage;
         primaryStage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         scene = new Scene(loadFXML("sytemLogin"));
@@ -33,7 +38,6 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
-        // Call close() on previous controller if applicable
         if (currentController instanceof ControllerClose controllerClose) {
 //            System.out.println("instanceof ControllerClose: Going to trigger close method.");
             controllerClose.close();
@@ -49,7 +53,7 @@ public class App extends Application {
         currentController = fxmlLoader.getController();
 
         // Load additional stylesheets if needed
-        if (fxml.equals("panelAdmin")) {
+        if (fxml.equals("admin/panelAdmin")) {
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/annualSaleChartDesign.css").toExternalForm());
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/adminStyle.css").toExternalForm());
         }
@@ -65,12 +69,6 @@ public class App extends Application {
             primaryStage.setMaximized(true);
             resetWindowPosition(); // Reset to top-left when maximizing
         }
-
-//        primaryStage.setMaximized(true);
-//        primaryStage.sizeToScene();
-//        primaryStage.setFullScreen(true);
-//        primaryStage.setFullScreenExitHint("");
-//        primaryStage.setFullScreenExitKeyCombination(null);
     }
 
     private static void centerStageOnScreen() {

@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.employee.Employee_registrationController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.employee.Employee_registrationController">
    <children>
       <VBox layoutX="35.0" layoutY="50.0" prefHeight="527.0" spacing="15.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Group fx:id="IconEmployeeRegistrationTopic" />
-                  <Label text="Employee Registration" textFill="WHITE">
+                  <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Employee Registration" textFill="WHITE">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -30,7 +30,7 @@
                <children>
                   <VBox spacing="10.0">
                      <children>
-                        <Label text="Personal Details" textFill="WHITE">
+                        <Label styleClass="primary-text" text="Personal Details" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
@@ -49,7 +49,7 @@
                   </VBox>
                   <VBox spacing="10.0">
                      <children>
-                        <Label text="Employee Details" textFill="WHITE">
+                        <Label styleClass="primary-text" text="Employee Details" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
@@ -82,7 +82,7 @@
                   </VBox>
                   <VBox spacing="10.0">
                      <children>
-                        <Label text="System Credentials" textFill="WHITE">
+                        <Label styleClass="primary-text" text="System Credentials" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
@@ -129,6 +129,7 @@
                            <styleClass>
                               <String fx:value="button-primary" />
                               <String fx:value="primary-white" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <font>
                               <Font name="Aptos" size="14.0" />
@@ -137,13 +138,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" styleClass="button-primary-outline" stylesheets="@../../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@../../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <styleClass>
+                              <String fx:value="button-primary-outline" />
+                              <String fx:value="scale-down-pressed" />
+                           </styleClass>
                         </Button>
                      </children>
                   </HBox>

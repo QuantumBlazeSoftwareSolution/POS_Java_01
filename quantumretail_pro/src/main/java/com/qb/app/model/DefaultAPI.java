@@ -79,7 +79,8 @@ public class DefaultAPI {
 
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 

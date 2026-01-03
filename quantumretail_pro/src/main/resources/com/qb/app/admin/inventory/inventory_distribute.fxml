@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.inventory.Inventory_distributeController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.inventory.Inventory_distributeController">
    <children>
       <BorderPane layoutX="51.0" layoutY="79.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -47,6 +47,7 @@
                      <styleClass>
                         <String fx:value="button-primary" />
                         <String fx:value="primary-white" />
+                        <String fx:value="scale-down-pressed" />
                      </styleClass>
                      <HBox.margin>
                         <Insets right="20.0" />
@@ -65,7 +66,7 @@
                   <HBox prefWidth="200.0" spacing="10.0">
                      <children>
                         <Group fx:id="DistributionIcon" />
-                        <Label styleClass="primary-white" text="Distribution">
+                        <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Distribution">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
@@ -85,7 +86,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <RadioButton minWidth="-Infinity" mnemonicParsing="false" selected="true" styleClass="primary-white" text="Primary">
+                                    <RadioButton minWidth="-Infinity" mnemonicParsing="false" selected="true" styleClass="primary-text" text="Primary">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -93,7 +94,7 @@
                                           <ToggleGroup fx:id="location_type_toggle" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton layoutX="10.0" layoutY="36.0" minWidth="-Infinity" mnemonicParsing="false" styleClass="primary-white" text="Secondary" toggleGroup="$location_type_toggle">
+                                    <RadioButton layoutX="10.0" layoutY="36.0" minWidth="-Infinity" mnemonicParsing="false" styleClass="primary-text" text="Secondary" toggleGroup="$location_type_toggle">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -118,6 +119,7 @@
                                  <styleClass>
                                     <String fx:value="button-primary" />
                                     <String fx:value="primary-white" />
+                                    <String fx:value="scale-down-pressed" />
                                  </styleClass>
                               </Button>
                            </children>
@@ -148,12 +150,12 @@
                      <children>
                         <VBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="admin-primary-blue" text="Enter - View Distribute List">
+                              <Label style="-fx-font-size: 12;" styleClass="primary-text" text="Enter - View Distribute List">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="admin-primary-blue" text="Enter -  view Previous Distribution">
+                              <Label style="-fx-font-size: 12;" styleClass="primary-text" text="Enter -  view Previous Distribution">
                                  <VBox.margin>
                                     <Insets right="20.0" />
                                  </VBox.margin>
@@ -266,6 +268,7 @@
                            <styleClass>
                               <String fx:value="button-primary" />
                               <String fx:value="primary-white" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -289,9 +292,9 @@
                      <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
                            <content>
-                              <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                              <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-radius: 6 6 0 0; -fx-background-radius: 6 6 0 0;">
                                  <children>
-                                    <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                    <BorderPane maxWidth="100.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0; -fx-border-color: white;" styleClass="primary-border" HBox.hgrow="ALWAYS">
                                        <center>
                                           <Label styleClass="primary-white" text="ID" BorderPane.alignment="CENTER">
                                              <font>
@@ -300,7 +303,7 @@
                                           </Label>
                                        </center>
                                     </BorderPane>
-                                    <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                    <BorderPane minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0; -fx-border-color: white;" styleClass="primary-border" HBox.hgrow="ALWAYS">
                                        <center>
                                           <Label styleClass="primary-white" text="Product" BorderPane.alignment="CENTER">
                                              <font>
@@ -309,7 +312,7 @@
                                           </Label>
                                        </center>
                                     </BorderPane>
-                                    <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                    <BorderPane maxWidth="160.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0; -fx-border-color: white;" styleClass="primary-border" HBox.hgrow="ALWAYS">
                                        <center>
                                           <Label styleClass="primary-white" text="Unit Price" BorderPane.alignment="CENTER">
                                              <font>
@@ -318,7 +321,7 @@
                                           </Label>
                                        </center>
                                     </BorderPane>
-                                    <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                    <BorderPane maxWidth="160.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0; -fx-border-color: white;" styleClass="primary-border" HBox.hgrow="ALWAYS">
                                        <center>
                                           <Label styleClass="primary-white" text="Qty" BorderPane.alignment="CENTER">
                                              <font>
@@ -327,7 +330,7 @@
                                           </Label>
                                        </center>
                                     </BorderPane>
-                                    <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                    <BorderPane maxWidth="120.0" prefWidth="120.0" style="-fx-border-width: 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
                                        <center>
                                           <Label styleClass="primary-white" text="Amount" BorderPane.alignment="CENTER">
                                              <font>
@@ -337,17 +340,92 @@
                                        </center>
                                     </BorderPane>
                                  </children>
+                                 <styleClass>
+                                    <String fx:value="primary-border" />
+                                    <String fx:value="primary-25" />
+                                 </styleClass>
                               </HBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="distributeTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="grnTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="distributeTableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" />
+                              <VBox fx:id="grnTableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border">
+                                 <children>
+                                    <HBox maxHeight="-Infinity" minHeight="-Infinity" prefWidth="200.0" style="-fx-border-radius: 6 6 0 0;">
+                                       <children>
+                                          <BorderPane maxWidth="100.0" minHeight="40.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5 0.5 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                             <center>
+                                                <Label styleClass="primary-text" text="asd" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </center>
+                                             <padding>
+                                                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane minHeight="40.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0.5 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                             <center>
+                                                <Label styleClass="primary-text" text="asd" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </center>
+                                             <padding>
+                                                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane maxWidth="160.0" minHeight="40.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0.5 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                             <center>
+                                                <Label styleClass="primary-text" text="asd" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </center>
+                                             <padding>
+                                                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane maxWidth="160.0" minHeight="40.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0.5 0; -fx-border-radius: 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                             <center>
+                                                <Label styleClass="primary-text" text="asd" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </center>
+                                             <padding>
+                                                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane maxWidth="120.0" minHeight="40.0" prefWidth="120.0" style="-fx-border-width: 0 0 0.5 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" HBox.hgrow="ALWAYS">
+                                             <center>
+                                                <Label styleClass="primary-text" text="asd" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </center>
+                                             <padding>
+                                                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                             </padding>
+                                          </BorderPane>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="table-item-hover" />
+                                          <String fx:value="bring-front" />
+                                       </styleClass>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </content>
                         </ScrollPane>
                      </children>
                   </VBox>
-                  <ScrollBar fx:id="distributeTableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@../../css/style.css" visibleAmount="20.0">
+                  <ScrollBar fx:id="grnTableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@../../css/style.css" visibleAmount="20.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

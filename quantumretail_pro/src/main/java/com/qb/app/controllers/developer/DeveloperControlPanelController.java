@@ -3,10 +3,9 @@ package com.qb.app.controllers.developer;
 import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
 import com.qb.app.model.CustomAlert;
-import com.qb.app.model.HandleTheException;
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.getLogger;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -119,7 +118,7 @@ public class DeveloperControlPanelController implements Initializable {
             loadTheContent();
         } catch (Exception e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -129,7 +128,8 @@ public class DeveloperControlPanelController implements Initializable {
                 action.run();
             }
         } catch (Exception e) {
-            HandleTheException.takeCareOfIt(e);
+            e.printStackTrace();
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -296,7 +296,7 @@ public class DeveloperControlPanelController implements Initializable {
                 errorAlert.showAndWait();
 
                 e.printStackTrace();
-                getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
             }
         } else {
             loadTheContent();
@@ -359,7 +359,7 @@ public class DeveloperControlPanelController implements Initializable {
                 errorAlert.showAndWait();
 
                 e.printStackTrace();
-                getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
             }
         } else {
             loadTheContent();
@@ -398,7 +398,7 @@ public class DeveloperControlPanelController implements Initializable {
                 saveLicense();
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-                getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
             }
         }
     }
@@ -420,7 +420,7 @@ public class DeveloperControlPanelController implements Initializable {
             btnLicenseDateRevert.setDisable(true);
         } catch (Exception e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
     }
 
@@ -476,7 +476,7 @@ public class DeveloperControlPanelController implements Initializable {
             ConfigManager.saveConfig(this.config);
         } catch (Exception e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
         getExpireDate();
     }
@@ -492,12 +492,31 @@ public class DeveloperControlPanelController implements Initializable {
             ConfigManager.saveConfig(this.config);
         } catch (Exception e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
         getExpireDate();
     }
 
     private void updateStockAdjustment() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (DefaultAPI.isInteger(tfAdjustmentCount.getText())) {
+            this.config.stock_adjustment.adjustment_count = Integer.parseInt(tfAdjustmentCount.getText());
+        } else {
+            CustomAlert.showStyledAlert(root, "Please enter valid stock adjustment count. Use digits.", "Invalid Value", Alert.AlertType.WARNING);
+        }
+
+        if (!tfTemporyChance.getText().isEmpty() && DefaultAPI.isInteger(tfTemporyChance.getText())) {
+            this.config.stock_adjustment.tempory_chance = Integer.parseInt(tfTemporyChance.getText());
+        } else {
+            CustomAlert.showStyledAlert(root, "Please enter valid tempory adjustment count. Use digits.", "Invalid Value", Alert.AlertType.WARNING);
+        }
+
+        try {
+            ConfigManager.saveConfig(this.config);
+            CustomAlert.showStyledAlert(root, "Stock Adjustment Successfuly Updated.", "Success", Alert.AlertType.INFORMATION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        getLogger.logger().warning(e.toString());
+        }
     }
+
 }

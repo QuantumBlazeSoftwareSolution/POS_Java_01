@@ -7,7 +7,6 @@ package com.qb.app.model.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,10 +39,10 @@ public class DamageItem implements Serializable {
     @Column(name = "qty")
     private double qty;
     @JoinColumn(name = "damage_expire_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private DamageExpire damageExpireId;
     @JoinColumn(name = "stock_batch_id", referencedColumnName = "batch_id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Stock stockBatchId;
 
     public DamageItem() {

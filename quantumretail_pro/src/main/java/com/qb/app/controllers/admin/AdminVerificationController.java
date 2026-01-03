@@ -17,12 +17,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-public class AdminVerificationController implements Initializable {
+public class AdminVerificationController  implements Initializable{
 
     @FXML
     private AnchorPane root;
@@ -72,13 +74,13 @@ public class AdminVerificationController implements Initializable {
     @FXML
     private void handleSystemVerification(ActionEvent event) {
         if (event.getSource() == btnVerify) {
-            verifyDeveloper();
+            verifyAdmin();
         } else if (event.getSource() == btnExit) {
             closeTheSystem();
         }
     }
     
-    private void verifyDeveloper() {
+    private void verifyAdmin() {
         if (!tfPinNumber.getText().isEmpty()) {
             if (checkPinNumberIsCorrect()) {
                 navigateDeveloperPanel();
@@ -95,7 +97,7 @@ public class AdminVerificationController implements Initializable {
             App.setRoot("sytemLogin");
         } catch (IOException e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
         }
     }
     
@@ -108,7 +110,14 @@ public class AdminVerificationController implements Initializable {
             App.setRoot("admin/panelAdmin");
         } catch (IOException e) {
             e.printStackTrace();
-            getLogger.logger().warning(e.toString());
+        getLogger.logger().warning(e.toString());
+        }
+    }
+
+    @FXML
+    private void handleKeyEvent(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){
+            verifyAdmin();
         }
     }
 

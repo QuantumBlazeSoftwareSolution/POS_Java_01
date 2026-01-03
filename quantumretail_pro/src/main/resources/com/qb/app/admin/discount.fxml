@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.DiscountController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.DiscountController">
    <children>
       <HBox layoutX="25.0" layoutY="25.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,7 +21,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
                         <Group fx:id="iconBillDiscountTopic" />
-                        <Label text="Bill Discount" textFill="WHITE">
+                        <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Bill Discount" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="16.0" />
                            </font>
@@ -68,15 +68,20 @@
                   </VBox>
                   <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="button-primary-outline" />
+                              <String fx:value="scale-down-pressed" />
+                           </styleClass>
                         </Button>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/adminStyle.css" text="Add Discount" HBox.hgrow="ALWAYS">
                            <styleClass>
                               <String fx:value="button-primary" />
                               <String fx:value="primary-white" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <font>
                               <Font name="Aptos" size="14.0" />
@@ -91,7 +96,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
                         <Group fx:id="iconProductDiscountTopic" />
-                        <Label text="Product Discount" textFill="WHITE">
+                        <Label style="-fx-font-size: 16;" styleClass="primary-text" text="Product Discount" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="16.0" />
                            </font>
@@ -132,7 +137,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Label styleClass="admin-primary-blue" stylesheets="@../css/adminStyle.css" text="Enter - View Product list">
+                        <Label style="-fx-font-size: 12;" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Enter - View Product list">
                            <font>
                               <Font name="Aptos" size="12.0" />
                            </font>
@@ -155,15 +160,20 @@
                   </VBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="button-primary-outline" />
+                              <String fx:value="scale-down-pressed" />
+                           </styleClass>
                         </Button>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/adminStyle.css" text="Add Discount" HBox.hgrow="ALWAYS">
                            <styleClass>
                               <String fx:value="button-primary" />
                               <String fx:value="primary-white" />
+                              <String fx:value="scale-down-pressed" />
                            </styleClass>
                            <font>
                               <Font name="Aptos" size="14.0" />
