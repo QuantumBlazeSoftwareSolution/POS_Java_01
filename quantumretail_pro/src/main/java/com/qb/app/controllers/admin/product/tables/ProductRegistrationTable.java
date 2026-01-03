@@ -5,6 +5,7 @@ import com.qb.app.model.entity.ProductType;
 
 public class ProductRegistrationTable {
 
+    private String itemName;
     private ProductType type;
     private String typeStr;
     private double costPrice;
@@ -19,6 +20,7 @@ public class ProductRegistrationTable {
     }
 
     public ProductRegistrationTable(ProductType type, Product product) {
+        this.itemName=product.getProduct();
         this.type = type;
         this.typeStr = type.getType();
         this.costPrice = product.getCostPrice();
@@ -27,6 +29,10 @@ public class ProductRegistrationTable {
         this.barCode = product.getBarCode();
         this.unitMeasure = product.getMeasure();
         this.product = product;
+    }
+
+    public String getItemName() {
+        return this.itemName;
     }
 
     public String getTypeStr() {
@@ -59,6 +65,10 @@ public class ProductRegistrationTable {
 
     public String getBarCode() {
         return barCode;
+    }
+
+    public void setItemName(String name) {
+        this.itemName = name;
     }
 
     public void setType(ProductType type) {

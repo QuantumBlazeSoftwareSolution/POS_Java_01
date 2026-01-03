@@ -1,6 +1,8 @@
 package com.qb.app.controllers.admin.product;
 
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
+import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.ProductTypeCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
@@ -9,10 +11,12 @@ import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductType;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -68,6 +72,8 @@ public class Product_registrationController implements Initializable {
     @FXML
     private TableView<ProductRegistrationTable> tableView;
     @FXML
+    private TableColumn<ProductRegistrationTable, String> colItemName;
+    @FXML
     private TableColumn<ProductRegistrationTable, String> colType;
     @FXML
     private TableColumn<ProductRegistrationTable, Double> colCostPrice;
@@ -86,9 +92,26 @@ public class Product_registrationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        runBackgroundThread();
+    }
+
+    private void runBackgroundThread() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                initializeBackgroundProcess();
+            }
+        };
+
+        Thread bgThread = new Thread(runnable);
+        bgThread.start();
+    }
+
+    private void initializeBackgroundProcess() {
         configureTables();
         configureInputs();
         loadComboBoxes();
+        handleProductTypeSelector();
     }
 
     private void loadComboBoxes() {
@@ -105,6 +128,7 @@ public class Product_registrationController implements Initializable {
     }
 
     private void configureTables() {
+        colItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
         colType.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getType().getType()));
         colCostPrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getCostPrice()).asObject());
         colSalePrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
@@ -121,6 +145,29 @@ public class Product_registrationController implements Initializable {
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnAdd) {
             addProduct();
+        } else if (event.getSource() == cbProductType) {
+            handleProductTypeSelector();
+        } else if (event.getSource() == btnRegister) {
+            registerProducts();
+        }
+    }
+
+    private void registerProducts() {
+        List<ProductRegistrationTable> productsList = tableView.getItems();
+
+        for (ProductRegistrationTable productRegistrationTable : productsList) {
+            ProductCRUD.createProduct(productRegistrationTable.getProduct(), productRegistrationTable.getType());
+        }
+
+    }
+
+    private void handleProductTypeSelector() {
+        if (cbProductType.getValue().getType() == null) {
+            tfParentId.setDisable(true);
+        } else if (cbProductType.getValue().getType().toLowerCase().equals("child")) {
+            tfParentId.setDisable(false);
+        } else {
+            tfParentId.setDisable(true);
         }
     }
 
@@ -132,14 +179,21 @@ public class Product_registrationController implements Initializable {
                 Product product = new Product();
                 product.setProduct(tfItemName.getText());
                 product.setMeasure(Float.parseFloat(tfUnitMeasure.getText()));
-                product.setCostPrice(Double.parseDouble(tfCostPrice.getText()));
+                product.setCostPrice(
+                        tfCostPrice.getText().trim().isEmpty()
+                        ? 0.0
+                        : Double.parseDouble(tfCostPrice.getText())
+                );
+
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
                 if (!tfBarCode.getText().isEmpty()) {
                     product.setBarCode(tfBarCode.getText());
                 }
+
                 if (!tfDiscount.getText().isEmpty()) {
                     product.setDiscount(Double.parseDouble(tfDiscount.getText()));
                 }
+
                 ProductRegistrationTable productRegistrationTable = new ProductRegistrationTable(cbProductType.getValue(), product);
 
                 if (!isParentCreated && "parent".equals(cbProductType.getValue().getType())) {
@@ -147,8 +201,19 @@ public class Product_registrationController implements Initializable {
                 }
 
                 tableView.getItems().add(productRegistrationTable);
+
+                refreshProductAdd();
             }
         }
+    }
+
+    private void refreshProductAdd() {
+        tfCostPrice.setText("");
+        tfSalePrice.setText("");
+        tfDiscount.setText("");
+        cbProductType.setValue(ProductTypeCRUD.getProductType("child"));
+        tfUnitMeasure.setText("");
+        tfBarCode.setText("");
     }
 
     private boolean isproductTypeValid() {
@@ -160,7 +225,6 @@ public class Product_registrationController implements Initializable {
     }
 
     private boolean isProductValid() {
-
         // Item name
         if (tfItemName.getText().trim().isEmpty()) {
             showWarning("Item name is required");
@@ -174,6 +238,9 @@ public class Product_registrationController implements Initializable {
             cbProductType.requestFocus();
             return false;
         }
+
+        boolean isChildProduct
+                = cbProductType.getValue().getType().equalsIgnoreCase("child");
 
         // Brand
         if (cbBrand.getValue() == null) {
@@ -210,28 +277,49 @@ public class Product_registrationController implements Initializable {
             return false;
         }
 
-        // Cost price
-        if (tfCostPrice.getText().trim().isEmpty()) {
-            showWarning("Cost price is required");
-            tfCostPrice.requestFocus();
-            return false;
-        }
+        Double costPrice = null;
 
-        double costPrice;
-        try {
-            costPrice = Double.parseDouble(tfCostPrice.getText());
-            if (costPrice < 0) {
-                showWarning("Cost price cannot be negative");
+        // Cost price (REQUIRED only for NON-child products)
+        if (!isChildProduct) {
+
+            if (tfCostPrice.getText().trim().isEmpty()) {
+                showWarning("Cost price is required");
                 tfCostPrice.requestFocus();
                 return false;
             }
-        } catch (NumberFormatException e) {
-            showWarning("Invalid cost price");
-            tfCostPrice.requestFocus();
-            return false;
+
+            try {
+                costPrice = Double.parseDouble(tfCostPrice.getText());
+                if (costPrice < 0) {
+                    showWarning("Cost price cannot be negative");
+                    tfCostPrice.requestFocus();
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                showWarning("Invalid cost price");
+                tfCostPrice.requestFocus();
+                return false;
+            }
+
+        } else {
+            // Child product → cost is OPTIONAL
+            if (!tfCostPrice.getText().trim().isEmpty()) {
+                try {
+                    costPrice = Double.parseDouble(tfCostPrice.getText());
+                    if (costPrice < 0) {
+                        showWarning("Cost price cannot be negative");
+                        tfCostPrice.requestFocus();
+                        return false;
+                    }
+                } catch (NumberFormatException e) {
+                    showWarning("Invalid cost price");
+                    tfCostPrice.requestFocus();
+                    return false;
+                }
+            }
         }
 
-        // Sale price
+        // Sale price (ALWAYS required)
         if (tfSalePrice.getText().trim().isEmpty()) {
             showWarning("Sale price is required");
             tfSalePrice.requestFocus();
@@ -241,13 +329,20 @@ public class Product_registrationController implements Initializable {
         double salePrice;
         try {
             salePrice = Double.parseDouble(tfSalePrice.getText());
-            if (salePrice < costPrice) {
-                showWarning("Sale price cannot be less than cost price");
+            if (salePrice < 0) {
+                showWarning("Sale price cannot be negative");
                 tfSalePrice.requestFocus();
                 return false;
             }
         } catch (NumberFormatException e) {
             showWarning("Invalid sale price");
+            tfSalePrice.requestFocus();
+            return false;
+        }
+
+        // Sale >= Cost (only if cost exists)
+        if (costPrice != null && salePrice < costPrice) {
+            showWarning("Sale price cannot be less than cost price");
             tfSalePrice.requestFocus();
             return false;
         }
@@ -284,6 +379,5 @@ public class Product_registrationController implements Initializable {
                 Alert.AlertType.WARNING
         );
     }
-
 
 }
