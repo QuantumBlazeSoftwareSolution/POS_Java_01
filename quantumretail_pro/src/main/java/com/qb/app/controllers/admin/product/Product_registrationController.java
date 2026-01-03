@@ -18,6 +18,7 @@ import com.qb.app.model.getLogger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -101,19 +102,14 @@ public class Product_registrationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setIcons();
         configureTables();
         configureInputs();
         loadComboBoxes();
-
-        setIcons();
-
-        // Safe default
-        cbProductType.getSelectionModel().selectedItemProperty()
-                .addListener((obs, old, val) -> handleProductTypeSelector());
     }
 
     private void setIcons() {
-        iconProductPopup.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/products-popup.svg"));
+//        iconProductPopup.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/users-solid.svg"));
     }
 
     private void loadComboBoxes() {
@@ -147,8 +143,6 @@ public class Product_registrationController implements Initializable {
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnAdd) {
             addProduct();
-        } else if (event.getSource() == cbProductType) {
-            handleProductTypeSelector();
         } else if (event.getSource() == btnRegister) {
             registerProducts();
         } else if (event.getSource() == btnProductPopup) {
@@ -189,17 +183,6 @@ public class Product_registrationController implements Initializable {
                 result.isSuccess() ? "Success" : "Error",
                 result.isSuccess() ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR
         );
-    }
-
-    private void handleProductTypeSelector() {
-        ProductType type = cbProductType.getValue();
-
-        if (type == null) {
-            tfParentId.setDisable(true);
-            return;
-        }
-
-        tfParentId.setDisable(!"child".equalsIgnoreCase(type.getType()));
     }
 
     private boolean isParentCreated = false;

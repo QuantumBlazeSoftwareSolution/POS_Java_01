@@ -151,37 +151,48 @@
                                        <children>
                                           <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                                              <children>
-                                                <VBox prefWidth="100.0" spacing="4.0" HBox.hgrow="ALWAYS">
+                                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                                                    <children>
-                                                      <Label styleClass="text-field-label" text="Type">
-                                                         <font>
-                                                            <Font name="Aptos" size="14.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ComboBox fx:id="cbProductType" maxWidth="1.7976931348623157E308" minHeight="45.0" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Parent" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefWidth="100.0" spacing="4.0" HBox.hgrow="ALWAYS">
-                                                   <children>
-                                                      <Label styleClass="text-field-label" text="parent item">
-                                                         <font>
-                                                            <Font name="Aptos" size="14.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <HBox spacing="6.0">
+                                                      <VBox prefWidth="100.0" spacing="4.0" VBox.vgrow="ALWAYS">
                                                          <children>
-                                                            <TextField fx:id="tfParentId" disable="true" minHeight="45.0" prefHeight="45.0" styleClass="primary-text">
+                                                            <Label styleClass="text-field-label" text="Type">
                                                                <font>
                                                                   <Font name="Aptos" size="14.0" />
                                                                </font>
-                                                            </TextField>
-                                                            <Button fx:id="btnProductPopup" minHeight="45.0" minWidth="45.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="45.0" styleClass="button-primary" HBox.hgrow="ALWAYS">
-                                                               <graphic>
-                                                                  <Group fx:id="iconProductPopup" />
-                                                               </graphic>
-                                                            </Button>
+                                                            </Label>
+                                                            <ComboBox fx:id="cbProductType" maxWidth="1.7976931348623157E308" minHeight="45.0" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Parent" />
                                                          </children>
-                                                      </HBox>
+                                                      </VBox>
+                                                      <VBox prefWidth="100.0" spacing="4.0" VBox.vgrow="ALWAYS">
+                                                         <children>
+                                                            <Label styleClass="text-field-label" text="parent item">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox spacing="6.0">
+                                                               <children>
+                                                                  <TextField fx:id="tfParentId" disable="true" minHeight="45.0" prefHeight="45.0" styleClass="primary-text" HBox.hgrow="ALWAYS">
+                                                                     <font>
+                                                                        <Font name="Aptos" size="14.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Button fx:id="btnProductPopup" minHeight="45.0" minWidth="100.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" text="Add Parent" HBox.hgrow="ALWAYS">
+                                                                     <graphic>
+                                                                        <Group fx:id="iconProductPopup" />
+                                                                     </graphic>
+                                                                     <styleClass>
+                                                                        <String fx:value="button-primary" />
+                                                                        <String fx:value="primary-white" />
+                                                                     </styleClass>
+                                                                     <padding>
+                                                                        <Insets left="10.0" right="10.0" />
+                                                                     </padding>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
                                                 </VBox>
                                                 <VBox prefWidth="100.0" spacing="4.0" HBox.hgrow="ALWAYS">
