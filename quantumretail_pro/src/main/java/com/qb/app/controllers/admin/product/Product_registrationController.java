@@ -92,26 +92,13 @@ public class Product_registrationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        runBackgroundThread();
-    }
-
-    private void runBackgroundThread() {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                initializeBackgroundProcess();
-            }
-        };
-
-        Thread bgThread = new Thread(runnable);
-        bgThread.start();
-    }
-
-    private void initializeBackgroundProcess() {
         configureTables();
         configureInputs();
         loadComboBoxes();
-        handleProductTypeSelector();
+
+        // Safe default
+        cbProductType.getSelectionModel().selectedItemProperty()
+                .addListener((obs, old, val) -> handleProductTypeSelector());
     }
 
     private void loadComboBoxes() {
@@ -158,13 +145,14 @@ public class Product_registrationController implements Initializable {
     }
 
     private void handleProductTypeSelector() {
-        if (cbProductType.getValue().getType() == null) {
+        ProductType type = cbProductType.getValue();
+
+        if (type == null) {
             tfParentId.setDisable(true);
-        } else if (cbProductType.getValue().getType().toLowerCase().equals("child")) {
-            tfParentId.setDisable(false);
-        } else {
-            tfParentId.setDisable(true);
+            return;
         }
+
+        tfParentId.setDisable(!"child".equalsIgnoreCase(type.getType()));
     }
 
     private boolean isParentCreated = false;
