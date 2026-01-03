@@ -97,7 +97,7 @@ public class PopUpProductListController implements Initializable {
                     try {
                         callingController
                                 .getClass()
-                                .getMethod("setParentID", Product.class)
+                                .getMethod("setParentProduct", Product.class)
                                 .invoke(callingController, selectedProduct);
 
                         closeWindow();

@@ -3,6 +3,7 @@ package com.qb.app.database_crud;
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.OperationResult;
+import com.qb.app.model.entity.CategoryHasBrand;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.ProductStatus;
@@ -20,13 +21,7 @@ public class ProductCRUD {
                 for (ProductRegistrationTable row : items) {
                     if ("parent".equalsIgnoreCase(row.getType().getType())) {
 
-                        ProductStatus status = ProductStatusCRUD.getProductStatusByStatus("active");
-
-                        parentProduct = row.getProduct();
-                        parentProduct.setProductStatusId(status);
-                        parentProduct.setCategoryHasBrandId(
-                                CategoryHasBrandCRUD.getCategoryHasBrand(row.getBrand(), row.getCategory())
-                        );
+                        parentProduct = row.getProduct();                        
 
                         em.persist(parentProduct);
                         em.flush();
@@ -64,6 +59,7 @@ public class ProductCRUD {
                 return new OperationResult(true, "Products registered successfully.");
 
             } catch (Exception e) {
+                e.printStackTrace();
                 return new OperationResult(
                         false,
                         "Database error occurred while saving products."
