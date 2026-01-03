@@ -2,7 +2,9 @@ package com.qb.app.controllers.admin.product;
 
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
 import com.qb.app.controllers.popup.PopUpProductListController;
+import com.qb.app.database_crud.CategoryHasBrandCRUD;
 import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.ProductStatusCRUD;
 import com.qb.app.database_crud.ProductTypeCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
@@ -13,6 +15,7 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.getLogger;
 import java.net.URL;
@@ -171,10 +174,10 @@ public class Product_registrationController implements Initializable {
 
     public void setParentProduct(Product product) {
         parentProduct = product;
+        tfParentId.setText(String.valueOf(parentProduct.getId()));
     }
 
     private void registerProducts() {
-        List<ProductRegistrationTable> productsList = tableView.getItems();
         OperationResult result = ProductCRUD.bulkProductRegistration(tableView.getItems());
 
         CustomAlert.showStyledAlert(
@@ -208,7 +211,17 @@ public class Product_registrationController implements Initializable {
                     product.setDiscount(Double.parseDouble(tfDiscount.getText()));
                 }
 
-                ProductRegistrationTable productRegistrationTable
+                product.setCategoryHasBrandId(
+                        CategoryHasBrandCRUD.getCategoryHasBrand(
+                                cbBrand.getValue(),
+                                cbCategory.getValue()
+                        )
+                );
+
+                ProductStatus status = ProductStatusCRUD.getProductStatusByStatus("active");
+                product.setProductStatusId(status);
+
+                ProductRegistrationTable row
                         = new ProductRegistrationTable(
                                 cbProductType.getValue(),
                                 product,
@@ -220,7 +233,7 @@ public class Product_registrationController implements Initializable {
                     isParentCreated = true;
                 }
 
-                tableView.getItems().add(productRegistrationTable);
+                tableView.getItems().add(row);
 
                 refreshProductAdd();
             }
@@ -228,6 +241,7 @@ public class Product_registrationController implements Initializable {
     }
 
     private void refreshProductAdd() {
+        parentProduct = null;
         tfCostPrice.setText("");
         tfSalePrice.setText("");
         tfDiscount.setText("");
