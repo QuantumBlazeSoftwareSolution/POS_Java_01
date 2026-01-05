@@ -94,8 +94,9 @@ public class Employee_registrationController implements Initializable {
         String username = tfEmployeeUsername.getText().trim();
         String password = tfEmployeePassword.getText().trim();
         EmployeeRole role = cbEmployeeRole.getValue();
+        EmployeePanel panel = cbEmployeePanel.getValue();
 
-        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || role == null) {
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || role == null || panel == null) {
             showWarning("Please fill all required fields.");
             return;
         }
