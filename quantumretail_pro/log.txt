@@ -1,0 +1,2 @@
+Jan 03, 2026 1:25:45 PM com.qb.app.model.ComboBoxUtils loadComboBoxValues
+WARNING: java.lang.RuntimeException: Database error
