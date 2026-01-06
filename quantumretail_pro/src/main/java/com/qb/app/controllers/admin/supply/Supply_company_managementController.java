@@ -21,6 +21,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -46,6 +48,23 @@ public class Supply_company_managementController implements Initializable {
     private Button rbtnAddCompany;
     @FXML
     private AnchorPane root;
+    @FXML
+    private TextField utfCompanyId;
+    @FXML
+    private TextField utfCompanyName;
+    @FXML
+    private TextField utfCompanyAddress;
+    @FXML
+    private TextField utfCompanyMobile01;
+    @FXML
+    private TextField utfCompanyMobile02;
+    @FXML
+    private Button ubtnclear;
+    @FXML
+    private Button ubtnUpdateCompany;
+    
+    private Company loadedCompany;
+    private boolean isCompanyLoaded;
 
     /**
      * Initializes the controller class.
@@ -53,17 +72,17 @@ public class Supply_company_managementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    } 
-    
+    }
+
     @FXML
-    private void addCompanyActionEvent(ActionEvent event) { 
-       if (event.getSource() == rbtnAddCompany) {
+    private void addCompanyActionEvent(ActionEvent event) {
+        if (event.getSource() == rbtnAddCompany) {
             addCompany();
         } else if (event.getSource() == rbtnClear) {
             clearAddCompanyFields();
         }
     }
-    
+
     private void addCompany() {
 
         if (IsCompanyValid()) {
@@ -151,10 +170,143 @@ public class Supply_company_managementController implements Initializable {
         rtfCompanyMobile01.setText("");
         rtfCompanyMobile02.setText("");
     }
+
+
+    @FXML
+    private void handlePopUpCompanyView(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+
+            boolean isValid = isValidCompanyID(); 
+
+            if (isValid) {
+                System.out.println("valid id");
+                loadCompany();
+            } else {
+                System.out.println("invalid id");
+            }
+        } else {
+
+        }
+    }
+
+    private boolean isValidCompanyID() {
+        return JPATransaction.runInTransaction((em) -> {
+
+            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Company> cQuery = cBuilder.createQuery(Company.class);
+            Root<Company> companyTable = cQuery.from(Company.class);
+
+            Predicate predicate2 = cBuilder.equal(companyTable.get("id"), Integer.parseInt(utfCompanyId.getText()));
+            cQuery.where(predicate2);
+
+            return !em.createQuery(cQuery).getResultList().isEmpty();
+        });
+    }
     
-    
-    
+    private void loadCompany() {
+        JPATransaction.runInTransaction((em) -> {
+            try {
+                int CompanyId = Integer.parseInt(utfCompanyId.getText());
+                Company company = em.find(Company.class, CompanyId);
+                if (company != null) {
+                    this.loadedCompany = company;
+                    isCompanyLoaded = true;
+                    utfCompanyName.setText(company.getName());
+                    utfCompanyAddress.setText(company.getAddress());
+                    utfCompanyMobile01.setText(String.valueOf(company.getTelephone1()));
+                    utfCompanyMobile02.setText(String.valueOf(company.getTelephone2()));
+
+                } else {
+                    CustomAlert.showStyledAlert(root, "Company not found", Alert.AlertType.WARNING);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
+        });
+    }
+
+    @FXML
+    private void updateCompanyActionEvent(ActionEvent event) {
+        if (event.getSource() == ubtnUpdateCompany) {
+            updateCompany();
+        } else if (event.getSource() == ubtnclear) {
+            
+            clearUpdateCompanyFields();
+        }
+    }
 
     
+    private void updateCompany() {
+
+        if (IsValidCompanyDetails()) {
+            if (isCompanyLoaded) {
+                JPATransaction.runInTransaction((em) -> {
+                    try {
+
+                        Company company = new Company();
+                        loadedCompany.setName(utfCompanyName.getText());
+                        loadedCompany.setAddress(utfCompanyAddress.getText());
+                        loadedCompany.setTelephone1(utfCompanyMobile01.getText());
+                        loadedCompany.setTelephone2(utfCompanyMobile02.getText());
+
+                        em.merge(loadedCompany);
+                        clearUpdateCompanyFields();
+
+                        CustomAlert.showStyledAlert(root, "Company successfully Updated", Alert.AlertType.CONFIRMATION);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
+                    }
+                });
+            }
+        }
+    }
     
+    
+    private boolean IsValidCompanyDetails() {
+        if (utfCompanyId.getText().isEmpty()) {
+            CustomAlert.showStyledAlert(root, "Company ID is required.", Alert.AlertType.WARNING);
+            utfCompanyId.requestFocus();
+            return false;
+        }
+
+        if (utfCompanyName.getText().trim().isEmpty()) {
+            CustomAlert.showStyledAlert(root, "Company Name is required.", Alert.AlertType.WARNING);
+            utfCompanyName.requestFocus();
+            return false;
+        }
+
+        String telephone_1 = utfCompanyMobile01.getText();
+        if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
+            if (telephone_1.length() != 10) {
+                CustomAlert.showStyledAlert(root, "Telephone Number 01 must be exactly 10 digits.", Alert.AlertType.WARNING);
+                utfCompanyMobile01.requestFocus();
+                return false;
+            }
+        }
+
+        String telephone_2 = utfCompanyMobile02.getText();
+        if (telephone_2 != null && !telephone_2.trim().isEmpty()) {
+            if (telephone_2.length() != 10) {
+                CustomAlert.showStyledAlert(root, "Telephone Number 02 must be exactly 10 digits.", Alert.AlertType.WARNING);
+                utfCompanyMobile02.requestFocus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void clearUpdateCompanyFields() {
+        utfCompanyId.setText("");
+        utfCompanyName.setText("");
+        utfCompanyAddress.setText("");
+        utfCompanyMobile01.setText("");
+        utfCompanyMobile02.setText("");
+
+        isCompanyLoaded = false;
+        loadedCompany = null;
+    }
+
 }

@@ -145,7 +145,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField prefHeight="40.0">
+                                          <TextField fx:id="utfCompanyId" onKeyPressed="#handlePopUpCompanyView" prefHeight="40.0">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -159,7 +159,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField prefHeight="40.0" VBox.vgrow="ALWAYS">
+                                          <TextField fx:id="utfCompanyName" prefHeight="40.0" VBox.vgrow="ALWAYS">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -182,7 +182,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="40.0" VBox.vgrow="ALWAYS">
+                              <TextField fx:id="utfCompanyAddress" prefHeight="40.0" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></TextField>
@@ -197,7 +197,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0">
+                                    <TextField fx:id="utfCompanyMobile01" prefHeight="40.0">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -210,7 +210,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0">
+                                    <TextField fx:id="utfCompanyMobile02" prefHeight="40.0">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -220,7 +220,7 @@
                         </HBox>
                         <HBox spacing="10.0">
                            <children>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" text="Clear" HBox.hgrow="ALWAYS">
+                              <Button fx:id="ubtnclear" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateCompanyActionEvent" prefHeight="40.0" text="Clear" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -231,7 +231,7 @@
                                     <String fx:value="button-primary-outline" />
                                     <String fx:value="scale-down-pressed" />
                                  </styleClass></Button>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" text="Update Changes" HBox.hgrow="ALWAYS">
+                              <Button fx:id="ubtnUpdateCompany" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateCompanyActionEvent" prefHeight="40.0" text="Update Changes" HBox.hgrow="ALWAYS">
                                  <styleClass>
                                     <String fx:value="button-primary" />
                                     <String fx:value="primary-white" />
