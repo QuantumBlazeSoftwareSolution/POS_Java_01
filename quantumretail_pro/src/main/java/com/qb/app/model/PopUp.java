@@ -4,12 +4,14 @@ import com.qb.app.App;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.Node;
 import javafx.stage.*;
 import javafx.geometry.Rectangle2D;
 import java.io.IOException;
 import java.util.function.Consumer;
+import javafx.scene.control.Alert;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.input.MouseEvent;
 
 public class PopUp {
 
@@ -47,8 +49,11 @@ public class PopUp {
 
         // Apply blur effect to root scene if provided
         if (rootScene != null) {
-            GaussianBlur blur = new GaussianBlur(10);
-            rootScene.getRoot().setEffect(blur);
+            // Simple darken effect
+            ColorAdjust darken = new ColorAdjust();
+            darken.setBrightness(-0.5); // 50% darker
+
+            rootScene.getRoot().setEffect(darken);
             popupStage.setOnHidden(e -> rootScene.getRoot().setEffect(null));
         }
 
@@ -66,7 +71,7 @@ public class PopUp {
                 popupStage.setX((bounds.getWidth() - fiftyPercentWidth) / 2);
                 popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
             }
-                
+
             case CENTERED_80_WIDTH -> {
                 double eightyPercentWidth = bounds.getWidth() * 0.8;
                 popupStage.setWidth(eightyPercentWidth);
@@ -99,13 +104,14 @@ public class PopUp {
 
     /**
      * Simplified version without root scene blur effect
+     *
      * @param <T>
      * @param fxmlPath
      * @param ownerNode
      * @param type
      * @param controllerSetup
-     * @return 
-     * @throws java.io.IOException 
+     * @return
+     * @throws java.io.IOException
      */
     public static <T> Stage createPopup(String fxmlPath,
             Node ownerNode,
@@ -116,6 +122,7 @@ public class PopUp {
 
     /**
      * Shows a popup and waits for it to close
+     *
      * @param <T>
      * @param fxmlPath
      * @param ownerNode
@@ -135,6 +142,7 @@ public class PopUp {
 
     /**
      * Simplified version for showing popup without root scene blur
+     *
      * @param <T>
      * @param fxmlPath
      * @param ownerNode

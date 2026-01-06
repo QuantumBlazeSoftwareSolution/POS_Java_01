@@ -1,18 +1,27 @@
 package com.qb.app.controllers.admin.product;
 
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
+import com.qb.app.controllers.popup.PopUpProductListController;
+import com.qb.app.database_crud.CategoryHasBrandCRUD;
 import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.ProductStatusCRUD;
 import com.qb.app.database_crud.ProductTypeCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.OperationResult;
+import com.qb.app.model.PopUp;
+import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.ProductType;
+import com.qb.app.model.getLogger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -89,29 +98,21 @@ public class Product_registrationController implements Initializable {
     private Button btnAdd;
     @FXML
     private TextField tfParentId;
+    @FXML
+    private Button btnProductPopup;
+    @FXML
+    private Group iconProductPopup;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        runBackgroundThread();
-    }
-
-    private void runBackgroundThread() {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                initializeBackgroundProcess();
-            }
-        };
-
-        Thread bgThread = new Thread(runnable);
-        bgThread.start();
-    }
-
-    private void initializeBackgroundProcess() {
+        setIcons();
         configureTables();
         configureInputs();
         loadComboBoxes();
-        handleProductTypeSelector();
+    }
+
+    private void setIcons() {
+//        iconProductPopup.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/users-solid.svg"));
     }
 
     private void loadComboBoxes() {
@@ -145,26 +146,46 @@ public class Product_registrationController implements Initializable {
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnAdd) {
             addProduct();
-        } else if (event.getSource() == cbProductType) {
-            handleProductTypeSelector();
         } else if (event.getSource() == btnRegister) {
             registerProducts();
+        } else if (event.getSource() == btnProductPopup) {
+            openProductPopup();
         }
+    }
+
+    private void openProductPopup() {
+        try {
+            PopUp.showPopupAndWait(
+                    "popup/popUpProductList.fxml",
+                    root,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (PopUpProductListController controller) -> {
+                        controller.saveProductRegistrationController(this);
+                    }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
+    private Product parentProduct;
+
+    public void setParentProduct(Product product) {
+        parentProduct = product;
+        tfParentId.setText(String.valueOf(parentProduct.getId()));
     }
 
     private void registerProducts() {
-        List<ProductRegistrationTable> productsList = tableView.getItems();
-        ProductCRUD.bulkProductRegistration(productsList);
-    }
+        OperationResult result = ProductCRUD.bulkProductRegistration(tableView.getItems());
 
-    private void handleProductTypeSelector() {
-        if (cbProductType.getValue().getType() == null) {
-            tfParentId.setDisable(true);
-        } else if (cbProductType.getValue().getType().toLowerCase().equals("child")) {
-            tfParentId.setDisable(false);
-        } else {
-            tfParentId.setDisable(true);
-        }
+        CustomAlert.showStyledAlert(
+                root,
+                result.getMessage(),
+                result.isSuccess() ? "Success" : "Error",
+                result.isSuccess() ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR
+        );
     }
 
     private boolean isParentCreated = false;
@@ -182,7 +203,7 @@ public class Product_registrationController implements Initializable {
                 );
 
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                if (!tfBarCode.getText().isEmpty()) {
+                if (!tfBarCode.getText().isEmpty() || tfBarCode.getText() != null) {
                     product.setBarCode(tfBarCode.getText());
                 }
 
@@ -190,13 +211,29 @@ public class Product_registrationController implements Initializable {
                     product.setDiscount(Double.parseDouble(tfDiscount.getText()));
                 }
 
-                ProductRegistrationTable productRegistrationTable = new ProductRegistrationTable(cbProductType.getValue(), product);
+                product.setCategoryHasBrandId(
+                        CategoryHasBrandCRUD.getCategoryHasBrand(
+                                cbBrand.getValue(),
+                                cbCategory.getValue()
+                        )
+                );
+
+                ProductStatus status = ProductStatusCRUD.getProductStatusByStatus("active");
+                product.setProductStatusId(status);
+
+                ProductRegistrationTable row
+                        = new ProductRegistrationTable(
+                                cbProductType.getValue(),
+                                product,
+                                cbBrand.getValue(),
+                                cbCategory.getValue()
+                        );
 
                 if (!isParentCreated && "parent".equals(cbProductType.getValue().getType())) {
                     isParentCreated = true;
                 }
 
-                tableView.getItems().add(productRegistrationTable);
+                tableView.getItems().add(row);
 
                 refreshProductAdd();
             }
@@ -204,6 +241,7 @@ public class Product_registrationController implements Initializable {
     }
 
     private void refreshProductAdd() {
+        parentProduct = null;
         tfCostPrice.setText("");
         tfSalePrice.setText("");
         tfDiscount.setText("");

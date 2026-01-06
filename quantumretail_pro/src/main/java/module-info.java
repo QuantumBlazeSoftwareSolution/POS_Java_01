@@ -43,6 +43,7 @@ module com.qb.app {
     opens com.qb.app.controllers.admin.supply to javafx.fxml;
     opens com.qb.app.controllers.developer to javafx.fxml;
     opens com.qb.app.controllers.report to javafx.fxml;
+    opens com.qb.app.controllers.popup to javafx.fxml;
     opens com.qb.app.model.entity to javafx.base, org.hibernate.orm.core;
     exports com.qb.app;
     exports com.qb.app.model;
