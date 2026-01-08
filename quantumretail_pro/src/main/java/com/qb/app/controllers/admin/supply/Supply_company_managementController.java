@@ -4,14 +4,17 @@
  */
 package com.qb.app.controllers.admin.supply;
 
+import com.qb.app.controllers.popup.PopUpCompanyListController;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -62,7 +65,7 @@ public class Supply_company_managementController implements Initializable {
     private Button ubtnclear;
     @FXML
     private Button ubtnUpdateCompany;
-    
+
     private Company loadedCompany;
     private boolean isCompanyLoaded;
 
@@ -171,21 +174,56 @@ public class Supply_company_managementController implements Initializable {
         rtfCompanyMobile02.setText("");
     }
 
-
     @FXML
     private void handlePopUpCompanyView(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
 
-            boolean isValid = isValidCompanyID(); 
+            if (utfCompanyId.getText().isEmpty()) {
 
-            if (isValid) {
-                System.out.println("valid id");
-                loadCompany();
+                try {
+                    PopUp.showPopupAndWait(
+                            "popup/popUpCompanyList.fxml",
+                            root,
+                            this.root.getScene(),
+                            PopUp.PopupType.CENTERED_80_WIDTH,
+                            (PopUpCompanyListController controller) -> {
+                                controller.saveCompanyListController(this);
+                            }
+                    );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
+
             } else {
-                System.out.println("invalid id");
+                boolean isValid = isValidCompanyID();
+
+                if (isValid) {
+                    System.out.println("valid id");
+                    loadCompany();
+                } else {
+                    System.out.println("invalid id");
+                }
+
             }
+
         } else {
 
+        }
+    }
+
+    public void setSelectedCompany(Integer companyId) {
+
+        Company company = JPATransaction.runInTransaction(em -> {
+            return em.find(Company.class, companyId);
+        });
+
+        if (company != null) {
+            utfCompanyId.setText(String.valueOf(company.getId()));
+            utfCompanyName.setText(company.getName());
+            utfCompanyAddress.setText(company.getAddress());
+            utfCompanyMobile01.setText(company.getTelephone1());
+            utfCompanyMobile02.setText(company.getTelephone2());
         }
     }
 
@@ -202,7 +240,7 @@ public class Supply_company_managementController implements Initializable {
             return !em.createQuery(cQuery).getResultList().isEmpty();
         });
     }
-    
+
     private void loadCompany() {
         JPATransaction.runInTransaction((em) -> {
             try {
@@ -231,12 +269,11 @@ public class Supply_company_managementController implements Initializable {
         if (event.getSource() == ubtnUpdateCompany) {
             updateCompany();
         } else if (event.getSource() == ubtnclear) {
-            
+
             clearUpdateCompanyFields();
         }
     }
 
-    
     private void updateCompany() {
 
         if (IsValidCompanyDetails()) {
@@ -263,8 +300,7 @@ public class Supply_company_managementController implements Initializable {
             }
         }
     }
-    
-    
+
     private boolean IsValidCompanyDetails() {
         if (utfCompanyId.getText().isEmpty()) {
             CustomAlert.showStyledAlert(root, "Company ID is required.", Alert.AlertType.WARNING);
