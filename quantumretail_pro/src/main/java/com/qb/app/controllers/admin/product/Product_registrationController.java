@@ -157,7 +157,7 @@ public class Product_registrationController implements Initializable {
                     this.root.getScene(),
                     PopUp.PopupType.CENTERED_80_WIDTH,
                     (PopUpProductListController controller) -> {
-                        controller.saveProductRegistrationController(this);
+                        controller.saveController(this);
                     }
             );
         } catch (Exception e) {

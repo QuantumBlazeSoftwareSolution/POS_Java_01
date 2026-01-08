@@ -75,15 +75,17 @@ public class ProductCRUD {
                 return product;
             } catch (Exception e) {
                 getLogger.logger().warning(e.toString());
+                e.printStackTrace();
                 return null;
             }
         });
     }
 
-    public static Product searchById(int id) {
+    public static Product searchProductById(int id) {
         return JPATransaction.runInTransaction((em) -> {
             Product product = em.find(Product.class, id);
             return product;
         });
     }
+    
 }
