@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -53,6 +55,9 @@ public class Company implements Serializable {
     private String telephone2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Collection<Supplier> supplierCollection;
+    @JoinColumn(name = "supply_status_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private SupplyStatus supplyStatusId;
 
     public Company() {
     }
@@ -115,6 +120,14 @@ public class Company implements Serializable {
 
     public void setSupplierCollection(Collection<Supplier> supplierCollection) {
         this.supplierCollection = supplierCollection;
+    }
+
+    public SupplyStatus getSupplyStatusId() {
+        return supplyStatusId;
+    }
+
+    public void setSupplyStatusId(SupplyStatus supplyStatusId) {
+        this.supplyStatusId = supplyStatusId;
     }
 
     @Override

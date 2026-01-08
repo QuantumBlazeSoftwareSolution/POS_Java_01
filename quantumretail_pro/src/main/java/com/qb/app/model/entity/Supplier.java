@@ -50,7 +50,7 @@ public class Supplier implements Serializable {
     private Company companyId;
     @JoinColumn(name = "supplier_status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private SupplierStatus supplierStatusId;
+    private SupplyStatus supplierStatusId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Collection<Stock> stockCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
@@ -105,11 +105,11 @@ public class Supplier implements Serializable {
         this.companyId = companyId;
     }
 
-    public SupplierStatus getSupplierStatusId() {
+    public SupplyStatus getSupplierStatusId() {
         return supplierStatusId;
     }
 
-    public void setSupplierStatusId(SupplierStatus supplierStatusId) {
+    public void setSupplierStatusId(SupplyStatus supplierStatusId) {
         this.supplierStatusId = supplierStatusId;
     }
 
