@@ -219,6 +219,9 @@ public class Supply_company_managementController implements Initializable {
         });
 
         if (company != null) {
+            this.loadedCompany = company;      // ✅ IMPORTANT
+            this.isCompanyLoaded = true;
+
             utfCompanyId.setText(String.valueOf(company.getId()));
             utfCompanyName.setText(company.getName());
             utfCompanyAddress.setText(company.getAddress());
