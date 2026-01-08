@@ -23,12 +23,12 @@ import java.util.Collection;
  * @author Vihanga
  */
 @Entity
-@Table(name = "supplier_status")
+@Table(name = "supply_status")
 @NamedQueries({
-    @NamedQuery(name = "SupplierStatus.findAll", query = "SELECT s FROM SupplierStatus s"),
-    @NamedQuery(name = "SupplierStatus.findById", query = "SELECT s FROM SupplierStatus s WHERE s.id = :id"),
-    @NamedQuery(name = "SupplierStatus.findByStatus", query = "SELECT s FROM SupplierStatus s WHERE s.status = :status")})
-public class SupplierStatus implements Serializable {
+    @NamedQuery(name = "SupplyStatus.findAll", query = "SELECT s FROM SupplyStatus s"),
+    @NamedQuery(name = "SupplyStatus.findById", query = "SELECT s FROM SupplyStatus s WHERE s.id = :id"),
+    @NamedQuery(name = "SupplyStatus.findByStatus", query = "SELECT s FROM SupplyStatus s WHERE s.status = :status")})
+public class SupplyStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,15 +41,17 @@ public class SupplierStatus implements Serializable {
     private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierStatusId")
     private Collection<Supplier> supplierCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplyStatusId")
+    private Collection<Company> companyCollection;
 
-    public SupplierStatus() {
+    public SupplyStatus() {
     }
 
-    public SupplierStatus(Integer id) {
+    public SupplyStatus(Integer id) {
         this.id = id;
     }
 
-    public SupplierStatus(Integer id, String status) {
+    public SupplyStatus(Integer id, String status) {
         this.id = id;
         this.status = status;
     }
@@ -78,6 +80,14 @@ public class SupplierStatus implements Serializable {
         this.supplierCollection = supplierCollection;
     }
 
+    public Collection<Company> getCompanyCollection() {
+        return companyCollection;
+    }
+
+    public void setCompanyCollection(Collection<Company> companyCollection) {
+        this.companyCollection = companyCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -88,10 +98,10 @@ public class SupplierStatus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SupplierStatus)) {
+        if (!(object instanceof SupplyStatus)) {
             return false;
         }
-        SupplierStatus other = (SupplierStatus) object;
+        SupplyStatus other = (SupplyStatus) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +110,7 @@ public class SupplierStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qb.app.model.entity.SupplierStatus[ id=" + id + " ]";
+        return "com.qb.app.model.entity.SupplyStatus[ id=" + id + " ]";
     }
     
 }
