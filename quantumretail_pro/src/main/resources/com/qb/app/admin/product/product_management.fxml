@@ -57,7 +57,7 @@
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tfId" prefHeight="45.0" styleClass="text-field">
+                                                <TextField fx:id="tfId" onKeyPressed="#handleKeyPressEvent" prefHeight="45.0" styleClass="text-field">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

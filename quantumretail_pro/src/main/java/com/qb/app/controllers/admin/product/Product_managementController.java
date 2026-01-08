@@ -5,11 +5,14 @@
 package com.qb.app.controllers.admin.product;
 
 import com.jfoenix.controls.JFXToggleButton;
+import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.ProductTypeCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
+import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductType;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +27,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -72,9 +77,8 @@ public class Product_managementController implements Initializable {
     @FXML
     private JFXToggleButton statusToggle;
 
-    /**
-     * Initializes the controller class.
-     */
+    private Product selectedProduct;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadComboBoxes();
@@ -99,7 +103,7 @@ public class Product_managementController implements Initializable {
         tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfParentID.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
-    
+
     private boolean isProductValid() {
         // Item name
         if (tfItemName.getText().trim().isEmpty()) {
@@ -246,7 +250,7 @@ public class Product_managementController implements Initializable {
 
         return true;
     }
-    
+
     private void showWarning(String message) {
         CustomAlert.showStyledAlert(
                 root,
@@ -254,6 +258,33 @@ public class Product_managementController implements Initializable {
                 "Validation Error",
                 Alert.AlertType.WARNING
         );
+    }
+
+    @FXML
+    private void handleKeyPressEvent(KeyEvent event) {
+        if (event.getSource() == tfId && event.getCode() == KeyCode.ENTER && !tfId.getText().isEmpty()) {
+            loadProductDetails(ProductCRUD.searchById(Integer.parseInt(tfId.getText())));
+        }
+    }
+
+    private void loadProductDetails(Product product) {
+        if (product != null) {
+            selectedProduct = product;
+            tfItemName.setText(product.getProduct());
+            tfBarCode.setText(product.getBarCode());
+            tfSalePrice.setText(String.valueOf(product.getSalePrice()));
+            tfCostPrice.setText(String.valueOf(product.getCostPrice()));
+            tfDiscount.setText(String.valueOf(product.getDiscount()));
+            tfMeasure.setText(String.valueOf(product.getMeasure()));
+        } else {
+            selectedProduct = null;
+            CustomAlert.showStyledAlert(
+                    root,
+                    "The selected product could not be found.",
+                    "Unable to load product details",
+                    Alert.AlertType.WARNING
+            );
+        }
     }
 
 }
