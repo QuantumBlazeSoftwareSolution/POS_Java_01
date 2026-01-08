@@ -4,12 +4,14 @@
  */
 package com.qb.app.controllers.admin.supply;
 
+import com.qb.app.controllers.popup.PopUpSupplierListController;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Supplier;
-import com.qb.app.model.entity.SupplierStatus;
+import com.qb.app.model.entity.SupplyStatus;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -30,13 +32,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+
 /**
  * FXML Controller class
  *
  * @author Vihanga
  */
 public class Supply_supplier_managementController implements Initializable {
-
 
     @FXML
     private Group suppierManagementIcon;
@@ -59,16 +61,17 @@ public class Supply_supplier_managementController implements Initializable {
     @FXML
     private ComboBox<Company> ucbSupplierCompany;
     @FXML
-    private ComboBox<SupplierStatus> ucbSupplierStatus;
+    private ComboBox<SupplyStatus> ucbSupplierStatus;
     @FXML
     private Button ubtnClear;
     @FXML
     private Button ubtnUpdateChanges;
-    
+
     private Supplier loadedSupplier;
     private boolean isSupplierLoaded;
     @FXML
     private TextField utfSupplierMobile;
+
     /**
      * Initializes the controller class.
      */
@@ -76,29 +79,24 @@ public class Supply_supplier_managementController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO\
         loadSupplierCompanyComboBox();
-    } 
-    
-    
+    }
+
     private void loadSupplierCompanyComboBox() {
         ComboBoxUtils.loadComboBoxValues(cbComapany, Company.class, "name", Company::getName);
         ComboBoxUtils.loadComboBoxValues(ucbSupplierCompany, Company.class, "name", Company::getName);
-        ComboBoxUtils.loadComboBoxValues(ucbSupplierStatus, SupplierStatus.class, "status", SupplierStatus::getStatus);
+        ComboBoxUtils.loadComboBoxValues(ucbSupplierStatus, SupplyStatus.class, "status", SupplyStatus::getStatus);
     }
-    
-     @FXML
+
+    @FXML
     private void addSupplierActionEvent(ActionEvent event) {
         if (event.getSource() == btnAddSupplier) {
             addSupplier();
         } else if (event.getSource() == btnClear) {
             clearAddSupplierFields();
         }
-        
+
     }
-    
-    
-    
-    
-    
+
     private void addSupplier() {
 
         if (IsSupplierValid()) {
@@ -128,8 +126,7 @@ public class Supply_supplier_managementController implements Initializable {
         }
 
     }
-    
-    
+
     private boolean IsSupplierValid() {
         if (tfSupplierName.getText().isEmpty()) {
             CustomAlert.showStyledAlert(root, "Supplier name is required.", Alert.AlertType.WARNING);
@@ -154,7 +151,7 @@ public class Supply_supplier_managementController implements Initializable {
 
         return true;
     }
-    
+
     private boolean isSupplierExist() {
         return JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cBuilder = em.getCriteriaBuilder();
@@ -177,13 +174,13 @@ public class Supply_supplier_managementController implements Initializable {
             return !em.createQuery(cQuery).getResultList().isEmpty();
         });
     }
-    
-    private SupplierStatus getSupplierStatus() {
+
+    private SupplyStatus getSupplierStatus() {
         return JPATransaction.runInTransaction((em) -> {
             try {
                 CriteriaBuilder cb = em.getCriteriaBuilder();
-                CriteriaQuery<SupplierStatus> cq = cb.createQuery(SupplierStatus.class);
-                Root<SupplierStatus> root = cq.from(SupplierStatus.class);
+                CriteriaQuery<SupplyStatus> cq = cb.createQuery(SupplyStatus.class);
+                Root<SupplyStatus> root = cq.from(SupplyStatus.class);
 
                 cq.where(cb.equal(root.get("status"), "Active"));
 
@@ -196,28 +193,56 @@ public class Supply_supplier_managementController implements Initializable {
             }
         });
     }
-    
+
     private void clearAddSupplierFields() {
         tfSupplierName.setText("");
         tfSupplierMobile.setText("");
         cbComapany.getSelectionModel().clearSelection();
         cbComapany.setPromptText("Select Company");
     }
-    
 
     @FXML
     private void handlePopUpSupplierView(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             if (utfSupplierId.getText().isEmpty()) {
 //                openPopUp();
+                try {
+                    PopUp.showPopupAndWait(
+                            "popup/popUpSupplierList.fxml",
+                            root,
+                            this.root.getScene(),
+                            PopUp.PopupType.CENTERED_80_WIDTH,
+                            (PopUpSupplierListController controller) -> {
+                                controller.saveSupplierListController(this);
+                            }
+                    );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
             } else {
                 loadSupplier();
             }
         }
     }
-    
-    
-    
+
+    public void setSelectedSupplier(Integer companyId) {
+
+        Supplier supplier = JPATransaction.runInTransaction(em -> {
+            return em.find(Supplier.class, companyId);
+        });
+
+        if (supplier != null) {
+            this.loadedSupplier = supplier;
+            isSupplierLoaded = true;
+            utfSupplierId.setText(String.valueOf(supplier.getId()));
+            utfSupplierName.setText(supplier.getName());
+            utfSupplierMobile.setText(supplier.getTelephone());
+            ucbSupplierCompany.setValue(supplier.getCompanyId());
+            ucbSupplierStatus.setValue(supplier.getSupplierStatusId());
+        }
+    }
+
     private void loadSupplier() {
         JPATransaction.runInTransaction((em) -> {
             try {
@@ -228,9 +253,8 @@ public class Supply_supplier_managementController implements Initializable {
                     isSupplierLoaded = true;
                     utfSupplierName.setText(supplier.getName());
                     utfSupplierMobile.setText(supplier.getTelephone());
-                    ucbSupplierCompany.setValue(supplier.getCompanyId());                  
+                    ucbSupplierCompany.setValue(supplier.getCompanyId());
                     ucbSupplierStatus.setValue(supplier.getSupplierStatusId());
-                    
 
                 } else {
                     CustomAlert.showStyledAlert(root, "Supplier not found.", Alert.AlertType.WARNING);
@@ -244,11 +268,15 @@ public class Supply_supplier_managementController implements Initializable {
 
     @FXML
     private void updateSupplierActionEvent(ActionEvent event) {
-        
+
+        if (event.getSource() == ubtnUpdateChanges) {
+            UpdateSupplier();
+        } else if (event.getSource() == ubtnClear) {
+            clearUpdateSupplierFields();
+        }
+
     }
-    
-    
-    
+
     private void UpdateSupplier() {
 
         if (UpdateSupplierValid()) {
@@ -321,13 +349,5 @@ public class Supply_supplier_managementController implements Initializable {
         loadedSupplier = null;
 
     }
-    
-    
-    
-    
-    
 
-   
-    
-    
 }
