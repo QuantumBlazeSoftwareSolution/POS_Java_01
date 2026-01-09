@@ -9,7 +9,7 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Supplier;
-import com.qb.app.model.entity.SupplierStatus;
+import com.qb.app.model.entity.SupplyStatus;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -217,7 +217,7 @@ public class Inventory_grnController implements Initializable {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Supplier> cq = cb.createQuery(Supplier.class);
             Root<Supplier> table = cq.from(Supplier.class);
-            Join<Supplier, SupplierStatus> statusJoin
+            Join<Supplier, SupplyStatus> statusJoin
                     = table.join("supplierStatusId");
             cq.where(
                     cb.equal(
