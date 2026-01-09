@@ -9,9 +9,11 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Supplier;
+import com.qb.app.model.entity.SupplierStatus;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -74,6 +77,10 @@ public class Inventory_grnController implements Initializable {
     private TextField Total_TF;
     @FXML
     private Button Apply_Btn;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private TextField PDiscount_TF;
 
     /**
      * Initializes the controller class.
@@ -99,17 +106,11 @@ public class Inventory_grnController implements Initializable {
         Company value = CompanyComboBox.getValue();
 
         if (value != null) {
-            System.out.println("Selected Company: " + value.getName());
+//            System.out.println("Selected Company: " + value.getName());
             List<Supplier> supplierList = loadSuppliersList(value);
-
-            // Convert List to ObservableList
             ObservableList<Supplier> observableSuppliers
                     = FXCollections.observableArrayList(supplierList);
-
-            // Load suppliers into ComboBox
             SupplierComboBox.setItems(observableSuppliers);
-
-            // Optional: clear previous selection
             SupplierComboBox.setValue(null);
         }
 
@@ -126,6 +127,82 @@ public class Inventory_grnController implements Initializable {
 
     @FXML
     private void AddBtnAction(ActionEvent event) {
+        if (validateTextFields()) {
+            System.out.println("Succes values !");
+        }
+    }
+
+    private boolean validateTextFields() {
+
+        String id = ID_TF.getText() == null ? "" : ID_TF.getText().trim();
+        String productName = ProductName_TF.getText() == null ? "" : ProductName_TF.getText().trim();
+        String costPriceText = Cost_TF.getText() == null ? "" : Cost_TF.getText().trim();
+        String salePriceText = Sale_TF.getText() == null ? "" : Sale_TF.getText().trim();
+        String qtyText = Qty_TF.getText() == null ? "" : Qty_TF.getText().trim();
+        String amountText = Amount_TF.getText() == null ? "" : Amount_TF.getText().trim();
+        String ProductDiscount = PDiscount_TF.getText() == null ? "" : PDiscount_TF.getText().trim();
+
+        if (id.isEmpty()) {
+            showError("Product ID is required");
+            return false;
+        }
+
+        if (productName.isEmpty()) {
+            showError("Product name is required");
+            return false;
+        }
+
+        if (costPriceText.isEmpty() || salePriceText.isEmpty() || qtyText.isEmpty() || amountText.isEmpty()) {
+            showError("All numeric fields are required");
+            return false;
+        }
+
+       
+        if (ExpireDatePicker.getValue() == null) {
+            showError("Expire date must be selected");
+            return false;
+        }
+
+        if (ExpireDatePicker.getValue().isBefore(java.time.LocalDate.now())) {
+            showError("Expire date cannot be in the past");
+            return false;
+        }
+
+        double costPrice, salePrice, amount;
+        int qty;
+
+        try {
+            costPrice = Double.parseDouble(costPriceText);
+            salePrice = Double.parseDouble(salePriceText);
+            amount = Double.parseDouble(amountText);
+            qty = Integer.parseInt(qtyText);
+        } catch (NumberFormatException e) {
+            showError("Invalid number format detected");
+            return false;
+        }
+
+     
+        if (costPrice <= 0 || salePrice <= 0 || amount <= 0) {
+            showError("Prices and amount must be greater than zero");
+            return false;
+        }
+
+        if (qty <= 0) {
+            showError("Quantity must be greater than zero");
+            return false;
+        }
+
+        if (salePrice < costPrice) {
+            showError("Sale price cannot be less than cost price");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showError(String message) {
+        System.out.println("Validation Error: " + message);
+    
     }
 
     @FXML
@@ -137,24 +214,25 @@ public class Inventory_grnController implements Initializable {
         List<Supplier> supplierList = new ArrayList<>();
 
         JPATransaction.runInTransaction(em -> {
-
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Supplier> cq = cb.createQuery(Supplier.class);
             Root<Supplier> table = cq.from(Supplier.class);
-
+            Join<Supplier, SupplierStatus> statusJoin
+                    = table.join("supplierStatusId");
             cq.where(
                     cb.equal(
                             table.get("companyId").get("id"),
                             company.getId()
+                    ),
+                    cb.equal(
+                            statusJoin.get("status"),
+                            "Active"
                     )
             );
-
             supplierList.addAll(
                     em.createQuery(cq).getResultList()
             );
         });
-
         return supplierList;
     }
-
 }

@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.inventory.Inventory_grnController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.inventory.Inventory_grnController">
    <children>
       <BorderPane layoutX="50.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -101,7 +101,7 @@
                      <children>
                         <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                              <VBox maxWidth="100.0" spacing="4.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" text="ID">
                                        <font>
@@ -118,7 +118,58 @@
                                     </TextField>
                                  </children>
                               </VBox>
-                              <VBox layoutX="284.0" layoutY="10.0" spacing="4.0" HBox.hgrow="ALWAYS">
+                              <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label minWidth="-Infinity" styleClass="text-field-label" text=" Product Name">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="ProductName_TF" disable="true" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white">
+                                       <font>
+                                          <Font name="Aptos" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox maxWidth="200.0" spacing="4.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label minWidth="-Infinity" styleClass="text-field-label" text="Expire Date">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="ExpireDatePicker" maxWidth="1.7976931348623157E308" prefHeight="40.0" styleClass="primary-text" stylesheets="@../../css/adminStyle.css" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="640.0" layoutY="10.0" maxWidth="100.0" spacing="4.0">
+                                 <children>
+                                    <Label minWidth="-Infinity" styleClass="text-field-label" text="Qty">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="Qty_TF" prefHeight="40.0" styleClass="primary-text">
+                                       <font>
+                                          <Font name="Aptos" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" text="Cost Price">
                                        <font>
@@ -152,14 +203,14 @@
                                     </TextField>
                                  </children>
                               </VBox>
-                              <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                              <VBox layoutX="377.0" layoutY="10.0" spacing="4.0">
                                  <children>
-                                    <Label minWidth="-Infinity" styleClass="text-field-label" text="Qty">
+                                    <Label minWidth="-Infinity" styleClass="text-field-label" text="Discount">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="Qty_TF" prefHeight="40.0" styleClass="primary-text">
+                                    <TextField fx:id="PDiscount_TF" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white">
                                        <font>
                                           <Font name="Aptos" size="12.0" />
                                        </font>
@@ -169,31 +220,24 @@
                                     </TextField>
                                  </children>
                               </VBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="5.0">
-                           <children>
-                              <DatePicker fx:id="ExpireDatePicker" maxWidth="1.7976931348623157E308" prefHeight="40.0" promptText="Expire Date" styleClass="primary-text" stylesheets="@../../css/adminStyle.css" HBox.hgrow="ALWAYS" />
-                              <TextField fx:id="ProductName_TF" prefHeight="40.0" prefWidth="200.0" promptText="Product name" styleClass="primary-white" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Aptos" size="12.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </TextField>
-                              <TextField fx:id="Amount_TF" prefHeight="40.0" prefWidth="200.0" promptText="Amount" styleClass="primary-white" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Aptos" size="12.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </TextField>
-                              <Button fx:id="Add_Btn" maxWidth="100.0" minWidth="100.0" mnemonicParsing="false" onAction="#AddBtnAction" prefHeight="40.0" prefWidth="100.0" text="Add" HBox.hgrow="ALWAYS">
+                              <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label minWidth="-Infinity" styleClass="text-field-label" text="Amount">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="Amount_TF" disable="true" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white">
+                                       <font>
+                                          <Font name="Aptos" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="Add_Btn" maxWidth="200.0" minWidth="100.0" mnemonicParsing="false" onAction="#AddBtnAction" prefHeight="40.0" prefWidth="200.0" text="Add" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -243,7 +287,7 @@
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font></Label>
-                        <TextField fx:id="Total_TF" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text">
+                        <TextField fx:id="Total_TF" disable="true" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text">
                            <font>
                               <Font name="Aptos" size="12.0" />
                            </font>
