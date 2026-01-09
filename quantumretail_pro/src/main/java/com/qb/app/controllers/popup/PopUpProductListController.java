@@ -112,7 +112,7 @@ public class PopUpProductListController implements Initializable {
         });
     }
 
-    public void saveProductRegistrationController(Object controller) {
+    public void saveController(Object controller) {
         this.callingController = controller;
     }
 

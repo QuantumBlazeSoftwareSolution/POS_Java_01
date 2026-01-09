@@ -200,7 +200,7 @@
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Type" styleClass="text-field" />
+                                                <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" onAction="#handleComboBoxEvent" prefHeight="45.0" prefWidth="230.0" promptText="Select Type" styleClass="text-field" />
                                              </children>
                                           </VBox>
                                           <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -220,7 +220,7 @@
                                                       </Label>
                                                    </children>
                                                 </HBox>
-                                                <TextField fx:id="tfParentID" disable="true" prefHeight="45.0">
+                                                <TextField fx:id="tfParentID" disable="true" onKeyPressed="#handleKeyPressEvent" prefHeight="45.0">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>
@@ -280,7 +280,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </JFXToggleButton>
-                                    <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Clear">
+                                    <Button fx:id="btnClear" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" text="Clear">
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
@@ -294,7 +294,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="btnRegister" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Update Changes">
+                                    <Button fx:id="btnUpdate" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" text="Update Changes">
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />

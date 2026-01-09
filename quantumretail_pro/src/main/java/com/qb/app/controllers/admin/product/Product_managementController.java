@@ -5,15 +5,21 @@
 package com.qb.app.controllers.admin.product;
 
 import com.jfoenix.controls.JFXToggleButton;
+import com.qb.app.controllers.popup.PopUpProductListController;
+import com.qb.app.database_crud.CategoryHasBrandCRUD;
 import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.ProductHasProductTypeCRUD;
 import com.qb.app.database_crud.ProductTypeCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.ProductType;
+import com.qb.app.model.getLogger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -65,8 +71,6 @@ public class Product_managementController implements Initializable {
     @FXML
     private Button btnClear;
     @FXML
-    private Button btnRegister;
-    @FXML
     private TextField tfId;
     @FXML
     private ComboBox<Category> cbCategory;
@@ -76,13 +80,21 @@ public class Product_managementController implements Initializable {
     private AnchorPane root;
     @FXML
     private JFXToggleButton statusToggle;
+    @FXML
+    private Button btnUpdate;
 
-    private Product selectedProduct;
+    private boolean isProduct = true;
+    private Product loadedProduct;
+    private ProductHasProductType loadedProductHasProductType;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadComboBoxes();
         configureInputs();
+
+        cbBrand.setPromptText("Select Brand");
+        cbCategory.setPromptText("Select Category");
+        cbType.setPromptText("Select Product Type");
     }
 
     @FXML
@@ -248,6 +260,18 @@ public class Product_managementController implements Initializable {
             }
         }
 
+        if (tfParentID.getText().trim().isEmpty()) {
+            showWarning("Parent ID is required");
+            tfParentID.requestFocus();
+            return false;
+        }
+
+        if (ProductCRUD.searchProductById(Integer.parseInt(tfParentID.getText())) == null) {
+            showWarning("Invalid parent product ID.");
+            tfParentID.requestFocus();
+            return false;
+        }
+
         return true;
     }
 
@@ -262,22 +286,40 @@ public class Product_managementController implements Initializable {
 
     @FXML
     private void handleKeyPressEvent(KeyEvent event) {
-        if (event.getSource() == tfId && event.getCode() == KeyCode.ENTER && !tfId.getText().isEmpty()) {
-            loadProductDetails(ProductCRUD.searchById(Integer.parseInt(tfId.getText())));
+        if (event.getSource() == tfId && event.getCode() == KeyCode.ENTER) {
+            if (!tfId.getText().isEmpty()) {
+                loadProductDetails(ProductCRUD.searchProductById(Integer.parseInt(tfId.getText())));
+            } else {
+                isProduct = true;
+                openProductPopup();
+            }
+        } else if (event.getSource() == tfParentID && event.getCode() == KeyCode.ENTER) {
+            isProduct = false;
+            openProductPopup();
         }
     }
 
     private void loadProductDetails(Product product) {
         if (product != null) {
-            selectedProduct = product;
+            this.loadedProduct = product;
+            ProductHasProductType productHasProductType = ProductHasProductTypeCRUD.getProductHasProductTypeByProductProduct(product);
+
+            this.loadedProductHasProductType = productHasProductType;
+
             tfItemName.setText(product.getProduct());
             tfBarCode.setText(product.getBarCode());
             tfSalePrice.setText(String.valueOf(product.getSalePrice()));
             tfCostPrice.setText(String.valueOf(product.getCostPrice()));
             tfDiscount.setText(String.valueOf(product.getDiscount()));
             tfMeasure.setText(String.valueOf(product.getMeasure()));
+            cbBrand.getSelectionModel().select(product.getCategoryHasBrandId().getBrandId());
+            cbCategory.getSelectionModel().select(product.getCategoryHasBrandId().getCategoryId());
+            cbType.getSelectionModel().select(productHasProductType.getProductTypeId());
+            tfParentID.setText(String.valueOf(productHasProductType.getReferenceId().getId()));
+            statusToggle.setSelected(product.getProductStatusId().getStatus().toLowerCase().equals("active"));
         } else {
-            selectedProduct = null;
+            this.loadedProduct = null;
+            this.loadedProductHasProductType = null;
             CustomAlert.showStyledAlert(
                     root,
                     "The selected product could not be found.",
@@ -285,6 +327,121 @@ public class Product_managementController implements Initializable {
                     Alert.AlertType.WARNING
             );
         }
+    }
+
+    public void setParentProduct(Product product) {
+        if (isProduct) {
+            System.out.println("Product Loaded");
+            tfId.setText(String.valueOf(product.getId()));
+            loadProductDetails(product);
+        } else if (!isProduct) {
+            System.out.println("Parent Product Loaded");
+            tfParentID.setText(String.valueOf(product.getId()));
+        }
+    }
+
+    public void openProductPopup() {
+        try {
+            PopUp.showPopupAndWait(
+                    "popup/popUpProductList.fxml",
+                    root,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (PopUpProductListController controller) -> {
+                        controller.saveController(this);
+                    }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
+    @FXML
+    private void handleComboBoxEvent(ActionEvent event) {
+        if (event.getSource() == cbType) {
+            if (cbType.getValue() != null && cbType.getValue().getType().toLowerCase().equals("child")) {
+                tfParentID.setDisable(false);
+            } else {
+                tfParentID.setDisable(true);
+            }
+        }
+    }
+
+    @FXML
+    private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnUpdate) {
+            validateAndUpdateProduct();
+        } else if (event.getSource() == btnClear) {
+            refreshProductManagementPage();
+        }
+    }
+
+    private void validateAndUpdateProduct() {
+        if (isProductValid()) {
+            if (this.loadedProduct != null) {
+                this.loadedProduct.setProduct(tfItemName.getText());
+                this.loadedProduct.setBarCode(tfBarCode.getText());
+                this.loadedProduct.setCategoryHasBrandId(
+                        CategoryHasBrandCRUD.getCategoryHasBrand(
+                                cbBrand.getValue(),
+                                cbCategory.getValue()
+                        )
+                );
+                this.loadedProduct.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
+                this.loadedProduct.setCostPrice(Double.parseDouble(tfCostPrice.getText()));
+                this.loadedProduct.setDiscount(Double.parseDouble(tfDiscount.getText()));
+                this.loadedProduct.setMeasure(Float.parseFloat(tfMeasure.getText()));
+
+                Product savedProduct = ProductCRUD.updateProduct(this.loadedProduct);
+                this.loadedProductHasProductType.setReferenceId(ProductCRUD.searchProductById(Integer.parseInt(tfParentID.getText())));
+
+                if (savedProduct != null) {
+                    refreshProductManagementPage();
+                    CustomAlert.showStyledAlert(
+                            root,
+                            "The product details have been updated successfully.",
+                            "Update Successful",
+                            Alert.AlertType.INFORMATION
+                    );
+                } else {
+                    CustomAlert.showStyledAlert(
+                            root,
+                            "We couldn’t update the product. Please review the details and try again.",
+                            "Update Failed",
+                            Alert.AlertType.ERROR
+                    );
+                }
+            }
+        }
+    }
+
+    private void refreshProductManagementPage() {
+
+        this.loadedProduct = null;
+        this.loadedProductHasProductType = null;
+        isProduct = true;
+
+        tfId.clear();
+        tfItemName.clear();
+        tfBarCode.clear();
+        tfSalePrice.clear();
+        tfCostPrice.clear();
+        tfDiscount.clear();
+        tfMeasure.clear();
+        tfParentID.clear();
+
+        cbBrand.setValue(null);
+        cbCategory.setValue(null);
+        cbType.setValue(null);
+
+        tfParentID.setDisable(true);
+
+        statusToggle.setSelected(false);
+
+        productImage.setImage(null);
+
+        tfId.requestFocus();
     }
 
 }
