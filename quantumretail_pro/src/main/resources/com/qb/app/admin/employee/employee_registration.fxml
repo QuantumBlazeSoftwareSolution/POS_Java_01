@@ -73,7 +73,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="cbEmployeePanel" prefHeight="40.0" prefWidth="300.0" promptText="Select Panel" styleClass="combo-box" stylesheets="@../../css/adminStyle.css" />
+                                    <ComboBox fx:id="cbEmployeePanel" onAction="#handleDetailsbyRole" prefHeight="40.0" prefWidth="300.0" promptText="Select Panel" styleClass="combo-box" stylesheets="@../../css/adminStyle.css" />
                                  </children>
                               </VBox>
                            </children>
