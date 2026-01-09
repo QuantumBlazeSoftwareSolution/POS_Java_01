@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.employee.Employee_registrationController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.admin.employee.Employee_registrationController">
    <children>
       <VBox layoutX="35.0" layoutY="50.0" prefHeight="527.0" spacing="15.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
          <children>
@@ -42,7 +42,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="nameTextField" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
+                              <TextField fx:id="tfEmployeeName" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
                            </children>
                         </VBox>
                      </children>
@@ -63,7 +63,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefHeight="40.0" prefWidth="300.0" stylesheets="@../../css/adminStyle.css" />
+                                    <ComboBox fx:id="cbEmployeeRole" prefHeight="40.0" prefWidth="300.0" promptText="Select Role" stylesheets="@../../css/adminStyle.css" />
                                  </children>
                               </VBox>
                               <VBox HBox.hgrow="ALWAYS">
@@ -73,7 +73,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefHeight="40.0" prefWidth="300.0" styleClass="combo-box" stylesheets="@../../css/adminStyle.css" />
+                                    <ComboBox fx:id="cbEmployeePanel" onAction="#handleDetailsbyRole" prefHeight="40.0" prefWidth="300.0" promptText="Select Panel" styleClass="combo-box" stylesheets="@../../css/adminStyle.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -96,7 +96,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
+                                    <TextField fx:id="tfEmployeeUsername" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
                                  </children>
                               </VBox>
                               <VBox>
@@ -106,7 +106,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
+                                    <TextField fx:id="tfEmployeePassword" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -118,14 +118,14 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
+                              <TextField fx:id="tfEmployeePin" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@../../css/adminStyle.css" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@../../css/adminStyle.css" text="Recruit" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btnRecruit" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" prefWidth="300.0" stylesheets="@../../css/adminStyle.css" text="Recruit" HBox.hgrow="ALWAYS">
                            <styleClass>
                               <String fx:value="button-primary" />
                               <String fx:value="primary-white" />
@@ -138,7 +138,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@../../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btnClear" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" prefWidth="300.0" stylesheets="@../../css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
