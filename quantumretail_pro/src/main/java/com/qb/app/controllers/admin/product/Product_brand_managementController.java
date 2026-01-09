@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers.admin.product;
 
+import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -12,6 +13,8 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 /**
@@ -27,11 +30,37 @@ public class Product_brand_managementController implements Initializable {
     @FXML
     private Group iconPage;
     @FXML
-    private TextField tfPrimaryBrandName;
+    private TextField tfBrandName;
     @FXML
-    private Button btnPrimaryClear;
+    private JFXToggleButton toggleBrand;
     @FXML
-    private Button btnPrimaryRegister;
+    private Button btnClearBrand;
+    @FXML
+    private Button btnActionBrand;
+    @FXML
+    private TableView<?> tvBrand;
+    @FXML
+    private TableColumn<?, ?> colBrandID;
+    @FXML
+    private TableColumn<?, ?> colBrandName;
+    @FXML
+    private TableColumn<?, ?> colBrandStatus;
+    @FXML
+    private TextField tfCategoryName;
+    @FXML
+    private JFXToggleButton toggleCategory;
+    @FXML
+    private Button btnClearCategory;
+    @FXML
+    private Button btnActionCategory;
+    @FXML
+    private TableView<?> tvCategory;
+    @FXML
+    private TableColumn<?, ?> colCategoryID;
+    @FXML
+    private TableColumn<?, ?> colCategoryName;
+    @FXML
+    private TableColumn<?, ?> colCategoryStatus;
     /**
      * Initializes the controller class.
      */
