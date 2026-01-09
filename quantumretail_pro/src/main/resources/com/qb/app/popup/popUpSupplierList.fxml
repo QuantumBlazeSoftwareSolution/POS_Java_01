@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.popup.PopUpSupplierListController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.popup.PopUpSupplierListController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -72,12 +72,12 @@
                         <Insets bottom="10.0" right="20.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="supplierListTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn maxWidth="120.0" prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="75.0" text="Supplier Name" />
-                        <TableColumn prefWidth="75.0" text="Company Name" />
-                        <TableColumn prefWidth="75.0" text="Status" />
+                      <TableColumn fx:id="colSupplierId" maxWidth="120.0" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="colSupplierName" prefWidth="75.0" text="Supplier Name" />
+                        <TableColumn fx:id="colSupplierCompanyName" prefWidth="75.0" text="Company Name" />
+                        <TableColumn fx:id="colSupplierStatus" prefWidth="75.0" text="Status" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
