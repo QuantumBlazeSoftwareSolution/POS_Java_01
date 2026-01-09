@@ -4,8 +4,11 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.model.SuggestionPopupService;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * FXML Controller class
  *
@@ -27,15 +31,12 @@ import javafx.scene.layout.VBox;
  */
 public class CashierInvoiceController implements Initializable {
 
-
     @FXML
     private AnchorPane root;
     @FXML
     private TextField tfBarCode;
     @FXML
     private TextField tfItemCode;
-    @FXML
-    private TextField tfItemCode1;
     @FXML
     private Button btnProductView;
     @FXML
@@ -75,19 +76,27 @@ public class CashierInvoiceController implements Initializable {
     @FXML
     private Button btnPayment;
     @FXML
-    private ScrollPane invoiceScrollContainer;
-    @FXML
-    private VBox invoiceItemContainer;
-    @FXML
-    private ScrollBar invoiceScroller;
-    /**
-     * Initializes the controller class.
-     */
+    private TextField tfItemName;
+
+    private SuggestionPopupService suggestionService;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+
+        suggestionService = new SuggestionPopupService();
+
+        // Fake realistic product codes
+        suggestionService.attach(tfItemCode, query
+                -> FakeProductData.searchProductCodes(query)
+        );
+
+        // Fake realistic product names
+        suggestionService.attach(tfItemName, query
+                -> FakeProductData.searchProductNames(query)
+        );
+
+    }
+
     @FXML
     private void itemCodePressed(KeyEvent event) {
     }
@@ -100,4 +109,37 @@ public class CashierInvoiceController implements Initializable {
     private void handleQuantityAmount(ActionEvent event) {
     }
 
+}
+
+class FakeProductData {
+
+    private static final List<String> PRODUCT_CODES = List.of(
+            "PRD-1001",
+            "PRD-1002",
+            "PRD-1003",
+            "PRD-2001",
+            "PRD-2002",
+            "PRD-3001"
+    );
+
+    private static final List<String> PRODUCT_NAMES = List.of(
+            "Paracetamol 500mg",
+            "Panadol Extra",
+            "Amoxicillin 250mg",
+            "Vitamin C Tablets",
+            "Cough Syrup",
+            "Antiseptic Solution"
+    );
+
+    public static List<String> searchProductCodes(String query) {
+        return PRODUCT_CODES.stream()
+                .filter(code -> code.toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> searchProductNames(String query) {
+        return PRODUCT_NAMES.stream()
+                .filter(name -> name.toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 }
