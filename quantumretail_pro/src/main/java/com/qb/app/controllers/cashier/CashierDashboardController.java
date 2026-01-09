@@ -24,9 +24,6 @@ public class CashierDashboardController implements Initializable {
     private Label labelMonth;
     @FXML
     private Label labelDate;
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

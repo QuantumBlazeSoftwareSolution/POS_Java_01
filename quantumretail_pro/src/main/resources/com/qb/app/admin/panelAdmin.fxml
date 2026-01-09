@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" vvalue="1.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" vvalue="0.11" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -257,7 +257,7 @@
                                           <HBox fx:id="btnProductBrandManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconBrandManagement" />
-                                                <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Brand Management">
+                                                <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Brand &amp; Category">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>

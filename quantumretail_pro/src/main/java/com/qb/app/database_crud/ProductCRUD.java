@@ -3,10 +3,9 @@ package com.qb.app.database_crud;
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.OperationResult;
-import com.qb.app.model.entity.CategoryHasBrand;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
-import com.qb.app.model.entity.ProductStatus;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class ProductCRUD {
                 for (ProductRegistrationTable row : items) {
                     if ("parent".equalsIgnoreCase(row.getType().getType())) {
 
-                        parentProduct = row.getProduct();                        
+                        parentProduct = row.getProduct();
 
                         em.persist(parentProduct);
                         em.flush();
@@ -67,4 +66,26 @@ public class ProductCRUD {
             }
         });
     }
+
+    public static Product updateProduct(Product product) {
+        return JPATransaction.runInTransaction((em) -> {
+            try {
+                em.merge(product);
+                em.flush();
+                return product;
+            } catch (Exception e) {
+                getLogger.logger().warning(e.toString());
+                e.printStackTrace();
+                return null;
+            }
+        });
+    }
+
+    public static Product searchProductById(int id) {
+        return JPATransaction.runInTransaction((em) -> {
+            Product product = em.find(Product.class, id);
+            return product;
+        });
+    }
+    
 }
