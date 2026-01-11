@@ -6,6 +6,7 @@ package com.qb.app.model;
 
 import com.qb.app.uiComponents.SuggestionModalController;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,12 +40,10 @@ public class SuggestionPopupService {
 
     public void attach(
             TextField textField,
-            Function<String, List<String>> suggestionProvider
+            Function<String, List<String>> suggestionProvider,
+            Consumer<String> onSelect
     ) {
 
-        // Bind popup content width to textfield width (ONCE)
-//        content.minWidthProperty().bind(textField.widthProperty());
-//        content.prefWidthProperty().bind(textField.widthProperty());
         textField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal == null || newVal.isBlank()) {
                 popup.hide();
@@ -62,6 +61,7 @@ public class SuggestionPopupService {
             controller.setOnSelect(value -> {
                 textField.setText(value);
                 popup.hide();
+                onSelect.accept(value);   // 🔥 THIS IS THE KEY
             });
 
             showPopup(textField);

@@ -4,25 +4,30 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.controllers.table_models.CashierInvoiceTable;
 import com.qb.app.model.SuggestionPopupService;
+import com.qb.app.model.entity.Product;
+import com.qb.app.model.getLogger;
+import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -79,67 +84,152 @@ public class CashierInvoiceController implements Initializable {
     private TextField tfItemName;
 
     private SuggestionPopupService suggestionService;
+    private Product selectedProduct;
+    @FXML
+    private TableView<CashierInvoiceTable> tableInvoice;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colItemCode;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colImage;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colItemName;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colUnitPrice;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colQty;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colAmount;
+    @FXML
+    private TableColumn<CashierInvoiceTable, String> colAction;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         suggestionService = new SuggestionPopupService();
+        attachSuggestion();
+        addEventListener();
+        tableConfiguration();
+    }
 
-        // Fake realistic product codes
-        suggestionService.attach(tfItemCode, query
-                -> FakeProductData.searchProductCodes(query)
+    private void tableConfiguration() {
+        // Other columns
+        colItemCode.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemId()));
+        colItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
+        colQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getQty()));
+        colUnitPrice.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUnitPrice()));
+        colAmount.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getAmount()));
+        colAction.setCellFactory(col -> new javafx.scene.control.TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/cashier/billingActionCell.fxml"));
+                        AnchorPane actionBox = loader.load();
+                        BillingActionCellController billAction = loader.getController();
+
+                        CashierInvoiceTable rowItem = getTableView().getItems().get(getIndex());
+                        billAction.initData(rowItem, getTableView(), () -> updateSubtotal());
+
+                        setGraphic(actionBox);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
+                        setGraphic(null);
+                    }
+                }
+            }
+        });
+
+        tableInvoice.getItems().addListener((javafx.collections.ListChangeListener<CashierInvoiceTable>) change -> updateSubtotal());
+    }
+
+    private void addEventListener() {
+        root.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                clearSelectedProduct();
+                clearPreviewArea();
+            }
+        });
+    }
+
+    private void clearPreviewArea() {
+        labelItemName.setText("Product name");
+        labelItemPrice.setText("Rs. 0.00");
+        labelItemNewPrice.setText("");
+    }
+
+    private void attachSuggestion() {
+        suggestionService.attach(
+                tfItemCode,
+                CashierProductSuggestionData::searchProductCodes,
+                code -> {
+                    Product product = CashierProductSuggestionData.getProductById(code);
+                    setSelectedProduct(product);
+                }
         );
 
-        // Fake realistic product names
-        suggestionService.attach(tfItemName, query
-                -> FakeProductData.searchProductNames(query)
+        suggestionService.attach(
+                tfItemName,
+                CashierProductSuggestionData::searchProductNames,
+                name -> {
+                    Product product = CashierProductSuggestionData.getProductByName(name);
+                    setSelectedProduct(product);
+                }
         );
+    }
 
+    private void setSelectedProduct(Product product) {
+
+        if (product == null) {
+            clearSelectedProduct();
+            return;
+        }
+
+        this.selectedProduct = product;
+
+        labelItemName.setText(product.getProduct());
+        labelItemPrice.setText(String.valueOf(product.getSalePrice()));
+        labelItemNewPrice.setText(String.valueOf(product.getSalePrice()));
+    }
+
+    private void clearSelectedProduct() {
+        this.selectedProduct = null;
     }
 
     @FXML
     private void itemCodePressed(KeyEvent event) {
+
     }
 
     @FXML
     private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnAdd) {
+            addItemToTable();
+        }
     }
 
     @FXML
     private void handleQuantityAmount(ActionEvent event) {
     }
 
-}
-
-class FakeProductData {
-
-    private static final List<String> PRODUCT_CODES = List.of(
-            "PRD-1001",
-            "PRD-1002",
-            "PRD-1003",
-            "PRD-2001",
-            "PRD-2002",
-            "PRD-3001"
-    );
-
-    private static final List<String> PRODUCT_NAMES = List.of(
-            "Paracetamol 500mg",
-            "Panadol Extra",
-            "Amoxicillin 250mg",
-            "Vitamin C Tablets",
-            "Cough Syrup",
-            "Antiseptic Solution"
-    );
-
-    public static List<String> searchProductCodes(String query) {
-        return PRODUCT_CODES.stream()
-                .filter(code -> code.toLowerCase().contains(query.toLowerCase()))
-                .collect(Collectors.toList());
+    private void addItemToTable() {
+        if (selectedProduct != null) {
+            CashierInvoiceTable cashierInvoiceTable = new CashierInvoiceTable();
+            cashierInvoiceTable.setItemId(String.valueOf(selectedProduct.getId()));
+            cashierInvoiceTable.setItemName(String.valueOf(selectedProduct.getProduct()));
+            cashierInvoiceTable.setQty(String.valueOf(1));
+            cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
+            cashierInvoiceTable.setAmount(String.valueOf(selectedProduct.getSalePrice()));
+            
+            tableInvoice.getItems().add(cashierInvoiceTable);
+            tableInvoice.refresh();
+        }
     }
 
-    public static List<String> searchProductNames(String query) {
-        return PRODUCT_NAMES.stream()
-                .filter(name -> name.toLowerCase().contains(query.toLowerCase()))
-                .collect(Collectors.toList());
+    private ListChangeListener<CashierInvoiceTable> updateSubtotal() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }
