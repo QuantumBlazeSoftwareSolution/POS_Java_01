@@ -180,7 +180,7 @@
                               </VBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Button fx:id="btnClearCategory" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Clear" HBox.hgrow="ALWAYS">
+                                    <Button fx:id="btnClearCategory" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" text="Clear" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
@@ -194,7 +194,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="btnActionCategory" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Register" HBox.hgrow="ALWAYS">
+                                    <Button fx:id="btnActionCategory" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" text="Register" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />
