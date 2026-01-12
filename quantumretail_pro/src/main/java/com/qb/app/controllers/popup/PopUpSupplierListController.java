@@ -89,14 +89,14 @@ public class PopUpSupplierListController implements Initializable {
                 SupplierListTable row
                         = supplierListTable.getSelectionModel().getSelectedItem();
 
-                Integer companyId = row.getColId(); // 🔑 only ID
+                Integer supplierId = row.getColId(); // 🔑 only ID
 
                 if (supplierListCallingController != null) {
                     try {
                         supplierListCallingController
                                 .getClass()
                                 .getMethod("setSelectedSupplier", Integer.class)
-                                .invoke(supplierListCallingController, companyId);
+                                .invoke(supplierListCallingController, supplierId);
 
                         closeWindow();
 
