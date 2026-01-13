@@ -32,6 +32,7 @@ module com.qb.app {
     requires com.google.gson;
 
     opens com.qb.app to javafx.fxml;
+    opens com.qb.app.uiComponents to javafx.fxml;
     opens com.qb.app.model to javafx.fxml, javafx.base;
     opens com.qb.app.controllers to javafx.fxml;
     opens com.qb.app.controllers.admin to javafx.fxml;

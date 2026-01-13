@@ -7,6 +7,10 @@ import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCRUD {
@@ -87,5 +91,20 @@ public class ProductCRUD {
             return product;
         });
     }
-    
+
+    public static List<Product> searchProductList() {
+        return JPATransaction.runInTransaction((em) -> {
+            try {
+                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+                Root<Product> table = cq.from(Product.class);
+
+                List<Product> productList = em.createQuery(cq).getResultList();
+                return productList;
+            } catch (Exception e) {
+                getLogger.logger().warning(e.toString());
+                return new ArrayList<Product>();
+            }
+        });
+    }
 }
