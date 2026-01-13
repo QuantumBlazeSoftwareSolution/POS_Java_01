@@ -41,11 +41,7 @@ public class GRNListTable {
     }
     
         public void recalculateAmount() {
-        double qtyVal = qty;
-        double costVal = costPrice;
-
-        double amount = qtyVal * costVal;
-            setAmount(amount);
+        this.amount = (this.qty * this.costPrice) - (this.discount * this.qty);
     }
 
     
@@ -91,7 +87,7 @@ public class GRNListTable {
     }
 
     public double getDiscount() {
-        return discount;
+        return this.discount * this.qty;
     }
 
     public void setDiscount(double discount) {
