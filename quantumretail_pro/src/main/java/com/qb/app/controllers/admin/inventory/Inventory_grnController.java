@@ -7,6 +7,8 @@ package com.qb.app.controllers.admin.inventory;
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.GRNListTable;
 import com.qb.app.model.ComboBoxUtils;
+import com.qb.app.model.Config;
+import com.qb.app.model.ConfigManager;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
@@ -42,6 +44,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -101,15 +105,21 @@ public class Inventory_grnController implements Initializable {
     @FXML
     private TableColumn<GRNListTable, String> colAmount;
 
+    @FXML
+    private TableColumn<GRNListTable, String> colDiscount;
     /**
      * Initializes the controller class.
      */
     private final ObservableList<GRNListTable> grnList = FXCollections.observableArrayList();
+    @FXML
+    private Button Refesh;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCompanyComboBox();
         loadSupplierComboBox();
+
+        handleTableDoubleClick();
 
         table.setItems(grnList);
 
@@ -138,6 +148,12 @@ public class Inventory_grnController implements Initializable {
         colExpireDate.setCellValueFactory(data
                 -> new javafx.beans.property.SimpleStringProperty(
                         data.getValue().getExpireDate().toString()
+                )
+        );
+
+        colDiscount.setCellValueFactory(data
+                -> new javafx.beans.property.SimpleStringProperty(
+                        String.format("%.2f", data.getValue().getDiscount())
                 )
         );
 
@@ -186,12 +202,6 @@ public class Inventory_grnController implements Initializable {
 
     @FXML
     private void AddBtnAction(ActionEvent event) {
-//        if (validateTextFields()) {
-//            System.out.println("Succes values !");
-//            Product product details = getProduct();
-//              GRNListTable tableProduct = new GRNListTable(productData, 0, LocalDate.EPOCH, 0, 0, 0, 0);
-//                table.getItems().add(tableProduct);
-//        }
 
         if (!validateTextFields()) {
             return;
@@ -202,33 +212,23 @@ public class Inventory_grnController implements Initializable {
         double costPrice = Double.parseDouble(Cost_TF.getText());
         double salePrice = Double.parseDouble(Sale_TF.getText());
         double discountPrice = Double.parseDouble(PDiscount_TF.getText());
-        double amount = Double.parseDouble(Amount_TF.getText());
-        LocalDate expireDate = ExpireDatePicker.getValue();
+//        double amount = Double.parseDouble(Amount_TF.getText());
+        double amount = calculateProductAmount();
 
-        // 1️⃣ Check already exists
-        GRNListTable existingRow = checkItemAlreadyExists(selectedProduct);
+        LocalDate expireDate = ExpireDatePicker.getValue();
+        Amount_TF.setText(String.format("%.2f", amount));
+
+        GRNListTable existingRow = checkItemAlreadyExists(selectedProduct, costPrice, salePrice, expireDate, discountPrice);
 
         if (existingRow != null && editingRow == null) {
-            // 🔁 MERGE QTY (like DistributeBean)
-
-            double oldQty = existingRow.getQty();
-            double newQty = oldQty + enteredQty;
-
+            // Merge quantity only
+            double newQty = existingRow.getQty() + enteredQty;
             existingRow.setQty(newQty);
-            existingRow.setCostPrice(costPrice);
-            existingRow.setSalePrice(salePrice);
-            existingRow.setExpireDate(expireDate);
-            existingRow.setDiscount(discountPrice);
-            existingRow.setAmount(amount);
-
             existingRow.recalculateAmount();
-
             table.refresh();
-
         } else {
             if (editingRow != null) {
-                // ✏️ UPDATE EXISTING (EDIT MODE)
-
+                // ✏️ Update row
                 editingRow.setQty(enteredQty);
                 editingRow.setCostPrice(costPrice);
                 editingRow.setSalePrice(salePrice);
@@ -236,13 +236,10 @@ public class Inventory_grnController implements Initializable {
                 editingRow.setDiscount(discountPrice);
                 editingRow.setAmount(amount);
                 editingRow.recalculateAmount();
-
                 table.refresh();
                 editingRow = null;
-
             } else {
-                // ➕ ADD NEW ROW
-
+                // ➕ Add new row (either new product or same ID but different details)
                 GRNListTable newRow = new GRNListTable(
                         selectedProduct,
                         enteredQty,
@@ -252,19 +249,70 @@ public class Inventory_grnController implements Initializable {
                         discountPrice,
                         amount
                 );
-
                 newRow.recalculateAmount();
                 grnList.add(newRow);
-
-//                table.getItems().add(newRow);
             }
         }
 
+        // 1️⃣ Check already exists
+//        GRNListTable existingRow = checkItemAlreadyExists(selectedProduct);
+//
+//        if (existingRow != null && editingRow == null) {
+//            // 🔁 MERGE QTY (like DistributeBean)
+//
+//            double oldQty = existingRow.getQty();
+//            double newQty = oldQty + enteredQty;
+//
+//            existingRow.setQty(newQty);
+//            existingRow.setCostPrice(costPrice);
+//            existingRow.setSalePrice(salePrice);
+//            existingRow.setExpireDate(expireDate);
+//            existingRow.setDiscount(discountPrice);
+//            existingRow.setAmount(amount);
+//
+//            existingRow.recalculateAmount();
+//
+//            table.refresh();
+//
+//        } else {
+//            if (editingRow != null) {
+//                // ✏️ UPDATE EXISTING (EDIT MODE)
+//
+//                editingRow.setQty(enteredQty);
+//                editingRow.setCostPrice(costPrice);
+//                editingRow.setSalePrice(salePrice);
+//                editingRow.setExpireDate(expireDate);
+//                editingRow.setDiscount(discountPrice);
+//                editingRow.setAmount(amount);
+//                editingRow.recalculateAmount();
+//
+//                table.refresh();
+//                editingRow = null;
+//
+//            } else {
+//                // ➕ ADD NEW ROW
+//
+//                GRNListTable newRow = new GRNListTable(
+//                        selectedProduct,
+//                        enteredQty,
+//                        expireDate,
+//                        costPrice,
+//                        salePrice,
+//                        discountPrice,
+//                        amount
+//                );
+//
+//                newRow.recalculateAmount();
+//                grnList.add(newRow);
+//
+////                table.getItems().add(newRow);
+//            }
+//        }
         calculateTotal();
         clearInputs();
         table.refresh();
         // UX polish
-        Qty_TF.requestFocus();
+        ID_TF.requestFocus();
     }
 
     private void calculateTotal() {
@@ -294,17 +342,23 @@ public class Inventory_grnController implements Initializable {
         ExpireDatePicker.setValue(null);
 
         editingRow = null;
+        Add_Btn.setText("Add");
 
         ID_TF.requestFocus();
     }
 
-    private GRNListTable checkItemAlreadyExists(Product product) {
+    private GRNListTable checkItemAlreadyExists(Product product, double costPrice, double salePrice, LocalDate expireDate, double discountPerUnit) {
         for (GRNListTable row : table.getItems()) {
-            if (row.getProduct().getId() == product.getId()) {
-                return row;
+            if (row.getProduct().getId() == product.getId()
+                    && row.getCostPrice() == costPrice
+                    && row.getSalePrice() == salePrice
+                    && row.getExpireDate().equals(expireDate)
+                    && (row.getDiscount() / row.getQty()) == discountPerUnit) {
+
+                return row; // exact match found → merge qty
             }
         }
-        return null;
+        return null; // no exact match → new row
     }
 
     private boolean validateTextFields() {
@@ -314,7 +368,6 @@ public class Inventory_grnController implements Initializable {
         String costPriceText = Cost_TF.getText() == null ? "" : Cost_TF.getText().trim();
         String salePriceText = Sale_TF.getText() == null ? "" : Sale_TF.getText().trim();
         String qtyText = Qty_TF.getText() == null ? "" : Qty_TF.getText().trim();
-        String amountText = Amount_TF.getText() == null ? "" : Amount_TF.getText().trim();
         String ProductDiscount = PDiscount_TF.getText() == null ? "" : PDiscount_TF.getText().trim();
 
         if (id.isEmpty()) {
@@ -327,7 +380,7 @@ public class Inventory_grnController implements Initializable {
             return false;
         }
 
-        if (costPriceText.isEmpty() || salePriceText.isEmpty() || qtyText.isEmpty() || amountText.isEmpty()) {
+        if (costPriceText.isEmpty() || salePriceText.isEmpty() || qtyText.isEmpty()) {
             showError("All numeric fields are required");
             return false;
         }
@@ -342,20 +395,20 @@ public class Inventory_grnController implements Initializable {
             return false;
         }
 
-        double costPrice, salePrice, amount;
-        int qty;
+        double costPrice, salePrice, qty, amount;
+//        int qty;
 
         try {
             costPrice = Double.parseDouble(costPriceText);
             salePrice = Double.parseDouble(salePriceText);
-            amount = Double.parseDouble(amountText);
-            qty = Integer.parseInt(qtyText);
+            qty = Double.parseDouble(qtyText);
+//            qty = Integer.parseInt(qtyText);
         } catch (NumberFormatException e) {
             showError("Invalid number format detected");
             return false;
         }
 
-        if (costPrice <= 0 || salePrice <= 0 || amount <= 0) {
+        if (costPrice <= 0 || salePrice <= 0) {
             showError("Prices and amount must be greater than zero");
             return false;
         }
@@ -448,6 +501,15 @@ public class Inventory_grnController implements Initializable {
         }
     }
 
+    public void setParentProduct(Product product) {
+
+        loadedProduct = product;
+        ID_TF.setText(String.valueOf(loadedProduct.getId()));
+        ProductName_TF.setText(String.valueOf(loadedProduct.getProduct()));
+        ExpireDatePicker.requestFocus();
+
+    }
+
     private Product getEnteredProduct() {
         //load the product
         return JPATransaction.runInTransaction((em) -> {
@@ -466,25 +528,120 @@ public class Inventory_grnController implements Initializable {
     private void handleOnKeyRelease(KeyEvent event) {
     }
 
-    @FXML
     private void DiscountAction(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            
-              Amount_TF.setText(String.format("%.2f", calculateProductAmount())); 
+            double amount = calculateProductAmount();
+            Amount_TF.setText(String.format("%.2f", amount));
         }
     }
 
-    private  double  calculateProductAmount() {
-        System.out.println(" event work");
+    private double calculateProductAmount() {
         double enteredQty = Double.parseDouble(Qty_TF.getText());
         double costPrice = Double.parseDouble(Cost_TF.getText());
         double discount = Double.parseDouble(PDiscount_TF.getText());
-        
-        double finalAmount = (enteredQty*costPrice)-discount;
-       
-          
-         return finalAmount;
-        
+        double finalAmount = (enteredQty * costPrice) - discount * enteredQty;
+
+        return finalAmount;
 
     }
+
+    @FXML
+    private void handleEnterFlow(KeyEvent event) {
+
+        if (event.getCode() != KeyCode.ENTER) {
+            return;
+        }
+
+        Object src = event.getSource();
+
+        if (src == ExpireDatePicker) {
+            Qty_TF.requestFocus();
+
+        } else if (src == Qty_TF) {
+            setZeroIfEmpty(Qty_TF);
+            Cost_TF.requestFocus();
+
+        } else if (src == Cost_TF) {
+            setZeroIfEmpty(Cost_TF);
+            Sale_TF.requestFocus();
+
+        } else if (src == Sale_TF) {
+            setZeroIfEmpty(Sale_TF);
+            PDiscount_TF.requestFocus();
+
+        } else if (src == PDiscount_TF) {
+            setZeroIfEmpty(PDiscount_TF);
+
+            double amount = calculateProductAmount();
+            Amount_TF.setText(String.format("%.2f", amount));
+
+            Add_Btn.requestFocus();
+        }
+    }
+
+    private void setZeroIfEmpty(TextField tf) {
+        if (tf.getText() == null || tf.getText().trim().isEmpty()) {
+            tf.setText("0");
+        }
+    }
+
+    @FXML
+    private void handleTableDoubleClick() {
+
+        table.setOnMouseClicked(event -> {
+
+            if (event.getClickCount() == 2) {
+
+                GRNListTable selectedRow = table.getSelectionModel().getSelectedItem();
+
+                if (selectedRow == null) {
+                    return;
+                }
+
+                // 🔁 ENTER EDIT MODE
+                editingRow = selectedRow;
+                loadedProduct = selectedRow.getProduct();
+
+                // Fill form
+                ID_TF.setText(String.valueOf(loadedProduct.getId()));
+                ProductName_TF.setText(loadedProduct.getProduct());
+
+                Qty_TF.setText(String.valueOf(selectedRow.getQty()));
+                Cost_TF.setText(String.format("%.2f", selectedRow.getCostPrice()));
+                Sale_TF.setText(String.format("%.2f", selectedRow.getSalePrice()));
+                PDiscount_TF.setText(String.format("%.2f", selectedRow.getDiscount() / selectedRow.getQty()));
+                Amount_TF.setText(String.format("%.2f", selectedRow.getAmount()));
+
+                ExpireDatePicker.setValue(selectedRow.getExpireDate());
+
+                // UX
+                Qty_TF.requestFocus();
+                Add_Btn.setText("Update");
+            }
+        });
+    }
+
+    @FXML
+    private void RefeshBtnAction(ActionEvent event) {
+        clearInputs();
+    }
+
+    private void addGRN() {
+        try {
+            Config con = ConfigManager.loadConfig();
+            if (con.system.multi_stock) {
+                System.out.println(" multy stock enable ");
+                
+            }
+            
+        } catch (Exception e) {
+            
+        }
+    }
+
+    @FXML
+    private void swipetable(SwipeEvent event) {
+        System.out.println("swipe");
+    }
+
 }
