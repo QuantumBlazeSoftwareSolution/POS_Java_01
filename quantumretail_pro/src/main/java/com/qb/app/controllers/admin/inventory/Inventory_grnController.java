@@ -13,10 +13,16 @@ import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.entity.Company;
+import com.qb.app.model.entity.Grn;
+import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
+import com.qb.app.model.entity.StockStatus;
 import com.qb.app.model.entity.Supplier;
 import com.qb.app.model.entity.SupplyStatus;
 import com.qb.app.model.getLogger;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
@@ -24,7 +30,9 @@ import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -254,60 +262,6 @@ public class Inventory_grnController implements Initializable {
             }
         }
 
-        // 1️⃣ Check already exists
-//        GRNListTable existingRow = checkItemAlreadyExists(selectedProduct);
-//
-//        if (existingRow != null && editingRow == null) {
-//            // 🔁 MERGE QTY (like DistributeBean)
-//
-//            double oldQty = existingRow.getQty();
-//            double newQty = oldQty + enteredQty;
-//
-//            existingRow.setQty(newQty);
-//            existingRow.setCostPrice(costPrice);
-//            existingRow.setSalePrice(salePrice);
-//            existingRow.setExpireDate(expireDate);
-//            existingRow.setDiscount(discountPrice);
-//            existingRow.setAmount(amount);
-//
-//            existingRow.recalculateAmount();
-//
-//            table.refresh();
-//
-//        } else {
-//            if (editingRow != null) {
-//                // ✏️ UPDATE EXISTING (EDIT MODE)
-//
-//                editingRow.setQty(enteredQty);
-//                editingRow.setCostPrice(costPrice);
-//                editingRow.setSalePrice(salePrice);
-//                editingRow.setExpireDate(expireDate);
-//                editingRow.setDiscount(discountPrice);
-//                editingRow.setAmount(amount);
-//                editingRow.recalculateAmount();
-//
-//                table.refresh();
-//                editingRow = null;
-//
-//            } else {
-//                // ➕ ADD NEW ROW
-//
-//                GRNListTable newRow = new GRNListTable(
-//                        selectedProduct,
-//                        enteredQty,
-//                        expireDate,
-//                        costPrice,
-//                        salePrice,
-//                        discountPrice,
-//                        amount
-//                );
-//
-//                newRow.recalculateAmount();
-//                grnList.add(newRow);
-//
-////                table.getItems().add(newRow);
-//            }
-//        }
         calculateTotal();
         clearInputs();
         table.refresh();
@@ -429,10 +383,6 @@ public class Inventory_grnController implements Initializable {
     private void showError(String message) {
         System.out.println("Validation Error: " + message);
 
-    }
-
-    @FXML
-    private void ApplyBtnAction(ActionEvent event) {
     }
 
     private List<Supplier> loadSuppliersList(Company company) {
@@ -576,7 +526,12 @@ public class Inventory_grnController implements Initializable {
             Amount_TF.setText(String.format("%.2f", amount));
 
             Add_Btn.requestFocus();
+        } else if (src == GRNID_TF) {
+            loadGRNDetails();
+        
+
         }
+
     }
 
     private void setZeroIfEmpty(TextField tf) {
@@ -626,22 +581,287 @@ public class Inventory_grnController implements Initializable {
         clearInputs();
     }
 
-    private void addGRN() {
-        try {
-            Config con = ConfigManager.loadConfig();
-            if (con.system.multi_stock) {
-                System.out.println(" multy stock enable ");
-                
-            }
-            
-        } catch (Exception e) {
-            
-        }
-    }
-
     @FXML
     private void swipetable(SwipeEvent event) {
         System.out.println("swipe");
+    }
+
+    @FXML
+    private void ApplyBtnAction(ActionEvent event) {
+
+        if (SupplierComboBox.getValue() == null) {
+//        CustomAlert.show(Alert.AlertType.ERROR, "Validation Error", "Please select a supplier");
+            System.out.println("Please select a supplier");
+            return;
+        }
+
+        if (grnList.isEmpty()) {
+//        CustomAlert.show(Alert.AlertType.ERROR, "Validation Error", "GRN item list is empty");
+            System.out.println("GRN item list is empty");
+            return;
+        }
+
+        saveGRN();
+    }
+
+    private void saveGRN() {
+
+        JPATransaction.runInTransaction(em -> {
+            Config con = null;
+
+            try {
+                con = ConfigManager.loadConfig();
+            } catch (Exception e) {
+            }
+
+            /* =========================
+           1️⃣ CREATE GRN
+        ========================== */
+            Grn grn = new Grn();
+            grn.setGrnCode(GRNID_TF.getText().trim());
+            grn.setDateTime(new Date());
+            grn.setSupplierId(SupplierComboBox.getValue());
+            grn.setDiscount(Double.parseDouble(Discount_TF.getText()));
+
+            em.persist(grn);
+            em.flush();
+
+            StockStatus availableStatus = em.find(StockStatus.class, 1);
+
+            /* =========================
+           2️⃣ LOOP GRN ITEMS
+        ========================== */
+            for (GRNListTable row : grnList) {
+
+                /* ---- GRN ITEM ---- */
+                GrnItem item = new GrnItem();
+                item.setGrnId(grn);
+                item.setProductId(row.getProduct());
+                item.setQty(row.getQty());
+                item.setCostPrice(row.getCostPrice());
+                item.setSalePrice(row.getSalePrice());
+                em.persist(item);
+
+                /* =========================
+               3️⃣ STOCK LOGIC
+            ========================== */
+                if (con.system.multi_stock) {
+
+                    Date expireDate = toDate(row.getExpireDate());
+
+                    Stock existingStock = findMatchingStock(
+                            em,
+                            row.getProduct(),
+                            row.getCostPrice(),
+                            row.getSalePrice(),
+                            row.getDiscount(),
+                            expireDate
+                    );
+
+                    if (existingStock != null) {
+                        // ✅ SAME BATCH → ADD QTY
+                        existingStock.setQty(
+                                existingStock.getQty() + row.getQty()
+                        );
+                        em.merge(existingStock);
+
+                    } else {
+                        // ➕ NEW BATCH
+                        Stock stock = new Stock();
+                        stock.setProductId(row.getProduct());
+                        stock.setSupplierId(grn.getSupplierId());
+                        stock.setGrnId(grn);
+                        stock.setQty(row.getQty());
+                        stock.setCostPrice(row.getCostPrice());
+                        stock.setSalePrice(row.getSalePrice());
+                        stock.setDiscount(row.getDiscount());
+                        stock.setReceivedDate(new Date());
+                        stock.setExpireDate(expireDate);
+                        stock.setStockStatusId(availableStatus);
+
+                        em.persist(stock);
+                    }
+
+                } else {
+                    // 🔸 SINGLE STOCK → MERGE INTO ONE
+
+                    Stock existingStock = findStockByProduct(em, row.getProduct());
+
+                    if (existingStock != null) {
+                        // UPDATE EXISTING STOCK
+
+                        existingStock.setQty(
+                                existingStock.getQty() + row.getQty()
+                        );
+
+                        // Optional business rules
+                        existingStock.setCostPrice(row.getCostPrice());
+                        existingStock.setSalePrice(row.getSalePrice());
+                        existingStock.setDiscount(row.getDiscount());
+
+                        // Keep earliest expiry
+                        Date newExpire = toDate(row.getExpireDate());
+                        if (newExpire.before(existingStock.getExpireDate())) {
+                            existingStock.setExpireDate(newExpire);
+                        }
+
+                        em.merge(existingStock);
+
+                    } else {
+                        // CREATE FIRST STOCK
+
+                        Stock stock = new Stock();
+                        stock.setProductId(row.getProduct());
+                        stock.setSupplierId(grn.getSupplierId());
+                        stock.setGrnId(grn);
+                        stock.setQty(row.getQty());
+                        stock.setCostPrice(row.getCostPrice());
+                        stock.setSalePrice(row.getSalePrice());
+                        stock.setDiscount(row.getDiscount());
+                        stock.setReceivedDate(new Date());
+                        stock.setExpireDate(toDate(row.getExpireDate()));
+                        stock.setStockStatusId(availableStatus);
+
+                        em.persist(stock);
+                    }
+                }
+            }
+        });
+
+        // UI RESET
+        System.out.println("GRN saved successfully");
+        grnList.clear();
+        clearInputs();
+        Total_TF.clear();
+        Discount_TF.clear();
+    }
+
+    private Date toDate(LocalDate localDate) {
+        return Date.from(
+                localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+        );
+    }
+
+    private Stock findStockByProduct(EntityManager em, Product product) {
+
+        List<Stock> list = em.createQuery(
+                "SELECT s FROM Stock s WHERE s.productId = :product",
+                Stock.class
+        )
+                .setParameter("product", product)
+                .setMaxResults(1)
+                .getResultList();
+
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    private Stock findMatchingStock(
+            EntityManager em,
+            Product product,
+            double costPrice,
+            double salePrice,
+            double discount,
+            Date expireDate
+    ) {
+        List<Stock> list = em.createQuery(
+                "SELECT s FROM Stock s "
+                + "WHERE s.productId = :product "
+                + "AND s.costPrice = :costPrice "
+                + "AND s.salePrice = :salePrice "
+                + "AND s.discount = :discount "
+                + "AND s.expireDate = :expireDate "
+                + "AND s.stockStatusId.id = 1",
+                Stock.class
+        )
+                .setParameter("product", product)
+                .setParameter("costPrice", costPrice)
+                .setParameter("salePrice", salePrice)
+                .setParameter("discount", discount)
+                .setParameter("expireDate", expireDate)
+                .setMaxResults(1)
+                .getResultList();
+
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    private void loadGRNDetails() {
+
+        String grnCode = GRNID_TF.getText().trim();
+
+        if (grnCode.isEmpty()) {
+            return;
+        }
+
+        grnList.clear();
+
+        JPATransaction.runInTransaction(em -> {
+
+            /* =========================
+           1️⃣ LOAD GRN
+        ========================== */
+            Grn grn;
+
+            try {
+                grn = em.createQuery(
+                        "SELECT g FROM Grn g WHERE g.grnCode = :code",
+                        Grn.class
+                )
+                        .setParameter("code", grnCode)
+                        .getSingleResult();
+
+            } catch (NoResultException e) {
+             
+                    System.out.println("GRN not found");
+                    clearInputs();
+               
+                return;
+            }
+
+            /* =========================
+           2️⃣ SET HEADER DATA
+        ========================== */
+           
+                SupplierComboBox.setValue(grn.getSupplierId());
+                Discount_TF.setText(String.valueOf(grn.getDiscount()));
+        
+
+            /* =========================
+           3️⃣ LOAD GRN ITEMS
+        ========================== */
+            List<GrnItem> items = em.createQuery(
+                    "SELECT gi FROM GrnItem gi WHERE gi.grnId = :grn",
+                    GrnItem.class
+            )
+                    .setParameter("grn", grn)
+                    .getResultList();
+
+            /* =========================
+           4️⃣ MAP TO TABLE MODEL
+        ========================== */
+            for (GrnItem item : items) {
+
+                GRNListTable row = new GRNListTable();
+
+                row.setProduct(item.getProductId());
+                row.setQty(item.getQty());
+                row.setCostPrice(item.getCostPrice());
+                row.setSalePrice(item.getSalePrice());
+
+                // optional defaults
+                row.setDiscount(0);
+
+                row.recalculateAmount();
+
+              grnList.add(row);
+            }
+
+            /* =========================
+           5️⃣ FINAL UI UPDATE
+        ========================== */
+          
+                calculateTotal();
+            
+        });
     }
 
 }
