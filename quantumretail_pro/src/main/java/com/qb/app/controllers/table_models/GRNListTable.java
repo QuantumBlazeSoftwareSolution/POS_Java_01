@@ -39,6 +39,7 @@ public class GRNListTable {
         this.amount = amountData;
 
     }
+    public GRNListTable(){}
     
         public void recalculateAmount() {
         this.amount = (this.qty * this.costPrice) - (this.discount * this.qty);
