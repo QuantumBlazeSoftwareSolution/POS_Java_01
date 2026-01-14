@@ -73,7 +73,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="GRNID_TF" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text">
+                              <TextField fx:id="GRNID_TF" onKeyPressed="#handleEnterFlow" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
