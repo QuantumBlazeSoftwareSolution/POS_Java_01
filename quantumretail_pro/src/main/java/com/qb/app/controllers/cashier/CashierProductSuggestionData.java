@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javafx.concurrent.Task;
 
 /**
  *
@@ -18,81 +19,48 @@ import java.util.stream.Collectors;
  */
 public class CashierProductSuggestionData {
 
-    private static final List<Map<String, Product>> idList = new ArrayList<>();
-    private static final List<Map<String, Product>> nameList = new ArrayList<>();
+    private static final Map<String, Product> idMap = new HashMap<>();
+    private static final Map<String, Product> nameMap = new HashMap<>();
+    private static boolean loaded = false;
 
-    private static void loadProductFields() {
-        List<Product> productList = ProductCRUD.searchProductList();
-
-        idList.clear();
-        nameList.clear();
-
-        for (Product product : productList) {
-
-            Map<String, Product> idMap = new HashMap<>();
-            idMap.put(String.valueOf(product.getId()), product);
-            idList.add(idMap);
-
-            Map<String, Product> nameMap = new HashMap<>();
-            nameMap.put(product.getProduct(), product);
-            nameList.add(nameMap);
+    private static synchronized void loadProductFields() {
+        if (loaded) {
+            return;
         }
+
+        List<Product> products = ProductCRUD.searchProductList(); // sync DB call
+        for (Product product : products) {
+            idMap.put(String.valueOf(product.getId()), product);
+            nameMap.put(product.getProduct(), product);
+        }
+
+        loaded = true;
+        System.out.println("Products loaded: " + products.size());
     }
 
     public static List<String> searchProductCodes(String query) {
-
-        if (idList.isEmpty()) {
-            loadProductFields();
-        }
-
+        loadProductFields();
         String q = query.toLowerCase();
-
-        return idList.stream()
-                .flatMap(map -> map.keySet().stream())
+        return idMap.keySet().stream()
                 .filter(id -> id.toLowerCase().contains(q))
                 .collect(Collectors.toList());
     }
 
     public static List<String> searchProductNames(String query) {
-
-        if (nameList.isEmpty()) {
-            loadProductFields();
-        }
-
+        loadProductFields();
         String q = query.toLowerCase();
-
-        return nameList.stream()
-                .flatMap(map -> map.keySet().stream())
+        return nameMap.keySet().stream()
                 .filter(name -> name.toLowerCase().contains(q))
                 .collect(Collectors.toList());
     }
 
     public static Product getProductById(String id) {
-
-        if (idList.isEmpty()) {
-            loadProductFields();
-        }
-
-        for (Map<String, Product> map : idList) {
-            if (map.containsKey(id)) {
-                return map.get(id);
-            }
-        }
-        return null;
+        loadProductFields();
+        return idMap.get(id);
     }
 
     public static Product getProductByName(String name) {
-
-        if (nameList.isEmpty()) {
-            loadProductFields();
-        }
-
-        for (Map<String, Product> map : nameList) {
-            if (map.containsKey(name)) {
-                return map.get(name);
-            }
-        }
-        return null;
+        loadProductFields();
+        return nameMap.get(name);
     }
-
 }

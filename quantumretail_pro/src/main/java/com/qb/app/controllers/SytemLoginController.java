@@ -222,6 +222,7 @@ public class SytemLoginController implements Initializable {
                 Session activeSession = em.createQuery(sessionCq).getSingleResult();
                 ApplicationSession.setSession(activeSession);
             } catch (NoResultException e) {
+                getLogger.logger().warning(e.toString());
             }
         });
     }
@@ -231,5 +232,4 @@ public class SytemLoginController implements Initializable {
             btnLogin.setDisable(false);
         });
     }
-
 }

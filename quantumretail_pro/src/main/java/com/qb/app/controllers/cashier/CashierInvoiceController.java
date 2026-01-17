@@ -5,6 +5,8 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
+import com.qb.app.model.CustomAlert;
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
@@ -17,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -61,8 +64,6 @@ public class CashierInvoiceController implements Initializable {
     @FXML
     private Button btnDecreaseQty;
     @FXML
-    private Button btnViewQty;
-    @FXML
     private Button btnIncreaseQty;
     @FXML
     private Button itemPrice;
@@ -101,6 +102,8 @@ public class CashierInvoiceController implements Initializable {
     private TableColumn<CashierInvoiceTable, String> colAmount;
     @FXML
     private TableColumn<CashierInvoiceTable, String> colAction;
+    @FXML
+    private TextField tfQty;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,6 +111,11 @@ public class CashierInvoiceController implements Initializable {
         attachSuggestion();
         addEventListener();
         tableConfiguration();
+        textFieldConfiguration();
+    }
+
+    private void textFieldConfiguration() {
+        tfQty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private void tableConfiguration() {
@@ -158,6 +166,10 @@ public class CashierInvoiceController implements Initializable {
         labelItemName.setText("Product name");
         labelItemPrice.setText("Rs. 0.00");
         labelItemNewPrice.setText("");
+        tfItemCode.setText("");
+        tfBarCode.setText("");
+        tfItemName.setText("");
+        tfQty.setText("0");
     }
 
     private void attachSuggestion() {
@@ -192,6 +204,8 @@ public class CashierInvoiceController implements Initializable {
         labelItemName.setText(product.getProduct());
         labelItemPrice.setText(String.valueOf(product.getSalePrice()));
         labelItemNewPrice.setText(String.valueOf(product.getSalePrice()));
+
+        calculatePreviewTotal();
     }
 
     private void clearSelectedProduct() {
@@ -215,14 +229,24 @@ public class CashierInvoiceController implements Initializable {
     }
 
     private void addItemToTable() {
-        if (selectedProduct != null) {
+        if (selectedProduct == null) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "Please select a product before adding it to the invoice.",
+                    "Product Selection Required",
+                    Alert.AlertType.WARNING
+            );
+            return;
+        }
+
+        if (isEntriesValid()) {
             CashierInvoiceTable cashierInvoiceTable = new CashierInvoiceTable();
             cashierInvoiceTable.setItemId(String.valueOf(selectedProduct.getId()));
             cashierInvoiceTable.setItemName(String.valueOf(selectedProduct.getProduct()));
-            cashierInvoiceTable.setQty(String.valueOf(1));
+            cashierInvoiceTable.setQty(tfQty.getText());
             cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
-            cashierInvoiceTable.setAmount(String.valueOf(selectedProduct.getSalePrice()));
-            
+            cashierInvoiceTable.setAmount(String.format("Rs. %, .2f", calculatePreviewTotal()));
+
             tableInvoice.getItems().add(cashierInvoiceTable);
             tableInvoice.refresh();
         }
@@ -230,6 +254,54 @@ public class CashierInvoiceController implements Initializable {
 
     private ListChangeListener<CashierInvoiceTable> updateSubtotal() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private boolean isEntriesValid() {
+        if (tfQty.getText().isEmpty()) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "Please enter the quantity before adding the item to the invoice.",
+                    "Quantity Required",
+                    Alert.AlertType.WARNING
+            );
+            tfQty.requestFocus();
+            tfQty.selectAll();
+            return false;
+        }
+
+        if (Double.parseDouble(tfQty.getText()) <= 0) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "Quantity must be greater than zero. Please enter a valid quantity.",
+                    "Invalid Quantity",
+                    Alert.AlertType.WARNING
+            );
+            tfQty.requestFocus();
+            tfQty.selectAll();
+            return false;
+        }
+
+        return true;
+    }
+
+    @FXML
+    private void handleKeyReleaseEvent(KeyEvent event) {
+        if (event.getSource() == tfQty) {
+            if (Double.parseDouble(tfQty.getText()) <= 0 || tfQty.getText().isEmpty()) {
+                tfQty.setText("1");
+            }
+
+            calculatePreviewTotal();
+        }
+    }
+
+    private double calculatePreviewTotal() {
+        double itemAmount = 0;
+        double qty = Double.parseDouble(tfQty.getText());
+        itemAmount = selectedProduct.getSalePrice() * qty;
+        itemPrice.setText(String.format("Rs. %, .2f", itemAmount));
+
+        return itemAmount;
     }
 
 }
