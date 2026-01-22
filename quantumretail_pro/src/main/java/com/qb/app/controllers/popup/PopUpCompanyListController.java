@@ -57,6 +57,12 @@ public class PopUpCompanyListController implements Initializable {
             = FXCollections.observableArrayList();
     @FXML
     private AnchorPane root;
+    @FXML
+    private TableColumn<CompanyListTable, String> companyAddress;
+    @FXML
+    private TableColumn<CompanyListTable, String> companyMobile02;
+    @FXML
+    private TableColumn<CompanyListTable, String> companyStatus;
 
     /**
      * Initializes the controller class.
@@ -78,8 +84,20 @@ public class PopUpCompanyListController implements Initializable {
                 data -> new SimpleStringProperty(data.getValue().getColCompanyName())
         );
 
+        companyAddress.setCellValueFactory(
+                data -> new SimpleStringProperty(data.getValue().getColAddress())
+        );
+
         companyMobile.setCellValueFactory(
                 data -> new SimpleStringProperty(data.getValue().getColMobile())
+        );
+
+        companyMobile02.setCellValueFactory(
+                data -> new SimpleStringProperty(data.getValue().getColMobile02())
+        );
+
+        companyStatus.setCellValueFactory(
+                data -> new SimpleStringProperty(data.getValue().getColStatus())
         );
 
         companyListTable.setOnMouseClicked(event -> {
@@ -132,7 +150,10 @@ public class PopUpCompanyListController implements Initializable {
                             .map(c -> new CompanyListTable(
                             c.getId(),
                             c.getName(),
-                            c.getTelephone1()
+                            c.getAddress(),
+                            c.getTelephone1(),
+                            c.getTelephone2(),
+                            c.getSupplyStatusId().getStatus()
                     ))
                             .toList();
                 });
