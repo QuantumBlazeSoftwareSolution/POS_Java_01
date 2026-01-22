@@ -1,8 +1,10 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -29,17 +31,17 @@ public class Stock_popupController implements Initializable {
     private Button btnClose;
     @FXML
     private AnchorPane root;
-    
+
     public static Object callingController;
     private Product selectedProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        List<Product> products = ProductCRUD.searchProductList();
+        List<Stock> stocks = StockCRUD.getStockItemsByProduct(selectedProduct);
 
         try {
-            for (Product product : products) {
+            for (Stock stock : stocks) {
                 // 2. Load the FXML for the individual card
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/qb/app/cashier/stock_item_card.fxml")); // Adjust path to match your package!
@@ -48,7 +50,10 @@ public class Stock_popupController implements Initializable {
 
                 // 3. Get the controller of the card and set data
                 Stock_item_cardController cardController = fxmlLoader.getController();
-                cardController.setData(product.getProduct(), product.getSalePrice(), "2025-06-04");
+                
+                
+                
+                cardController.setData(stock.getProductId().getProduct(), stock.getSalePrice(), stock.getExpireDate());
 
                 // 4. Add the card to the TilePane (Layout handles itself automatically)
                 productContainer.getChildren().add(cardBox);

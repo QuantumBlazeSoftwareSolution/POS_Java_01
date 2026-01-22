@@ -2,6 +2,10 @@ package com.qb.app.model;
 
 import com.qb.app.App;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.function.Consumer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +26,16 @@ public class DefaultAPI {
             }
             return null;
         });
+    }
+
+    public static String formatDateObject(Date date, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+        LocalDateTime localDateTime = date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+
+        return localDateTime.format(formatter);
     }
 
     public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, VBox vBox) {
@@ -79,7 +93,7 @@ public class DefaultAPI {
 
             stage.showAndWait();
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
     }
