@@ -93,6 +93,7 @@ public class PopUpProductListController implements Initializable {
         table.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && !table.getSelectionModel().isEmpty()) {
                 Product selectedProduct = table.getSelectionModel().getSelectedItem().getProduct();
+                System.out.println(selectedProduct.getProduct());
                 if (callingController != null) {
                     try {
                         callingController
