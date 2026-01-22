@@ -14,3 +14,37 @@ Jan 08, 2026 4:38:39 PM com.qb.app.controllers.popup.PopUpProductListController 
 WARNING: Failed to pass product ID: com.qb.app.controllers.admin.product.Product_managementController.setParentProduct(com.qb.app.model.entity.Product)
 Jan 08, 2026 4:42:07 PM com.qb.app.controllers.popup.PopUpProductListController lambda$configureTable$7
 WARNING: Failed to pass product ID: com.qb.app.controllers.admin.product.Product_managementController.setParentProduct(com.qb.app.model.entity.Product)
+Jan 09, 2026 9:36:37 PM com.qb.app.controllers.cashier.PanelCashierController changeCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/D:/Quantum%20Blaze/Projects/Research%20Project/POS%20Systems/POS_Java_01/quantumretail_pro/target/classes/com/qb/app/cashier/cashierInvoice.fxml
+
+Jan 09, 2026 9:38:29 PM com.qb.app.controllers.cashier.PanelCashierController changeCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/D:/Quantum%20Blaze/Projects/Research%20Project/POS%20Systems/POS_Java_01/quantumretail_pro/target/classes/com/qb/app/cashier/cashierInvoice.fxml
+
+Jan 09, 2026 9:41:38 PM com.qb.app.controllers.cashier.PanelCashierController changeCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/D:/Quantum%20Blaze/Projects/Research%20Project/POS%20Systems/POS_Java_01/quantumretail_pro/target/classes/com/qb/app/cashier/cashierInvoice.fxml
+
+Jan 09, 2026 9:43:41 PM com.qb.app.controllers.cashier.PanelCashierController changeCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/D:/Quantum%20Blaze/Projects/Research%20Project/POS%20Systems/POS_Java_01/quantumretail_pro/target/classes/com/qb/app/cashier/cashierInvoice.fxml
+
+Jan 14, 2026 8:34:27 PM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select p1_0.id,p1_0.bar_code,p1_0.category_has_brand_id,p1_0.cost_price,p1_0.discount,p1_0.measure,p1_0.product,p1_0.product_status_id,p1_0.sale_price from product p1_0] [Unknown column 'p1_0.cost_price' in 'field list'] [n/a]
+Jan 14, 2026 8:34:30 PM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select p1_0.id,p1_0.bar_code,p1_0.category_has_brand_id,p1_0.cost_price,p1_0.discount,p1_0.measure,p1_0.product,p1_0.product_status_id,p1_0.sale_price from product p1_0] [Unknown column 'p1_0.cost_price' in 'field list'] [n/a]
+Jan 14, 2026 8:34:33 PM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select p1_0.id,p1_0.bar_code,p1_0.category_has_brand_id,p1_0.cost_price,p1_0.discount,p1_0.measure,p1_0.product,p1_0.product_status_id,p1_0.sale_price from product p1_0] [Unknown column 'p1_0.cost_price' in 'field list'] [n/a]
+Jan 14, 2026 8:36:25 PM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select p1_0.id,p1_0.bar_code,p1_0.category_has_brand_id,p1_0.cost_price,p1_0.discount,p1_0.measure,p1_0.product,p1_0.product_status_id,p1_0.sale_price from product p1_0] [Unknown column 'p1_0.cost_price' in 'field list'] [n/a]
+Jan 15, 2026 9:15:56 AM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select p1_0.id,p1_0.bar_code,p1_0.category_has_brand_id,p1_0.cost_price,p1_0.discount,p1_0.measure,p1_0.product,p1_0.product_status_id,p1_0.sale_price from product p1_0] [Unknown column 'p1_0.discount' in 'field list'] [n/a]
+Jan 15, 2026 9:15:59 AM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select p1_0.id,p1_0.bar_code,p1_0.category_has_brand_id,p1_0.cost_price,p1_0.discount,p1_0.measure,p1_0.product,p1_0.product_status_id,p1_0.sale_price from product p1_0] [Unknown column 'p1_0.discount' in 'field list'] [n/a]
+Jan 15, 2026 10:01:35 AM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.PropertyAccessException: Null value was assigned to a property [class com.qb.app.model.entity.Product.discount] of primitive type: 'com.qb.app.model.entity.Product.discount' (setter)
+Jan 15, 2026 10:05:52 AM com.qb.app.database_crud.ProductCRUD lambda$searchProductList$3
+WARNING: org.hibernate.PropertyAccessException: Null value was assigned to a property [class com.qb.app.model.entity.Product.discount] of primitive type: 'com.qb.app.model.entity.Product.discount' (setter)
+Jan 17, 2026 9:13:56 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" onMouseClicked="#handleMouseClick" prefWidth="200.0" spacing="4.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.Stock_item_cardController">
+    <children>
+      <HBox spacing="10.0">
+         <children>
+            <Label layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="Name: " />
+            <Region HBox.hgrow="ALWAYS" />
+              <Label fx:id="nameLabel" style="-fx-font-weight: bold;" text="Product Name" />
+         </children>
+         <padding>
+            <Insets left="12.0" right="12.0" />
+         </padding>
+      </HBox>
+      <HBox spacing="10.0">
+         <children>
+            <Label layoutX="10.0" layoutY="10.0" text="Sale Price: " />
+            <Region HBox.hgrow="ALWAYS" />
+              <Label fx:id="priceLabel" text="\$0.00" />
+         </children>
+         <padding>
+            <Insets left="12.0" right="12.0" />
+         </padding>
+      </HBox>
+      <HBox spacing="10.0">
+         <children>
+            <Label layoutX="10.0" layoutY="10.0" text="Exp: " />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="expLabel" text="2026-01-05" />
+         </children>
+         <padding>
+            <Insets left="12.0" right="12.0" />
+         </padding>
+      </HBox>
+    </children>
+   <padding>
+      <Insets bottom="20.0" top="20.0" />
+   </padding>
+</VBox>
