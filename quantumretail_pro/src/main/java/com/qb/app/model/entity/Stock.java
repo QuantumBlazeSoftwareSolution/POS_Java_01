@@ -37,7 +37,8 @@ import java.util.Date;
     @NamedQuery(name = "Stock.findBySalePrice", query = "SELECT s FROM Stock s WHERE s.salePrice = :salePrice"),
     @NamedQuery(name = "Stock.findByDiscount", query = "SELECT s FROM Stock s WHERE s.discount = :discount"),
     @NamedQuery(name = "Stock.findByReceivedDate", query = "SELECT s FROM Stock s WHERE s.receivedDate = :receivedDate"),
-    @NamedQuery(name = "Stock.findByExpireDate", query = "SELECT s FROM Stock s WHERE s.expireDate = :expireDate")})
+    @NamedQuery(name = "Stock.findByExpireDate", query = "SELECT s FROM Stock s WHERE s.expireDate = :expireDate"),
+    @NamedQuery(name = "Stock.findByBarcode", query = "SELECT s FROM Stock s WHERE s.barcode = :barcode")})
 public class Stock implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +67,8 @@ public class Stock implements Serializable {
     @Column(name = "expire_date")
     @Temporal(TemporalType.DATE)
     private Date expireDate;
+    @Column(name = "barcode")
+    private String barcode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
     private Collection<StockAdjustment> stockAdjustmentCollection;
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
@@ -158,6 +161,14 @@ public class Stock implements Serializable {
 
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     public Collection<StockAdjustment> getStockAdjustmentCollection() {

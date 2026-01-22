@@ -4,9 +4,13 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
+import com.qb.app.model.Config;
+import com.qb.app.model.ConfigManager;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
@@ -112,6 +116,18 @@ public class CashierInvoiceController implements Initializable {
         addEventListener();
         tableConfiguration();
         textFieldConfiguration();
+        loadSystemConfig();
+    }
+
+    private static Config systemConfig;
+
+    private void loadSystemConfig() {
+        try {
+            systemConfig = ConfigManager.loadConfig();
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
     }
 
     private void textFieldConfiguration() {
@@ -192,6 +208,24 @@ public class CashierInvoiceController implements Initializable {
         );
     }
 
+    private void openStockPopup(Product product) {
+        try {
+            PopUp.showPopupAndWait(
+                    "cashier/stock_popup.fxml",
+                    root,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (Stock_popupController controller) -> {
+                        controller.saveController(this);
+                        controller.setProduct(product);
+                    }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
     private void setSelectedProduct(Product product) {
 
         if (product == null) {
@@ -200,6 +234,11 @@ public class CashierInvoiceController implements Initializable {
         }
 
         this.selectedProduct = product;
+        
+        if (systemConfig.system.multi_stock) {
+            openStockPopup(product);
+        }
+
 
         labelItemName.setText(product.getProduct());
         labelItemPrice.setText(String.valueOf(product.getSalePrice()));
