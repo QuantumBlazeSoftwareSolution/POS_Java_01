@@ -73,7 +73,10 @@
                     <columns>
                       <TableColumn fx:id="companyId" maxWidth="120.0" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="companyName" prefWidth="75.0" text="Company Name" />
-                        <TableColumn fx:id="companyMobile" prefWidth="75.0" text="Status" />
+                        <TableColumn fx:id="companyAddress" prefWidth="75.0" text="Address" />
+                        <TableColumn fx:id="companyMobile" prefWidth="75.0" text="Mobile 01" />
+                        <TableColumn fx:id="companyMobile02" prefWidth="75.0" text="Mobile 02" />
+                        <TableColumn fx:id="companyStatus" prefWidth="75.0" text="Status" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

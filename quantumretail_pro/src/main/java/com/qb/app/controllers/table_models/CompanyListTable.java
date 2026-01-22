@@ -12,12 +12,18 @@ public class CompanyListTable {
     
     private Integer colId ;
     private String colCompanyName ;
+    private String colAddress ;
     private String colMobile ;
+    private String colMobile02 ;
+    private String  colStatus ;
 
-    public CompanyListTable(Integer colId, String colCompanyName, String colMobile) {
+    public CompanyListTable(Integer colId, String colCompanyName, String colAddress, String colMobile, String colMobile02, String colStatus) {
         this.colId = colId;
         this.colCompanyName = colCompanyName;
+        this.colAddress = colAddress;
         this.colMobile = colMobile;
+        this.colMobile02 = colMobile02;
+        this.colStatus = colStatus;
     }
 
     /**
@@ -49,6 +55,20 @@ public class CompanyListTable {
     }
 
     /**
+     * @return the colAddress
+     */
+    public String getColAddress() {
+        return colAddress;
+    }
+
+    /**
+     * @param colAddress the colAddress to set
+     */
+    public void setColAddress(String colAddress) {
+        this.colAddress = colAddress;
+    }
+
+    /**
      * @return the colMobile
      */
     public String getColMobile() {
@@ -61,6 +81,39 @@ public class CompanyListTable {
     public void setColMobile(String colMobile) {
         this.colMobile = colMobile;
     }
+
+    /**
+     * @return the colMobile02
+     */
+    public String getColMobile02() {
+        return colMobile02;
+    }
+
+    /**
+     * @param colMobile02 the colMobile02 to set
+     */
+    public void setColMobile02(String colMobile02) {
+        this.colMobile02 = colMobile02;
+    }
+
+    /**
+     * @return the colStatus
+     */
+    public String getColStatus() {
+        return colStatus;
+    }
+
+    /**
+     * @param colStatus the colStatus to set
+     */
+    public void setColStatus(String colStatus) {
+        this.colStatus = colStatus;
+    }
+
+    
+    
+
+    
 
     
 
