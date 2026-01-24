@@ -9,15 +9,19 @@ import com.qb.app.controllers.table_models.CashierInvoiceTable;
 import com.qb.app.database_crud.ProductStatusCRUD;
 import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
+import com.qb.app.model.ControllerClose;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.SuggestionPopupService;
+import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -45,7 +49,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Vihanga
  */
-public class CashierInvoiceController implements Initializable {
+public class CashierInvoiceController implements Initializable, ControllerClose {
 
     @FXML
     private AnchorPane root;
@@ -124,6 +128,8 @@ public class CashierInvoiceController implements Initializable {
     private Button btnProcessPayments;
     @FXML
     private Label tfInvoiceBalance;
+    private boolean canInvoicePaid;
+    private double cashAmount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -206,6 +212,8 @@ public class CashierInvoiceController implements Initializable {
         // Static & Instance variables
         selectedProduct = null;
         selectedStock = null;
+        this.canInvoicePaid = false;
+        this.cashAmount = 0;
     }
 
     private void attachSuggestion() {
@@ -299,6 +307,8 @@ public class CashierInvoiceController implements Initializable {
             calculateInvoiceTotal();
         } else if (event.getSource() == btnProcessPayments) {
             processThePayment();
+        } else if (event.getSource() == btnPayment) {
+            completeThePayment();
         }
     }
 
@@ -431,6 +441,8 @@ public class CashierInvoiceController implements Initializable {
         // invoice table
         tableInvoice.getItems().clear();
         tableInvoice.refresh();
+        this.canInvoicePaid = false;
+        clearPreviewArea();
     }
 
     @FXML
@@ -438,15 +450,15 @@ public class CashierInvoiceController implements Initializable {
     }
 
     private void processThePayment() {
-
         calculateInvoiceTotal();
 
-        double cashAmount = Double.parseDouble(tfCashAmount.getText());
+        this.cashAmount = Double.parseDouble(tfCashAmount.getText());
 
         if (cashAmount >= this.billFinalAmount) {
             double balance = cashAmount - this.billFinalAmount;
             tfInvoiceBalance.setText(String.format(DefaultAPI.currencyFloatFormat, balance));
             changeActionButtonText("Pay & Print", false);
+            this.canInvoicePaid = true;
         } else {
             CustomAlert.showStyledAlert(
                     root,
@@ -462,6 +474,42 @@ public class CashierInvoiceController implements Initializable {
     private void changeActionButtonText(String text, boolean state) {
         btnPayment.setText(text);
         btnPayment.setDisable(state);
+    }
+
+    private void completeThePayment() {
+        if (this.canInvoicePaid) {
+
+            List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
+
+            JPATransaction.runInTransaction((em) -> {
+
+                Invoice invoice = new Invoice();
+                invoice.setDateTime(new Date());
+                invoice.setBillAmount(this.billDiscount);
+                invoice.setPaidAmount(billDiscount);
+
+                for (CashierInvoiceTable cashierInvoiceTable : invoiceItemList) {
+                    // INSERT invoice, invoice_item
+                    // deduct stocks
+
+                }
+                return null;
+            });
+
+            // print the bill
+        } else {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "This invoice cannot be paid yet. Complete the invoice.",
+                    "Insufficient Details",
+                    Alert.AlertType.WARNING
+            );
+        }
+    }
+
+    @Override
+    public void close() {
+        
     }
 
 }
