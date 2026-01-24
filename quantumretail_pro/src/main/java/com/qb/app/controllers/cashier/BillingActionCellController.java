@@ -70,9 +70,9 @@ public class BillingActionCellController implements Initializable {
     }
 
     private void handleAdd() {
-        double qty = Double.parseDouble(currentItem.getQty());
+        double qty = currentItem.getQty();
         qty++;
-        currentItem.setQty(String.valueOf(qty));
+        currentItem.setQty(qty);
 
         double unitPrice = Double.parseDouble(currentItem.getUnitPrice().replace("Rs.", "").trim());
         currentItem.setAmount(String.format("Rs. %.2f", qty * unitPrice));
@@ -82,10 +82,10 @@ public class BillingActionCellController implements Initializable {
     }
 
     private void handleMinus() {
-        double qty = Double.parseDouble(currentItem.getQty());
+        double qty = currentItem.getQty();
         if (qty > 1) {
             qty--;
-            currentItem.setQty(String.valueOf(qty));
+            currentItem.setQty(qty);
 
             double unitPrice = Double.parseDouble(currentItem.getUnitPrice().replace("Rs.", "").trim());
             currentItem.setAmount(String.format("Rs. %.2f", qty * unitPrice));

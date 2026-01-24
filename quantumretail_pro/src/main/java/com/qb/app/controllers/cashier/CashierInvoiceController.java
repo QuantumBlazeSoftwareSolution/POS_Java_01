@@ -6,6 +6,7 @@ package com.qb.app.controllers.cashier;
 
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
+import com.qb.app.database_crud.ProductStatusCRUD;
 import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
 import com.qb.app.model.CustomAlert;
@@ -13,10 +14,13 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -87,9 +91,6 @@ public class CashierInvoiceController implements Initializable {
     private Button btnPayment;
     @FXML
     private TextField tfItemName;
-
-    private SuggestionPopupService suggestionService;
-    private Product selectedProduct;
     @FXML
     private TableView<CashierInvoiceTable> tableInvoice;
     @FXML
@@ -101,13 +102,28 @@ public class CashierInvoiceController implements Initializable {
     @FXML
     private TableColumn<CashierInvoiceTable, String> colUnitPrice;
     @FXML
-    private TableColumn<CashierInvoiceTable, String> colQty;
+    private TableColumn<CashierInvoiceTable, Double> colQty;
     @FXML
     private TableColumn<CashierInvoiceTable, String> colAmount;
     @FXML
     private TableColumn<CashierInvoiceTable, String> colAction;
     @FXML
     private TextField tfQty;
+
+    private Stock selectedStock;
+    private SuggestionPopupService suggestionService;
+    private Product selectedProduct;
+    private static Config systemConfig;
+    private double billSubTotal;
+    private double billDiscount;
+    private double billFinalAmount;
+    private double billItemCount;
+    @FXML
+    private TextField tfCashAmount;
+    @FXML
+    private Button btnProcessPayments;
+    @FXML
+    private Label tfInvoiceBalance;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,8 +134,6 @@ public class CashierInvoiceController implements Initializable {
         textFieldConfiguration();
         loadSystemConfig();
     }
-
-    private static Config systemConfig;
 
     private void loadSystemConfig() {
         try {
@@ -132,13 +146,14 @@ public class CashierInvoiceController implements Initializable {
 
     private void textFieldConfiguration() {
         tfQty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCashAmount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private void tableConfiguration() {
         // Other columns
         colItemCode.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemId()));
         colItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
-        colQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getQty()));
+        colQty.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getQty()).asObject());
         colUnitPrice.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUnitPrice()));
         colAmount.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getAmount()));
         colAction.setCellFactory(col -> new javafx.scene.control.TableCell<>() {
@@ -179,6 +194,7 @@ public class CashierInvoiceController implements Initializable {
     }
 
     private void clearPreviewArea() {
+        // UI components
         labelItemName.setText("Product name");
         labelItemPrice.setText("Rs. 0.00");
         labelItemNewPrice.setText("");
@@ -186,6 +202,10 @@ public class CashierInvoiceController implements Initializable {
         tfBarCode.setText("");
         tfItemName.setText("");
         tfQty.setText("0");
+
+        // Static & Instance variables
+        selectedProduct = null;
+        selectedStock = null;
     }
 
     private void attachSuggestion() {
@@ -226,23 +246,39 @@ public class CashierInvoiceController implements Initializable {
         }
     }
 
-    private void setSelectedProduct(Product product) {
+    public void setSelectedStock(Stock stock) {
+        this.selectedStock = stock;
+        setPreviewDetails(
+                stock.getProductId().getProduct(),
+                stock.getSalePrice(),
+                (stock.getSalePrice() - stock.getDiscount())
+        );
+    }
 
+    private void setSelectedProduct(Product product) {
         if (product == null) {
             clearSelectedProduct();
             return;
         }
 
         this.selectedProduct = product;
-        
-        if (systemConfig.system.multi_stock) {
+
+        if (systemConfig.system.multi_stock) { // Multi stock system
             openStockPopup(product);
+        } else { // Single Stock system
+            setPreviewDetails(
+                    product.getProduct(),
+                    product.getSalePrice(),
+                    (product.getSalePrice() - product.getDiscount())
+            );
         }
 
+    }
 
-        labelItemName.setText(product.getProduct());
-        labelItemPrice.setText(String.valueOf(product.getSalePrice()));
-        labelItemNewPrice.setText(String.valueOf(product.getSalePrice()));
+    private void setPreviewDetails(String itemName, double salePrice, double newPrice) {
+        labelItemName.setText(itemName);
+        labelItemPrice.setText(String.valueOf(salePrice));
+        labelItemNewPrice.setText(String.valueOf(newPrice));
 
         calculatePreviewTotal();
     }
@@ -260,6 +296,9 @@ public class CashierInvoiceController implements Initializable {
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnAdd) {
             addItemToTable();
+            calculateInvoiceTotal();
+        } else if (event.getSource() == btnProcessPayments) {
+            processThePayment();
         }
     }
 
@@ -282,17 +321,25 @@ public class CashierInvoiceController implements Initializable {
             CashierInvoiceTable cashierInvoiceTable = new CashierInvoiceTable();
             cashierInvoiceTable.setItemId(String.valueOf(selectedProduct.getId()));
             cashierInvoiceTable.setItemName(String.valueOf(selectedProduct.getProduct()));
-            cashierInvoiceTable.setQty(tfQty.getText());
-            cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
-            cashierInvoiceTable.setAmount(String.format("Rs. %, .2f", calculatePreviewTotal()));
+            cashierInvoiceTable.setQty(Double.valueOf(tfQty.getText()));
+            cashierInvoiceTable.setAmount(String.format(DefaultAPI.currencyFloatFormat, calculatePreviewTotal()));
+
+            if (systemConfig.system.multi_stock) {
+                cashierInvoiceTable.setStock(selectedStock);
+                cashierInvoiceTable.setUnitPrice(String.valueOf(selectedStock.getSalePrice()));
+            } else {
+                cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
+            }
 
             tableInvoice.getItems().add(cashierInvoiceTable);
             tableInvoice.refresh();
+
+            clearPreviewArea();
         }
     }
 
-    private ListChangeListener<CashierInvoiceTable> updateSubtotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private void updateSubtotal() {
+        calculateInvoiceTotal();
     }
 
     private boolean isEntriesValid() {
@@ -337,10 +384,84 @@ public class CashierInvoiceController implements Initializable {
     private double calculatePreviewTotal() {
         double itemAmount = 0;
         double qty = Double.parseDouble(tfQty.getText());
-        itemAmount = selectedProduct.getSalePrice() * qty;
-        itemPrice.setText(String.format("Rs. %, .2f", itemAmount));
+        if (systemConfig.system.multi_stock && selectedStock != null) {
+            itemAmount = selectedStock.getSalePrice() * qty;
+        } else {
+            itemAmount = selectedProduct.getSalePrice() * qty;
+        }
+        itemPrice.setText(String.format(DefaultAPI.currencyFloatFormat, itemAmount));
 
         return itemAmount;
+    }
+
+    private void calculateInvoiceTotal() {
+        double itemCount = tableInvoice.getItems().size();
+        double subTotal = 0;
+        double discount = 0;
+
+        List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
+        for (CashierInvoiceTable item : invoiceItemList) {
+            if (systemConfig.system.multi_stock && item.getStock() != null) {
+                subTotal += item.getStock().getSalePrice() * item.getQty();
+                discount += item.getStock().getDiscount() * item.getQty();
+            } else {
+                subTotal += item.getProduct().getSalePrice() * item.getQty();
+                discount += item.getProduct().getDiscount() * item.getQty();
+            }
+        }
+
+        this.billItemCount = itemCount;
+        this.billSubTotal = subTotal;
+        this.billDiscount = discount;
+        this.billFinalAmount = subTotal - discount;
+
+        invoiceItemCount.setText(String.valueOf(itemCount)); // Item count
+        invoiceSubTotal.setText(String.format(DefaultAPI.currencyFloatFormat, subTotal)); // Sub total (without any discount)
+        invoiceDiscount.setText(String.format(DefaultAPI.currencyFloatFormat, discount)); // Total discount
+        invoiceTotal.setText(String.format(DefaultAPI.currencyFloatFormat, (subTotal - discount))); // Final amount
+    }
+
+    private void clearBillDetails() {
+        // bill details
+        this.billItemCount = 0;
+        this.billSubTotal = 0;
+        this.billDiscount = 0;
+        this.billFinalAmount = 0;
+
+        // invoice table
+        tableInvoice.getItems().clear();
+        tableInvoice.refresh();
+    }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+    }
+
+    private void processThePayment() {
+
+        calculateInvoiceTotal();
+
+        double cashAmount = Double.parseDouble(tfCashAmount.getText());
+
+        if (cashAmount >= this.billFinalAmount) {
+            double balance = cashAmount - this.billFinalAmount;
+            tfInvoiceBalance.setText(String.format(DefaultAPI.currencyFloatFormat, balance));
+            changeActionButtonText("Pay & Print", false);
+        } else {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "The entered cash amount is less than the total bill amount.\nPlease enter a valid amount to proceed with the payment.",
+                    "Insufficient Cash",
+                    Alert.AlertType.WARNING
+            );
+
+            changeActionButtonText("Insufficient Cash", true);
+        }
+    }
+
+    private void changeActionButtonText(String text, boolean state) {
+        btnPayment.setText(text);
+        btnPayment.setDisable(state);
     }
 
 }

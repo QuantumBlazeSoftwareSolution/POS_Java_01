@@ -72,7 +72,7 @@ public class Stock implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
     private Collection<StockAdjustment> stockAdjustmentCollection;
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Grn grnId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -81,7 +81,7 @@ public class Stock implements Serializable {
     @ManyToOne(optional = false)
     private StockStatus stockStatusId;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Supplier supplierId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockBatchId")
     private Collection<DamageItem> damageItemCollection;

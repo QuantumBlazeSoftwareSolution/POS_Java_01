@@ -159,7 +159,7 @@ public class PopUpProductListController implements Initializable {
                             p.getCostPrice(),
                             String.valueOf(p.getMeasure()),
                             p.getDiscount(),
-                            p.getBarCode(),
+                            "",
                             p
                     ))
                             .toList();
