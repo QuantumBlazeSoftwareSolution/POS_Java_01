@@ -135,6 +135,23 @@
                                     </TextField>
                                  </children>
                               </VBox>
+                              <VBox layoutX="660.0" layoutY="10.0" maxWidth="200.0" spacing="4.0">
+                                 <children>
+                                    <Label minWidth="-Infinity" styleClass="text-field-label" text="Bar Code">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="Barcode_TF" onKeyPressed="#handleEnterFlow" prefHeight="40.0" styleClass="primary-text">
+                                       <font>
+                                          <Font name="Aptos" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
                               <VBox maxWidth="200.0" spacing="4.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" text="Expire Date">
@@ -335,9 +352,10 @@
             <TableView fx:id="table" onMouseClicked="#handleTableDoubleClick" onSwipeRight="#swipetable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="colProduct" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Product" />
+                  <TableColumn fx:id="colBarCode" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Bar Code" />
                   <TableColumn fx:id="colCostPrice" prefWidth="75.0" text="Cost Price" />
                   <TableColumn fx:id="colSalePrice" prefWidth="75.0" text="Sale Price" />
-                  <TableColumn fx:id="colQty" prefWidth="75.0" text="Qty" />
+                  <TableColumn fx:id="colQty" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Qty" />
                   <TableColumn fx:id="colExpireDate" prefWidth="75.0" text="Expire Date" />
                   <TableColumn fx:id="colDiscount" prefWidth="75.0" text="Discount" />
                   <TableColumn fx:id="colAmount" maxWidth="200.0" prefWidth="75.0" text="Amount" />
