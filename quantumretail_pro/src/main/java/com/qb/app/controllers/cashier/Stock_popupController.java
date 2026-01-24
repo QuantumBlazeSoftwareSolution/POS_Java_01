@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -33,12 +35,24 @@ public class Stock_popupController implements Initializable {
     private Button btnClose;
     @FXML
     private AnchorPane root;
+    @FXML
+    private TextField tfSalePrice;
+    @FXML
+    private TextField tfCostPrice;
+    @FXML
+    private DatePicker dpExpireDate;
+    @FXML
+    private TextField tfBarcode;
+    @FXML
+    private Button btnAction;
 
-    public static Object callingController;
     private Product selectedProduct;
+    public static Object callingController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private void loadStocks() {
@@ -98,7 +112,24 @@ public class Stock_popupController implements Initializable {
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnClose) {
-            closeWindow();
+            closeWindow(true);
+        } else if (event.getSource() == btnAction) {
+            createStock();
+        }
+    }
+
+    private void createStock() {
+        try {
+            StockCRUD.createSingleTemporaryStock(
+                    selectedProduct, 
+                    tfSalePrice.getText(), 
+                    tfCostPrice.getText(), 
+                    dpExpireDate.getValue(), 
+                    tfBarcode.getText()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -109,15 +140,29 @@ public class Stock_popupController implements Initializable {
                     .getMethod("setSelectedStock", Stock.class)
                     .invoke(callingController, stock);
 
-            closeWindow();
+            closeWindow(false);
         } catch (Exception e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
     }
 
-    public void closeWindow() {
-        InterfaceAction.closeWindow(root);
+    public void closeWindow(boolean state) {
+        try {
+            if (state) {
+
+                callingController
+                        .getClass()
+                        .getMethod("closeWithClear")
+                        .invoke(callingController);
+            }
+
+            InterfaceAction.closeWindow(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+
     }
 
     public void setProduct(Product product) {

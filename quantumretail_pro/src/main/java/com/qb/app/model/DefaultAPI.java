@@ -5,15 +5,18 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class DefaultAPI {
 
@@ -27,6 +30,18 @@ public class DefaultAPI {
             }
             return null;
         });
+    }
+
+    public static void showMessageAndHidden(Label label, String message) {
+        label.setVisible(true);
+        label.setText(message);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(event -> {
+            label.setText("");
+            label.setVisible(false);
+        });
+        delay.play();
     }
 
     public static String formatDateObject(java.util.Date date, String pattern) {
