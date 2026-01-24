@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.InvoicePaymentController">
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.InvoicePaymentController">
    <children>
       <BorderPane layoutX="313.0" layoutY="94.0" maxHeight="-Infinity" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -77,7 +77,7 @@
                               </VBox>
                               <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Card">
+                                    <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Card">
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
                                        </padding>
@@ -91,7 +91,7 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                     </Button>
-                                    <TextField fx:id="tfCardAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfCardAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -101,7 +101,7 @@
                               </VBox>
                               <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Credit">
+                                    <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Credit">
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
                                        </padding>
@@ -115,7 +115,7 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                     </Button>
-                                    <TextField fx:id="tfCreditAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfCreditAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -150,7 +150,7 @@
                         </Label>
                         <VBox spacing="6.0">
                            <children>
-                              <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="View Creditor(s)">
+                              <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="View Creditor(s)">
                                  <padding>
                                     <Insets left="50.0" right="50.0" />
                                  </padding>
@@ -165,13 +165,13 @@
                               </Button>
                               <HBox spacing="6.0">
                                  <children>
-                                    <TextField minHeight="40.0" prefHeight="40.0" promptText="+94712345678" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
+                                    <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="+94712345678" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField minHeight="40.0" prefHeight="40.0" promptText="Rs. 6500.00" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
+                                    <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="Rs. 6500.00" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />

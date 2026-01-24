@@ -302,12 +302,12 @@ public class Product_managementController implements Initializable {
     private void loadProductDetails(Product product) {
         if (product != null) {
             this.loadedProduct = product;
-            ProductHasProductType productHasProductType = ProductHasProductTypeCRUD.getProductHasProductTypeByProductProduct(product);
+            ProductHasProductType productHasProductType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
 
             this.loadedProductHasProductType = productHasProductType;
 
             tfItemName.setText(product.getProduct());
-            tfBarCode.setText(product.getBarCode());
+            tfBarCode.setText("");
             tfSalePrice.setText(String.valueOf(product.getSalePrice()));
             tfCostPrice.setText(String.valueOf(product.getCostPrice()));
             tfDiscount.setText(String.valueOf(product.getDiscount()));
@@ -381,7 +381,7 @@ public class Product_managementController implements Initializable {
         if (isProductValid()) {
             if (this.loadedProduct != null) {
                 this.loadedProduct.setProduct(tfItemName.getText());
-                this.loadedProduct.setBarCode(tfBarCode.getText());
+//                this.loadedProduct.setBarCode(tfBarCode.getText());
                 this.loadedProduct.setCategoryHasBrandId(
                         CategoryHasBrandCRUD.getCategoryHasBrand(
                                 cbBrand.getValue(),

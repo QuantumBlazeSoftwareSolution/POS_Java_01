@@ -30,11 +30,11 @@ public class ProductRegistrationTable {
         this.costPrice = product.getCostPrice();
         this.salePrice = product.getSalePrice();
         this.discount = product.getDiscount();
-        if (!product.getBarCode().isEmpty() || product.getBarCode() != null) {
-            this.barCode = product.getBarCode();
-        } else {
-            this.barCode = "";
-        }
+//        if (!product.getBarCode().isEmpty() || product.getBarCode() != null) {
+//            this.barCode = product.getBarCode();
+//        } else {
+//            this.barCode = "";
+//        }
         this.unitMeasure = product.getMeasure();
         this.product = product;
         this.brand = brand;

@@ -2,10 +2,8 @@ package com.qb.app.model;
 
 import com.qb.app.App;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.function.Consumer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +17,9 @@ import javafx.stage.Stage;
 
 public class DefaultAPI {
 
+    public static String currencyFloatFormat = "Rs. %, .2f";
+    public static String currencyDigitFormat = "Rs. %,d.00";
+
     public static TextFormatter<String> createNumericTextFormatter() {
         return new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*\\.?\\d*")) { // Allows digits and optional decimal point
@@ -28,14 +29,21 @@ public class DefaultAPI {
         });
     }
 
-    public static String formatDateObject(Date date, String pattern) {
+    public static String formatDateObject(java.util.Date date, String pattern) {
+        if (date == null) {
+            return "";
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-        LocalDateTime localDateTime = date.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        if (date instanceof java.sql.Date sqlDate) {
+            return sqlDate.toLocalDate().format(formatter);
+        }
 
-        return localDateTime.format(formatter);
+        return date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate()
+                .format(formatter);
     }
 
     public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, VBox vBox) {

@@ -51,7 +51,7 @@ public class Supplier implements Serializable {
     @JoinColumn(name = "supplier_status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private SupplyStatus supplierStatusId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
+    @OneToMany(mappedBy = "supplierId")
     private Collection<Stock> stockCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Collection<Grn> grnCollection;

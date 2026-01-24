@@ -31,7 +31,6 @@ import java.util.Collection;
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
     @NamedQuery(name = "Product.findByProduct", query = "SELECT p FROM Product p WHERE p.product = :product"),
     @NamedQuery(name = "Product.findByMeasure", query = "SELECT p FROM Product p WHERE p.measure = :measure"),
-    @NamedQuery(name = "Product.findByBarCode", query = "SELECT p FROM Product p WHERE p.barCode = :barCode"),
     @NamedQuery(name = "Product.findByCostPrice", query = "SELECT p FROM Product p WHERE p.costPrice = :costPrice"),
     @NamedQuery(name = "Product.findBySalePrice", query = "SELECT p FROM Product p WHERE p.salePrice = :salePrice"),
     @NamedQuery(name = "Product.findByDiscount", query = "SELECT p FROM Product p WHERE p.discount = :discount")})
@@ -49,8 +48,6 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "measure")
     private float measure;
-    @Column(name = "bar_code")
-    private String barCode;
     @Basic(optional = false)
     @Column(name = "cost_price")
     private double costPrice;
@@ -82,6 +79,8 @@ public class Product implements Serializable {
     private ProductStatus productStatusId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<LocationSupplyItem> locationSupplyItemCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<ProductHasBarcode> productHasBarcodeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<SupplierOrderItem> supplierOrderItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -127,14 +126,6 @@ public class Product implements Serializable {
 
     public void setMeasure(float measure) {
         this.measure = measure;
-    }
-
-    public String getBarCode() {
-        return barCode;
-    }
-
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
     }
 
     public double getCostPrice() {
@@ -239,6 +230,14 @@ public class Product implements Serializable {
 
     public void setLocationSupplyItemCollection(Collection<LocationSupplyItem> locationSupplyItemCollection) {
         this.locationSupplyItemCollection = locationSupplyItemCollection;
+    }
+
+    public Collection<ProductHasBarcode> getProductHasBarcodeCollection() {
+        return productHasBarcodeCollection;
+    }
+
+    public void setProductHasBarcodeCollection(Collection<ProductHasBarcode> productHasBarcodeCollection) {
+        this.productHasBarcodeCollection = productHasBarcodeCollection;
     }
 
     public Collection<SupplierOrderItem> getSupplierOrderItemCollection() {
