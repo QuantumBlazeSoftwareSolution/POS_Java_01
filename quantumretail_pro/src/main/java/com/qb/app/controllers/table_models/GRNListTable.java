@@ -16,8 +16,11 @@ import java.util.Date;
 public class GRNListTable {
 
 
+
+
     // Create Variables 
     private Product product;
+    private String barcode;
     private double qty;
     private LocalDate expireDate;
     private double costPrice;
@@ -27,11 +30,12 @@ public class GRNListTable {
 
     // Create Constructor
     public GRNListTable(
-            Product productData, double qtyData, LocalDate expireDateData, double costPriceData, double salePriceData, double discountData, double amountData) {
+            Product productData, String barcode,double qtyData, LocalDate expireDateData, double costPriceData, double salePriceData, double discountData, double amountData) {
 
         //Assign Vlaues 
         this.product = productData;
         this.qty = qtyData;
+        this.barcode = barcode;
         this.expireDate = expireDateData;
         this.costPrice = costPriceData;
         this.salePrice = salePriceData;
@@ -101,6 +105,14 @@ public class GRNListTable {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+    
+        public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
 
