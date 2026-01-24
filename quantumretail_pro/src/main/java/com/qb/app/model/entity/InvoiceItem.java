@@ -28,7 +28,8 @@ import java.io.Serializable;
     @NamedQuery(name = "InvoiceItem.findById", query = "SELECT i FROM InvoiceItem i WHERE i.id = :id"),
     @NamedQuery(name = "InvoiceItem.findByQty", query = "SELECT i FROM InvoiceItem i WHERE i.qty = :qty"),
     @NamedQuery(name = "InvoiceItem.findBySalePrice", query = "SELECT i FROM InvoiceItem i WHERE i.salePrice = :salePrice"),
-    @NamedQuery(name = "InvoiceItem.findByCostPrice", query = "SELECT i FROM InvoiceItem i WHERE i.costPrice = :costPrice")})
+    @NamedQuery(name = "InvoiceItem.findByCostPrice", query = "SELECT i FROM InvoiceItem i WHERE i.costPrice = :costPrice"),
+    @NamedQuery(name = "InvoiceItem.findByDiscount", query = "SELECT i FROM InvoiceItem i WHERE i.discount = :discount")})
 public class InvoiceItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,9 @@ public class InvoiceItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "cost_price")
     private double costPrice;
+    @Basic(optional = false)
+    @Column(name = "discount")
+    private double discount;
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Invoice invoiceId;
@@ -66,11 +70,12 @@ public class InvoiceItem implements Serializable {
         this.id = id;
     }
 
-    public InvoiceItem(Integer id, double qty, double salePrice, double costPrice) {
+    public InvoiceItem(Integer id, double qty, double salePrice, double costPrice, double discount) {
         this.id = id;
         this.qty = qty;
         this.salePrice = salePrice;
         this.costPrice = costPrice;
+        this.discount = discount;
     }
 
     public Integer getId() {
@@ -103,6 +108,14 @@ public class InvoiceItem implements Serializable {
 
     public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public Invoice getInvoiceId() {

@@ -9,6 +9,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -40,25 +41,29 @@ public class StockCRUD {
         });
     }
 
-    public static Stock createSingleTemporaryStock(Product product, double salePrice) throws Exception {
-
+    public static Stock createSingleTemporaryStock(Product product, String salePrice, String costPrice, LocalDate expireDate, String barcode) {
         return JPATransaction.runInTransaction((em) -> {
             Stock stock = new Stock();
 
             stock.setQty(0);
-            stock.setCostPrice(0);
-            stock.setSalePrice(salePrice);
+            stock.setCostPrice(Double.parseDouble(costPrice));
+            stock.setSalePrice(Double.parseDouble(salePrice));
             stock.setDiscount(0);
             stock.setReceivedDate(new Date());
             stock.setExpireDate(new Date());
             stock.setProductId(product);
+            stock.setBarcode(barcode);
+            stock.setStockStatusId(
+                    StockStatusCRUD.getStockStatus(
+                            TableInitialValues.StockStatusList.temporary
+                    )
+            );
 
             em.persist(stock);
             em.flush();
 
             return stock;
         });
-
     }
 
 }

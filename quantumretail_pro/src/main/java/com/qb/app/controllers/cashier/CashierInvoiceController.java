@@ -6,7 +6,9 @@ package com.qb.app.controllers.cashier;
 
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
+import com.qb.app.database_crud.InvoiceItemTypeCRUD;
 import com.qb.app.database_crud.ProductStatusCRUD;
+import com.qb.app.database_crud.TableInitialValues;
 import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
 import com.qb.app.model.ControllerClose;
@@ -16,14 +18,17 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Invoice;
+import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
+import com.qb.app.session.ApplicationSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
@@ -43,6 +48,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -130,6 +136,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private Label tfInvoiceBalance;
     private boolean canInvoicePaid;
     private double cashAmount;
+    @FXML
+    private Label invoiceMessage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -254,6 +262,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         }
     }
 
+    public void closeWithClear() {
+        clearPreviewArea();
+    }
+
     public void setSelectedStock(Stock stock) {
         this.selectedStock = stock;
         setPreviewDetails(
@@ -333,6 +345,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             cashierInvoiceTable.setItemName(String.valueOf(selectedProduct.getProduct()));
             cashierInvoiceTable.setQty(Double.valueOf(tfQty.getText()));
             cashierInvoiceTable.setAmount(String.format(DefaultAPI.currencyFloatFormat, calculatePreviewTotal()));
+            cashierInvoiceTable.setProduct(selectedProduct);
 
             if (systemConfig.system.multi_stock) {
                 cashierInvoiceTable.setStock(selectedStock);
@@ -479,29 +492,71 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private void completeThePayment() {
         if (this.canInvoicePaid) {
 
-            List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
+            try {
+                List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
 
-            JPATransaction.runInTransaction((em) -> {
+                JPATransaction.runInTransaction((em) -> {
 
-                Invoice invoice = new Invoice();
-                invoice.setDateTime(new Date());
-                invoice.setBillAmount(this.billDiscount);
-                invoice.setPaidAmount(billDiscount);
+                    // INSERT invoice
+                    Invoice invoice = new Invoice();
+                    invoice.setDateTime(new Date());
+                    invoice.setBillAmount(this.billFinalAmount);
+                    invoice.setPaidAmount(billDiscount);
+                    invoice.setSessionId(ApplicationSession.getSession());
 
-                for (CashierInvoiceTable cashierInvoiceTable : invoiceItemList) {
-                    // INSERT invoice, invoice_item
-                    // deduct stocks
+                    em.persist(invoice);
+                    em.flush();
 
-                }
-                return null;
-            });
+                    for (CashierInvoiceTable item : invoiceItemList) {
+                        // insert invoice_item
 
-            // print the bill
+                        InvoiceItem invoiceItem = new InvoiceItem();
+                        invoiceItem.setQty(item.getQty());
+                        if (systemConfig.system.multi_stock) {
+                            invoiceItem.setSalePrice(item.getStock().getSalePrice());
+                            invoiceItem.setCostPrice(item.getStock().getCostPrice());
+                        } else {
+                            invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+                            invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+                        }
+                        invoiceItem.setInvoiceId(invoice);
+                        invoiceItem.setInvoiceItemTypeId(
+                                InvoiceItemTypeCRUD.getInvoiceItemType(
+                                        TableInitialValues.InvoiceItemType.selling
+                                )
+                        );
+                        invoiceItem.setProductId(item.getProduct());
+                        invoiceItem.setStockBatchId(item.getStock());
+
+                        em.persist(invoiceItem);
+                        em.flush();
+
+                        // deduct stocks
+                        Stock stock = item.getStock();
+                        stock.setQty(stock.getQty() - item.getQty());
+
+                        em.merge(stock);
+                        em.flush();
+                    }
+                    return null;
+                });
+
+                // print the bill
+                DefaultAPI.showMessageAndHidden(labelItemName, "Payment Successful");
+            } catch (Exception e) {
+                CustomAlert.showStyledAlert(
+                        root,
+                        "Unable to process the payment. Please try again or contact support.",
+                        "Payment Failed",
+                        Alert.AlertType.ERROR
+                );
+            }
+
         } else {
             CustomAlert.showStyledAlert(
                     root,
-                    "This invoice cannot be paid yet. Complete the invoice.",
-                    "Insufficient Details",
+                    "This invoice is incomplete. Please add the required items before proceeding.",
+                    "Incomplete Invoice",
                     Alert.AlertType.WARNING
             );
         }
@@ -509,7 +564,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     @Override
     public void close() {
-        
+
     }
 
 }

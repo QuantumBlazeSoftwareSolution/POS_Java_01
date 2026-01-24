@@ -261,8 +261,20 @@
                               <Font name="Aptos Bold" size="36.0" />
                            </font>
                         </Label>
-                        <VBox maxHeight="-Infinity" spacing="6.0">
+                        <VBox maxHeight="-Infinity" spacing="6.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="invoiceMessage" minWidth="-Infinity" styleClass="primary-white" text="...">
+                                       <font>
+                                          <Font name="Aptos Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
+                              </HBox>
                               <HBox maxHeight="-Infinity">
                                  <children>
                                     <Label styleClass="primary-white" stylesheets="@../css/style.css" text="Item(s):">
