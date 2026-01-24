@@ -199,9 +199,9 @@ public class Product_registrationController implements Initializable {
                 );
 
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                if (!tfBarCode.getText().isEmpty() || tfBarCode.getText() != null) {
-                    product.setBarCode(tfBarCode.getText());
-                }
+//                if (!tfBarCode.getText().isEmpty() || tfBarCode.getText() != null) {
+//                    product.setBarCode(tfBarCode.getText());
+//                }
 
                 if (!tfDiscount.getText().isEmpty()) {
                     product.setDiscount(Double.parseDouble(tfDiscount.getText()));

@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.model.entity.Stock;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -24,6 +25,8 @@ public class Stock_item_cardController implements Initializable {
     private Label priceLabel;
     @FXML
     private Label expLabel;
+    private Stock_popupController parent;
+    private Stock stock;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -32,8 +35,9 @@ public class Stock_item_cardController implements Initializable {
 
     private String itemName;
 
-    public void setData(String name, double price, String expireDate) {
+    public void setData(Stock stock, String name, double price, String expireDate) {
         this.itemName = name;
+        this.stock=stock;
         nameLabel.setText(name);
         priceLabel.setText("$" + price);
         expLabel.setText(expireDate);
@@ -42,6 +46,11 @@ public class Stock_item_cardController implements Initializable {
     @FXML
     private void handleMouseClick(MouseEvent event) {
         System.out.println("Selected Name" + itemName);
+        parent.setStock(stock);
+    }
+
+    public void setParent(Stock_popupController parent) {
+        this.parent = parent;
     }
 
 }

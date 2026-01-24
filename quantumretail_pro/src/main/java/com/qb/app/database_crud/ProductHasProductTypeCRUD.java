@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ProductHasProductTypeCRUD {
 
-    public static ProductHasProductType getProductHasProductTypeByProductProduct(Product product) {
+    public static ProductHasProductType getProductHasProductTypeByProduct(Product product) {
         return JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<ProductHasProductType> cq = cb.createQuery(ProductHasProductType.class);

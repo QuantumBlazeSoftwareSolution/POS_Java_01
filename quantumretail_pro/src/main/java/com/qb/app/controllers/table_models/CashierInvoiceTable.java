@@ -5,6 +5,7 @@
 package com.qb.app.controllers.table_models;
 
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
 
 /**
  *
@@ -15,14 +16,15 @@ public class CashierInvoiceTable {
     private Product product;
     private String itemId;
     private String itemName;
-    private String qty;
+    private double qty;
     private String unitPrice;
     private String amount;
+    private Stock stock;
 
     public CashierInvoiceTable() {
     }
     
-    public CashierInvoiceTable(Product product, String itemId, String itemName, String qty, String unitPrice, String amount) {
+    public CashierInvoiceTable(Product product, String itemId, String itemName, double qty, String unitPrice, String amount) {
         this.product = product;
         this.itemId = itemId;
         this.itemName = itemName;
@@ -55,11 +57,11 @@ public class CashierInvoiceTable {
         this.itemName = itemName;
     }
 
-    public String getQty() {
+    public double getQty() {
         return qty;
     }
 
-    public void setQty(String qty) {
+    public void setQty(double qty) {
         this.qty = qty;
     }
 
@@ -77,6 +79,14 @@ public class CashierInvoiceTable {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
 }

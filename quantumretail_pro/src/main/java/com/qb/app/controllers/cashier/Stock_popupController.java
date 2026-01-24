@@ -1,12 +1,16 @@
 package com.qb.app.controllers.cashier;
 
-import com.qb.app.database_crud.ProductCRUD;
+import com.qb.app.database_crud.StockCRUD;
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
+import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,37 +33,66 @@ public class Stock_popupController implements Initializable {
     private Button btnClose;
     @FXML
     private AnchorPane root;
-    
+
     public static Object callingController;
     private Product selectedProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
 
-        List<Product> products = ProductCRUD.searchProductList();
+    private void loadStocks() {
+        System.out.println("Product Name: " + selectedProduct.getProduct());
 
-        try {
-            for (Product product : products) {
-                // 2. Load the FXML for the individual card
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/com/qb/app/cashier/stock_item_card.fxml")); // Adjust path to match your package!
-
-                VBox cardBox = fxmlLoader.load();
-
-                // 3. Get the controller of the card and set data
-                Stock_item_cardController cardController = fxmlLoader.getController();
-                cardController.setData(product.getProduct(), product.getSalePrice(), "2025-06-04");
-
-                // 4. Add the card to the TilePane (Layout handles itself automatically)
-                productContainer.getChildren().add(cardBox);
+        Task<List<Stock>> task = new Task<>() {
+            @Override
+            protected List<Stock> call() throws Exception {
+                return StockCRUD.getStockItemsByProduct(selectedProduct);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        };
+
+        task.setOnSucceeded(event -> {
+            List<Stock> stocks = task.getValue();
+
+            productContainer.getChildren().clear();
+
+            for (Stock stock : stocks) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/qb/app/cashier/stock_item_card.fxml")
+                    );
+
+                    VBox cardBox = loader.load();
+
+                    Stock_item_cardController controller = loader.getController();
+                    controller.setData(
+                            stock,
+                            stock.getProductId().getProduct(),
+                            stock.getSalePrice(),
+                            DefaultAPI.formatDateObject(
+                                    stock.getExpireDate(),
+                                    "dd MMM, yyyy"
+                            )
+                    );
+                    controller.setParent(this);
+
+                    productContainer.getChildren().add(cardBox);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        task.setOnFailed(event -> {
+            task.getException().printStackTrace();
+        });
+
+        new Thread(task).start();
     }
 
     public void saveController(Object object) {
-        this.callingController = object;
+        Stock_popupController.callingController = object;
     }
 
     @FXML
@@ -69,12 +102,27 @@ public class Stock_popupController implements Initializable {
         }
     }
 
+    public void setStock(Stock stock) {
+        try {
+            callingController
+                    .getClass()
+                    .getMethod("setSelectedStock", Stock.class)
+                    .invoke(callingController, stock);
+
+            closeWindow();
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
     public void closeWindow() {
         InterfaceAction.closeWindow(root);
     }
 
     public void setProduct(Product product) {
         this.selectedProduct = product;
+        loadStocks();
     }
 
 }

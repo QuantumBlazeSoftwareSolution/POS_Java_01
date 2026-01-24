@@ -2,44 +2,58 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" onMouseClicked="#handleMouseClick" prefWidth="200.0" spacing="4.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.Stock_item_cardController">
+<VBox alignment="CENTER" onMouseClicked="#handleMouseClick" spacing="6.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.Stock_item_cardController">
     <children>
+      <VBox>
+         <children>
+            <Label text="Name: " />
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                    <Label fx:id="nameLabel" style="-fx-font-weight: bold;" text="Product Name">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
       <HBox spacing="10.0">
          <children>
-            <Label layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold;" text="Name: " />
+            <Label layoutX="10.0" layoutY="10.0" text="Sale Price: " HBox.hgrow="ALWAYS" />
             <Region HBox.hgrow="ALWAYS" />
-              <Label fx:id="nameLabel" style="-fx-font-weight: bold;" text="Product Name" />
+              <Label fx:id="priceLabel" text="\$0.00" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
          </children>
-         <padding>
-            <Insets left="12.0" right="12.0" />
-         </padding>
       </HBox>
       <HBox spacing="10.0">
          <children>
-            <Label layoutX="10.0" layoutY="10.0" text="Sale Price: " />
+            <Label layoutX="10.0" layoutY="10.0" text="Exp: " HBox.hgrow="ALWAYS" />
             <Region HBox.hgrow="ALWAYS" />
-              <Label fx:id="priceLabel" text="\$0.00" />
+            <Label fx:id="expLabel" text="2026-01-05" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
          </children>
-         <padding>
-            <Insets left="12.0" right="12.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="10.0">
-         <children>
-            <Label layoutX="10.0" layoutY="10.0" text="Exp: " />
-            <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="expLabel" text="2026-01-05" />
-         </children>
-         <padding>
-            <Insets left="12.0" right="12.0" />
-         </padding>
       </HBox>
     </children>
    <padding>
-      <Insets bottom="20.0" top="20.0" />
+      <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
    </padding>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.9007633328437805" />
+         </color>
+      </DropShadow>
+   </effect>
 </VBox>

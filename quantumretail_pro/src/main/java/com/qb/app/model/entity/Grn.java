@@ -53,7 +53,7 @@ public class Grn implements Serializable {
     @Basic(optional = false)
     @Column(name = "discount")
     private double discount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnId")
+    @OneToMany(mappedBy = "grnId")
     private Collection<Stock> stockCollection;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
