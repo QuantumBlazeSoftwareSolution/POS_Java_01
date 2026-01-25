@@ -346,13 +346,13 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
                     "net.sf.jasperreports.awt.ignore.missing.font", "true"
             );
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                    getClass().getResourceAsStream("/com/qb/app/reports/PosCloseSale.jasper"));
+                    getClass().getResourceAsStream("/com/qb/app/reports/CashierCloseSale.jasper"));
 
             JREmptyDataSource dataSource = new JREmptyDataSource();
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//          JasperPrintManager.printReport(report, false);
-            JasperViewer.viewReport(report, false);
+          JasperPrintManager.printReport(report, false);
+//            JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
