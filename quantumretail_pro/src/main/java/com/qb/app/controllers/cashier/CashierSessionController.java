@@ -142,7 +142,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
                         PauseTransition delay = new PauseTransition(Duration.seconds(1));
                         delay.setOnFinished(event -> {
                             ApplicationControllers.getPanelCashierController().changePanel(
-                                    "/com/qb/app/cashierInvoice.fxml",
+                                    "/com/qb/app/cashier/cashierInvoice.fxml",
                                     "Invoice"
                             );
                         });
@@ -171,7 +171,6 @@ public class CashierSessionController implements Initializable, ControllerClose 
                             CriteriaQuery<Session> criteriaQuery = getSessionQuery(em);
                             try {
                                 Session sessionToday = em.createQuery(criteriaQuery).getSingleResult();
-
                                 if (sessionToday.getStatus().equals("ON")) { // If record status was OFF
                                     sessionToday.setDayOutTime(new Date());
                                     sessionToday.setCollection(Double.valueOf(tfSignOffCollection.getText()));
@@ -187,7 +186,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
                                     PauseTransition delay = new PauseTransition(Duration.seconds(2));
                                     delay.setOnFinished(event -> {
                                         ApplicationControllers.getPanelCashierController().changePanel(
-                                                "/com/qb/app/cashierCloseSale.fxml",
+                                                "/com/qb/app/cashier/cashierCloseSale.fxml",
                                                 "Close Sale"
                                         );
                                     });

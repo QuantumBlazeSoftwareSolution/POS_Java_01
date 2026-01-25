@@ -4,19 +4,20 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.model.ControllerClose;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Label;
+
 /**
  * FXML Controller class
  *
  * @author Vihanga
  */
-public class CashierDashboardController implements Initializable {
-
+public class CashierDashboardController implements Initializable, ControllerClose {
 
     @FXML
     private Label labelYear;
@@ -24,9 +25,15 @@ public class CashierDashboardController implements Initializable {
     private Label labelMonth;
     @FXML
     private Label labelDate;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    @Override
+    public void close() {
+
+    }
+
 }

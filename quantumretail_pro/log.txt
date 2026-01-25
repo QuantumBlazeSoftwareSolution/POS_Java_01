@@ -52,3 +52,27 @@ Jan 24, 2026 7:24:56 AM com.qb.app.controllers.SytemLoginController lambda$check
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
 Jan 24, 2026 7:25:44 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 25, 2026 7:08:52 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 25, 2026 8:33:32 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 25, 2026 8:34:01 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 25, 2026 9:43:26 AM com.qb.app.controllers.cashier.Stock_popupController createStock
+WARNING: java.lang.RuntimeException: Transaction error
+Jan 25, 2026 4:14:20 PM com.qb.app.controllers.cashier.CashierInvoiceController completeThePayment
+WARNING: java.util.IllegalFormatConversionException: f != java.lang.Integer
+Jan 25, 2026 4:17:57 PM com.qb.app.controllers.cashier.CashierInvoiceController printInvoice
+WARNING: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean: productName.
+Jan 25, 2026 4:23:52 PM com.qb.app.controllers.cashier.CashierInvoiceController printInvoice
+WARNING: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean: productName.
+Jan 25, 2026 4:29:53 PM com.qb.app.controllers.cashier.CashierInvoiceController printInvoice
+WARNING: net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{qty}
+Jan 25, 2026 4:32:49 PM com.qb.app.controllers.cashier.CashierInvoiceController printInvoice
+WARNING: net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{discount}
+Jan 25, 2026 5:23:59 PM com.qb.app.controllers.cashier.Stock_popupController createStock
+WARNING: java.lang.RuntimeException: Transaction error
+Jan 25, 2026 8:34:09 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 25, 2026 8:39:45 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]

@@ -12,6 +12,21 @@ import java.util.List;
  */
 public class TableInitialValues {
 
+    // Stock Status Table Data
     public static List<String> stockStatusList = List.of("active", "inactive", "temporary");
 
+    public static class StockStatusList {
+
+        public static String active = "active";
+        public static String inactive = "inactive";
+        public static String temporary = "temporary";
+    }
+
+    public static List<String> invoiceItemTypeList = List.of("selling", "returning");
+
+    public static class InvoiceItemType {
+
+        public static String selling = "selling";
+        public static String returning = "returning";
+    }
 }

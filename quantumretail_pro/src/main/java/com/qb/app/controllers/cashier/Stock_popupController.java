@@ -1,6 +1,7 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.database_crud.StockCRUD;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.entity.Product;
@@ -15,7 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -33,12 +37,24 @@ public class Stock_popupController implements Initializable {
     private Button btnClose;
     @FXML
     private AnchorPane root;
+    @FXML
+    private TextField tfSalePrice;
+    @FXML
+    private TextField tfCostPrice;
+    @FXML
+    private DatePicker dpExpireDate;
+    @FXML
+    private TextField tfBarcode;
+    @FXML
+    private Button btnAction;
 
-    public static Object callingController;
     private Product selectedProduct;
+    public static Object callingController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private void loadStocks() {
@@ -98,7 +114,33 @@ public class Stock_popupController implements Initializable {
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnClose) {
-            closeWindow();
+            closeWindow(false);
+        } else if (event.getSource() == btnAction) {
+            createStock();
+        }
+    }
+
+    private void createStock() {
+        try {
+            Stock stock = StockCRUD.createSingleTemporaryStock(
+                    selectedProduct,
+                    tfSalePrice.getText(),
+                    tfCostPrice.getText(),
+                    dpExpireDate.getValue(),
+                    tfBarcode.getText()
+            );
+
+            setStock(stock);
+
+            System.out.println("New Stock Created");
+        } catch (Exception e) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "Tempory stock creation failed, please try again later",
+                    "Stock creation failed",
+                    Alert.AlertType.WARNING);
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -106,18 +148,31 @@ public class Stock_popupController implements Initializable {
         try {
             callingController
                     .getClass()
-                    .getMethod("setSelectedStock", Stock.class)
-                    .invoke(callingController, stock);
+                    .getMethod("setSelectedStock", Stock.class, Product.class)
+                    .invoke(callingController, stock, selectedProduct);
 
-            closeWindow();
+            closeWindow(true);
         } catch (Exception e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
     }
 
-    public void closeWindow() {
-        InterfaceAction.closeWindow(root);
+    public void closeWindow(boolean closeWithStock) {
+        try {
+            if (!closeWithStock) {
+                callingController
+                        .getClass()
+                        .getMethod("closeWithClear")
+                        .invoke(callingController);
+            }
+
+            InterfaceAction.closeWindow(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+
     }
 
     public void setProduct(Product product) {

@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.entity.Stock;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,9 +38,9 @@ public class Stock_item_cardController implements Initializable {
 
     public void setData(Stock stock, String name, double price, String expireDate) {
         this.itemName = name;
-        this.stock=stock;
+        this.stock = stock;
         nameLabel.setText(name);
-        priceLabel.setText("$" + price);
+        priceLabel.setText(String.format(DefaultAPI.currencyFloatFormat, price));
         expLabel.setText(expireDate);
     }
 
