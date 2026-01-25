@@ -1,6 +1,7 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.database_crud.StockCRUD;
+import com.qb.app.database_crud.StockItemResponse;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
@@ -62,7 +63,7 @@ public class Stock_popupController implements Initializable {
 
         Task<List<Stock>> task = new Task<>() {
             @Override
-            protected List<Stock> call() throws Exception {
+            protected List<StockItemResponse> call() throws Exception {
                 return StockCRUD.getStockItemsByProduct(selectedProduct);
             }
         };

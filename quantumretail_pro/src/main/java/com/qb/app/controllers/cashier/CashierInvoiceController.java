@@ -455,6 +455,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         tableInvoice.getItems().clear();
         tableInvoice.refresh();
         this.canInvoicePaid = false;
+
+        tfCashAmount.setText("");
+        tfInvoiceBalance.setText("Rs. 0.00");
+
         clearPreviewArea();
     }
 
@@ -544,7 +548,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 });
 
                 // print the bill
-                DefaultAPI.showMessageAndHidden(labelItemName, "Payment Successful");
+                DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
                 clearBillDetails();
                 clearSelectedProduct();
             } catch (Exception e) {

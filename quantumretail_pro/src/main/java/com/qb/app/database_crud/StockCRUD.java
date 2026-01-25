@@ -27,12 +27,12 @@ public class StockCRUD {
 
             ProductHasProductType referenceProduct = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
 
-            Predicate predicateProduct = cb.equal(stockTable.get("productId"), product);
+//            Predicate predicateProduct = cb.equal(stockTable.get("productId"), product);
             Predicate predicateReferenceProduct = cb.equal(stockTable.get("productId"), referenceProduct.getReferenceId());
 //            Predicate predicateQty = cb.greaterThan(stockTable.get("qty"), 0);
 
 //            cq.where(cb.and(predicateProduct, predicateQty));
-            cq.where(cb.or(predicateProduct, predicateReferenceProduct));
+            cq.where(predicateReferenceProduct);
 
             List<Stock> stockList = em.createQuery(cq).getResultList();
 
