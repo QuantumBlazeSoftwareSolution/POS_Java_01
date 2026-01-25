@@ -70,3 +70,5 @@ Jan 25, 2026 4:29:53 PM com.qb.app.controllers.cashier.CashierInvoiceController 
 WARNING: net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{qty}
 Jan 25, 2026 4:32:49 PM com.qb.app.controllers.cashier.CashierInvoiceController printInvoice
 WARNING: net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{discount}
+Jan 25, 2026 5:23:59 PM com.qb.app.controllers.cashier.Stock_popupController createStock
+WARNING: java.lang.RuntimeException: Transaction error

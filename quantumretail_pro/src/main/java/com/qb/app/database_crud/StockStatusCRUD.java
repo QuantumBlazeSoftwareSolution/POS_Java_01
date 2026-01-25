@@ -42,7 +42,7 @@ public class StockStatusCRUD {
             StockStatus status = new StockStatus();
             status.setStatus(value);
 
-            em.persist(em);
+            em.persist(status);
             em.flush();
 
             if (status.getStatus() == state) {
