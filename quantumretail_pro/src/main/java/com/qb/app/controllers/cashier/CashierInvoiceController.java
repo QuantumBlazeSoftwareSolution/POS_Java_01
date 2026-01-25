@@ -4,11 +4,13 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.controllers.exports.StockProductExport;
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
 import com.qb.app.database_crud.InvoiceItemTypeCRUD;
 import com.qb.app.database_crud.ProductHasProductTypeCRUD;
 import com.qb.app.database_crud.ProductStatusCRUD;
+import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.database_crud.TableInitialValues;
 import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
@@ -221,6 +223,12 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             if (event.getCode() == KeyCode.ESCAPE) {
                 clearSelectedProduct();
                 clearPreviewArea();
+            } else if (event.getCode() == KeyCode.PLUS) {
+                if (this.selectedProduct != null) {
+                    changeQuantity(true);
+                }
+            } else if (event.getCode() == KeyCode.MINUS) {
+                changeQuantity(false);
             }
         });
     }
@@ -356,6 +364,19 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             processThePayment();
         } else if (event.getSource() == btnPayment) {
             completeThePayment();
+        } else if (event.getSource() == btnIncreaseQty) {
+            changeQuantity(true);
+        } else if (event.getSource() == btnDecreaseQty) {
+            changeQuantity(false);
+        }
+    }
+
+    private void changeQuantity(boolean isPositive) {
+        double qty = Double.parseDouble(tfQty.getText());
+        if (isPositive) {
+            tfQty.setText(String.valueOf(qty + 1));
+        } else {
+            tfQty.setText(String.valueOf(qty - 1));
         }
     }
 
@@ -443,14 +464,17 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     private double calculatePreviewTotal() {
         double itemAmount = 0;
-        double qty = Double.parseDouble(tfQty.getText());
-        if (systemConfig.system.multi_stock && selectedStock != null) {
-            itemAmount = selectedStock.getSalePrice() * qty;
-        } else {
-            itemAmount = selectedProduct.getSalePrice() * qty;
-        }
-        itemPrice.setText(String.format(DefaultAPI.currencyFloatFormat, itemAmount));
+        if (!tfQty.getText().isEmpty()) {
 
+            double qty = Double.parseDouble(tfQty.getText());
+            if (systemConfig.system.multi_stock && selectedStock != null) {
+                itemAmount = selectedStock.getSalePrice() * qty;
+            } else {
+                itemAmount = selectedProduct.getSalePrice() * qty;
+            }
+            itemPrice.setText(String.format(DefaultAPI.currencyFloatFormat, itemAmount));
+
+        }
         return itemAmount;
     }
 
@@ -631,8 +655,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//            JasperPrintManager.printReport(report, false);
-            JasperViewer.viewReport(report, false);
+            JasperPrintManager.printReport(report, false);
+//            JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
@@ -666,7 +690,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         Map<String, Object> params = new HashMap<>();
 
         try {
-            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo bw.png");
+            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/pos_logo.png");
             params.put("Logo", imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
@@ -720,6 +744,20 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             collection.add(bean);
         }
         return collection;
+    }
+
+    @FXML
+    private void handleOnKeyPressed(KeyEvent event) {
+        if (event.getSource() == tfBarCode && event.getCode() == KeyCode.ENTER) {
+            searchItemByBarcode(tfBarCode.getText());
+        }
+    }
+
+    private void searchItemByBarcode(String barcode) {
+
+        StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
+
+        setSelectedStock(stockProduct.getStock(), stockProduct.getProduct());
     }
 
 }

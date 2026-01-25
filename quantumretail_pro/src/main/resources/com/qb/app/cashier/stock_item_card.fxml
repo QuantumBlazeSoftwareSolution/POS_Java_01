@@ -27,12 +27,23 @@
       </VBox>
       <HBox spacing="10.0">
          <children>
-            <Label layoutX="10.0" layoutY="10.0" text="Sale Price: " HBox.hgrow="ALWAYS" />
+            <Label layoutX="10.0" layoutY="10.0" text="Parent Price: " HBox.hgrow="ALWAYS" />
             <Region HBox.hgrow="ALWAYS" />
               <Label fx:id="priceLabel" text="\$0.00" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
+         </children>
+      </HBox>
+      <HBox layoutX="30.0" layoutY="63.0" spacing="10.0">
+         <children>
+            <Label layoutX="10.0" layoutY="10.0" text="Item Price: " HBox.hgrow="ALWAYS" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="priceItem" text="\$0.00" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
       <HBox spacing="10.0">

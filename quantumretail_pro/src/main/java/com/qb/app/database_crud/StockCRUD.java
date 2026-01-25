@@ -1,5 +1,6 @@
 package com.qb.app.database_crud;
 
+import com.qb.app.controllers.exports.StockProductExport;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
@@ -75,4 +76,22 @@ public class StockCRUD {
         });
     }
 
+    public static StockProductExport getStockItemsByBarcode(String barcode) {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+            Root<Stock> stockTable = cq.from(Stock.class);
+
+            Predicate predicateBarcode = cb.equal(stockTable.get("barcode"), barcode);
+
+            cq.where(predicateBarcode);
+
+            try {
+                Stock stock = em.createQuery(cq).getSingleResult();
+                return new StockProductExport(stock, stock.getProductId());
+            } catch (Exception e) {
+                return new StockProductExport(null, null);
+            }
+        });
+    }
 }

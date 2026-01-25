@@ -51,7 +51,7 @@
                      <children>
                         <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="4.0">
                            <children>
-                              <TextField fx:id="tfBarCode" prefHeight="40.0" promptText="Bar Code" stylesheets="@../css/style.css">
+                              <TextField fx:id="tfBarCode" onKeyPressed="#handleOnKeyPressed" prefHeight="40.0" promptText="Bar Code" stylesheets="@../css/style.css">
                                  <styleClass>
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />

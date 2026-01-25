@@ -72,7 +72,7 @@ Jan 25, 2026 4:32:49 PM com.qb.app.controllers.cashier.CashierInvoiceController 
 WARNING: net.sf.jasperreports.engine.fill.JRExpressionEvalException: Error evaluating expression for source text: $F{discount}
 Jan 25, 2026 5:23:59 PM com.qb.app.controllers.cashier.Stock_popupController createStock
 WARNING: java.lang.RuntimeException: Transaction error
-Jan 25, 2026 8:09:51 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+Jan 25, 2026 8:34:09 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
-Jan 25, 2026 8:35:09 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+Jan 25, 2026 8:39:45 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
