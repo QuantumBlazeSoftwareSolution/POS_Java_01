@@ -515,9 +515,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         if (systemConfig.system.multi_stock) {
                             invoiceItem.setSalePrice(item.getStock().getSalePrice());
                             invoiceItem.setCostPrice(item.getStock().getCostPrice());
+                            invoiceItem.setDiscount(item.getStock().getDiscount());
                         } else {
                             invoiceItem.setSalePrice(item.getProduct().getSalePrice());
                             invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+                            invoiceItem.setDiscount(item.getProduct().getDiscount());
                         }
                         invoiceItem.setInvoiceId(invoice);
                         invoiceItem.setInvoiceItemTypeId(
@@ -543,6 +545,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
                 // print the bill
                 DefaultAPI.showMessageAndHidden(labelItemName, "Payment Successful");
+                clearBillDetails();
+                clearSelectedProduct();
             } catch (Exception e) {
                 CustomAlert.showStyledAlert(
                         root,

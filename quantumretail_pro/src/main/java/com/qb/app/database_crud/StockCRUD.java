@@ -4,7 +4,6 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
-import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -46,11 +45,19 @@ public class StockCRUD {
             Stock stock = new Stock();
 
             stock.setQty(0);
-            stock.setCostPrice(Double.parseDouble(costPrice));
+            if (!costPrice.isEmpty()) {
+                stock.setCostPrice(Double.parseDouble(costPrice));
+            } else {
+                stock.setCostPrice(0);
+            }
             stock.setSalePrice(Double.parseDouble(salePrice));
             stock.setDiscount(0);
             stock.setReceivedDate(new Date());
-            stock.setExpireDate(new Date());
+            if (expireDate != null) {
+                stock.setExpireDate(java.sql.Date.valueOf(expireDate));
+            } else {
+                stock.setExpireDate(new Date());
+            }
             stock.setProductId(product);
             stock.setBarcode(barcode);
             stock.setStockStatusId(
