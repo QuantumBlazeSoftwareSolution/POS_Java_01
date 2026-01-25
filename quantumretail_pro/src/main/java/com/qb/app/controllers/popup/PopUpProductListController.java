@@ -123,7 +123,7 @@ public class PopUpProductListController implements Initializable {
     }
 
     public void changeSearchArea(boolean isParentProducts) {
-        searchFullProducts = isParentProducts;
+        searchFullProducts = !isParentProducts;
     }
 
     @FXML
