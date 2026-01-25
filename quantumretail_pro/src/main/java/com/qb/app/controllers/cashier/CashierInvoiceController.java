@@ -158,6 +158,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         textFieldConfiguration();
         loadSystemConfig();
         interceptQuantityKeys();
+        
+        tfBarCode.requestFocus();
     }
 
     private void loadSystemConfig() {
@@ -234,6 +236,18 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 event.consume();
             } else if (event.getCode() == KeyCode.MINUS || event.getCode() == KeyCode.SUBTRACT) {
                 changeQuantity(false);
+                event.consume();
+            } else if (event.getCode() == KeyCode.ENTER && this.selectedProduct != null) {
+                addItemToTable();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F1) {
+                tfBarCode.requestFocus();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F2) {
+                tfItemCode.requestFocus();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F3) {
+                tfItemName.requestFocus();
                 event.consume();
             }
         };
@@ -442,6 +456,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             tableInvoice.refresh();
 
             clearPreviewArea();
+            tfBarCode.requestFocus();
         }
     }
 
@@ -642,6 +657,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
                 clearBillDetails();
                 clearSelectedProduct();
+                
+                tfBarCode.requestFocus();
             } catch (Exception e) {
                 e.printStackTrace();
                 getLogger.logger().warning(e.toString());

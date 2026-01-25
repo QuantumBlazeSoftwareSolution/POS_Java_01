@@ -241,12 +241,12 @@ public class Product_registrationController implements Initializable {
 
                 tableView.getItems().add(row);
 
-                refreshProductAdd();
+                refreshProductAdd(false);
             }
         }
     }
 
-    private void refreshProductAdd() {
+    private void refreshProductAdd(boolean clearAll) {
         parentProduct = null;
         tfCostPrice.setText("");
         tfSalePrice.setText("");
@@ -254,13 +254,15 @@ public class Product_registrationController implements Initializable {
         cbProductType.setValue(ProductTypeCRUD.getProductType("child"));
         tfUnitMeasure.setText("");
         tfBarCode.setText("");
-        tfItemName.setText("");
 
-        cbBrand.setValue(null);
-        cbCategory.setValue(null);
+        if (clearAll) {
+            tfItemName.setText("");
 
-        tableView.getItems().clear();
-        tableView.refresh();
+            cbBrand.setValue(null);
+            cbCategory.setValue(null);
+            tableView.getItems().clear();
+            tableView.refresh();
+        }
     }
 
     private boolean isproductTypeValid() {
