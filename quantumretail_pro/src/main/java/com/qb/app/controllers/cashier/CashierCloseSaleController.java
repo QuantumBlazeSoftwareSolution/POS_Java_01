@@ -5,6 +5,7 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.model.ControllerClose;
+
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
@@ -118,6 +119,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     private double systemBalance;
     private Collection<Invoice> invoiceCollection;
 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -216,6 +218,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         }
         return 0;
     }
+    
 
     private int parseTextField(TextField textField) {
         try {
@@ -223,8 +226,34 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         } catch (NumberFormatException e) {
             return 0;
         }
-
     }
+    
+
+    private void clearCloseSale() {
+        tf5Qty.setText("");
+        tf10Qty.setText("");
+        tf20Qty.setText("");
+        tf50Qty.setText("");
+        tf100Qty.setText("");
+        tf500Qty.setText("");
+        tf1000Qty.setText("");
+        tf5000Qty.setText("");
+        tf5Value.setText("");
+        tf10Value.setText("");
+        tf20Value.setText("");
+        tf50Value.setText("");
+        tf100Value.setText("");
+        tf500Value.setText("");
+        tf1000Value.setText("");
+        tf5000Value.setText("");
+        tfUsername.setText("");
+        tfPassword.setText("");
+        tfCollection.setText("");
+        tfDayIn.setText("");
+        tfDayOff.setText("");
+        tfCashier.setText("");
+    }
+    
 
     @FXML
     private void ActionEvent(ActionEvent event) {
@@ -313,31 +342,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         );
     }
 
-    private void clearCloseSale() {
-        tf5Qty.setText("");
-        tf10Qty.setText("");
-        tf20Qty.setText("");
-        tf50Qty.setText("");
-        tf100Qty.setText("");
-        tf500Qty.setText("");
-        tf1000Qty.setText("");
-        tf5000Qty.setText("");
-        tf5Value.setText("");
-        tf10Value.setText("");
-        tf20Value.setText("");
-        tf50Value.setText("");
-        tf100Value.setText("");
-        tf500Value.setText("");
-        tf1000Value.setText("");
-        tf5000Value.setText("");
-        tfUsername.setText("");
-        tfPassword.setText("");
-        tfCollection.setText("");
-        tfDayIn.setText("");
-        tfDayOff.setText("");
-        tfCashier.setText("");
-    }
-
+    
     private void PrintReport() {
         Map<String, Object> params = getJRParams();
         try {

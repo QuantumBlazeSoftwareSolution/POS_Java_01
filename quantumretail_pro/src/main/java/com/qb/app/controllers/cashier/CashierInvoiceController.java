@@ -158,7 +158,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         textFieldConfiguration();
         loadSystemConfig();
         interceptQuantityKeys();
-        
+
         tfBarCode.requestFocus();
     }
 
@@ -248,6 +248,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 event.consume();
             } else if (event.getCode() == KeyCode.F3) {
                 tfItemName.requestFocus();
+                event.consume();
+            } else if (event.getCode() == KeyCode.SHIFT) {
+                tfCashAmount.requestFocus();
                 event.consume();
             }
         };
@@ -566,27 +569,36 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     @FXML
     private void handleKeyPressed(KeyEvent event) {
+        if (event.getSource() == tfCashAmount && event.getCode() == KeyCode.ENTER) {
+            if (canInvoicePaid) {
+                completeThePayment();
+            } else {
+                processThePayment();
+            }
+        }
     }
 
     private void processThePayment() {
         calculateInvoiceTotal();
 
-        this.cashAmount = Double.parseDouble(tfCashAmount.getText());
+        if (!tfCashAmount.getText().isEmpty()) {
+            this.cashAmount = Double.parseDouble(tfCashAmount.getText());
 
-        if (cashAmount >= this.billFinalAmount) {
-            double balance = cashAmount - this.billFinalAmount;
-            tfInvoiceBalance.setText(String.format(DefaultAPI.currencyFloatFormat, balance));
-            changeActionButtonText("Pay & Print", false);
-            this.canInvoicePaid = true;
-        } else {
-            CustomAlert.showStyledAlert(
-                    root,
-                    "The entered cash amount is less than the total bill amount.\nPlease enter a valid amount to proceed with the payment.",
-                    "Insufficient Cash",
-                    Alert.AlertType.WARNING
-            );
+            if (cashAmount >= this.billFinalAmount) {
+                double balance = cashAmount - this.billFinalAmount;
+                tfInvoiceBalance.setText(String.format(DefaultAPI.currencyFloatFormat, balance));
+                changeActionButtonText("Pay & Print", false);
+                this.canInvoicePaid = true;
+            } else {
+                CustomAlert.showStyledAlert(
+                        root,
+                        "The entered cash amount is less than the total bill amount.\nPlease enter a valid amount to proceed with the payment.",
+                        "Insufficient Cash",
+                        Alert.AlertType.WARNING
+                );
 
-            changeActionButtonText("Insufficient Cash", true);
+                changeActionButtonText("Insufficient Cash", true);
+            }
         }
     }
 
@@ -657,7 +669,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
                 clearBillDetails();
                 clearSelectedProduct();
-                
+
                 tfBarCode.requestFocus();
             } catch (Exception e) {
                 e.printStackTrace();

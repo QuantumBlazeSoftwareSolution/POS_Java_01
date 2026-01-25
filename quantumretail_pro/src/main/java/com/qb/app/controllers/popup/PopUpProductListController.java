@@ -5,10 +5,12 @@
 package com.qb.app.controllers.popup;
 
 import com.qb.app.controllers.admin.product.tables.ProductPopupModal;
+import com.qb.app.database_crud.ProductCRUD;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -67,9 +69,8 @@ public class PopUpProductListController implements Initializable {
     @FXML
     private TableColumn<ProductPopupModal, String> colBarcode;
 
-    /**
-     * Initializes the controller class.
-     */
+    private boolean searchFullProducts = true;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configureTable();
@@ -121,6 +122,10 @@ public class PopUpProductListController implements Initializable {
         InterfaceAction.closeWindow(root);
     }
 
+    public void changeSearchArea(boolean isParentProducts) {
+        searchFullProducts = isParentProducts;
+    }
+
     @FXML
     private void handleSearchKeyPressed(KeyEvent event) {
         loadAllProducts(tfSearch.getText());
@@ -138,18 +143,12 @@ public class PopUpProductListController implements Initializable {
 
                 return JPATransaction.runInTransaction(em -> {
 
-                    CriteriaBuilder cb = em.getCriteriaBuilder();
-                    CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-                    Root<Product> root = cq.from(Product.class);
-
-                    if (searchTerm != null && !searchTerm.isBlank()) {
-                        String pattern = "%" + searchTerm.toLowerCase() + "%";
-                        cq.where(cb.like(cb.lower(root.get("product")), pattern));
+                    List<Product> products;
+                    if (searchFullProducts) {
+                        products = getAllProduct(em, searchTerm);
+                    } else {
+                        products = ProductCRUD.getParentProducts(em, searchTerm);
                     }
-
-                    cq.orderBy(cb.asc(root.get("product")));
-
-                    List<Product> products = em.createQuery(cq).getResultList();
 
                     return products.stream()
                             .map(p -> new ProductPopupModal(
@@ -180,6 +179,23 @@ public class PopUpProductListController implements Initializable {
         );
 
         new Thread(task).start();
+    }
+
+    private List<Product> getAllProduct(EntityManager em, String searchTerm) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+        Root<Product> root = cq.from(Product.class);
+
+        if (searchTerm != null && !searchTerm.isBlank()) {
+            String pattern = "%" + searchTerm.toLowerCase() + "%";
+            cq.where(cb.like(cb.lower(root.get("product")), pattern));
+        }
+
+        cq.orderBy(cb.asc(root.get("product")));
+
+        List<Product> products = em.createQuery(cq).getResultList();
+
+        return products;
     }
 
 }

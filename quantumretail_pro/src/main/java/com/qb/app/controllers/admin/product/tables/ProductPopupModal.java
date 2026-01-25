@@ -8,13 +8,13 @@ import com.qb.app.model.entity.Product;
  */
 public class ProductPopupModal {
 
-    private Integer colId ;
-    private String colProduct ;
-    private Double colSalePrice ;
-    private Double colCostPrice ;
-    private String colMeasure ;
-    private Double colDiscount ;
-    private String colBarcode ;
+    private Integer colId;
+    private String colProduct;
+    private Double colSalePrice;
+    private Double colCostPrice;
+    private String colMeasure;
+    private Double colDiscount;
+    private String colBarcode;
     private Product product;
 
     public ProductPopupModal(Integer colId, String colProduct, Double colSalePrice, Double colCostPrice, String colMeasure, Double colDiscount, String colBarcode, Product product) {
@@ -92,6 +92,4 @@ public class ProductPopupModal {
         this.product = product;
     }
 
-    
-    
 }

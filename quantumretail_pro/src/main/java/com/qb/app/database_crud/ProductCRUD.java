@@ -107,4 +107,9 @@ public class ProductCRUD {
             }
         });
     }
+
+    public static List<Product> getParentProducts(EntityManager em, String searchTerm) {
+
+        return null;
+    }
 }
