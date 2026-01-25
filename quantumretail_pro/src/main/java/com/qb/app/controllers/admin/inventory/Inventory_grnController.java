@@ -203,12 +203,6 @@ public class Inventory_grnController implements Initializable {
 
     @FXML
     private void AddBtnAction(ActionEvent event) {
-        JPATransaction.runInTransaction(em -> {
-            List<Product> listproducts = searchParentProductList(em, "");
-            for (Product item : listproducts) {
-                System.out.println(item.getProduct());
-            }
-        });
 
         if (!validateTextFields()) {
             return;
@@ -450,6 +444,8 @@ public class Inventory_grnController implements Initializable {
                         PopUp.PopupType.CENTERED_80_WIDTH,
                         (PopUpProductListController controller) -> {
                             controller.saveController(this);
+                            controller.changeSearchArea(false);
+                            
                         });
             } catch (IOException e) {
                 getLogger.logger().warning(e.toString());
@@ -953,42 +949,6 @@ public class Inventory_grnController implements Initializable {
      * Parent products are those that appear as referenceId in
      * product_has_product_type table.
      */
-    public static List<Product> searchParentProductList(EntityManager em, String searchTerm) {
 
-        try {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-            Root<ProductHasProductType> phpTable = cq.from(ProductHasProductType.class);
-
-            // Join to get the reference (parent) product
-            Join<ProductHasProductType, Product> parentProduct = phpTable.join("referenceId");
-
-            // Join to get the product type
-            Join<ProductHasProductType, ProductType> productType = phpTable.join("productTypeId");
-
-            // Build where conditions
-            if (searchTerm != null && !searchTerm.isBlank()) {
-                String pattern = "%" + searchTerm.toLowerCase() + "%";
-                // Filter by product type = "parent" AND product name like searchTerm
-                cq.where(
-                        cb.and(
-                                cb.equal(productType.get("type"), "parent"),
-                                cb.like(cb.lower(parentProduct.get("product")), pattern)));
-            } else {
-                // Filter only by product type = "parent"
-                cq.where(cb.equal(productType.get("type"), "parent"));
-            }
-
-            // Select distinct parent products
-            cq.select(parentProduct).distinct(true);
-
-            List<Product> productList = em.createQuery(cq).getResultList();
-            return productList;
-        } catch (Exception e) {
-            getLogger.logger().warning(e.toString());
-            return new ArrayList<Product>();
-        }
-
-    }
 
 }

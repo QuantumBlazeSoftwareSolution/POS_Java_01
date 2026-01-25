@@ -5,10 +5,12 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.OperationResult;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
+import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +112,38 @@ public class ProductCRUD {
 
     public static List<Product> getParentProducts(EntityManager em, String searchTerm) {
 
-        return null;
+            try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+            Root<ProductHasProductType> phpTable = cq.from(ProductHasProductType.class);
+
+            // Join to get the reference (parent) product
+            Join<ProductHasProductType, Product> parentProduct = phpTable.join("referenceId");
+
+            // Join to get the product type
+            Join<ProductHasProductType, ProductType> productType = phpTable.join("productTypeId");
+
+            // Build where conditions
+            if (searchTerm != null && !searchTerm.isBlank()) {
+                String pattern = "%" + searchTerm.toLowerCase() + "%";
+                // Filter by product type = "parent" AND product name like searchTerm
+                cq.where(
+                        cb.and(
+                                cb.equal(productType.get("type"), "parent"),
+                                cb.like(cb.lower(parentProduct.get("product")), pattern)));
+            } else {
+                // Filter only by product type = "parent"
+                cq.where(cb.equal(productType.get("type"), "parent"));
+            }
+
+            // Select distinct parent products
+            cq.select(parentProduct).distinct(true);
+
+            List<Product> productList = em.createQuery(cq).getResultList();
+            return productList;
+        } catch (Exception e) {
+            getLogger.logger().warning(e.toString());
+            return new ArrayList<Product>();
+        }
     }
 }
