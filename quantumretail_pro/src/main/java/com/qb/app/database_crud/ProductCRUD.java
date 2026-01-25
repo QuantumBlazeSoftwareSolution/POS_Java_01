@@ -19,12 +19,12 @@ public class ProductCRUD {
 
         return JPATransaction.runInTransaction((EntityManager em) -> {
             try {
-                Product parentProduct = null;
+//                Product parentProduct = null;
 
                 for (ProductRegistrationTable row : items) {
                     if ("parent".equalsIgnoreCase(row.getType().getType())) {
 
-                        parentProduct = row.getProduct();
+                        Product parentProduct = row.getProduct();
 
                         em.persist(parentProduct);
                         em.flush();
@@ -39,20 +39,20 @@ public class ProductCRUD {
                     }
                 }
 
-                if (parentProduct == null) {
-                    return new OperationResult(false, "Parent product is missing.");
-                }
-
+//                if (parentProduct == null) {
+//                    return new OperationResult(false, "Parent product is missing.");
+//                }
                 for (ProductRegistrationTable row : items) {
                     if ("child".equalsIgnoreCase(row.getType().getType())) {
 
                         Product child = row.getProduct();
+                        Product parent = row.getParentProduct();
                         em.persist(child);
                         em.flush();
 
                         ProductHasProductType rel = new ProductHasProductType();
                         rel.setProductId(child);
-                        rel.setReferenceId(parentProduct);
+                        rel.setReferenceId(parent);
                         rel.setProductTypeId(row.getType());
 
                         em.persist(rel);

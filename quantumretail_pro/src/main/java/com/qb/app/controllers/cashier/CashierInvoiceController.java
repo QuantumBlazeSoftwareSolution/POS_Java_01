@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.controllers.exports.StockProductExport;
-import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
 import com.qb.app.database_crud.InvoiceItemTypeCRUD;
 import com.qb.app.database_crud.ProductHasProductTypeCRUD;
-import com.qb.app.database_crud.ProductStatusCRUD;
 import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.database_crud.TableInitialValues;
 import com.qb.app.model.Config;
@@ -37,16 +31,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
-import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -57,7 +49,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPropertiesUtil;
@@ -68,7 +59,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -167,6 +157,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         tableConfiguration();
         textFieldConfiguration();
         loadSystemConfig();
+        interceptQuantityKeys();
+        
+        tfBarCode.requestFocus();
     }
 
     private void loadSystemConfig() {
@@ -223,14 +216,59 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             if (event.getCode() == KeyCode.ESCAPE) {
                 clearSelectedProduct();
                 clearPreviewArea();
-            } else if (event.getCode() == KeyCode.PLUS) {
-                if (this.selectedProduct != null) {
-                    changeQuantity(true);
-                }
-            } else if (event.getCode() == KeyCode.MINUS) {
-                changeQuantity(false);
             }
+//            else if (event.getCode() == KeyCode.PLUS) {
+//                if (this.selectedProduct != null) {
+//                    changeQuantity(true);
+//                }
+//            } else if (event.getCode() == KeyCode.MINUS) {
+//                if (this.selectedProduct != null) {
+//                    changeQuantity(false);
+//                }
+//            }
         });
+    }
+
+    private void interceptQuantityKeys() {
+        EventHandler<KeyEvent> pressedHandler = event -> {
+            if (event.getCode() == KeyCode.PLUS || event.getCode() == KeyCode.ADD) {
+                changeQuantity(true);
+                event.consume();
+            } else if (event.getCode() == KeyCode.MINUS || event.getCode() == KeyCode.SUBTRACT) {
+                changeQuantity(false);
+                event.consume();
+            } else if (event.getCode() == KeyCode.ENTER && this.selectedProduct != null) {
+                addItemToTable();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F1) {
+                tfBarCode.requestFocus();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F2) {
+                tfItemCode.requestFocus();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F3) {
+                tfItemName.requestFocus();
+                event.consume();
+            }
+        };
+
+        EventHandler<KeyEvent> typedHandler = event -> {
+            if ("+".equals(event.getCharacter()) || "-".equals(event.getCharacter())) {
+                event.consume();
+            }
+        };
+
+        tfQty.addEventFilter(KeyEvent.KEY_PRESSED, pressedHandler);
+        tfQty.addEventFilter(KeyEvent.KEY_TYPED, typedHandler);
+
+        tfItemCode.addEventFilter(KeyEvent.KEY_PRESSED, pressedHandler);
+        tfItemCode.addEventFilter(KeyEvent.KEY_TYPED, typedHandler);
+
+        tfItemName.addEventFilter(KeyEvent.KEY_PRESSED, pressedHandler);
+        tfItemName.addEventFilter(KeyEvent.KEY_TYPED, typedHandler);
+
+        tfBarCode.addEventFilter(KeyEvent.KEY_PRESSED, pressedHandler);
+        tfBarCode.addEventFilter(KeyEvent.KEY_TYPED, typedHandler);
     }
 
     private void clearPreviewArea() {
@@ -378,6 +416,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         } else {
             tfQty.setText(String.valueOf(qty - 1));
         }
+
+        calculatePreviewTotal();
     }
 
     @FXML
@@ -416,6 +456,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             tableInvoice.refresh();
 
             clearPreviewArea();
+            tfBarCode.requestFocus();
         }
     }
 
@@ -616,6 +657,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
                 clearBillDetails();
                 clearSelectedProduct();
+                
+                tfBarCode.requestFocus();
             } catch (Exception e) {
                 e.printStackTrace();
                 getLogger.logger().warning(e.toString());
@@ -757,7 +800,13 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
         StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
 
-        setSelectedStock(stockProduct.getStock(), stockProduct.getProduct());
-    }
+        if (stockProduct.getStock() != null) {
+            setSelectedStock(stockProduct.getStock(), stockProduct.getProduct());
+            this.selectedProduct = stockProduct.getProduct();
+            this.selectedStock = stockProduct.getStock();
+        } else {
 
+        }
+
+    }
 }

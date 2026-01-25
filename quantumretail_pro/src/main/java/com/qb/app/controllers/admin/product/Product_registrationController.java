@@ -1,6 +1,7 @@
 package com.qb.app.controllers.admin.product;
 
 import com.qb.app.controllers.admin.product.tables.ProductRegistrationTable;
+import com.qb.app.controllers.cashier.CashierProductSuggestionData;
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.database_crud.CategoryHasBrandCRUD;
 import com.qb.app.database_crud.ProductCRUD;
@@ -217,12 +218,21 @@ public class Product_registrationController implements Initializable {
                 ProductStatus status = ProductStatusCRUD.getProductStatusByStatus("active");
                 product.setProductStatusId(status);
 
+                Product parent;
+
+                if (cbProductType.getValue().getType().equals("parent")) {
+                    parent = product;
+                } else {
+                    parent = CashierProductSuggestionData.getProductById(tfParentId.getText());
+                }
+
                 ProductRegistrationTable row
                         = new ProductRegistrationTable(
                                 cbProductType.getValue(),
                                 product,
                                 cbBrand.getValue(),
-                                cbCategory.getValue()
+                                cbCategory.getValue(),
+                                parent
                         );
 
                 if (!isParentCreated && "parent".equals(cbProductType.getValue().getType())) {
@@ -231,12 +241,12 @@ public class Product_registrationController implements Initializable {
 
                 tableView.getItems().add(row);
 
-                refreshProductAdd();
+                refreshProductAdd(false);
             }
         }
     }
 
-    private void refreshProductAdd() {
+    private void refreshProductAdd(boolean clearAll) {
         parentProduct = null;
         tfCostPrice.setText("");
         tfSalePrice.setText("");
@@ -244,6 +254,15 @@ public class Product_registrationController implements Initializable {
         cbProductType.setValue(ProductTypeCRUD.getProductType("child"));
         tfUnitMeasure.setText("");
         tfBarCode.setText("");
+
+        if (clearAll) {
+            tfItemName.setText("");
+
+            cbBrand.setValue(null);
+            cbCategory.setValue(null);
+            tableView.getItems().clear();
+            tableView.refresh();
+        }
     }
 
     private boolean isproductTypeValid() {
