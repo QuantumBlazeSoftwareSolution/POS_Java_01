@@ -145,8 +145,10 @@ public class PopUpProductListController implements Initializable {
 
                     List<Product> products;
                     if (searchFullProducts) {
+                        System.out.println("Search Full Products");
                         products = getAllProduct(em, searchTerm);
                     } else {
+                        System.out.println("Search Parent Products");
                         products = ProductCRUD.getParentProducts(em, searchTerm);
                     }
 

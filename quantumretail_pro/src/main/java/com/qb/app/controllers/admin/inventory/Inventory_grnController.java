@@ -444,7 +444,7 @@ public class Inventory_grnController implements Initializable {
                         PopUp.PopupType.CENTERED_80_WIDTH,
                         (PopUpProductListController controller) -> {
                             controller.saveController(this);
-                            controller.changeSearchArea(false);
+                            controller.changeSearchArea(true);
                             
                         });
             } catch (IOException e) {

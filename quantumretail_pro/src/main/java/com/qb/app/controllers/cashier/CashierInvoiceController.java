@@ -754,7 +754,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
         params.put("ID", String.format("INV-%06d", invoice.getId()));
         params.put("ItemCount", String.valueOf(invoiceItems.size()));
-        params.put("CompanyName", CompanyInfo.companyName);
+        params.put("CompanyName", systemConfig.system_name);
         params.put("Cashier", (ApplicationSession.getEmployee().getName()).split(" ")[0]);
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));
