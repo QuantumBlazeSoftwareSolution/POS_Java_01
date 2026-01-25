@@ -15,10 +15,6 @@ public class ProductStatusCRUD {
             try {
                 return findStatusFromStatus(status);
             } catch (Exception e) {
-                if (getProductStatus().isEmpty()) {
-                    createProductStatus();
-                    return findStatusFromStatus(status);
-                }
                 return null;
             }
         });

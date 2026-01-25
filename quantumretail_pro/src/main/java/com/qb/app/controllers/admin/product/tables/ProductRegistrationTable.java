@@ -18,12 +18,13 @@ public class ProductRegistrationTable {
     private Product product;
     private Brand brand;
     private Category category;
+    private Product parentProduct;
 
     public ProductRegistrationTable(Product product) {
         this.product = product;
     }
 
-    public ProductRegistrationTable(ProductType type, Product product, Brand brand, Category category) {
+    public ProductRegistrationTable(ProductType type, Product product, Brand brand, Category category, Product parentProduct) {
         this.itemName = product.getProduct();
         this.type = type;
         this.typeStr = type.getType();
@@ -39,6 +40,11 @@ public class ProductRegistrationTable {
         this.product = product;
         this.brand = brand;
         this.category = category;
+        this.parentProduct = parentProduct;
+    }
+
+    public Product getParentProduct() {
+        return this.parentProduct;
     }
 
     public String getItemName() {
