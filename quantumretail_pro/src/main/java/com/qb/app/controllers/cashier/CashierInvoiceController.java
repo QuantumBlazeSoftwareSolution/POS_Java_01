@@ -602,7 +602,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         Alert.AlertType.ERROR
                 );
             }
-
         } else {
             CustomAlert.showStyledAlert(
                     root,
