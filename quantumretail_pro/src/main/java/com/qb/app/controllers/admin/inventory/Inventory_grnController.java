@@ -657,10 +657,13 @@ public class Inventory_grnController implements Initializable {
             for (GRNListTable row : grnList) {
 
                 /* ---- GRN ITEM ---- */
+                // Calculate quantity with product measure
+                double grnItemQty = row.getQty() * row.getProduct().getMeasure();
+
                 GrnItem item = new GrnItem();
                 item.setGrnId(grn);
                 item.setProductId(row.getProduct());
-                item.setQty(row.getQty());
+                item.setQty(grnItemQty);
                 item.setCostPrice(row.getCostPrice());
                 item.setSalePrice(row.getSalePrice());
                 em.persist(item);
@@ -683,19 +686,19 @@ public class Inventory_grnController implements Initializable {
                             expireDate);
 
                     if (existingStock != null) {
-                        // ✅ SAME BATCH → ADD QTY
+                        // ✅ SAME BATCH → ADD QTY (using calculated grnItemQty)
                         existingStock.setQty(
-                                existingStock.getQty() + row.getQty());
+                                existingStock.getQty() + grnItemQty);
                         em.merge(existingStock);
 
                     } else {
-                        // ➕ NEW BATCH
+                        // ➕ NEW BATCH (using calculated grnItemQty)
                         System.out.println("new bar--" + row.getBarcode());
                         Stock stock = new Stock();
                         stock.setProductId(row.getProduct());
                         stock.setSupplierId(grn.getSupplierId());
                         stock.setGrnId(grn);
-                        stock.setQty(row.getQty());
+                        stock.setQty(grnItemQty);
                         stock.setCostPrice(row.getCostPrice());
                         stock.setSalePrice(row.getSalePrice());
                         stock.setDiscount(row.getDiscount());
@@ -714,10 +717,10 @@ public class Inventory_grnController implements Initializable {
                     Stock existingStock = findStockByProduct(em, row.getProduct());
 
                     if (existingStock != null) {
-                        // UPDATE EXISTING STOCK
+                        // UPDATE EXISTING STOCK (using calculated grnItemQty)
 
                         existingStock.setQty(
-                                existingStock.getQty() + row.getQty());
+                                existingStock.getQty() + grnItemQty);
 
                         // Optional business rules
                         existingStock.setCostPrice(row.getCostPrice());
@@ -733,13 +736,13 @@ public class Inventory_grnController implements Initializable {
                         em.merge(existingStock);
 
                     } else {
-                        // CREATE FIRST STOCK
+                        // CREATE FIRST STOCK (using calculated grnItemQty)
 
                         Stock stock = new Stock();
                         stock.setProductId(row.getProduct());
                         stock.setSupplierId(grn.getSupplierId());
                         stock.setGrnId(grn);
-                        stock.setQty(row.getQty());
+                        stock.setQty(grnItemQty);
                         stock.setCostPrice(row.getCostPrice());
                         stock.setSalePrice(row.getSalePrice());
                         stock.setDiscount(row.getDiscount());
