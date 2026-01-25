@@ -16,6 +16,8 @@ import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Grn;
 import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
+import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.StockStatus;
 import com.qb.app.model.entity.Supplier;
@@ -256,7 +258,7 @@ public class Inventory_grnController implements Initializable {
         }
 
         calculateTotal();
-        clearInputs();
+        clearProductInputs(); // Only clear product fields, keep GRN code and combo boxes
         table.refresh();
         // UX polish
         ID_TF.requestFocus();
@@ -276,9 +278,12 @@ public class Inventory_grnController implements Initializable {
         Discount_TF.setText(String.format("%.2f", discount));
     }
 
-    private void clearInputs() {
-
-        // loadedProduct.setValue(null);
+    /**
+     * Clear only product-related input fields.
+     * Used after adding items to table - keeps GRN code and combo boxes.
+     */
+    private void clearProductInputs() {
+        // Clear product fields only
         Qty_TF.clear();
         Cost_TF.clear();
         Sale_TF.clear();
@@ -287,17 +292,26 @@ public class Inventory_grnController implements Initializable {
         ID_TF.clear();
         PDiscount_TF.clear();
         ExpireDatePicker.setValue(null);
-        GRNID_TF.clear();
         Barcode_TF.clear();
-
-        // Reset comboboxes to default (null)
-        CompanyComboBox.setValue(null);
-        SupplierComboBox.setValue(null);
 
         editingRow = null;
         Add_Btn.setText("Add");
 
         ID_TF.requestFocus();
+    }
+
+    /**
+     * Clear all input fields including GRN code and combo boxes.
+     * Used by Refresh button to reset the entire form.
+     */
+    private void clearInputs() {
+        // Clear product fields
+        clearProductInputs();
+
+        // Additionally clear GRN code and combo boxes
+        GRNID_TF.clear();
+        CompanyComboBox.setValue(null);
+        SupplierComboBox.setValue(null);
     }
 
     private GRNListTable checkItemAlreadyExists(Product product, double costPrice, double salePrice,
@@ -430,6 +444,8 @@ public class Inventory_grnController implements Initializable {
                         PopUp.PopupType.CENTERED_80_WIDTH,
                         (PopUpProductListController controller) -> {
                             controller.saveController(this);
+                            controller.changeSearchArea(false);
+                            
                         });
             } catch (IOException e) {
                 getLogger.logger().warning(e.toString());
@@ -597,12 +613,14 @@ public class Inventory_grnController implements Initializable {
     private void ApplyBtnAction(ActionEvent event) {
 
         if (SupplierComboBox.getValue() == null) {
-            System.out.println("Please select a supplier");
+            CustomAlert.showStyledAlert(root, "Please select a supplier before saving the GRN.",
+                    "Supplier Required", Alert.AlertType.WARNING);
             return;
         }
 
         if (grnList.isEmpty()) {
-            System.out.println("GRN item list is empty");
+            CustomAlert.showStyledAlert(root, "Please add at least one item to the GRN before saving.",
+                    "No Items Added", Alert.AlertType.WARNING);
             return;
         }
 
@@ -611,12 +629,15 @@ public class Inventory_grnController implements Initializable {
 
         // Basic validation
         if (grnCode == null || grnCode.trim().isEmpty()) {
-            System.out.println("GRN code is required");
+            CustomAlert.showStyledAlert(root, "Please enter a GRN code before saving.",
+                    "GRN Code Required", Alert.AlertType.WARNING);
             return;
         }
 
         if (isGrnExist()) {
-            System.out.println("GRN ID Already Exsist !");
+            CustomAlert.showStyledAlert(root,
+                    "This GRN code already exists in the system. Please use a different code.",
+                    "Duplicate GRN Code", Alert.AlertType.ERROR);
             return;
         }
 
@@ -757,7 +778,8 @@ public class Inventory_grnController implements Initializable {
         });
 
         // UI RESET
-        System.out.println("GRN saved successfully");
+        CustomAlert.showStyledAlert(root, "GRN has been saved successfully!",
+                "Success", Alert.AlertType.INFORMATION);
         grnList.clear();
         clearInputs();
         Total_TF.clear();
@@ -921,5 +943,12 @@ public class Inventory_grnController implements Initializable {
             return count > 0;
         });
     }
+
+    /**
+     * Search and return only parent products.
+     * Parent products are those that appear as referenceId in
+     * product_has_product_type table.
+     */
+
 
 }
