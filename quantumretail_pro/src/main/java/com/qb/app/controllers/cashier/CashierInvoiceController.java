@@ -23,11 +23,16 @@ import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
+import com.qb.app.session.CompanyInfo;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Vector;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -49,6 +54,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -350,8 +366,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             if (systemConfig.system.multi_stock) {
                 cashierInvoiceTable.setStock(selectedStock);
                 cashierInvoiceTable.setUnitPrice(String.valueOf(selectedStock.getSalePrice()));
+                cashierInvoiceTable.setDiscount(String.format(DefaultAPI.currencyFloatFormat, selectedStock.getDiscount()));
             } else {
                 cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
+                cashierInvoiceTable.setDiscount(String.format(DefaultAPI.currencyFloatFormat, selectedProduct.getDiscount()));
             }
 
             tableInvoice.getItems().add(cashierInvoiceTable);
@@ -499,10 +517,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             try {
                 List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
 
-                JPATransaction.runInTransaction((em) -> {
+                Invoice invoice = new Invoice();
+                List<InvoiceItem> invoiceItems = new ArrayList<>();
 
+                JPATransaction.runInTransaction((em) -> {
                     // INSERT invoice
-                    Invoice invoice = new Invoice();
                     invoice.setDateTime(new Date());
                     invoice.setBillAmount(this.billFinalAmount);
                     invoice.setPaidAmount(billDiscount);
@@ -537,6 +556,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         em.persist(invoiceItem);
                         em.flush();
 
+                        invoiceItems.add(invoiceItem);
+
                         // deduct stocks
                         Stock stock = item.getStock();
                         stock.setQty(stock.getQty() - item.getQty());
@@ -544,14 +565,17 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         em.merge(stock);
                         em.flush();
                     }
-                    return null;
                 });
+
+                printInvoice(invoice, invoiceItems);
 
                 // print the bill
                 DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
                 clearBillDetails();
                 clearSelectedProduct();
             } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
                 CustomAlert.showStyledAlert(
                         root,
                         "Unable to process the payment. Please try again or contact support.",
@@ -573,6 +597,112 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @Override
     public void close() {
 
+    }
+
+    private void printInvoice(Invoice invoice, List<InvoiceItem> invoiceItems) {
+        Map<String, Object> params = getJRParams(invoice, invoiceItems);
+        Vector<CashierInvoiceTable> collection = getBeanCollection();
+
+        try {
+            JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+                    getClass().getResourceAsStream("/com/qb/app/reports/PharmacyInvoice.jasper"));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
+
+            JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+//            JasperPrintManager.printReport(report, false);
+            JasperViewer.viewReport(report, false);
+        } catch (JRException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+            CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
+        }
+    }
+
+    private Map<String, Object> getJRParams(Invoice invoice, List<InvoiceItem> invoiceItems) {
+        double subTotal = 0;
+        double discount = 0;
+        double paidAmount = 0;
+        double creditAmount = 0;
+        double total = 0;
+
+        if (!tfCashAmount.getText().isEmpty()) {
+            paidAmount += Double.parseDouble(tfCashAmount.getText());
+        }
+
+        for (InvoiceItem invoiceItemController : invoiceItems) {
+            if (systemConfig.system.multi_stock) {
+                subTotal += invoiceItemController.getStockBatchId().getSalePrice() * invoiceItemController.getQty();
+                discount += invoiceItemController.getStockBatchId().getDiscount() * invoiceItemController.getQty();
+            } else {
+                subTotal += invoiceItemController.getProductId().getSalePrice() * invoiceItemController.getQty();
+                discount += invoiceItemController.getProductId().getDiscount() * invoiceItemController.getQty();
+            }
+        }
+
+        total += subTotal - discount;
+
+        Map<String, Object> params = new HashMap<>();
+
+        try {
+            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo bw.png");
+            params.put("Logo", imageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+
+        params.put("ID", String.format("INV-%06d", invoice.getId()));
+        params.put("ItemCount", String.valueOf(invoiceItems.size()));
+        params.put("CompanyName", CompanyInfo.companyName);
+        params.put("Cashier", (ApplicationSession.getEmployee().getName()).split(" ")[0]);
+        params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
+        params.put("Discount", String.format("Rs. %, .2f", discount));
+        params.put("BillDiscount", ("Rs. 0.00"));
+        params.put("TotalAmount", String.format("Rs. %, .2f", total));
+        params.put("PaidAmount", String.format("Rs. %, .2f", paidAmount));
+        params.put("CreditAmount", String.format("Rs. %, .2f", creditAmount));
+        params.put("Balance", String.format("Rs. %, .2f", ((paidAmount + creditAmount) - (total))));
+        params.put("Address", systemConfig.address);
+        if (systemConfig.telephone_02 != null && !systemConfig.telephone_02.isEmpty()) {
+            params.put("Contact", systemConfig.telephone_01 + " / " + systemConfig.telephone_02);
+        } else {
+            params.put("Contact", systemConfig.telephone_01);
+        }
+        return params;
+    }
+
+    private Vector<CashierInvoiceTable> getBeanCollection() {
+        Vector<CashierInvoiceTable> collection = new Vector<>();
+        for (CashierInvoiceTable item : tableInvoice.getItems()) {
+            CashierInvoiceTable bean = new CashierInvoiceTable();
+
+            bean.setItemName(item.getItemName());
+            if (systemConfig.system.multi_stock) {
+                bean.setUnitPrice(
+                        String.format(
+                                DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()
+                        )
+                );
+                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getDiscount()));
+            } else {
+                bean.setUnitPrice(
+                        String.format(
+                                DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()
+                        )
+                );
+                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
+            }
+            bean.setQty(item.getQty());
+            bean.setAmount(item.getAmount());
+
+            collection.add(bean);
+        }
+        return collection;
     }
 
 }

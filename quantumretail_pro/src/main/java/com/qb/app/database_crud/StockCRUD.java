@@ -41,30 +41,32 @@ public class StockCRUD {
     }
 
     public static Stock createSingleTemporaryStock(Product product, String salePrice, String costPrice, LocalDate expireDate, String barcode) {
-        return JPATransaction.runInTransaction((em) -> {
-            Stock stock = new Stock();
 
-            stock.setQty(0);
-            if (!costPrice.isEmpty()) {
-                stock.setCostPrice(Double.parseDouble(costPrice));
-            } else {
-                stock.setCostPrice(0);
-            }
-            stock.setSalePrice(Double.parseDouble(salePrice));
-            stock.setDiscount(0);
-            stock.setReceivedDate(new Date());
-            if (expireDate != null) {
-                stock.setExpireDate(java.sql.Date.valueOf(expireDate));
-            } else {
-                stock.setExpireDate(new Date());
-            }
-            stock.setProductId(product);
-            stock.setBarcode(barcode);
-            stock.setStockStatusId(
-                    StockStatusCRUD.getStockStatus(
-                            TableInitialValues.StockStatusList.temporary
-                    )
-            );
+        Stock stock = new Stock();
+
+        stock.setQty(0);
+        if (!costPrice.isEmpty()) {
+            stock.setCostPrice(Double.parseDouble(costPrice));
+        } else {
+            stock.setCostPrice(0);
+        }
+        stock.setSalePrice(Double.parseDouble(salePrice));
+        stock.setDiscount(0);
+        stock.setReceivedDate(new Date());
+        if (expireDate != null) {
+            stock.setExpireDate(java.sql.Date.valueOf(expireDate));
+        } else {
+            stock.setExpireDate(new Date());
+        }
+        stock.setProductId(product);
+        stock.setBarcode(barcode);
+        stock.setStockStatusId(
+                StockStatusCRUD.getStockStatus(
+                        TableInitialValues.StockStatusList.temporary
+                )
+        );
+
+        return JPATransaction.runInTransaction((em) -> {
 
             em.persist(stock);
             em.flush();

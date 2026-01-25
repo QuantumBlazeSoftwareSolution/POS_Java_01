@@ -1,7 +1,6 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.database_crud.StockCRUD;
-import com.qb.app.database_crud.StockItemResponse;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
@@ -63,7 +62,7 @@ public class Stock_popupController implements Initializable {
 
         Task<List<Stock>> task = new Task<>() {
             @Override
-            protected List<StockItemResponse> call() throws Exception {
+            protected List<Stock> call() throws Exception {
                 return StockCRUD.getStockItemsByProduct(selectedProduct);
             }
         };
@@ -115,7 +114,7 @@ public class Stock_popupController implements Initializable {
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnClose) {
-            closeWindow(true);
+            closeWindow(false);
         } else if (event.getSource() == btnAction) {
             createStock();
         }
@@ -132,6 +131,8 @@ public class Stock_popupController implements Initializable {
             );
 
             setStock(stock);
+
+            System.out.println("New Stock Created");
         } catch (Exception e) {
             CustomAlert.showStyledAlert(
                     root,
@@ -150,17 +151,16 @@ public class Stock_popupController implements Initializable {
                     .getMethod("setSelectedStock", Stock.class)
                     .invoke(callingController, stock);
 
-            closeWindow(false);
+            closeWindow(true);
         } catch (Exception e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
     }
 
-    public void closeWindow(boolean state) {
+    public void closeWindow(boolean closeWithStock) {
         try {
-            if (state) {
-
+            if (!closeWithStock) {
                 callingController
                         .getClass()
                         .getMethod("closeWithClear")
