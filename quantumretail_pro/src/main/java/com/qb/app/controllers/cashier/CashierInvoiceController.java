@@ -655,8 +655,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//            JasperPrintManager.printReport(report, false);
-            JasperViewer.viewReport(report, false);
+            JasperPrintManager.printReport(report, false);
+//            JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
@@ -690,7 +690,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         Map<String, Object> params = new HashMap<>();
 
         try {
-            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo bw.png");
+            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/pos_logo.png");
             params.put("Logo", imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
