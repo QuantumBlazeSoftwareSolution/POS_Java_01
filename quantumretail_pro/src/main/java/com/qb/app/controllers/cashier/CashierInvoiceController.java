@@ -7,6 +7,7 @@ package com.qb.app.controllers.cashier;
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.CashierInvoiceTable;
 import com.qb.app.database_crud.InvoiceItemTypeCRUD;
+import com.qb.app.database_crud.ProductHasProductTypeCRUD;
 import com.qb.app.database_crud.ProductStatusCRUD;
 import com.qb.app.database_crud.TableInitialValues;
 import com.qb.app.model.Config;
@@ -20,6 +21,7 @@ import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
@@ -282,13 +284,24 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         clearPreviewArea();
     }
 
-    public void setSelectedStock(Stock stock) {
+    public void setSelectedStock(Stock stock, Product product) {
+
+        ProductHasProductType productHasProductType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
+
         this.selectedStock = stock;
-        setPreviewDetails(
-                stock.getProductId().getProduct(),
-                stock.getSalePrice(),
-                (stock.getSalePrice() - stock.getDiscount())
-        );
+        if (stock.getProductId().getProduct().equals(product.getProduct())) {
+            setPreviewDetails(
+                    product.getProduct(),
+                    stock.getSalePrice(),
+                    (stock.getSalePrice() - stock.getDiscount())
+            );
+        } else {
+            setPreviewDetails(
+                    product.getProduct(),
+                    product.getSalePrice(),
+                    (product.getSalePrice() - product.getDiscount())
+            );
+        }
     }
 
     private void setSelectedProduct(Product product) {
@@ -314,7 +327,13 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private void setPreviewDetails(String itemName, double salePrice, double newPrice) {
         labelItemName.setText(itemName);
         labelItemPrice.setText(String.valueOf(salePrice));
-        labelItemNewPrice.setText(String.valueOf(newPrice));
+        if (salePrice != newPrice) {
+            labelItemNewPrice.setText(String.valueOf(newPrice));
+            labelItemNewPrice.setVisible(true);
+        } else {
+            labelItemNewPrice.setText("");
+            labelItemNewPrice.setVisible(false);
+        }
 
         calculatePreviewTotal();
     }

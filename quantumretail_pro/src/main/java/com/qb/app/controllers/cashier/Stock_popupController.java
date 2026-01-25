@@ -148,8 +148,8 @@ public class Stock_popupController implements Initializable {
         try {
             callingController
                     .getClass()
-                    .getMethod("setSelectedStock", Stock.class)
-                    .invoke(callingController, stock);
+                    .getMethod("setSelectedStock", Stock.class, Product.class)
+                    .invoke(callingController, stock, selectedProduct);
 
             closeWindow(true);
         } catch (Exception e) {
