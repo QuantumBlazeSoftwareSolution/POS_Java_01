@@ -5,6 +5,7 @@
 package com.qb.app.controllers.popup;
 
 import com.qb.app.controllers.admin.product.tables.ProductPopupModal;
+import com.qb.app.database_crud.ProductCRUD;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Product;
@@ -68,9 +69,8 @@ public class PopUpProductListController implements Initializable {
     @FXML
     private TableColumn<ProductPopupModal, String> colBarcode;
 
-    /**
-     * Initializes the controller class.
-     */
+    private boolean searchFullProducts = true;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configureTable();
@@ -122,6 +122,10 @@ public class PopUpProductListController implements Initializable {
         InterfaceAction.closeWindow(root);
     }
 
+    public void changeSearchArea(boolean isParentProducts) {
+        searchFullProducts = isParentProducts;
+    }
+
     @FXML
     private void handleSearchKeyPressed(KeyEvent event) {
         loadAllProducts(tfSearch.getText());
@@ -139,7 +143,12 @@ public class PopUpProductListController implements Initializable {
 
                 return JPATransaction.runInTransaction(em -> {
 
-                    List<Product> products = getAllProduct(em, searchTerm);
+                    List<Product> products;
+                    if (searchFullProducts) {
+                        products = getAllProduct(em, searchTerm);
+                    } else {
+                        products = ProductCRUD.getParentProducts(em, searchTerm);
+                    }
 
                     return products.stream()
                             .map(p -> new ProductPopupModal(
