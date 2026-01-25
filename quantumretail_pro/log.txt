@@ -90,3 +90,5 @@ Jan 25, 2026 10:50:10 PM com.qb.app.controllers.SytemLoginController lambda$chec
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
 Jan 25, 2026 10:55:20 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 25, 2026 11:18:23 PM com.qb.app.controllers.cashier.CashierInvoiceController printInvoice
+WARNING: net.sf.jasperreports.engine.JRException: Error printing report.
