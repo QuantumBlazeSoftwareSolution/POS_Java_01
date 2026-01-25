@@ -9,6 +9,7 @@ import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -138,18 +139,7 @@ public class PopUpProductListController implements Initializable {
 
                 return JPATransaction.runInTransaction(em -> {
 
-                    CriteriaBuilder cb = em.getCriteriaBuilder();
-                    CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-                    Root<Product> root = cq.from(Product.class);
-
-                    if (searchTerm != null && !searchTerm.isBlank()) {
-                        String pattern = "%" + searchTerm.toLowerCase() + "%";
-                        cq.where(cb.like(cb.lower(root.get("product")), pattern));
-                    }
-
-                    cq.orderBy(cb.asc(root.get("product")));
-
-                    List<Product> products = em.createQuery(cq).getResultList();
+                    List<Product> products = getAllProduct(em, searchTerm);
 
                     return products.stream()
                             .map(p -> new ProductPopupModal(
@@ -180,6 +170,23 @@ public class PopUpProductListController implements Initializable {
         );
 
         new Thread(task).start();
+    }
+
+    private List<Product> getAllProduct(EntityManager em, String searchTerm) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+        Root<Product> root = cq.from(Product.class);
+
+        if (searchTerm != null && !searchTerm.isBlank()) {
+            String pattern = "%" + searchTerm.toLowerCase() + "%";
+            cq.where(cb.like(cb.lower(root.get("product")), pattern));
+        }
+
+        cq.orderBy(cb.asc(root.get("product")));
+
+        List<Product> products = em.createQuery(cq).getResultList();
+
+        return products;
     }
 
 }
