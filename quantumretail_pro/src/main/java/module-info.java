@@ -37,7 +37,7 @@ module com.qb.app {
     opens com.qb.app.controllers to javafx.fxml;
     opens com.qb.app.controllers.admin to javafx.fxml;
     opens com.qb.app.controllers.cashier to javafx.fxml;
-//    opens com.qb.app.controllers.report.beans to javafx.fxml, jasperreports, commons.beanutils;
+    opens com.qb.app.controllers.table_models to javafx.fxml, jasperreports, commons.beanutils;
     opens com.qb.app.controllers.admin.employee to javafx.fxml;
     opens com.qb.app.controllers.admin.inventory to javafx.fxml;
     opens com.qb.app.controllers.admin.product to javafx.fxml;

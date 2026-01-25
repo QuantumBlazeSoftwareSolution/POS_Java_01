@@ -90,7 +90,7 @@
                                     <TextField fx:id="tfBarcode" minWidth="140.0" prefHeight="40.0" />
                                  </children>
                               </VBox>
-                              <Button fx:id="btnAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" text="Add Tempory Stock" />
+                              <Button fx:id="btnAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" text="Add Tempory Stock" />
                            </children>
                         </VBox>
                      </children>

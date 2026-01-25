@@ -1,6 +1,7 @@
 package com.qb.app.controllers.cashier;
 
 import com.qb.app.database_crud.StockCRUD;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.entity.Product;
@@ -15,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -112,7 +114,7 @@ public class Stock_popupController implements Initializable {
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnClose) {
-            closeWindow(true);
+            closeWindow(false);
         } else if (event.getSource() == btnAction) {
             createStock();
         }
@@ -120,14 +122,23 @@ public class Stock_popupController implements Initializable {
 
     private void createStock() {
         try {
-            StockCRUD.createSingleTemporaryStock(
-                    selectedProduct, 
-                    tfSalePrice.getText(), 
-                    tfCostPrice.getText(), 
-                    dpExpireDate.getValue(), 
+            Stock stock = StockCRUD.createSingleTemporaryStock(
+                    selectedProduct,
+                    tfSalePrice.getText(),
+                    tfCostPrice.getText(),
+                    dpExpireDate.getValue(),
                     tfBarcode.getText()
             );
+
+            setStock(stock);
+
+            System.out.println("New Stock Created");
         } catch (Exception e) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "Tempory stock creation failed, please try again later",
+                    "Stock creation failed",
+                    Alert.AlertType.WARNING);
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
@@ -137,20 +148,19 @@ public class Stock_popupController implements Initializable {
         try {
             callingController
                     .getClass()
-                    .getMethod("setSelectedStock", Stock.class)
-                    .invoke(callingController, stock);
+                    .getMethod("setSelectedStock", Stock.class, Product.class)
+                    .invoke(callingController, stock, selectedProduct);
 
-            closeWindow(false);
+            closeWindow(true);
         } catch (Exception e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
     }
 
-    public void closeWindow(boolean state) {
+    public void closeWindow(boolean closeWithStock) {
         try {
-            if (state) {
-
+            if (!closeWithStock) {
                 callingController
                         .getClass()
                         .getMethod("closeWithClear")

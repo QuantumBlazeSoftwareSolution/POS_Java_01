@@ -20,10 +20,11 @@ public class CashierInvoiceTable {
     private String unitPrice;
     private String amount;
     private Stock stock;
+    private String discount;
 
     public CashierInvoiceTable() {
     }
-    
+
     public CashierInvoiceTable(Product product, String itemId, String itemName, double qty, String unitPrice, String amount) {
         this.product = product;
         this.itemId = itemId;
@@ -47,6 +48,10 @@ public class CashierInvoiceTable {
 
     public void setItemId(String itemId) {
         this.itemId = itemId;
+    }
+
+    public String getProductName() {
+        return itemName;
     }
 
     public String getItemName() {
@@ -87,6 +92,14 @@ public class CashierInvoiceTable {
 
     public void setStock(Stock stock) {
         this.stock = stock;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 
 }
