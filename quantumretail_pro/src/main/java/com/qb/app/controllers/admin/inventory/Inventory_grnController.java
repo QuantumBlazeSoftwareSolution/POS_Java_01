@@ -46,17 +46,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -136,54 +134,34 @@ public class Inventory_grnController implements Initializable {
 
         table.setItems(grnList);
 
-        colProduct.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getProduct().getProduct())
-        );
-        colBarCode.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleStringProperty(
-                        data.getValue().getBarcode() == null
+        colProduct.setCellValueFactory(
+                data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getProduct().getProduct()));
+        colBarCode.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                data.getValue().getBarcode() == null
                         || data.getValue().getBarcode().trim().isEmpty()
-                        ? "N/A"
-                        : data.getValue().getBarcode()
-                )
-        );
+                                ? "N/A"
+                                : data.getValue().getBarcode()));
 
-        colCostPrice.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleStringProperty(
-                        String.format("%.2f", data.getValue().getCostPrice())
-                )
-        );
+        colCostPrice.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                String.format("%.2f", data.getValue().getCostPrice())));
 
-        colSalePrice.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleStringProperty(
-                        String.format("%.2f", data.getValue().getSalePrice())
-                )
-        );
+        colSalePrice.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                String.format("%.2f", data.getValue().getSalePrice())));
 
-        colQty.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleStringProperty(
-                        String.valueOf(data.getValue().getQty())
-                )
-        );
+        colQty.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                String.valueOf(data.getValue().getQty())));
 
         colExpireDate.setCellValueFactory(data -> {
             LocalDate date = data.getValue().getExpireDate();
             return new SimpleStringProperty(
-                    date != null ? date.toString() : "-"
-            );
+                    date != null ? date.toString() : "-");
         });
 
-        colDiscount.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleStringProperty(
-                        String.format("%.2f", data.getValue().getDiscount())
-                )
-        );
+        colDiscount.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                String.format("%.2f", data.getValue().getDiscount())));
 
-        colAmount.setCellValueFactory(data
-                -> new javafx.beans.property.SimpleStringProperty(
-                        String.format("%.2f", data.getValue().getAmount())
-                )
-        );
+        colAmount.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                String.format("%.2f", data.getValue().getAmount())));
 
         // TODO
     }
@@ -202,8 +180,7 @@ public class Inventory_grnController implements Initializable {
 
         if (value != null) {
             List<Supplier> supplierList = loadSuppliersList(value);
-            ObservableList<Supplier> observableSuppliers
-                    = FXCollections.observableArrayList(supplierList);
+            ObservableList<Supplier> observableSuppliers = FXCollections.observableArrayList(supplierList);
             SupplierComboBox.setItems(observableSuppliers);
             SupplierComboBox.setValue(null);
         }
@@ -231,7 +208,7 @@ public class Inventory_grnController implements Initializable {
 
         Product selectedProduct = loadedProduct;
         String barcode = Barcode_TF.getText();
-        System.out.println(" bar code add btn "+barcode);
+        System.out.println(" bar code add btn " + barcode);
         double enteredQty = Double.parseDouble(Qty_TF.getText());
         double costPrice = Double.parseDouble(Cost_TF.getText());
         double salePrice = Double.parseDouble(Sale_TF.getText());
@@ -241,7 +218,8 @@ public class Inventory_grnController implements Initializable {
         LocalDate expireDate = ExpireDatePicker.getValue();
         Amount_TF.setText(String.format("%.2f", amount));
 
-        GRNListTable existingRow = checkItemAlreadyExists(selectedProduct, costPrice, salePrice, expireDate, discountPrice);
+        GRNListTable existingRow = checkItemAlreadyExists(selectedProduct, costPrice, salePrice, expireDate,
+                discountPrice);
 
         if (existingRow != null && editingRow == null) {
             // Merge quantity only
@@ -271,8 +249,7 @@ public class Inventory_grnController implements Initializable {
                         costPrice,
                         salePrice,
                         discountPrice,
-                        amount
-                );
+                        amount);
                 newRow.recalculateAmount();
                 grnList.add(newRow);
             }
@@ -301,7 +278,7 @@ public class Inventory_grnController implements Initializable {
 
     private void clearInputs() {
 
-//        loadedProduct.setValue(null);
+        // loadedProduct.setValue(null);
         Qty_TF.clear();
         Cost_TF.clear();
         Sale_TF.clear();
@@ -313,13 +290,18 @@ public class Inventory_grnController implements Initializable {
         GRNID_TF.clear();
         Barcode_TF.clear();
 
+        // Reset comboboxes to default (null)
+        CompanyComboBox.setValue(null);
+        SupplierComboBox.setValue(null);
+
         editingRow = null;
         Add_Btn.setText("Add");
 
         ID_TF.requestFocus();
     }
 
-    private GRNListTable checkItemAlreadyExists(Product product, double costPrice, double salePrice, LocalDate expireDate, double discountPerUnit) {
+    private GRNListTable checkItemAlreadyExists(Product product, double costPrice, double salePrice,
+            LocalDate expireDate, double discountPerUnit) {
         for (GRNListTable row : table.getItems()) {
             if (row.getProduct().getId() == product.getId()
                     && row.getCostPrice() == costPrice
@@ -368,13 +350,13 @@ public class Inventory_grnController implements Initializable {
         }
 
         double costPrice, salePrice, qty, amount;
-//        int qty;
+        // int qty;
 
         try {
             costPrice = Double.parseDouble(costPriceText);
             salePrice = Double.parseDouble(salePriceText);
             qty = Double.parseDouble(qtyText);
-//            qty = Integer.parseInt(qtyText);
+            // qty = Integer.parseInt(qtyText);
         } catch (NumberFormatException e) {
             showError("Invalid number format detected");
             return false;
@@ -385,8 +367,13 @@ public class Inventory_grnController implements Initializable {
             return false;
         }
 
-        if (qty <= 0) {
-            showError("Quantity must be greater than zero");
+        if (qty < 0) {
+            showError("Quantity cannot be negative. Please enter a positive value.");
+            return false;
+        }
+
+        if (qty == 0) {
+            showError("Quantity must be greater than zero.");
             return false;
         }
 
@@ -400,7 +387,7 @@ public class Inventory_grnController implements Initializable {
 
     private void showError(String message) {
         System.out.println("Validation Error: " + message);
-
+        CustomAlert.showStyledAlert(root, message, "Validation Error", Alert.AlertType.WARNING);
     }
 
     private List<Supplier> loadSuppliersList(Company company) {
@@ -411,21 +398,16 @@ public class Inventory_grnController implements Initializable {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Supplier> cq = cb.createQuery(Supplier.class);
             Root<Supplier> table = cq.from(Supplier.class);
-            Join<Supplier, SupplyStatus> statusJoin
-                    = table.join("supplierStatusId");
+            Join<Supplier, SupplyStatus> statusJoin = table.join("supplierStatusId");
             cq.where(
                     cb.equal(
                             table.get("companyId").get("id"),
-                            company.getId()
-                    ),
+                            company.getId()),
                     cb.equal(
                             statusJoin.get("status"),
-                            "Active"
-                    )
-            );
+                            "Active"));
             supplierList.addAll(
-                    em.createQuery(cq).getResultList()
-            );
+                    em.createQuery(cq).getResultList());
         });
         return supplierList;
     }
@@ -439,7 +421,7 @@ public class Inventory_grnController implements Initializable {
 
     private void handleItemIdPressed() {
         if (ID_TF.getText().isEmpty()) {
-            //load the popUp window
+            // load the popUp window
             try {
                 PopUp.showPopupAndWait(
                         "popup/popUpProductList.fxml",
@@ -448,12 +430,20 @@ public class Inventory_grnController implements Initializable {
                         PopUp.PopupType.CENTERED_80_WIDTH,
                         (PopUpProductListController controller) -> {
                             controller.saveController(this);
-                        }
-                );
+                        });
             } catch (IOException e) {
                 getLogger.logger().warning(e.toString());
             }
         } else {
+            // Validate that ID is numeric before attempting to load product
+            String idText = ID_TF.getText().trim();
+            try {
+                Integer.parseInt(idText); // Just validate, don't use the value yet
+            } catch (NumberFormatException e) {
+                showError("Product ID must be a valid number. Please enter numeric values only.");
+                loadedProduct = null;
+                return;
+            }
 
             Product product = getEnteredProduct();
             if (product != null) {
@@ -479,9 +469,9 @@ public class Inventory_grnController implements Initializable {
     }
 
     private Product getEnteredProduct() {
-        //load the product
+        // load the product
         return JPATransaction.runInTransaction((em) -> {
-            Integer itemID = Integer.valueOf(ID_TF.getText());
+            Integer itemID = Integer.valueOf(ID_TF.getText().trim());
             Product product = em.find(Product.class, itemID);
 
             if (product != null) {
@@ -615,16 +605,16 @@ public class Inventory_grnController implements Initializable {
             System.out.println("GRN item list is empty");
             return;
         }
-        
+
         String grnCode = GRNID_TF.getText().trim();
         System.out.println(grnCode);
 
-        //  Basic validation
+        // Basic validation
         if (grnCode == null || grnCode.trim().isEmpty()) {
             System.out.println("GRN code is required");
-            return ;
+            return;
         }
-        
+
         if (isGrnExist()) {
             System.out.println("GRN ID Already Exsist !");
             return;
@@ -643,9 +633,11 @@ public class Inventory_grnController implements Initializable {
             } catch (Exception e) {
             }
 
-            /* =========================
-           1️⃣ CREATE GRN
-        ========================== */
+            /*
+             * =========================
+             * 1️⃣ CREATE GRN
+             * ==========================
+             */
             Grn grn = new Grn();
             grn.setGrnCode(GRNID_TF.getText().trim());
             grn.setDateTime(new Date());
@@ -657,9 +649,11 @@ public class Inventory_grnController implements Initializable {
 
             StockStatus availableStatus = em.find(StockStatus.class, 1);
 
-            /* =========================
-           2️⃣ LOOP GRN ITEMS
-        ========================== */
+            /*
+             * =========================
+             * 2️⃣ LOOP GRN ITEMS
+             * ==========================
+             */
             for (GRNListTable row : grnList) {
 
                 /* ---- GRN ITEM ---- */
@@ -671,9 +665,11 @@ public class Inventory_grnController implements Initializable {
                 item.setSalePrice(row.getSalePrice());
                 em.persist(item);
 
-                /* =========================
-               3️⃣ STOCK LOGIC
-            ========================== */
+                /*
+                 * =========================
+                 * 3️⃣ STOCK LOGIC
+                 * ==========================
+                 */
                 if (con.system.multi_stock) {
 
                     Date expireDate = toDate(row.getExpireDate());
@@ -684,14 +680,12 @@ public class Inventory_grnController implements Initializable {
                             row.getCostPrice(),
                             row.getSalePrice(),
                             row.getDiscount(),
-                            expireDate
-                    );
+                            expireDate);
 
                     if (existingStock != null) {
                         // ✅ SAME BATCH → ADD QTY
                         existingStock.setQty(
-                                existingStock.getQty() + row.getQty()
-                        );
+                                existingStock.getQty() + row.getQty());
                         em.merge(existingStock);
 
                     } else {
@@ -709,7 +703,7 @@ public class Inventory_grnController implements Initializable {
                         stock.setExpireDate(expireDate);
                         stock.setStockStatusId(availableStatus);
                         stock.setBarcode(row.getBarcode());
-                        System.out.println("Barcode -- "+row.getBarcode());
+                        System.out.println("Barcode -- " + row.getBarcode());
 
                         em.persist(stock);
                     }
@@ -723,8 +717,7 @@ public class Inventory_grnController implements Initializable {
                         // UPDATE EXISTING STOCK
 
                         existingStock.setQty(
-                                existingStock.getQty() + row.getQty()
-                        );
+                                existingStock.getQty() + row.getQty());
 
                         // Optional business rules
                         existingStock.setCostPrice(row.getCostPrice());
@@ -770,16 +763,14 @@ public class Inventory_grnController implements Initializable {
 
     private Date toDate(LocalDate localDate) {
         return Date.from(
-                localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
-        );
+                localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     private Stock findStockByProduct(EntityManager em, Product product) {
 
         List<Stock> list = em.createQuery(
                 "SELECT s FROM Stock s WHERE s.productId = :product",
-                Stock.class
-        )
+                Stock.class)
                 .setParameter("product", product)
                 .setMaxResults(1)
                 .getResultList();
@@ -793,18 +784,16 @@ public class Inventory_grnController implements Initializable {
             double costPrice,
             double salePrice,
             double discount,
-            Date expireDate
-    ) {
+            Date expireDate) {
         List<Stock> list = em.createQuery(
                 "SELECT s FROM Stock s "
-                + "WHERE s.productId = :product "
-                + "AND s.costPrice = :costPrice "
-                + "AND s.salePrice = :salePrice "
-                + "AND s.discount = :discount "
-                + "AND s.expireDate = :expireDate "
-                + "AND s.stockStatusId.id = 1",
-                Stock.class
-        )
+                        + "WHERE s.productId = :product "
+                        + "AND s.costPrice = :costPrice "
+                        + "AND s.salePrice = :salePrice "
+                        + "AND s.discount = :discount "
+                        + "AND s.expireDate = :expireDate "
+                        + "AND s.stockStatusId.id = 1",
+                Stock.class)
                 .setParameter("product", product)
                 .setParameter("costPrice", costPrice)
                 .setParameter("salePrice", salePrice)
@@ -829,14 +818,15 @@ public class Inventory_grnController implements Initializable {
             try {
                 grn = em.createQuery(
                         "SELECT g FROM Grn g WHERE g.grnCode = :code",
-                        Grn.class
-                )
+                        Grn.class)
                         .setParameter("code", grnCode)
                         .getSingleResult();
 
             } catch (NoResultException e) {
 
                 System.out.println("GRN not found");
+                CustomAlert.showStyledAlert(root, "GRN code not found in the system.", "GRN Not Found",
+                        Alert.AlertType.WARNING);
                 clearInputs();
                 return;
             }
@@ -845,21 +835,34 @@ public class Inventory_grnController implements Initializable {
 
             List<GrnItem> items = em.createQuery(
                     "SELECT gi FROM GrnItem gi WHERE gi.grnId = :grn",
-                    GrnItem.class
-            )
+                    GrnItem.class)
                     .setParameter("grn", grn)
                     .getResultList();
 
+            int skippedItems = 0;
+            StringBuilder skippedProducts = new StringBuilder();
+
             for (GrnItem item : items) {
 
-                Stock stock = em.createQuery(
-                        "SELECT s FROM Stock s WHERE s.grnId = :grn AND s.productId = :product",
-                        Stock.class
-                )
-                        .setParameter("grn", grn)
-                        .setParameter("product", item.getProductId())
-                        .setMaxResults(1)
-                        .getSingleResult();
+                Stock stock;
+                try {
+                    stock = em.createQuery(
+                            "SELECT s FROM Stock s WHERE s.grnId = :grn AND s.productId = :product",
+                            Stock.class)
+                            .setParameter("grn", grn)
+                            .setParameter("product", item.getProductId())
+                            .setMaxResults(1)
+                            .getSingleResult();
+                } catch (NoResultException e) {
+                    System.out.println("Stock not found for product: " + item.getProductId().getProduct());
+                    skippedItems++;
+                    if (skippedProducts.length() > 0) {
+                        skippedProducts.append(", ");
+                    }
+                    skippedProducts.append(item.getProductId().getProduct());
+                    // Skip this item if stock doesn't exist
+                    continue;
+                }
 
                 GRNListTable row = new GRNListTable();
 
@@ -868,11 +871,9 @@ public class Inventory_grnController implements Initializable {
                 row.setCostPrice(item.getCostPrice());
                 row.setSalePrice(item.getSalePrice());
                 row.setBarcode(stock.getBarcode());
-                
 
                 row.setExpireDate(
-                        ((java.sql.Date) stock.getExpireDate()).toLocalDate()
-                );
+                        ((java.sql.Date) stock.getExpireDate()).toLocalDate());
                 double perUnitDiscount = stock.getDiscount() / item.getQty();
                 row.setDiscount(perUnitDiscount);
 
@@ -886,6 +887,16 @@ public class Inventory_grnController implements Initializable {
                 Apply_Btn.setDisable(true);
 
             }
+
+            // Notify user if any items were skipped
+            if (skippedItems > 0) {
+                String message = String.format(
+                        "Warning: %d item(s) were skipped due to missing stock data:\n%s",
+                        skippedItems,
+                        skippedProducts.toString());
+                CustomAlert.showStyledAlert(root, message, "Missing Stock Data", Alert.AlertType.WARNING);
+            }
+
             calculateTotal();
 
         });
@@ -894,15 +905,13 @@ public class Inventory_grnController implements Initializable {
     private boolean isGrnExist() {
 
         String grnCode = GRNID_TF.getText().trim();
-      
 
-        //  DB existence check
+        // DB existence check
         return JPATransaction.runInTransaction(em -> {
 
             Long count = em.createQuery(
                     "SELECT COUNT(g) FROM Grn g WHERE g.grnCode = :code",
-                    Long.class
-            )
+                    Long.class)
                     .setParameter("code", grnCode)
                     .getSingleResult();
 
