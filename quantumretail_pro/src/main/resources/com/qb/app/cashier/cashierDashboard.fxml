@@ -3,85 +3,251 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.SVGPath?>
 
 <AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient-50" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.CashierDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" style="-fx-background-color: #F8F9FA;" stylesheets="@../css/cashier_dashboard_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.CashierDashboardController">
    <children>
-      <VBox alignment="CENTER" layoutX="225.0" layoutY="128.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox spacing="24.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
          <children>
-            <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Welcome to Digital Retail">
-               <font>
-                  <Font name="Aptos Bold" size="36.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <AnchorPane id="AnchorPane" stylesheets="@../css/style.css">
+            <!-- Welcome Header -->
+            <VBox spacing="8.0">
                <children>
-                  <VBox alignment="CENTER" maxHeight="350.0" maxWidth="500.0" prefHeight="350.0" prefWidth="500.0" spacing="6.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+                  <Label text="Welcome to Digital Retail" textFill="#1F2937">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label text="Ready to serve your customers" textFill="#6B7280">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            
+            <!-- Stats Cards Grid -->
+            <GridPane hgap="20.0" vgap="20.0" VBox.vgrow="SOMETIMES">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="140.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               
+               <!-- Card 1: Year -->
+               <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);" styleClass="stat-card" GridPane.columnIndex="0">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <children>
+                     <HBox alignment="CENTER" style="-fx-background-color: #EEF2FF; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                        <children>
+                           <Label text="📅" style="-fx-font-size: 28;" />
+                        </children>
+                     </HBox>
+                     <Label fx:id="labelYear" text="2025" textFill="#4F46E5">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Label>
+                     <Label text="Year" textFill="#6B7280">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+               
+               <!-- Card 2: Month -->
+               <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);" styleClass="stat-card" GridPane.columnIndex="1">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <children>
+                     <HBox alignment="CENTER" style="-fx-background-color: #F0FDF4; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                        <children>
+                           <Label text="📆" style="-fx-font-size: 28;" />
+                        </children>
+                     </HBox>
+                     <Label fx:id="labelMonth" text="Jan" textFill="#10B981">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Label>
+                     <Label text="Month" textFill="#6B7280">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+               
+               <!-- Card 3: Date -->
+               <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);" styleClass="stat-card" GridPane.columnIndex="2">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <children>
+                     <HBox alignment="CENTER" style="-fx-background-color: #FEF3C7; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                        <children>
+                           <Label text="🗓️" style="-fx-font-size: 28;" />
+                        </children>
+                     </HBox>
+                     <Label fx:id="labelDate" text="27" textFill="#F59E0B">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Label>
+                     <Label text="Day" textFill="#6B7280">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+               
+               <!-- Card 4: Active Session -->
+               <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);" styleClass="stat-card" GridPane.columnIndex="3">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <children>
+                     <HBox alignment="CENTER" style="-fx-background-color: #F3E8FF; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                        <children>
+                           <Label text="⏰" style="-fx-font-size: 28;" />
+                        </children>
+                     </HBox>
+                     <Label text="Active" textFill="#7C3AED">
+                        <font>
+                           <Font name="System Bold" size="28.0" />
+                        </font>
+                     </Label>
+                     <Label text="Session" textFill="#6B7280">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+            </GridPane>
+            
+            <!-- Quick Info Section -->
+            <HBox spacing="20.0" VBox.vgrow="SOMETIMES">
+               <children>
+                  <!-- Left Info Card -->
+                  <VBox alignment="CENTER_LEFT" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
                      <children>
-                        <BorderPane maxWidth="400.0" prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@../css/style.css" VBox.vgrow="ALWAYS">
-                           <center>
-                              <Label fx:id="labelYear" styleClass="green-gradient" stylesheets="@../css/style.css" text="2025" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font name="Aptos Bold" size="52.0" />
-                                 </font>
-                              </Label>
-                           </center>
-                        </BorderPane>
-                        <HBox maxWidth="400.0" prefHeight="150.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                        <Label text="💡 Quick Tips" textFill="#1F2937">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <VBox spacing="12.0">
                            <children>
-                              <BorderPane prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
-                                 <center>
-                                    <Label fx:id="labelMonth" styleClass="green-gradient" stylesheets="@../css/style.css" text="Feb" BorderPane.alignment="CENTER">
+                              <HBox spacing="12.0">
+                                 <children>
+                                    <Label text="•" textFill="#4F46E5">
                                        <font>
-                                          <Font name="Aptos Bold" size="52.0" />
+                                          <Font size="16.0" />
                                        </font>
                                     </Label>
-                                 </center>
-                              </BorderPane>
-                              <BorderPane prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
-                                 <center>
-                                    <Label fx:id="labelDate" styleClass="green-gradient" stylesheets="@../css/style.css" text="27" BorderPane.alignment="CENTER">
+                                    <Label text="Press F1 for quick stock search" textFill="#6B7280" wrapText="true" HBox.hgrow="ALWAYS">
                                        <font>
-                                          <Font name="Aptos Bold" size="52.0" />
+                                          <Font size="14.0" />
                                        </font>
                                     </Label>
-                                 </center>
-                              </BorderPane>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="12.0">
+                                 <children>
+                                    <Label text="•" textFill="#10B981">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Use barcode scanner for faster checkout" textFill="#6B7280" wrapText="true" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="12.0">
+                                 <children>
+                                    <Label text="•" textFill="#F59E0B">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Check stock levels before closing" textFill="#6B7280" wrapText="true" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  
+                  <!-- Right System Info Card -->
+                  <VBox alignment="CENTER" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); -fx-background-radius: 16; -fx-pref-width: 80; -fx-pref-height: 80;">
+                           <children>
+                              <Label text="🚀" style="-fx-font-size: 40;" />
                            </children>
                         </HBox>
+                        <Label text="System Ready" textFill="#4F46E5">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="All systems operational" textFill="#6B7280" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>
-            </AnchorPane>
-            <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <VBox alignment="CENTER" prefWidth="100.0">
+            </HBox>
+            
+            <!-- Footer -->
+            <VBox alignment="CENTER" spacing="4.0">
                <children>
-                  <Label styleClass="primary-white" stylesheets="@../css/style.css" text="Developed by Quantum Blaze software solution">
+                  <Label text="Developed by Quantum Blaze Software Solution" textFill="#6B7280">
                      <font>
-                        <Font name="Aptos" size="16.0" />
-                     </font></Label>
-                  <Label styleClass="primary-white" stylesheets="@../css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Contact: +94712345678 | Email: quantumblaze@gmail.com" textFill="#9CA3AF">
                      <font>
-                        <Font name="Aptos" size="14.0" />
-                     </font></Label>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
                </children>
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
             </VBox>
-            <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>
