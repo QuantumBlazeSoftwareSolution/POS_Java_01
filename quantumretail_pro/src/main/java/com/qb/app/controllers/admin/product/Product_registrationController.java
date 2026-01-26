@@ -111,6 +111,7 @@ public class Product_registrationController implements Initializable {
         loadComboBoxes();
         SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
+
     private void setIcons() {
 //        iconProductPopup.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/users-solid.svg"));
     }
@@ -122,10 +123,10 @@ public class Product_registrationController implements Initializable {
     }
 
     private void configureInputs() {
-        tfUnitMeasure.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfDiscount.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfCostPrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfSalePrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfUnitMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private void configureTables() {
@@ -186,6 +187,8 @@ public class Product_registrationController implements Initializable {
                 result.isSuccess() ? "Success" : "Error",
                 result.isSuccess() ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR
         );
+
+        refreshProductAdd(true);
     }
 
     private boolean isParentCreated = false;
