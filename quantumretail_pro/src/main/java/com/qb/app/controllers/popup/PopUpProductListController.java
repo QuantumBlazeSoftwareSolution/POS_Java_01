@@ -76,7 +76,6 @@ public class PopUpProductListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         configureTable();
         loadAllProducts(null);
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     @FXML

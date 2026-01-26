@@ -1,6 +1,7 @@
 package com.qb.app;
 
 import com.qb.app.model.ControllerClose;
+import com.qb.app.model.SinhalaInputNormalizer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,12 +24,16 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Font.loadFont(
-            getClass().getResource("/com/qb/app/assets/fonts/Roboto-Regular.ttf").toExternalForm(),
-            10
-        );
+                getClass().getResource("/com/qb/app/assets/fonts/Roboto-Regular.ttf").toExternalForm(),
+                10);
         primaryStage = stage;
-        primaryStage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+        primaryStage.getIcons()
+                .add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         scene = new Scene(loadFXML("sytemLogin"));
+
+        // ✨ Fix Sinhala keyboard input issue globally for all text fields
+        SinhalaInputNormalizer.enableGlobalFix(scene);
+
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
@@ -39,10 +44,11 @@ public class App extends Application {
 
     public static void setRoot(String fxml) throws IOException {
         if (currentController instanceof ControllerClose controllerClose) {
-//            System.out.println("instanceof ControllerClose: Going to trigger close method.");
+            // System.out.println("instanceof ControllerClose: Going to trigger close
+            // method.");
             controllerClose.close();
         } else {
-//            System.out.println("Not instanceof ControllerClose");
+            // System.out.println("Not instanceof ControllerClose");
         }
 
         // Load new FXML
@@ -54,13 +60,15 @@ public class App extends Application {
 
         // Load additional stylesheets if needed
         if (fxml.equals("admin/panelAdmin")) {
-            scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/annualSaleChartDesign.css").toExternalForm());
+            scene.getStylesheets()
+                    .add(App.class.getResource("/com/qb/app/css/annualSaleChartDesign.css").toExternalForm());
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/adminStyle.css").toExternalForm());
         }
 
         scene.setRoot(root);
 
-        if (fxml.equals("admin/adminVerification") || fxml.equals("sytemLogin") || fxml.equals("developer/developerVerification")) {
+        if (fxml.equals("admin/adminVerification") || fxml.equals("sytemLogin")
+                || fxml.equals("developer/developerVerification")) {
             primaryStage.setMaximized(false);
             primaryStage.sizeToScene();
             centerStageOnScreen();

@@ -109,7 +109,7 @@ public class Product_managementController implements Initializable {
     }
 
     private void configureInputs() {
-        tfId.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfId.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
