@@ -48,9 +48,6 @@ public class SuggestionModalController implements Initializable {
                     );
             }
         });
-
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
-
     }
 
     public void setSuggestions(List<String> items) {

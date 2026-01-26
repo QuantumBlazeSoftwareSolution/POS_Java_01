@@ -63,7 +63,6 @@ public class PopUpSupplierListController implements Initializable {
         // TODO
         configureTable();
         loadSuppliers();
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     private void configureTable() {

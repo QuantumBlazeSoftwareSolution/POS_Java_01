@@ -109,7 +109,7 @@ public class Product_registrationController implements Initializable {
         configureTables();
         configureInputs();
         loadComboBoxes();
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
+//        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     private void setIcons() {
