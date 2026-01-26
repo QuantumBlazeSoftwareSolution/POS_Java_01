@@ -75,7 +75,6 @@ public class Supply_company_managementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     @FXML

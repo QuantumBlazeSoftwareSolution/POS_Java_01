@@ -122,10 +122,10 @@ public class Product_registrationController implements Initializable {
     }
 
     private void configureInputs() {
-        tfUnitMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfUnitMeasure.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfDiscount.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfCostPrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfSalePrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
     }
 
     private void configureTables() {

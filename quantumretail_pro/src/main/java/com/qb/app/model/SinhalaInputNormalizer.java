@@ -5,7 +5,9 @@
 package com.qb.app.model;
 
 import java.util.Map;
+import java.util.function.UnaryOperator;
 import javafx.scene.Parent;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextInputControl;
 
 /**
@@ -58,13 +60,37 @@ public class SinhalaInputNormalizer {
 
         parent.getChildrenUnmodifiable().forEach(node -> {
 
-            if (node instanceof TextInputControl) {
-                attachSinhalaFix((TextInputControl) node);
+            if (node instanceof TextInputControl textInputControl) {
+                attachSinhalaFix(textInputControl);
             }
 
-            if (node instanceof Parent) {
-                applySinhalaFixRecursively((Parent) node);
+            if (node instanceof Parent parent1) {
+                applySinhalaFixRecursively(parent1);
             }
         });
+    }
+
+    public static TextFormatter<String> createNormalizedNumericFormatter() {
+
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+
+            // Normalize ONLY the typed part
+            String normalized = normalize(change.getText());
+            change.setText(normalized);
+
+            // Allow empty (backspace)
+            if (change.getControlNewText().isEmpty()) {
+                return change;
+            }
+
+            // Numeric validation (adjust if needed)
+            if (!change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return null;
+            }
+
+            return change;
+        };
+
+        return new TextFormatter<>(filter);
     }
 }

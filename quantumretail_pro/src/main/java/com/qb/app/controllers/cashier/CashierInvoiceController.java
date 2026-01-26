@@ -159,8 +159,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         textFieldConfiguration();
         loadSystemConfig();
         interceptQuantityKeys();
-
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
         
         tfBarCode.requestFocus();
     }

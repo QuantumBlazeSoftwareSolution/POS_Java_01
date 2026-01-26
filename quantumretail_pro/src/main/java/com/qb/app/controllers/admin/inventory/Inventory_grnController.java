@@ -130,7 +130,6 @@ public class Inventory_grnController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
         loadCompanyComboBox();
         loadSupplierComboBox();
 

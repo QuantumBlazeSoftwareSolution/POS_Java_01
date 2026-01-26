@@ -83,7 +83,6 @@ public class Employee_registrationController implements Initializable {
                 tfEmployeePin.setDisable(true);
             }
         });
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
         backgroundThread();
     }
 

@@ -29,7 +29,6 @@ public class Employee_overviewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }    
     
 }

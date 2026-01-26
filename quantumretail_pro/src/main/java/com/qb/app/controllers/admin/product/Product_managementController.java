@@ -92,7 +92,6 @@ public class Product_managementController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         loadComboBoxes();
         configureInputs();
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
 
         cbBrand.setPromptText("Select Brand");
         cbCategory.setPromptText("Select Category");
@@ -110,12 +109,12 @@ public class Product_managementController implements Initializable {
     }
 
     private void configureInputs() {
-        tfId.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
-        tfParentID.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfId.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfSalePrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfCostPrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfDiscount.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfMeasure.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfParentID.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
     }
 
     private boolean isProductValid() {

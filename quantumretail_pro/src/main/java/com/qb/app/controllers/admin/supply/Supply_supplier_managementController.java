@@ -78,7 +78,6 @@ public class Supply_supplier_managementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
         loadSupplierCompanyComboBox();
     }
 
