@@ -110,11 +110,11 @@ public class Product_managementController implements Initializable {
 
     private void configureInputs() {
         tfId.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfSalePrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfCostPrice.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfDiscount.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfMeasure.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
-        tfParentID.setTextFormatter(SinhalaInputNormalizer.createNormalizedNumericFormatter());
+        tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfMeasure.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfParentID.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private boolean isProductValid() {
