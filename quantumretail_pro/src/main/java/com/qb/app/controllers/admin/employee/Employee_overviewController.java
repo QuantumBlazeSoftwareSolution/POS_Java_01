@@ -4,12 +4,14 @@
  */
 package com.qb.app.controllers.admin.employee;
 
+import com.qb.app.model.SinhalaInputNormalizer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 /**
  * FXML Controller class
  *
@@ -20,12 +22,14 @@ public class Employee_overviewController implements Initializable {
 
     @FXML
     private Group IconEmployeeOverviewTopic;
+    @FXML
+    private AnchorPane root;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }    
     
 }

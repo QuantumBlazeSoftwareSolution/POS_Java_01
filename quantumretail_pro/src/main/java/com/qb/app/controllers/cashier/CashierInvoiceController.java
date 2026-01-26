@@ -13,6 +13,7 @@ import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
@@ -159,6 +160,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         loadSystemConfig();
         interceptQuantityKeys();
 
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
+        
         tfBarCode.requestFocus();
     }
 

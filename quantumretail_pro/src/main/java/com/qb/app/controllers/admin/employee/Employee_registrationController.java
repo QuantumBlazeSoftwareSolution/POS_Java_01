@@ -8,6 +8,7 @@ import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PasswordEncryption;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.EmployeePanel;
 import com.qb.app.model.entity.EmployeeRole;
@@ -82,6 +83,7 @@ public class Employee_registrationController implements Initializable {
                 tfEmployeePin.setDisable(true);
             }
         });
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
         backgroundThread();
     }
 

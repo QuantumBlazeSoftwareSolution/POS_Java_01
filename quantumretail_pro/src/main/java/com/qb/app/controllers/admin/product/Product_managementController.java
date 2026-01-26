@@ -14,6 +14,7 @@ import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.PopUp;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
@@ -91,6 +92,7 @@ public class Product_managementController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         loadComboBoxes();
         configureInputs();
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
 
         cbBrand.setPromptText("Select Brand");
         cbCategory.setPromptText("Select Category");

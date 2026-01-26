@@ -8,6 +8,7 @@ import com.qb.app.controllers.admin.product.tables.ProductPopupModal;
 import com.qb.app.database_crud.ProductCRUD;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.EntityManager;
@@ -75,6 +76,7 @@ public class PopUpProductListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         configureTable();
         loadAllProducts(null);
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     @FXML

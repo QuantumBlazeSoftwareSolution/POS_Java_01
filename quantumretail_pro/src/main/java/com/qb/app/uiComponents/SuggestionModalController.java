@@ -4,6 +4,7 @@
  */
 package com.qb.app.uiComponents;
 
+import com.qb.app.model.SinhalaInputNormalizer;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -24,6 +26,8 @@ public class SuggestionModalController implements Initializable {
     private ListView<String> listView;
 
     private Consumer<String> onSelect;
+    @FXML
+    private VBox root;
 
     /**
      * Initializes the controller class.
@@ -44,6 +48,8 @@ public class SuggestionModalController implements Initializable {
                     );
             }
         });
+
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
 
     }
 

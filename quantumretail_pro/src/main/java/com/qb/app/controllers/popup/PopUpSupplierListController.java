@@ -7,6 +7,7 @@ package com.qb.app.controllers.popup;
 import com.qb.app.controllers.table_models.SupplierListTable;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Supplier;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -62,7 +63,7 @@ public class PopUpSupplierListController implements Initializable {
         // TODO
         configureTable();
         loadSuppliers();
-
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     private void configureTable() {

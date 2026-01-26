@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers.admin.employee;
 
+import com.qb.app.model.SinhalaInputNormalizer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
  * FXML Controller class
@@ -24,23 +26,25 @@ public class Employee_role_managementController implements Initializable {
     @FXML
     private Group IconEmployeeRoleManagement;
     @FXML
-    private ScrollPane tableScrollContainer;
+    private AnchorPane root;
     @FXML
-    private VBox tableBody;
+    private ScrollPane grnTableScrollContainer;
     @FXML
-    private ScrollBar tableScroller;
+    private VBox grnTableBody;
     @FXML
-    private ScrollPane tableScrollContainer1;
+    private ScrollBar grnTableScroller;
     @FXML
-    private VBox tableBody1;
+    private ScrollPane grnTableScrollContainer1;
     @FXML
-    private ScrollBar tableScroller1;
+    private VBox grnTableBody1;
+    @FXML
+    private ScrollBar grnTableScroller1;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }    
     
 }

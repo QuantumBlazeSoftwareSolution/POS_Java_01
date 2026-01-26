@@ -9,6 +9,7 @@ import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Supplier;
 import com.qb.app.model.entity.SupplyStatus;
@@ -77,7 +78,7 @@ public class Supply_supplier_managementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO\
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
         loadSupplierCompanyComboBox();
     }
 

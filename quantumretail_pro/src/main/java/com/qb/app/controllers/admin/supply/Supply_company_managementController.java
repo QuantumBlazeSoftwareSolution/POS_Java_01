@@ -8,6 +8,7 @@ import com.qb.app.controllers.popup.PopUpCompanyListController;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
+import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -74,7 +75,7 @@ public class Supply_company_managementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        SinhalaInputNormalizer.applySinhalaFixRecursively(root);
     }
 
     @FXML
