@@ -151,6 +151,8 @@ public class Product_registrationController implements Initializable {
             registerProducts();
         } else if (event.getSource() == btnProductPopup) {
             openProductPopup();
+        } else if (event.getSource() == btnClear) {
+            refreshProductAdd(true);
         }
     }
 

@@ -3,13 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.shape.SVGPath?>
 
 <AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" style="-fx-background-color: #F8F9FA;" stylesheets="@../css/cashier_dashboard_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.CashierDashboardController">
    <children>
@@ -49,9 +48,9 @@
                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
                   <children>
-                     <HBox alignment="CENTER" style="-fx-background-color: #EEF2FF; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                     <HBox alignment="CENTER" style="-fx-background-color: #EEF2FF; -fx-background-radius: 8; -fx-pref-width: 56; -fx-pref-height: 56;">
                         <children>
-                           <Label text="📅" style="-fx-font-size: 28;" />
+                           <Label style="-fx-font-size: 28;" text="📅" />
                         </children>
                      </HBox>
                      <Label fx:id="labelYear" text="2025" textFill="#4F46E5">
@@ -73,9 +72,9 @@
                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
                   <children>
-                     <HBox alignment="CENTER" style="-fx-background-color: #F0FDF4; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                     <HBox alignment="CENTER" style="-fx-background-color: #F0FDF4; -fx-background-radius: 8; -fx-pref-width: 56; -fx-pref-height: 56;">
                         <children>
-                           <Label text="📆" style="-fx-font-size: 28;" />
+                           <Label style="-fx-font-size: 28;" text="📆" />
                         </children>
                      </HBox>
                      <Label fx:id="labelMonth" text="Jan" textFill="#10B981">
@@ -97,9 +96,9 @@
                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
                   <children>
-                     <HBox alignment="CENTER" style="-fx-background-color: #FEF3C7; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                     <HBox alignment="CENTER" style="-fx-background-color: #FEF3C7; -fx-background-radius: 8; -fx-pref-width: 56; -fx-pref-height: 56;">
                         <children>
-                           <Label text="🗓️" style="-fx-font-size: 28;" />
+                           <Label style="-fx-font-size: 28;" text="🗓️" />
                         </children>
                      </HBox>
                      <Label fx:id="labelDate" text="27" textFill="#F59E0B">
@@ -121,9 +120,9 @@
                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
                   <children>
-                     <HBox alignment="CENTER" style="-fx-background-color: #F3E8FF; -fx-background-radius: 12; -fx-pref-width: 56; -fx-pref-height: 56;">
+                     <HBox alignment="CENTER" style="-fx-background-color: #F3E8FF; -fx-background-radius: 8; -fx-pref-width: 56; -fx-pref-height: 56;">
                         <children>
-                           <Label text="⏰" style="-fx-font-size: 28;" />
+                           <Label style="-fx-font-size: 28;" text="⏰" />
                         </children>
                      </HBox>
                      <Label text="Active" textFill="#7C3AED">
@@ -211,7 +210,7 @@
                      <children>
                         <HBox alignment="CENTER" style="-fx-background-color: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); -fx-background-radius: 16; -fx-pref-width: 80; -fx-pref-height: 80;">
                            <children>
-                              <Label text="🚀" style="-fx-font-size: 40;" />
+                              <Label style="-fx-font-size: 40;" text="🚀" />
                            </children>
                         </HBox>
                         <Label text="System Ready" textFill="#4F46E5">
@@ -219,7 +218,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label text="All systems operational" textFill="#6B7280" textAlignment="CENTER">
+                        <Label text="All systems operational" textAlignment="CENTER" textFill="#6B7280">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -237,7 +236,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label text="Contact: +94712345678 | Email: quantumblaze@gmail.com" textFill="#9CA3AF">
+                  <Label text="Contact: 0719892932 | Email: quantumblazesoftwaresolution@gmail.com" textFill="#9CA3AF">
                      <font>
                         <Font size="12.0" />
                      </font>
