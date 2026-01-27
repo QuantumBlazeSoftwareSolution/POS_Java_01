@@ -1,0 +1,146 @@
+/* ============================================
+   Cashier Dashboard Styles
+   ============================================ */
+
+/* Stat Card Hover Effects */
+.stat-card:hover {
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 20, 0, 0, 4);
+}
+
+/* Smooth Transitions */
+.stat-card {
+    -fx-cursor: hand;
+}
+
+/* Card Animations */
+@keyframes fadeIn {
+    from {
+        -fx-opacity: 0;
+        -fx-translate-y: 20;
+    }
+
+    to {
+        -fx-opacity: 1;
+        -fx-translate-y: 0;
+    }
+}
+
+/* Gradient Card Hover */
+.gradient-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(79, 70, 229, 0.4), 16, 0, 0, 6);
+}
+
+/* ScrollPane Styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #D1D5DB;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9CA3AF;
+}
+
+/* Button Styles */
+.dashboard-button {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-padding: 16 24;
+}
+
+.dashboard-button:hover {
+    -fx-background-color: #F9FAFB;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.12), 12, 0, 0, 3);
+}
+
+.dashboard-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Primary Button */
+.primary-button {
+    -fx-background-color: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-padding: 16 32;
+    -fx-font-weight: bold;
+}
+
+.primary-button:hover {
+    -fx-opacity: 0.9;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(three-pass-box, rgba(79, 70, 229, 0.3), 12, 0, 0, 4);
+}
+
+.primary-button:pressed {
+    -fx-opacity: 0.8;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Icon Container Hover */
+.icon-container:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/* Pulse Animation for Active Session */
+@keyframes pulse {
+
+    0%,
+    100% {
+        -fx-opacity: 1;
+    }
+
+    50% {
+        -fx-opacity: 0.8;
+    }
+}
+
+/* Text Styles */
+.dashboard-title {
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.dashboard-subtitle {
+    -fx-font-size: 16;
+    -fx-text-fill: #6B7280;
+}
+
+.card-value {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+}
+
+.card-label {
+    -fx-font-size: 13;
+    -fx-text-fill: #6B7280;
+}
