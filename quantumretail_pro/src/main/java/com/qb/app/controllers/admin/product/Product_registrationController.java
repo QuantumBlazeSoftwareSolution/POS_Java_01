@@ -12,7 +12,6 @@ import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.OperationResult;
 import com.qb.app.model.PopUp;
-import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Product;
@@ -27,7 +26,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -35,7 +33,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -255,7 +252,6 @@ public class Product_registrationController implements Initializable {
     }
 
     private void refreshProductAdd(boolean clearAll) {
-        parentProduct = null;
         tfCostPrice.setText("");
         tfSalePrice.setText("");
         tfDiscount.setText("");
@@ -265,6 +261,7 @@ public class Product_registrationController implements Initializable {
 
         if (clearAll) {
             isParentCreated = false;
+            parentProduct = null;
             tfItemName.setText("");
             cbBrand.setValue(null);
             cbCategory.setValue(null);

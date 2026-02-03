@@ -21,12 +21,12 @@ public class ProductCRUD {
 
         return JPATransaction.runInTransaction((EntityManager em) -> {
             try {
-//                Product parentProduct = null;
+                Product parentProduct = null;
 
                 for (ProductRegistrationTable row : items) {
                     if ("parent".equalsIgnoreCase(row.getType().getType())) {
 
-                        Product parentProduct = row.getProduct();
+                        parentProduct = row.getProduct();
 
                         em.persist(parentProduct);
                         em.flush();
@@ -48,9 +48,16 @@ public class ProductCRUD {
                     if ("child".equalsIgnoreCase(row.getType().getType())) {
 
                         Product child = row.getProduct();
-                        Product parent = row.getParentProduct();
+                        Product parent;
+                        if (row.getParentProduct() != null) {
+                            parent = row.getParentProduct();
+                        } else {
+                            parent = parentProduct;
+                        }
                         em.persist(child);
                         em.flush();
+
+                        System.out.println("Reference ID is: " + parent.getProduct() + " - " + parent.getId());
 
                         ProductHasProductType rel = new ProductHasProductType();
                         rel.setProductId(child);
@@ -64,6 +71,7 @@ public class ProductCRUD {
                 return new OperationResult(true, "Products registered successfully.");
 
             } catch (Exception e) {
+                getLogger.logger().warning(e.toString());
                 e.printStackTrace();
                 return new OperationResult(
                         false,
@@ -112,7 +120,7 @@ public class ProductCRUD {
 
     public static List<Product> getParentProducts(EntityManager em, String searchTerm) {
 
-            try {
+        try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Product> cq = cb.createQuery(Product.class);
             Root<ProductHasProductType> phpTable = cq.from(ProductHasProductType.class);

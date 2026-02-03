@@ -37,6 +37,8 @@ public class StockCRUD {
 
             List<Stock> stockList = em.createQuery(cq).getResultList();
 
+            System.out.println("Stock items count: " + stockList.size());
+
             return stockList;
         });
     }

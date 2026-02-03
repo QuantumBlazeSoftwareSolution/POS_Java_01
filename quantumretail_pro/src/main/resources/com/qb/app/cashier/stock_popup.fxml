@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="500.0" prefWidth="720.0" style="-fx-background-color: #F8F9FA; -fx-background-radius: 12;" stylesheets="@../css/stock_popup_style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.Stock_popupController">
     <children>
@@ -43,9 +43,9 @@
             <HBox spacing="16.0" VBox.vgrow="ALWAYS">
                <children>
                   <!-- Product Grid Section -->
-                  <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS">
                      <content>
-                        <TilePane fx:id="productContainer" hgap="16.0" prefColumns="3" style="-fx-background-color: transparent;" tileAlignment="TOP_LEFT" vgap="16.0">
+                        <TilePane fx:id="productContainer" hgap="16.0" prefColumns="3" tileAlignment="TOP_LEFT" vgap="16.0">
             
             </TilePane>
                      </content>

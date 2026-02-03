@@ -28,6 +28,8 @@ public class Stock_item_cardController implements Initializable {
     private Label expLabel;
     private Stock_popupController parent;
     private Stock stock;
+    @FXML
+    private Label priceItem;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -2,96 +2,68 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_LEFT" onMouseClicked="#handleMouseClick" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-width: 1; -fx-border-radius: 12; -fx-cursor: hand;" styleClass="stock-card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.Stock_item_cardController">
-    <children>
-      <!-- Product Name Section -->
-      <VBox spacing="4.0">
-         <children>
-            <Label text="Product" textFill="#6B7280">
-               <font>
-                  <Font size="11.0" />
-               </font>
+<VBox alignment="TOP_LEFT" onMouseClicked="#handleMouseClick" spacing="10" style="-fx-background-radius: 12; -fx-border-width: 1; -fx-border-radius: 12; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.cashier.Stock_item_cardController">
+
+    <!-- Product Name Section -->
+    <VBox spacing="4.0">
+        <children>
+            <Label text="Product" textFill="#919191">
+                <font><Font size="11" /></font>
             </Label>
-            <Label fx:id="nameLabel" text="Product Name" textFill="#111827" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
+            <Label fx:id="nameLabel" text="Product Name" wrapText="true">
+                <font><Font name="System Bold" size="15" /></font>
             </Label>
-         </children>
-      </VBox>
-      
-      <!-- Separator -->
-      <Region prefHeight="1.0" style="-fx-background-color: #E5E7EB;" />
-      
-      <!-- Parent Price -->
-      <HBox alignment="CENTER_LEFT" spacing="8.0">
-         <children>
-            <Label text="💵" />
-            <Label text="Parent Price:" textFill="#6B7280">
-               <font>
-                  <Font size="12.0" />
-               </font>
+        </children>
+    </VBox>
+   <Separator prefWidth="200.0" />
+
+    <!-- Parent Price -->
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <children>
+            <Label text="Parent Price:" textFill="#919191">
+                <font><Font size="12" /></font>
             </Label>
             <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="priceLabel" text="$0.00" textFill="#059669">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
+            <Label fx:id="priceLabel" text="0.00" textFill="#059669">
+                <font><Font name="System Bold" size="13" /></font>
             </Label>
-         </children>
-      </HBox>
-      
-      <!-- Item Price -->
-      <HBox alignment="CENTER_LEFT" spacing="8.0">
-         <children>
-            <Label text="💰" />
-            <Label text="Item Price:" textFill="#6B7280">
-               <font>
-                  <Font size="12.0" />
-               </font>
+        </children>
+    </HBox>
+
+    <!-- Item Price -->
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <children>
+            <Label text="Item Price:" textFill="#919191">
+                <font><Font size="12" /></font>
             </Label>
             <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="priceItem" text="$0.00" textFill="#10B981">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
+            <Label fx:id="priceItem" text="0.00" textFill="#10B981">
+                <font><Font name="System Bold" size="14" /></font>
             </Label>
-         </children>
-      </HBox>
-      
-      <!-- Expiry Date Badge -->
-      <HBox alignment="CENTER_LEFT" spacing="8.0">
-         <children>
-            <Label text="📅" />
-            <Label text="Expires:" textFill="#6B7280">
-               <font>
-                  <Font size="12.0" />
-               </font>
+        </children>
+    </HBox>
+
+    <!-- Expiry Date -->
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <children>
+            <Label text="Expires:" textFill="#919191">
+                <font><Font size="12" /></font>
             </Label>
             <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="expLabel" style="-fx-background-color: #DBEAFE; -fx-background-radius: 6; -fx-padding: 4 8;" text="2026-01-05" textFill="#1E40AF">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
+            <Label fx:id="expLabel" style="-fx-background-color: #1e40af; -fx-background-radius: 6; -fx-padding: 4 8;" text="2026-01-05" textFill="WHITE">
+                <font><Font name="System Bold" size="11" /></font>
             </Label>
-         </children>
-      </HBox>
-    </children>
-   <padding>
-      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-   </padding>
-   <effect>
-      <DropShadow>
-         <color>
-            <Color opacity="0.08" />
-         </color>
-      </DropShadow>
-   </effect>
+        </children>
+    </HBox>
+
+    <padding>
+        <Insets bottom="16" left="16" right="16" top="16" />
+    </padding>
+
 </VBox>
