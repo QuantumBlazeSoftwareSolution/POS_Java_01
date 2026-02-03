@@ -103,6 +103,8 @@ public class Product_registrationController implements Initializable {
     @FXML
     private Group iconProductPopup;
 
+    private boolean isParentCreated = false;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setIcons();
@@ -193,8 +195,6 @@ public class Product_registrationController implements Initializable {
         refreshProductAdd(true);
     }
 
-    private boolean isParentCreated = false;
-
     private void addProduct() {
         if (isProductValid()) {
             if (isproductTypeValid()) {
@@ -264,8 +264,8 @@ public class Product_registrationController implements Initializable {
         tfBarCode.setText("");
 
         if (clearAll) {
+            isParentCreated = false;
             tfItemName.setText("");
-
             cbBrand.setValue(null);
             cbCategory.setValue(null);
             tableView.getItems().clear();

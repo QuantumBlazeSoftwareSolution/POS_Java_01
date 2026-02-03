@@ -138,3 +138,7 @@ Jan 26, 2026 11:10:35 PM com.qb.app.controllers.SytemLoginController lambda$chec
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
 Jan 26, 2026 11:18:36 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 27, 2026 11:36:07 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jan 27, 2026 11:39:19 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]

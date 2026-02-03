@@ -159,7 +159,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         textFieldConfiguration();
         loadSystemConfig();
         interceptQuantityKeys();
-        
         tfBarCode.requestFocus();
     }
 
@@ -621,7 +620,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     // INSERT invoice
                     invoice.setDateTime(new Date());
                     invoice.setBillAmount(this.billFinalAmount);
-                    invoice.setPaidAmount(billDiscount);
+                    invoice.setPaidAmount(this.cashAmount);
                     invoice.setSessionId(ApplicationSession.getSession());
 
                     em.persist(invoice);
@@ -649,6 +648,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         );
                         invoiceItem.setProductId(item.getProduct());
                         invoiceItem.setStockBatchId(item.getStock());
+
+                        if (systemConfig.system.multi_stock) {
+                            invoiceItem.setStockBatchId(item.getStock());
+                        }
 
                         em.persist(invoiceItem);
                         em.flush();
