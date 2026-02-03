@@ -150,3 +150,5 @@ Feb 03, 2026 10:36:35 PM com.qb.app.database_crud.ProductCRUD lambda$bulkProduct
 WARNING: java.lang.NullPointerException: Cannot invoke "com.qb.app.model.entity.Product.getProduct()" because "parent" is null
 Feb 03, 2026 10:39:21 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Feb 03, 2026 11:08:20 PM com.qb.app.controllers.cashier.CashierInvoiceController completeThePayment
+WARNING: java.lang.NullPointerException: Cannot invoke "java.io.InputStream.read(byte[], int, int)" because "this.in" is null

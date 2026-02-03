@@ -709,7 +709,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     "net.sf.jasperreports.awt.ignore.missing.font", "true"
             );
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                    getClass().getResourceAsStream("/com/qb/app/reports/CustomerInvoice.jasper"));
+                    getClass().getResourceAsStream("/com/qb/app/reports/customerInvoice.jasper"));
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
