@@ -13,7 +13,6 @@ import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
-import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.SuggestionPopupService;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
@@ -22,7 +21,6 @@ import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
-import com.qb.app.session.CompanyInfo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -150,6 +148,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private double cashAmount;
     @FXML
     private Label invoiceMessage;
+    private boolean isParent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -286,8 +285,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         tfQty.setText("0");
 
         // Static & Instance variables
-        selectedProduct = null;
-        selectedStock = null;
+        this.selectedProduct = null;
+        this.selectedStock = null;
+        this.isParent = false;
         this.canInvoicePaid = false;
         this.cashAmount = 0;
     }
@@ -336,9 +336,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     public void setSelectedStock(Stock stock, Product product) {
 
-        ProductHasProductType productHasProductType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
-
         this.selectedStock = stock;
+
+        ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
+        this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
+
         if (Objects.equals(stock.getProductId().getId(), product.getId())) {
             System.out.println("Product have stocks.");
             setPreviewDetails(
@@ -515,7 +517,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             double qty = Double.parseDouble(tfQty.getText());
             if (systemConfig.system.multi_stock && selectedStock != null) {
-                itemAmount = selectedStock.getSalePrice() * qty;
+                if (this.isParent) { // Parent Item
+                    itemAmount = selectedStock.getSalePrice() * qty;
+                } else { // Child Item
+                    itemAmount = selectedProduct.getSalePrice() * qty;
+                }
             } else {
                 itemAmount = selectedProduct.getSalePrice() * qty;
             }
@@ -533,8 +539,14 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
         for (CashierInvoiceTable item : invoiceItemList) {
             if (systemConfig.system.multi_stock && item.getStock() != null) {
-                subTotal += item.getStock().getSalePrice() * item.getQty();
-                discount += item.getStock().getDiscount() * item.getQty();
+                ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
+                if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
+                    subTotal += item.getStock().getSalePrice() * item.getQty();
+                    discount += item.getStock().getDiscount() * item.getQty();
+                } else {
+                    subTotal += item.getProduct().getSalePrice() * item.getQty();
+                    discount += item.getProduct().getDiscount() * item.getQty();
+                }
             } else {
                 subTotal += item.getProduct().getSalePrice() * item.getQty();
                 discount += item.getProduct().getDiscount() * item.getQty();
@@ -823,6 +835,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             setSelectedStock(stockProduct.getStock(), stockProduct.getProduct());
             this.selectedProduct = stockProduct.getProduct();
             this.selectedStock = stockProduct.getStock();
+
+            ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(selectedProduct);
+            this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
         } else {
 
         }

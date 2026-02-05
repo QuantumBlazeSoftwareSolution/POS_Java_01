@@ -107,6 +107,10 @@ public class DiscountController implements Initializable {
         }
     }
 
+    public void closeWithClear() {
+        refreshDiscountPage();
+    }
+
     private void loadSystemConfig() {
         try {
             this.systemConfig = ConfigManager.loadConfig();
