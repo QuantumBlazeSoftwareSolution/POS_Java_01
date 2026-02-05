@@ -826,6 +826,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 );
                 bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
             }
+            
             bean.setQty(item.getQty());
             bean.setAmount(item.getAmount());
 
@@ -842,7 +843,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     }
 
     private void searchItemByBarcode(String barcode) {
-
         StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
 
         if (stockProduct.getStock() != null) {
