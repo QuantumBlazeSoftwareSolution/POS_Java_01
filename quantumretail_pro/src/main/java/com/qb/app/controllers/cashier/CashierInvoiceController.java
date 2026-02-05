@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -323,7 +324,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         controller.setProduct(product);
                     }
             );
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
@@ -338,13 +339,15 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         ProductHasProductType productHasProductType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
 
         this.selectedStock = stock;
-        if (stock.getProductId().getProduct().equals(product.getProduct())) {
+        if (Objects.equals(stock.getProductId().getId(), product.getId())) {
+            System.out.println("Product have stocks.");
             setPreviewDetails(
                     product.getProduct(),
                     stock.getSalePrice(),
                     (stock.getSalePrice() - stock.getDiscount())
             );
         } else {
+            System.out.println("Product doesn't have any stocks.");
             setPreviewDetails(
                     product.getProduct(),
                     product.getSalePrice(),
@@ -442,7 +445,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             CashierInvoiceTable cashierInvoiceTable = new CashierInvoiceTable();
             cashierInvoiceTable.setItemId(String.valueOf(selectedProduct.getId()));
             cashierInvoiceTable.setItemName(String.valueOf(selectedProduct.getProduct()));
-            cashierInvoiceTable.setQty(Double.valueOf(tfQty.getText()));
+            cashierInvoiceTable.setQty(Double.parseDouble(tfQty.getText()));
             cashierInvoiceTable.setAmount(String.format(DefaultAPI.currencyFloatFormat, calculatePreviewTotal()));
             cashierInvoiceTable.setProduct(selectedProduct);
 

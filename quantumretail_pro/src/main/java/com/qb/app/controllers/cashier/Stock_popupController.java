@@ -1,10 +1,12 @@
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.database_crud.ProductHasProductTypeCRUD;
 import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import java.io.IOException;
@@ -19,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
@@ -50,6 +53,9 @@ public class Stock_popupController implements Initializable {
 
     private Product selectedProduct;
     public static Object callingController;
+    @FXML
+    private Label labelParentName;
+    private Product parentProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -123,7 +129,7 @@ public class Stock_popupController implements Initializable {
     private void createStock() {
         try {
             Stock stock = StockCRUD.createSingleTemporaryStock(
-                    selectedProduct,
+                    this.parentProduct,
                     tfSalePrice.getText(),
                     tfCostPrice.getText(),
                     dpExpireDate.getValue(),
@@ -176,7 +182,17 @@ public class Stock_popupController implements Initializable {
     }
 
     public void setProduct(Product product) {
+        this.parentProduct = null;
+        labelParentName.setText("");
+        
         this.selectedProduct = product;
+        ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
+
+        if (productType != null) {
+            this.parentProduct = productType.getReferenceId();
+            labelParentName.setText(productType.getReferenceId().getProduct());
+        }
+
         loadStocks();
     }
 

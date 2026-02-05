@@ -5,6 +5,7 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -96,4 +97,20 @@ public class StockCRUD {
             }
         });
     }
+
+    public static Stock updateStock(Stock stock) {
+        return JPATransaction.runInTransaction((em) -> {
+            try {
+                em.merge(stock);
+                em.flush();
+                return stock;
+            } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+                return null;
+            }
+
+        });
+    }
+
 }

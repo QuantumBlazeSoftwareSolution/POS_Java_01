@@ -16,9 +16,11 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -105,9 +107,9 @@ public class PopUpProductListController implements Initializable {
 
                         closeWindow();
 
-                    } catch (Exception ex) {
+                    } catch (IllegalAccessException | NoSuchMethodException | SecurityException | InvocationTargetException ex) {
                         ex.printStackTrace();
-                        getLogger.logger().warning("Failed to pass product ID: " + ex.getMessage());
+                        getLogger.logger().log(Level.WARNING, "Failed to pass product ID: {0}", ex.getMessage());
                     }
                 }
 

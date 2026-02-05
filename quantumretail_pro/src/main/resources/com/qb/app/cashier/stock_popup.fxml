@@ -35,7 +35,7 @@
                   </Button>
                </children>
                <padding>
-                  <Insets left="24.0" right="16.0" />
+                  <Insets bottom="16.0" left="24.0" right="16.0" top="16.0" />
                </padding>
             </HBox>
             
@@ -55,7 +55,7 @@
                   </ScrollPane>
                   
                   <!-- Add Stock Form Panel -->
-                  <VBox prefWidth="280.0" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);">
+                  <VBox maxWidth="280.0" prefWidth="280.0" spacing="6.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 2);">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -70,8 +70,13 @@
                               <Insets bottom="8.0" top="4.0" />
                            </VBox.margin>
                         </Separator>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="labelParentName" wrapText="true" />
+                           </children>
+                        </HBox>
                         
-                        <VBox spacing="16.0">
+                        <VBox spacing="12.0" style="-fx-border-width: 0.5 0 0 0; -fx-border-color: black;">
                            <children>
                               <!-- Sale Price Field -->
                               <VBox spacing="6.0">
@@ -81,7 +86,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfSalePrice" prefHeight="42.0" promptText="Enter sale price" style="-fx-background-color: white; -fx-border-color: #10B981; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14;">
+                                    <TextField fx:id="tfSalePrice" minHeight="40.0" prefHeight="40.0" promptText="Enter sale price" style="-fx-background-color: white; -fx-border-color: #10B981; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14;">
                                     </TextField>
                                  </children>
                               </VBox>
@@ -94,7 +99,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfCostPrice" prefHeight="42.0" promptText="Enter cost price" style="-fx-background-color: white; -fx-border-color: #F59E0B; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14;">
+                                    <TextField fx:id="tfCostPrice" minHeight="40.0" prefHeight="40.0" promptText="Enter cost price" style="-fx-background-color: white; -fx-border-color: #F59E0B; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14;">
                                     </TextField>
                                  </children>
                               </VBox>
@@ -107,7 +112,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="dpExpireDate" prefHeight="42.0" promptText="Select date" style="-fx-background-color: white; -fx-border-color: #3B82F6; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14;">
+                                    <DatePicker fx:id="dpExpireDate" maxWidth="1.7976931348623157E308" minHeight="40.0" prefHeight="40.0" promptText="Select date" style="-fx-background-color: white; -fx-border-color: #3B82F6; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14;">
                                     </DatePicker>
                                  </children>
                               </VBox>
@@ -120,24 +125,39 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfBarcode" prefHeight="42.0" promptText="Enter barcode" style="-fx-background-color: white; -fx-border-color: #7C3AED; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14;">
+                                    <TextField fx:id="tfBarcode" minHeight="40.0" prefHeight="40.0" promptText="Enter barcode" style="-fx-background-color: white; -fx-border-color: #7C3AED; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14;">
                                     </TextField>
                                  </children>
                               </VBox>
+                              <HBox minHeight="-Infinity">
+                                 <children>
+                                    <Label prefHeight="73.0" styleClass="text-field-label" text="This temporary stock will be linked to its parent product. Please verify the parent product’s price, expiry date, and barcode before adding this temporary stock." textAlignment="JUSTIFY" textOverrun="CLIP" wrapText="true">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                               
                               <!-- Action Button -->
-                              <Button fx:id="btnAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="48.0" style="-fx-background-color: linear-gradient(to right, #4F46E5, #7C3AED); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-font-size: 14; -fx-cursor: hand;" text="✨ Add Temporary Stock">
+                              <Button fx:id="btnAction" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" style="-fx-background-color: linear-gradient(to right, #4F46E5, #7C3AED); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-font-size: 14; -fx-cursor: hand;" text="✨ Add Temporary Stock">
                                  <VBox.margin>
-                                    <Insets top="8.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
                         </VBox>
                      </children>
                   </VBox>
                </children>
                <padding>
-                  <Insets bottom="16.0" left="16.0" right="16.0" />
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                </padding>
             </HBox>
          </children>
