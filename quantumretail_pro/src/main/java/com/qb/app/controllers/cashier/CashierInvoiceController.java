@@ -852,9 +852,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(selectedProduct);
             this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
-        } else {
-
         }
-
     }
 }
