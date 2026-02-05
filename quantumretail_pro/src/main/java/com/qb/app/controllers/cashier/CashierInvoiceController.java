@@ -453,8 +453,13 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             if (systemConfig.system.multi_stock) {
                 cashierInvoiceTable.setStock(selectedStock);
-                cashierInvoiceTable.setUnitPrice(String.valueOf(selectedStock.getSalePrice()));
-                cashierInvoiceTable.setDiscount(String.format(DefaultAPI.currencyFloatFormat, selectedStock.getDiscount()));
+                if (this.isParent) {
+                    cashierInvoiceTable.setUnitPrice(String.valueOf(selectedStock.getSalePrice()));
+                    cashierInvoiceTable.setDiscount(String.format(DefaultAPI.currencyFloatFormat, selectedStock.getDiscount()));
+                } else {
+                    cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
+                    cashierInvoiceTable.setDiscount(String.format(DefaultAPI.currencyFloatFormat, selectedProduct.getDiscount()));
+                }
             } else {
                 cashierInvoiceTable.setUnitPrice(String.valueOf(selectedProduct.getSalePrice()));
                 cashierInvoiceTable.setDiscount(String.format(DefaultAPI.currencyFloatFormat, selectedProduct.getDiscount()));
@@ -647,9 +652,18 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         InvoiceItem invoiceItem = new InvoiceItem();
                         invoiceItem.setQty(item.getQty());
                         if (systemConfig.system.multi_stock) {
-                            invoiceItem.setSalePrice(item.getStock().getSalePrice());
-                            invoiceItem.setCostPrice(item.getStock().getCostPrice());
-                            invoiceItem.setDiscount(item.getStock().getDiscount());
+
+                            ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
+
+                            if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
+                                invoiceItem.setSalePrice(item.getStock().getSalePrice());
+                                invoiceItem.setCostPrice(item.getStock().getCostPrice());
+                                invoiceItem.setDiscount(item.getStock().getDiscount());
+                            } else {
+                                invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+                                invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+                                invoiceItem.setDiscount(item.getProduct().getDiscount());
+                            }
                         } else {
                             invoiceItem.setSalePrice(item.getProduct().getSalePrice());
                             invoiceItem.setCostPrice(item.getProduct().getCostPrice());
@@ -812,6 +826,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 );
                 bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
             }
+            
             bean.setQty(item.getQty());
             bean.setAmount(item.getAmount());
 
@@ -828,7 +843,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     }
 
     private void searchItemByBarcode(String barcode) {
-
         StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
 
         if (stockProduct.getStock() != null) {
@@ -838,9 +852,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(selectedProduct);
             this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
-        } else {
-
         }
-
     }
 }
