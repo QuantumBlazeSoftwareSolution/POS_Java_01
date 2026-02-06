@@ -173,12 +173,7 @@ public class DiscountController implements Initializable {
             } else {
                 this.isParent = false;
                 tfDiscountProductName.setText(this.selectedProduct.getProduct());
-                tfDiscountValue.setText(
-                        String.format(
-                                DefaultAPI.currencyFloatFormat,
-                                this.selectedProduct.getDiscount()
-                        )
-                );
+                tfDiscountValue.setText(String.valueOf(this.selectedProduct.getDiscount()));
             }
         }
     }
@@ -197,12 +192,7 @@ public class DiscountController implements Initializable {
         this.selectedProduct = product;
         if (stock != null && product != null) {
             tfDiscountProductName.setText(product.getProduct());
-            tfDiscountValue.setText(
-                    String.format(
-                            DefaultAPI.currencyFloatFormat,
-                            stock.getDiscount()
-                    )
-            );
+            tfDiscountValue.setText(String.valueOf(stock.getDiscount()));
         }
     }
 

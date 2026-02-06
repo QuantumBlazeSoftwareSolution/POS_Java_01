@@ -375,7 +375,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     (product.getSalePrice() - product.getDiscount())
             );
         }
-
     }
 
     private void setPreviewDetails(String itemName, double salePrice, double newPrice) {
@@ -764,9 +763,18 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         }
 
         for (InvoiceItem invoiceItemController : invoiceItems) {
+
+            ProductHasProductType productType
+                    = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(invoiceItemController.getProductId());
             if (systemConfig.system.multi_stock) {
-                subTotal += invoiceItemController.getStockBatchId().getSalePrice() * invoiceItemController.getQty();
-                discount += invoiceItemController.getStockBatchId().getDiscount() * invoiceItemController.getQty();
+
+                if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
+                    subTotal += invoiceItemController.getStockBatchId().getSalePrice() * invoiceItemController.getQty();
+                    discount += invoiceItemController.getStockBatchId().getDiscount() * invoiceItemController.getQty();
+                } else {
+                    subTotal += invoiceItemController.getProductId().getSalePrice() * invoiceItemController.getQty();
+                    discount += invoiceItemController.getProductId().getDiscount() * invoiceItemController.getQty();
+                }
             } else {
                 subTotal += invoiceItemController.getProductId().getSalePrice() * invoiceItemController.getQty();
                 discount += invoiceItemController.getProductId().getDiscount() * invoiceItemController.getQty();
@@ -812,12 +820,24 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             bean.setItemName(item.getItemName());
             if (systemConfig.system.multi_stock) {
-                bean.setUnitPrice(
-                        String.format(
-                                DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()
-                        )
-                );
-                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getDiscount()));
+
+                ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
+
+                if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
+                    bean.setUnitPrice(
+                            String.format(
+                                    DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()
+                            )
+                    );
+                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getDiscount()));
+                } else {
+                    bean.setUnitPrice(
+                            String.format(
+                                    DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()
+                            )
+                    );
+                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
+                }
             } else {
                 bean.setUnitPrice(
                         String.format(
@@ -826,7 +846,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 );
                 bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
             }
-            
+
             bean.setQty(item.getQty());
             bean.setAmount(item.getAmount());
 
