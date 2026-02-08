@@ -56,11 +56,14 @@ public class Stock_popupController implements Initializable {
     @FXML
     private Label labelParentName;
     private Product parentProduct;
+    @FXML
+    private TextField tfDiscount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tfSalePrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
     private void loadStocks() {
@@ -128,12 +131,21 @@ public class Stock_popupController implements Initializable {
 
     private void createStock() {
         try {
+            String discountStr = tfDiscount.getText();
+            double discount = 0;
+            if (discountStr.isEmpty() || "".equals(discountStr)) {
+                discount = 0;
+            } else {
+                discount = Double.parseDouble(discountStr);
+            }
+
             Stock stock = StockCRUD.createSingleTemporaryStock(
                     this.parentProduct,
                     tfSalePrice.getText(),
                     tfCostPrice.getText(),
                     dpExpireDate.getValue(),
-                    tfBarcode.getText()
+                    tfBarcode.getText(),
+                    discount
             );
 
             setStock(stock);
@@ -184,7 +196,7 @@ public class Stock_popupController implements Initializable {
     public void setProduct(Product product) {
         this.parentProduct = null;
         labelParentName.setText("");
-        
+
         this.selectedProduct = product;
         ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
 
