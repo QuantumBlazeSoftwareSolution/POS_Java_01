@@ -33,6 +33,7 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -160,6 +161,19 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         loadSystemConfig();
         interceptQuantityKeys();
         tfBarCode.requestFocus();
+    }
+
+    private static JasperReport INVOICE_REPORT;
+
+    static {
+        try {
+            INVOICE_REPORT = (JasperReport) JRLoader.loadObject(
+                    CashierInvoiceController.class
+                            .getResourceAsStream("/com/qb/app/reports/customerInvoice_sin.jasper")
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadSystemConfig() {
@@ -626,101 +640,211 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         btnPayment.setDisable(state);
     }
 
+//    private void completeThePayment() {
+//        if (this.canInvoicePaid) {
+//
+//            try {
+//                List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
+//
+//                Invoice invoice = new Invoice();
+//                List<InvoiceItem> invoiceItems = new ArrayList<>();
+//
+//                JPATransaction.runInTransaction((em) -> {
+//                    // INSERT invoice
+//                    invoice.setDateTime(new Date());
+//                    invoice.setBillAmount(this.billFinalAmount);
+//                    invoice.setPaidAmount(this.cashAmount);
+//                    invoice.setSessionId(ApplicationSession.getSession());
+//
+//                    em.persist(invoice);
+//                    em.flush();
+//
+//                    for (CashierInvoiceTable item : invoiceItemList) {
+//                        // insert invoice_item
+//
+//                        InvoiceItem invoiceItem = new InvoiceItem();
+//                        invoiceItem.setQty(item.getQty());
+//                        if (systemConfig.system.multi_stock) {
+//
+//                            ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
+//
+//                            if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
+//                                invoiceItem.setSalePrice(item.getStock().getSalePrice());
+//                                invoiceItem.setCostPrice(item.getStock().getCostPrice());
+//                                invoiceItem.setDiscount(item.getStock().getDiscount());
+//                            } else {
+//                                invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+//                                invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+//                                invoiceItem.setDiscount(item.getProduct().getDiscount());
+//                            }
+//                        } else {
+//                            invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+//                            invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+//                            invoiceItem.setDiscount(item.getProduct().getDiscount());
+//                        }
+//                        invoiceItem.setInvoiceId(invoice);
+//                        invoiceItem.setInvoiceItemTypeId(
+//                                InvoiceItemTypeCRUD.getInvoiceItemType(
+//                                        TableInitialValues.InvoiceItemType.selling
+//                                )
+//                        );
+//                        invoiceItem.setProductId(item.getProduct());
+//                        invoiceItem.setStockBatchId(item.getStock());
+//
+//                        if (systemConfig.system.multi_stock) {
+//                            invoiceItem.setStockBatchId(item.getStock());
+//                        }
+//
+//                        em.persist(invoiceItem);
+//                        em.flush();
+//
+//                        invoiceItems.add(invoiceItem);
+//
+//                        // deduct stocks
+//                        Stock stock = item.getStock();
+//                        stock.setQty(stock.getQty() - item.getQty());
+//
+//                        em.merge(stock);
+//                        em.flush();
+//                    }
+//                });
+//
+//                printInvoice(invoice, invoiceItems);
+//
+//                // print the bill
+//                DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
+//                clearBillDetails();
+//                clearSelectedProduct();
+//
+//                tfBarCode.requestFocus();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                getLogger.logger().warning(e.toString());
+//                CustomAlert.showStyledAlert(
+//                        root,
+//                        "Unable to process the payment. Please try again or contact support.",
+//                        "Payment Failed",
+//                        Alert.AlertType.ERROR
+//                );
+//            }
+//        } else {
+//            CustomAlert.showStyledAlert(
+//                    root,
+//                    "This invoice is incomplete. Please add the required items before proceeding.",
+//                    "Incomplete Invoice",
+//                    Alert.AlertType.WARNING
+//            );
+//        }
+//    }
     private void completeThePayment() {
-        if (this.canInvoicePaid) {
-
-            try {
-                List<CashierInvoiceTable> invoiceItemList = tableInvoice.getItems();
-
-                Invoice invoice = new Invoice();
-                List<InvoiceItem> invoiceItems = new ArrayList<>();
-
-                JPATransaction.runInTransaction((em) -> {
-                    // INSERT invoice
-                    invoice.setDateTime(new Date());
-                    invoice.setBillAmount(this.billFinalAmount);
-                    invoice.setPaidAmount(this.cashAmount);
-                    invoice.setSessionId(ApplicationSession.getSession());
-
-                    em.persist(invoice);
-                    em.flush();
-
-                    for (CashierInvoiceTable item : invoiceItemList) {
-                        // insert invoice_item
-
-                        InvoiceItem invoiceItem = new InvoiceItem();
-                        invoiceItem.setQty(item.getQty());
-                        if (systemConfig.system.multi_stock) {
-
-                            ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
-
-                            if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
-                                invoiceItem.setSalePrice(item.getStock().getSalePrice());
-                                invoiceItem.setCostPrice(item.getStock().getCostPrice());
-                                invoiceItem.setDiscount(item.getStock().getDiscount());
-                            } else {
-                                invoiceItem.setSalePrice(item.getProduct().getSalePrice());
-                                invoiceItem.setCostPrice(item.getProduct().getCostPrice());
-                                invoiceItem.setDiscount(item.getProduct().getDiscount());
-                            }
-                        } else {
-                            invoiceItem.setSalePrice(item.getProduct().getSalePrice());
-                            invoiceItem.setCostPrice(item.getProduct().getCostPrice());
-                            invoiceItem.setDiscount(item.getProduct().getDiscount());
-                        }
-                        invoiceItem.setInvoiceId(invoice);
-                        invoiceItem.setInvoiceItemTypeId(
-                                InvoiceItemTypeCRUD.getInvoiceItemType(
-                                        TableInitialValues.InvoiceItemType.selling
-                                )
-                        );
-                        invoiceItem.setProductId(item.getProduct());
-                        invoiceItem.setStockBatchId(item.getStock());
-
-                        if (systemConfig.system.multi_stock) {
-                            invoiceItem.setStockBatchId(item.getStock());
-                        }
-
-                        em.persist(invoiceItem);
-                        em.flush();
-
-                        invoiceItems.add(invoiceItem);
-
-                        // deduct stocks
-                        Stock stock = item.getStock();
-                        stock.setQty(stock.getQty() - item.getQty());
-
-                        em.merge(stock);
-                        em.flush();
-                    }
-                });
-
-                printInvoice(invoice, invoiceItems);
-
-                // print the bill
-                DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
-                clearBillDetails();
-                clearSelectedProduct();
-
-                tfBarCode.requestFocus();
-            } catch (Exception e) {
-                e.printStackTrace();
-                getLogger.logger().warning(e.toString());
-                CustomAlert.showStyledAlert(
-                        root,
-                        "Unable to process the payment. Please try again or contact support.",
-                        "Payment Failed",
-                        Alert.AlertType.ERROR
-                );
-            }
-        } else {
+        if (!canInvoicePaid) {
             CustomAlert.showStyledAlert(
                     root,
-                    "This invoice is incomplete. Please add the required items before proceeding.",
+                    "This invoice is incomplete.",
                     "Incomplete Invoice",
                     Alert.AlertType.WARNING
             );
+            return;
         }
+
+        btnPayment.setDisable(true);
+
+        Task<Void> paymentTask = new Task<>() {
+            @Override
+            protected Void call() {
+                processPaymentInBackground();
+                return null;
+            }
+        };
+
+        paymentTask.setOnSucceeded(e -> {
+            DefaultAPI.showMessageAndHidden(invoiceMessage, "Payment Successful");
+            clearBillDetails();
+            clearSelectedProduct();
+            tfBarCode.requestFocus();
+            btnPayment.setDisable(false);
+        });
+
+        paymentTask.setOnFailed(e -> {
+            Throwable ex = paymentTask.getException();
+            ex.printStackTrace();
+            CustomAlert.showStyledAlert(
+                    root,
+                    "Payment failed. Please retry.",
+                    "Error",
+                    Alert.AlertType.ERROR
+            );
+            btnPayment.setDisable(false);
+        });
+
+        new Thread(paymentTask, "payment-thread").start();
+    }
+
+    private void processPaymentInBackground() {
+        List<CashierInvoiceTable> invoiceItemList
+                = new ArrayList<>(tableInvoice.getItems());
+
+        Invoice invoice = new Invoice();
+        List<InvoiceItem> invoiceItems = new ArrayList<>();
+
+        JPATransaction.runInTransaction(em -> {
+
+            invoice.setDateTime(new Date());
+            invoice.setBillAmount(billFinalAmount);
+            invoice.setPaidAmount(cashAmount);
+            invoice.setSessionId(ApplicationSession.getSession());
+
+            em.persist(invoice);
+
+            for (CashierInvoiceTable item : invoiceItemList) {
+
+                InvoiceItem invoiceItem = new InvoiceItem();
+                invoiceItem.setQty(item.getQty());
+                invoiceItem.setInvoiceId(invoice);
+                invoiceItem.setInvoiceItemTypeId(
+                        InvoiceItemTypeCRUD.getInvoiceItemType(
+                                TableInitialValues.InvoiceItemType.selling
+                        )
+                );
+                invoiceItem.setProductId(item.getProduct());
+                invoiceItem.setStockBatchId(item.getStock());
+
+                if (systemConfig.system.multi_stock && item.getStock() != null) {
+                    ProductHasProductType pt
+                            = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
+
+                    if ("parent".equalsIgnoreCase(pt.getProductTypeId().getType())) {
+                        invoiceItem.setSalePrice(item.getStock().getSalePrice());
+                        invoiceItem.setCostPrice(item.getStock().getCostPrice());
+                        invoiceItem.setDiscount(item.getStock().getDiscount());
+                    } else {
+                        invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+                        invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+                        invoiceItem.setDiscount(item.getProduct().getDiscount());
+                    }
+                } else {
+                    invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+                    invoiceItem.setCostPrice(item.getProduct().getCostPrice());
+                    invoiceItem.setDiscount(item.getProduct().getDiscount());
+                }
+
+                em.persist(invoiceItem);
+                invoiceItems.add(invoiceItem);
+
+                // Stock update
+                Stock stock = item.getStock();
+                if (stock != null) {
+                    stock.setQty(stock.getQty() - item.getQty());
+                    em.merge(stock);
+                }
+            }
+
+            // ✅ SINGLE flush
+            em.flush();
+        });
+
+        // Printing AFTER commit
+        printInvoice(invoice, invoiceItems);
     }
 
     @Override
@@ -736,12 +860,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
                     "net.sf.jasperreports.awt.ignore.missing.font", "true"
             );
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                    getClass().getResourceAsStream("/com/qb/app/reports/customerInvoice.jasper"));
+//            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+//                    getClass().getResourceAsStream("/com/qb/app/reports/customerInvoice_sin.jasper"));
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
-            JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+            JasperPrint report = JasperFillManager.fillReport(
+                    INVOICE_REPORT,
+                    params,
+                    dataSource
+            );
             JasperPrintManager.printReport(report, false);
 //            JasperViewer.viewReport(report, false);
         } catch (JRException e) {
@@ -824,27 +952,45 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
 
                 if (productType.getProductTypeId().getType().toLowerCase().equals("parent")) {
+//                    bean.setUnitPrice(
+//                            String.format(
+//                                    DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()
+//                            )
+//                    );
                     bean.setUnitPrice(
                             String.format(
-                                    DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()
+                                    DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice()
                             )
                     );
-                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getDiscount()));
+                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()));
+//                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getDiscount()));
                 } else {
+//                    bean.setUnitPrice(
+//                            String.format(
+//                                    DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()
+//                            )
+//                    );
                     bean.setUnitPrice(
                             String.format(
-                                    DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()
+                                    DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice()
                             )
                     );
-                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
+                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()));
+//                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
                 }
             } else {
+//                bean.setUnitPrice(
+//                        String.format(
+//                                DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()
+//                        )
+//                );
                 bean.setUnitPrice(
                         String.format(
-                                DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()
+                                DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice()
                         )
                 );
-                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
+                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()));
+//                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
             }
 
             bean.setQty(item.getQty());
