@@ -10,7 +10,9 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
 import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Company;
+import com.qb.app.model.entity.SupplyStatus;
 import com.qb.app.model.getLogger;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -99,6 +101,7 @@ public class Supply_company_managementController implements Initializable {
                         company.setAddress(rtfCompanyAddress.getText());
                         company.setTelephone1(rtfCompanyMobile01.getText());
                         company.setTelephone2(rtfCompanyMobile02.getText());
+                        company.setSupplyStatusId(getSupplierStatus());
 
                         em.persist(company);
                         clearAddCompanyFields();
@@ -113,6 +116,25 @@ public class Supply_company_managementController implements Initializable {
             }
         }
 
+    }
+    
+    private SupplyStatus getSupplierStatus() {
+        return JPATransaction.runInTransaction((em) -> {
+            try {
+                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaQuery<SupplyStatus> cq = cb.createQuery(SupplyStatus.class);
+                Root<SupplyStatus> root = cq.from(SupplyStatus.class);
+
+                cq.where(cb.equal(root.get("status"), "Active"));
+
+                return em.createQuery(cq).getSingleResult();
+
+            } catch (NoResultException e) {
+                // Handle case where no "Enable" status exists
+                System.err.println("No Company Status with status='Active' found");
+                return null;
+            }
+        });
     }
 
     private boolean IsCompanyValid() {
