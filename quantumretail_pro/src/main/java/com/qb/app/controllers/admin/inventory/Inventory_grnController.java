@@ -6,19 +6,18 @@ package com.qb.app.controllers.admin.inventory;
 
 import com.qb.app.controllers.popup.PopUpProductListController;
 import com.qb.app.controllers.table_models.GRNListTable;
+import com.qb.app.database_crud.StockStatusCRUD;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.Config;
 import com.qb.app.model.ConfigManager;
 import com.qb.app.model.CustomAlert;
+import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
-import com.qb.app.model.SinhalaInputNormalizer;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Grn;
 import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
-import com.qb.app.model.entity.ProductHasProductType;
-import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.StockStatus;
 import com.qb.app.model.entity.Supplier;
@@ -114,19 +113,18 @@ public class Inventory_grnController implements Initializable {
     private TableColumn<GRNListTable, String> colExpireDate;
     @FXML
     private TableColumn<GRNListTable, String> colAmount;
-
     @FXML
     private TableColumn<GRNListTable, String> colDiscount;
-    /**
-     * Initializes the controller class.
-     */
-    private final ObservableList<GRNListTable> grnList = FXCollections.observableArrayList();
     @FXML
     private Button Refesh;
     @FXML
     private TextField Barcode_TF;
     @FXML
     private TableColumn<GRNListTable, String> colBarCode;
+    @FXML
+    private TextField tfDiscountCustomer;
+
+    private final ObservableList<GRNListTable> grnList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -141,9 +139,9 @@ public class Inventory_grnController implements Initializable {
                 data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getProduct().getProduct()));
         colBarCode.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 data.getValue().getBarcode() == null
-                        || data.getValue().getBarcode().trim().isEmpty()
-                                ? "N/A"
-                                : data.getValue().getBarcode()));
+                || data.getValue().getBarcode().trim().isEmpty()
+                ? "N/A"
+                : data.getValue().getBarcode()));
 
         colCostPrice.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 String.format("%.2f", data.getValue().getCostPrice())));
@@ -167,6 +165,18 @@ public class Inventory_grnController implements Initializable {
                 String.format("%.2f", data.getValue().getAmount())));
 
         // TODO
+        configureTextFields();
+    }
+
+    private void configureTextFields() {
+        tfDiscountCustomer.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfDiscountCustomer.addEventHandler(KeyEvent.KEY_RELEASED, (event) -> {
+            String discount = tfDiscountCustomer.getText();
+            double doubleDIscount = Double.parseDouble(discount);
+            if (discount.isEmpty() || "".equals(discount) || doubleDIscount < 0) {
+                tfDiscountCustomer.setText("0");
+            }
+        });
     }
 
     private void loadCompanyComboBox() {
@@ -217,6 +227,7 @@ public class Inventory_grnController implements Initializable {
         double salePrice = Double.parseDouble(Sale_TF.getText());
         double discountPrice = Double.parseDouble(PDiscount_TF.getText());
         double amount = calculateProductAmount();
+        double customerDiscount = Double.parseDouble(tfDiscountCustomer.getText());
 
         LocalDate expireDate = ExpireDatePicker.getValue();
         Amount_TF.setText(String.format("%.2f", amount));
@@ -232,18 +243,17 @@ public class Inventory_grnController implements Initializable {
             table.refresh();
         } else {
             if (editingRow != null) {
-                // ✏️ Update row
                 editingRow.setQty(enteredQty);
                 editingRow.setCostPrice(costPrice);
                 editingRow.setSalePrice(salePrice);
                 editingRow.setExpireDate(expireDate);
                 editingRow.setDiscount(discountPrice);
+                editingRow.setCustomerDiscount(customerDiscount);
                 editingRow.setAmount(amount);
                 editingRow.recalculateAmount();
                 table.refresh();
                 editingRow = null;
             } else {
-                // ➕ Add new row (either new product or same ID but different details)
                 GRNListTable newRow = new GRNListTable(
                         selectedProduct,
                         barcode,
@@ -252,7 +262,9 @@ public class Inventory_grnController implements Initializable {
                         costPrice,
                         salePrice,
                         discountPrice,
-                        amount);
+                        amount,
+                        customerDiscount
+                );
                 newRow.recalculateAmount();
                 grnList.add(newRow);
             }
@@ -280,8 +292,8 @@ public class Inventory_grnController implements Initializable {
     }
 
     /**
-     * Clear only product-related input fields.
-     * Used after adding items to table - keeps GRN code and combo boxes.
+     * Clear only product-related input fields. Used after adding items to table
+     * - keeps GRN code and combo boxes.
      */
     private void clearProductInputs() {
         // Clear product fields only
@@ -302,8 +314,8 @@ public class Inventory_grnController implements Initializable {
     }
 
     /**
-     * Clear all input fields including GRN code and combo boxes.
-     * Used by Refresh button to reset the entire form.
+     * Clear all input fields including GRN code and combo boxes. Used by
+     * Refresh button to reset the entire form.
      */
     private void clearInputs() {
         // Clear product fields
@@ -446,7 +458,7 @@ public class Inventory_grnController implements Initializable {
                         (PopUpProductListController controller) -> {
                             controller.saveController(this);
                             controller.changeSearchArea(true);
-                            
+
                         });
             } catch (IOException e) {
                 getLogger.logger().warning(e.toString());
@@ -477,12 +489,10 @@ public class Inventory_grnController implements Initializable {
     }
 
     public void setParentProduct(Product product) {
-
         loadedProduct = product;
         ID_TF.setText(String.valueOf(loadedProduct.getId()));
         ProductName_TF.setText(String.valueOf(loadedProduct.getProduct()));
         Barcode_TF.requestFocus();
-
     }
 
     private Product getEnteredProduct() {
@@ -669,7 +679,7 @@ public class Inventory_grnController implements Initializable {
             em.persist(grn);
             em.flush();
 
-            StockStatus availableStatus = em.find(StockStatus.class, 1);
+            StockStatus availableStatus = StockStatusCRUD.getStockStatus("active");
 
             /*
              * =========================
@@ -704,8 +714,10 @@ public class Inventory_grnController implements Initializable {
                             row.getProduct(),
                             row.getCostPrice(),
                             row.getSalePrice(),
-                            row.getDiscount(),
-                            expireDate);
+                            row.getCustomerDiscount(),
+                            expireDate,
+                            row.getBarcode()
+                    );
 
                     if (existingStock != null) {
                         // ✅ SAME BATCH → ADD QTY (using calculated grnItemQty)
@@ -714,7 +726,6 @@ public class Inventory_grnController implements Initializable {
                         em.merge(existingStock);
 
                     } else {
-                        // ➕ NEW BATCH (using calculated grnItemQty)
                         System.out.println("new bar--" + row.getBarcode());
                         Stock stock = new Stock();
                         stock.setProductId(row.getProduct());
@@ -723,7 +734,7 @@ public class Inventory_grnController implements Initializable {
                         stock.setQty(grnItemQty);
                         stock.setCostPrice(row.getCostPrice());
                         stock.setSalePrice(row.getSalePrice());
-                        stock.setDiscount(row.getDiscount());
+                        stock.setDiscount(row.getCustomerDiscount());
                         stock.setReceivedDate(new Date());
                         stock.setExpireDate(expireDate);
                         stock.setStockStatusId(availableStatus);
@@ -739,17 +750,14 @@ public class Inventory_grnController implements Initializable {
                     Stock existingStock = findStockByProduct(em, row.getProduct());
 
                     if (existingStock != null) {
-                        // UPDATE EXISTING STOCK (using calculated grnItemQty)
 
                         existingStock.setQty(
                                 existingStock.getQty() + grnItemQty);
 
-                        // Optional business rules
                         existingStock.setCostPrice(row.getCostPrice());
                         existingStock.setSalePrice(row.getSalePrice());
-                        existingStock.setDiscount(row.getDiscount());
+                        existingStock.setDiscount(row.getCustomerDiscount());
 
-                        // Keep earliest expiry
                         Date newExpire = toDate(row.getExpireDate());
                         if (newExpire.before(existingStock.getExpireDate())) {
                             existingStock.setExpireDate(newExpire);
@@ -758,8 +766,6 @@ public class Inventory_grnController implements Initializable {
                         em.merge(existingStock);
 
                     } else {
-                        // CREATE FIRST STOCK (using calculated grnItemQty)
-
                         Stock stock = new Stock();
                         stock.setProductId(row.getProduct());
                         stock.setSupplierId(grn.getSupplierId());
@@ -767,7 +773,7 @@ public class Inventory_grnController implements Initializable {
                         stock.setQty(grnItemQty);
                         stock.setCostPrice(row.getCostPrice());
                         stock.setSalePrice(row.getSalePrice());
-                        stock.setDiscount(row.getDiscount());
+                        stock.setDiscount(row.getCustomerDiscount());
                         stock.setReceivedDate(new Date());
                         stock.setExpireDate(toDate(row.getExpireDate()));
                         stock.setStockStatusId(availableStatus);
@@ -809,21 +815,23 @@ public class Inventory_grnController implements Initializable {
             Product product,
             double costPrice,
             double salePrice,
-            double discount,
-            Date expireDate) {
+            double customerDiscount,
+            Date expireDate,
+            String barcode) {
         List<Stock> list = em.createQuery(
                 "SELECT s FROM Stock s "
-                        + "WHERE s.productId = :product "
-                        + "AND s.costPrice = :costPrice "
-                        + "AND s.salePrice = :salePrice "
-                        + "AND s.discount = :discount "
-                        + "AND s.expireDate = :expireDate "
-                        + "AND s.stockStatusId.id = 1",
+                + "WHERE s.productId = :product "
+                + "AND s.costPrice = :costPrice "
+                + "AND s.salePrice = :salePrice "
+                + "AND s.discount = :discount "
+                + "AND s.barcode = :barcode "
+                + "AND s.expireDate = :expireDate ",
                 Stock.class)
                 .setParameter("product", product)
                 .setParameter("costPrice", costPrice)
                 .setParameter("salePrice", salePrice)
-                .setParameter("discount", discount)
+                .setParameter("discount", customerDiscount)
+                .setParameter("barcode", barcode)
                 .setParameter("expireDate", expireDate)
                 .setMaxResults(1)
                 .getResultList();
@@ -944,12 +952,4 @@ public class Inventory_grnController implements Initializable {
             return count > 0;
         });
     }
-
-    /**
-     * Search and return only parent products.
-     * Parent products are those that appear as referenceId in
-     * product_has_product_type table.
-     */
-
-
 }

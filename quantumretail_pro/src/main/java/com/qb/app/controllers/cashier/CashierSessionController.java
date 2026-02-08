@@ -85,6 +85,47 @@ public class CashierSessionController implements Initializable, ControllerClose 
     public void initialize(URL url, ResourceBundle rb) {
         getSessionDetails();
         sessionTimer();
+        setupKeyEventHandler();
+    }
+
+    private void setupKeyEventHandler() {
+        // session sign in key events
+        tfSignInUsername.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                tfSignInPassword.requestFocus();
+                tfSignInPassword.selectAll();
+            }
+        });
+        tfSignInPassword.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                tfSignInPettyCash.requestFocus();
+                tfSignInPettyCash.selectAll();
+            }
+        });
+        tfSignInPettyCash.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                sessionSignIn();
+            }
+        });
+
+        // session sign of key events
+        tfSignOffUsername.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                tfSignOffPassword.requestFocus();
+                tfSignOffPassword.selectAll();
+            }
+        });
+        tfSignOffPassword.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                tfSignOffCollection.requestFocus();
+                tfSignOffCollection.selectAll();
+            }
+        });
+        tfSignOffCollection.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                sessionSignOff();
+            }
+        });
     }
 
     private void getSessionDetails() {

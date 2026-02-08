@@ -145,7 +145,7 @@
                                                    </font>
                                                 </Label>
                                                 <Separator fx:id="salePriceSeparator" orientation="VERTICAL" stylesheets="@../../../../../../../../../../../Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/src/main/resources/com/qb/app/css/style.css" />
-                                                <Label fx:id="labelItemNewPrice" styleClass="primary-text" stylesheets="@../../../../../../../../../../../Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/src/main/resources/com/qb/app/css/style.css">
+                                                <Label fx:id="labelItemNewPrice" styleClass="primary-text" stylesheets="@../css/style.css">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

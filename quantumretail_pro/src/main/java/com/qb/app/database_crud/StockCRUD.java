@@ -44,7 +44,14 @@ public class StockCRUD {
         });
     }
 
-    public static Stock createSingleTemporaryStock(Product product, String salePrice, String costPrice, LocalDate expireDate, String barcode) {
+    public static Stock createSingleTemporaryStock(
+            Product product,
+            String salePrice,
+            String costPrice,
+            LocalDate expireDate,
+            String barcode,
+            double discount
+    ) {
 
         Stock stock = new Stock();
 
@@ -64,6 +71,7 @@ public class StockCRUD {
         }
         stock.setProductId(product);
         stock.setBarcode(barcode);
+        stock.setDiscount(discount);
         stock.setStockStatusId(
                 StockStatusCRUD.getStockStatus(
                         TableInitialValues.StockStatusList.temporary

@@ -15,9 +15,6 @@ import java.util.Date;
  */
 public class GRNListTable {
 
-
-
-
     // Create Variables 
     private Product product;
     private String barcode;
@@ -27,10 +24,11 @@ public class GRNListTable {
     private double salePrice;
     private double discount;
     private double amount;
+    private double customerDiscount;
 
     // Create Constructor
     public GRNListTable(
-            Product productData, String barcode,double qtyData, LocalDate expireDateData, double costPriceData, double salePriceData, double discountData, double amountData) {
+            Product productData, String barcode, double qtyData, LocalDate expireDateData, double costPriceData, double salePriceData, double discountData, double amountData, double customerDiscount) {
 
         //Assign Vlaues 
         this.product = productData;
@@ -41,17 +39,26 @@ public class GRNListTable {
         this.salePrice = salePriceData;
         this.discount = discountData;
         this.amount = amountData;
-
+        this.customerDiscount = customerDiscount;
     }
-    public GRNListTable(){}
-    
-        public void recalculateAmount() {
+
+    public GRNListTable() {
+    }
+
+    public void recalculateAmount() {
         this.amount = (this.qty * this.costPrice) - (this.discount * this.qty);
     }
 
-    
+    public double getCustomerDiscount() {
+        return this.customerDiscount;
+    }
+
+    public void setCustomerDiscount(double customerDiscount) {
+        this.customerDiscount = customerDiscount;
+    }
+
     //Create Getter and Setters for  Accesss the data
-        public Product getProduct() {
+    public Product getProduct() {
         return product;
     }
 
@@ -106,14 +113,13 @@ public class GRNListTable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    
-        public String getBarcode() {
+
+    public String getBarcode() {
         return barcode;
     }
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
-
 
 }
