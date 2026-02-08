@@ -176,3 +176,13 @@ Feb 08, 2026 7:57:39 AM com.qb.app.controllers.SytemLoginController lambda$check
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
 Feb 08, 2026 8:44:21 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Feb 08, 2026 8:32:33 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Feb 08, 2026 8:33:21 PM com.qb.app.controllers.admin.supply.Supply_company_managementController lambda$addCompany$0
+WARNING: org.hibernate.PropertyValueException: not-null property references a null or transient value : com.qb.app.model.entity.Company.supplyStatusId
+Feb 08, 2026 8:33:52 PM com.qb.app.controllers.admin.supply.Supply_company_managementController lambda$addCompany$0
+WARNING: org.hibernate.PropertyValueException: not-null property references a null or transient value : com.qb.app.model.entity.Company.supplyStatusId
+Feb 08, 2026 8:34:56 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Feb 08, 2026 8:35:08 PM com.qb.app.controllers.admin.supply.Supply_company_managementController lambda$addCompany$0
+WARNING: org.hibernate.PropertyValueException: not-null property references a null or transient value : com.qb.app.model.entity.Company.supplyStatusId
