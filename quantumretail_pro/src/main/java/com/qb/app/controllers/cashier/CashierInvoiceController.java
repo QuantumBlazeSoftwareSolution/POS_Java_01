@@ -169,7 +169,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         try {
             INVOICE_REPORT = (JasperReport) JRLoader.loadObject(
                     CashierInvoiceController.class
-                            .getResourceAsStream("/com/qb/app/reports/customerInvoice_sin.jasper")
+                            .getResourceAsStream("/com/qb/app/reports/customerInvoice_sin_new.jasper")
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -947,6 +947,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             CashierInvoiceTable bean = new CashierInvoiceTable();
 
             bean.setItemName(item.getItemName());
+            double ourPrice = 0;
             if (systemConfig.system.multi_stock) {
 
                 ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(item.getProduct());
@@ -962,7 +963,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                     DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice()
                             )
                     );
-                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getSalePrice() - item.getStock().getDiscount()));
+
+                    ourPrice = item.getStock().getSalePrice() - item.getStock().getDiscount();
+
+                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, ourPrice));
 //                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getStock().getDiscount()));
                 } else {
 //                    bean.setUnitPrice(
@@ -975,7 +979,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                     DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice()
                             )
                     );
-                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()));
+                    ourPrice = item.getProduct().getSalePrice() - item.getProduct().getDiscount();
+                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, ourPrice));
 //                    bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
                 }
             } else {
@@ -989,12 +994,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                 DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice()
                         )
                 );
-                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getSalePrice() - item.getProduct().getDiscount()));
+                ourPrice = item.getProduct().getSalePrice() - item.getProduct().getDiscount();
+                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, ourPrice));
 //                bean.setDiscount(String.format(DefaultAPI.currencyFloatFormat, item.getProduct().getDiscount()));
             }
 
             bean.setQty(item.getQty());
-            bean.setAmount(item.getAmount());
+//            bean.setAmount(item.getAmount());
+            bean.setAmount(String.format(
+                    DefaultAPI.currencyFloatFormat, item.getQty() * ourPrice
+            ));
 
             collection.add(bean);
         }
