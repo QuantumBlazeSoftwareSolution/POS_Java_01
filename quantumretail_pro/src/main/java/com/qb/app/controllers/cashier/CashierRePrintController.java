@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers.cashier;
 
+import com.qb.app.model.ControllerClose;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -12,13 +13,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+
 /**
  * FXML Controller class
  *
  * @author Vihanga
  */
-public class CashierRePrintController implements Initializable {
-
+public class CashierRePrintController implements Initializable, ControllerClose {
 
     @FXML
     private ScrollPane rePrintInvoiceItemScrollContainer;
@@ -32,12 +33,18 @@ public class CashierRePrintController implements Initializable {
     private VBox rePrintItemContainer;
     @FXML
     private ScrollBar rePrintInvoiceScroller;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    @Override
+    public void close() {
+
+    }
+
 }

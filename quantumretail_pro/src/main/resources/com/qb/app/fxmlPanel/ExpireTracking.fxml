@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.ExpireTrackingController">
+   <children>
+      <VBox layoutX="25.0" layoutY="25.0" spacing="12.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <ComboBox fx:id="cbYear" prefHeight="45.0" prefWidth="150.0" promptText="Year" />
+                        <ComboBox fx:id="cbMonth" prefHeight="45.0" prefWidth="150.0" promptText="Month" />
+                     </children>
+                  </HBox>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Separator orientation="VERTICAL" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="tfSearchField" minHeight="45.0" prefHeight="45.0" prefWidth="300.0" promptText="Search here..." />
+               </children>
+            </HBox>
+            <TableView fx:id="table" prefWidth="528.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colBatchId" maxWidth="140.0" prefWidth="75.0" text="Batch ID" />
+                <TableColumn fx:id="colItemName" prefWidth="75.0" text="Item Name" />
+                  <TableColumn fx:id="colQuantity" maxWidth="120.0" prefWidth="75.0" text="Quantity" />
+                  <TableColumn fx:id="colReceivedDate" maxWidth="160.0" prefWidth="75.0" text="Received Date" />
+                  <TableColumn fx:id="colExpireDate" maxWidth="160.0" prefWidth="75.0" text="Expire Date" />
+                  <TableColumn fx:id="colAction" maxWidth="140.0" prefWidth="75.0" text="Action" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

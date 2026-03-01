@@ -527,7 +527,6 @@ public class Inventory_grnController implements Initializable {
         double finalAmount = (enteredQty * costPrice) - discount * enteredQty;
 
         return finalAmount;
-
     }
 
     @FXML
@@ -539,37 +538,25 @@ public class Inventory_grnController implements Initializable {
 
         Object src = event.getSource();
 
-        if (src == Barcode_TF) {
-            setZeroIfEmpty(Barcode_TF);
-            ExpireDatePicker.requestFocus();
-
-        } else if (src == ExpireDatePicker) {
+        if (src == ExpireDatePicker) {
             Qty_TF.requestFocus();
-
         } else if (src == Qty_TF) {
             setZeroIfEmpty(Qty_TF);
             Cost_TF.requestFocus();
-
         } else if (src == Cost_TF) {
             setZeroIfEmpty(Cost_TF);
             Sale_TF.requestFocus();
-
         } else if (src == Sale_TF) {
             setZeroIfEmpty(Sale_TF);
             PDiscount_TF.requestFocus();
-
         } else if (src == PDiscount_TF) {
             setZeroIfEmpty(PDiscount_TF);
-
             double amount = calculateProductAmount();
             Amount_TF.setText(String.format("%.2f", amount));
-
             Add_Btn.requestFocus();
         } else if (src == GRNID_TF) {
             loadGRNDetails();
-
         }
-
     }
 
     private void setZeroIfEmpty(TextField tf) {

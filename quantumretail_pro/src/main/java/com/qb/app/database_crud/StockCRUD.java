@@ -44,14 +44,7 @@ public class StockCRUD {
         });
     }
 
-    public static Stock createSingleTemporaryStock(
-            Product product,
-            String salePrice,
-            String costPrice,
-            LocalDate expireDate,
-            String barcode,
-            double discount
-    ) {
+    public static Stock createSingleTemporaryStock(Product product, String salePrice, String costPrice, LocalDate expireDate, String barcode, double discount) {
 
         Stock stock = new Stock();
 

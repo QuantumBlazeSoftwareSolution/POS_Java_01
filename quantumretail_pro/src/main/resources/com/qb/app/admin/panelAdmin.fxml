@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" vvalue="0.11" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" vvalue="0.53" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -134,7 +134,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnEmpRoleManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0">
+                                          <HBox fx:id="btnEmpRoleManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0">
                                              <children>
                                                 <Group fx:id="iconEmpRoleManagement" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Role Management">
@@ -330,7 +330,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnInventoryDistribute" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnInventoryDistribute" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryDistribute" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Distribute">
@@ -350,7 +350,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnInventoryDamageItem" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnInventoryDamageItem" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryDamageReturn" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Damage Items">
@@ -370,7 +370,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnInventoryLocationReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnInventoryLocationReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryLocationReturn" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Location Return">
@@ -410,10 +410,30 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnInventoryLocationManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnInventoryLocationManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryLocationManagement" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Location Management">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="sub-menu-item" />
+                                                <String fx:value="scale-down-pressed" />
+                                             </styleClass>
+                                          </HBox>
+                                          <HBox fx:id="btnInventoryExpireItems" alignment="CENTER_LEFT" layoutX="10.0" layoutY="180.0" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                             <children>
+                                                <Group fx:id="iconInventoryLocationManagement1" />
+                                                <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Expire Items">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -519,7 +539,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnSupplyOrder" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnSupplyOrder" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconSupplyOrder" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Supply Order">
@@ -542,7 +562,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnSupplyDamageReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnSupplyDamageReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconSupplyDamage" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Supply Damage Return">

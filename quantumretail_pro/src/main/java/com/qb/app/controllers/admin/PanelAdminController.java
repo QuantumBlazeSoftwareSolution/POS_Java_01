@@ -1,6 +1,7 @@
 package com.qb.app.controllers.admin;
 
 import com.qb.app.App;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.getLogger;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +29,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-public class PanelAdminController  implements Initializable{
+public class PanelAdminController implements Initializable {
 
     // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -232,6 +234,10 @@ public class PanelAdminController  implements Initializable{
     private boolean isMenuCollapsed = false;
     private Admin_top_panelController controller;
     // </editor-fold>
+    @FXML
+    private HBox btnInventoryExpireItems;
+    @FXML
+    private Group iconInventoryLocationManagement1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -268,14 +274,20 @@ public class PanelAdminController  implements Initializable{
                 App.setRoot("sytemLogin");
             } catch (Exception e) {
                 e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+                getLogger.logger().warning(e.toString());
             }
         } else if (event.getSource() == btnDiscount) {
             loadCenterPanel("admin/discount");
         } else if (event.getSource() == btnDashboard) {
             loadCenterPanel("admin/adminDashboard");
         } else if (event.getSource() == btnCustomer) {
-            loadCenterPanel("admin/customer");
+//            loadCenterPanel("admin/customer");
+            CustomAlert.showStyledAlert(
+                    root,
+                    "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
+                    "Access Restricted",
+                    Alert.AlertType.WARNING
+            );
         }
     }
 
@@ -400,7 +412,7 @@ public class PanelAdminController  implements Initializable{
             controller.setPanelAdminController(this);
         } catch (IOException e) {
             e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -409,8 +421,8 @@ public class PanelAdminController  implements Initializable{
             FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
-           e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -449,7 +461,8 @@ public class PanelAdminController  implements Initializable{
         } else if (event.getSource() == btnEmpManagement) {
             loadCenterPanel("admin/employee/employee_management");
         } else if (event.getSource() == btnEmpRoleManagement) {
-            loadCenterPanel("admin/employee/employee_role_management");
+//            loadCenterPanel("admin/employee/employee_role_management");
+            showPermissionMessage();
         } else if (event.getSource() == btnProductAnalytics) {
             loadCenterPanel("admin/product/product_analytics");
         } else if (event.getSource() == btnProductBrandManagement) {
@@ -461,27 +474,35 @@ public class PanelAdminController  implements Initializable{
         } else if (event.getSource() == btnProductRegistration) {
             loadCenterPanel("admin/product/product_registration");
         } else if (event.getSource() == btnInventoryDamageItem) {
-            loadCenterPanel("admin/inventory/inventory_damage_item");
+//            loadCenterPanel("admin/inventory/inventory_damage_item");
+            showPermissionMessage();
         } else if (event.getSource() == btnInventoryDistribute) {
-            loadCenterPanel("admin/inventory/inventory_distribute");
+//            loadCenterPanel("admin/inventory/inventory_distribute");
+            showPermissionMessage();
         } else if (event.getSource() == btnInventoryGRN) {
             loadCenterPanel("admin/inventory/inventory_grn");
         } else if (event.getSource() == btnInventoryLocationManagement) {
-            loadCenterPanel("admin/inventory/inventory_location_management");
+//            loadCenterPanel("admin/inventory/inventory_location_management");
+            showPermissionMessage();
         } else if (event.getSource() == btnInventoryLocationReturn) {
-            loadCenterPanel("admin/inventory/inventory_location_return");
+//            loadCenterPanel("admin/inventory/inventory_location_return");
+            showPermissionMessage();
         } else if (event.getSource() == btnInventoryStockAdjustment) {
             loadCenterPanel("admin/inventory/inventory_stock_adjustment");
+        } else if (event.getSource() == btnInventoryExpireItems) {
+            loadCenterPanel("fxmlPanel/ExpireTracking");
         } else if (event.getSource() == btnSupplyCompanyManagement) {
             loadCenterPanel("admin/supply/supply_company_management");
         } else if (event.getSource() == btnSupplyCompanyOverview) {
             loadCenterPanel("admin/supply/supply_company_overview");
         } else if (event.getSource() == btnSupplyDamageReturn) {
-            loadCenterPanel("admin/supply/supply_damage_return");
+//            loadCenterPanel("admin/supply/supply_damage_return");
+            showPermissionMessage();
         } else if (event.getSource() == btnSupplySupplierManagement) {
             loadCenterPanel("admin/supply/supply_supplier_management");
         } else if (event.getSource() == btnSupplyOrder) {
-            loadCenterPanel("admin/supply/supply_order");
+//            loadCenterPanel("admin/supply/supply_order");
+            showPermissionMessage();
         } else if (event.getSource() == btnReportBIN) {
             loadCenterPanel("reportFXML/reportBIN");
         } else if (event.getSource() == btnReportCashWithdrawal) {
@@ -511,9 +532,17 @@ public class PanelAdminController  implements Initializable{
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+            getLogger.logger().warning(e.toString());
         }
     }
 
+    private void showPermissionMessage() {
+        CustomAlert.showStyledAlert(
+                root,
+                "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
+                "Access Restricted",
+                Alert.AlertType.WARNING
+        );
+    }
 
 }

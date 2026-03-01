@@ -95,6 +95,7 @@ public class actionVerificationController implements Initializable {
                     "Missing Password",
                     Alert.AlertType.WARNING
             );
+            
             tfPassword.requestFocus();
             return false;
         }

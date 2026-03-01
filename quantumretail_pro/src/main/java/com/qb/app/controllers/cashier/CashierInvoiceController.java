@@ -296,7 +296,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         tfItemCode.setText("");
         tfBarCode.setText("");
         tfItemName.setText("");
-        tfQty.setText("0");
+        tfQty.setText("1");
 
         // Static & Instance variables
         this.selectedProduct = null;

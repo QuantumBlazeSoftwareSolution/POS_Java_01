@@ -48,7 +48,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class PanelCashierController  implements Initializable{
+public class PanelCashierController implements Initializable {
 
     // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
@@ -102,7 +102,10 @@ public class PanelCashierController  implements Initializable{
     private boolean isMenuCollapsed = false;
     private Cashier_top_panelController controller;
     private Object currentController;
-    // </editor-fold>
+    @FXML
+    private Group iconRePrint1;
+    @FXML
+    private Button btnExpire;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -161,28 +164,33 @@ public class PanelCashierController  implements Initializable{
                 CustomAlert.showStyledAlert(root, "Sale is already closed.", "Information", Alert.AlertType.INFORMATION);
             }
         } else if (event.getSource() == btnWithdrawal) {
-            if (ApplicationSession.getSession() != null) {
-                if (!isSessionFinished()) {
-                    changeCenterPanel("/com/qb/app/cashier/cashierWithdrawal.fxml", "Withdrawal");
-                } else {
-                    CustomAlert.showStyledAlert(root, "Today's session is finished.", "Information", Alert.AlertType.INFORMATION);
-                }
-            } else {
-                CustomAlert.showStyledAlert(root, "You must activate your session before accessing withdrawal operations.", "Session activation Required", Alert.AlertType.INFORMATION);
-            }
+//            if (ApplicationSession.getSession() != null) {
+//                if (!isSessionFinished()) {
+//                    changeCenterPanel("/com/qb/app/cashier/cashierWithdrawal.fxml", "Withdrawal");
+//                } else {
+//                    CustomAlert.showStyledAlert(root, "Today's session is finished.", "Information", Alert.AlertType.INFORMATION);
+//                }
+//            } else {
+//                CustomAlert.showStyledAlert(root, "You must activate your session before accessing withdrawal operations.", "Session activation Required", Alert.AlertType.INFORMATION);
+//            }
+            showPermissionMessage();
         } else if (event.getSource() == btnRefund) {
-            if (ApplicationSession.getSession() != null) {
-                if (ApplicationSession.getSession().getStatus().equals("ON")) {
-                    changeCenterPanel("/com/qb/app/cashier/cashierRefund.fxml", "Refund");
-                } else {
-                    CustomAlert.showStyledAlert(root, "Refund operations are currently unavailable. Please ensure your session is active.", "Session Not Active", Alert.AlertType.WARNING);
-                }
-            } else {
-                CustomAlert.showStyledAlert(root, "You must sign in before accessing Refund operations.", "Daily Sign-In Required", Alert.AlertType.WARNING);
-                changeCenterPanel("/com/qb/app/cashier/cashierSession.fxml", "Session");
-            }
+//            if (ApplicationSession.getSession() != null) {
+//                if (ApplicationSession.getSession().getStatus().equals("ON")) {
+//                    changeCenterPanel("/com/qb/app/cashier/cashierRefund.fxml", "Refund");
+//                } else {
+//                    CustomAlert.showStyledAlert(root, "Refund operations are currently unavailable. Please ensure your session is active.", "Session Not Active", Alert.AlertType.WARNING);
+//                }
+//            } else {
+//                CustomAlert.showStyledAlert(root, "You must sign in before accessing Refund operations.", "Daily Sign-In Required", Alert.AlertType.WARNING);
+//                changeCenterPanel("/com/qb/app/cashier/cashierSession.fxml", "Session");
+//            }
+            showPermissionMessage();
+        } else if (event.getSource() == btnExpire) {
+            changeCenterPanel("/com/qb/app/fxmlPanel/ExpireTracking.fxml", "Expire Items");
         } else if (event.getSource() == BtnRePrint) {
-            changeCenterPanel("/com/qb/app/cashier/cashierRePrint.fxml", "Re-Print");
+//            changeCenterPanel("/com/qb/app/cashier/cashierRePrint.fxml", "Re-Print");
+            showPermissionMessage();
         } else if (event.getSource() == btnExit) {
             if (ApplicationSession.getSession() != null) {
                 if (ApplicationSession.getSession().getStatus().equals("OFF")) {
@@ -190,7 +198,7 @@ public class PanelCashierController  implements Initializable{
                         App.setRoot("sytemLogin");
                     } catch (IOException e) {
                         e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+                        getLogger.logger().warning(e.toString());
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -210,8 +218,8 @@ public class PanelCashierController  implements Initializable{
                         try {
                             App.setRoot("sytemLogin");
                         } catch (IOException e) {
-                           e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+                            e.printStackTrace();
+                            getLogger.logger().warning(e.toString());
                         }
                     }
                 }
@@ -220,7 +228,7 @@ public class PanelCashierController  implements Initializable{
                     App.setRoot("sytemLogin");
                 } catch (IOException e) {
                     e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+                    getLogger.logger().warning(e.toString());
                 }
             }
         }
@@ -296,7 +304,7 @@ public class PanelCashierController  implements Initializable{
             controller.setPanelCashierController(this);
         } catch (IOException e) {
             e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -327,7 +335,7 @@ public class PanelCashierController  implements Initializable{
         } catch (IOException e) {
             System.out.println("Error while excuting changeCenterPanel() " + e.getMessage());
             e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+            getLogger.logger().warning(e.toString());
 //            e.printStackTrace();
         }
     }
@@ -367,7 +375,7 @@ public class PanelCashierController  implements Initializable{
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        getLogger.logger().warning(e.toString());
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -433,5 +441,12 @@ public class PanelCashierController  implements Initializable{
         });
     }
 
-
+    private void showPermissionMessage() {
+        CustomAlert.showStyledAlert(
+                root,
+                "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
+                "Access Restricted",
+                Alert.AlertType.WARNING
+        );
+    }
 }
