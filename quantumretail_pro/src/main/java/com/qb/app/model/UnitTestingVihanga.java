@@ -1,5 +1,6 @@
 package com.qb.app.model;
 
+import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.model.entity.Category;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
@@ -16,7 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -39,11 +39,16 @@ public class UnitTestingVihanga {
 //        getSessionDetails();
 //        loadComboBoxData();
 //        testRun();
-        passwordTest();
+//        passwordTest();
 //        testDatabaseResults();
 //        testJsonFileHandling();
 //        workWithConfigFile();
 //        testEagerLoading();
+        testGetStock();
+    }
+
+    private static void testGetStock() {
+        StockCRUD.getStocks();
     }
 
     private static void testJPA() {

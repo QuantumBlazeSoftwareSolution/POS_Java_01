@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -114,4 +115,28 @@ public class StockCRUD {
         });
     }
 
+    public static List<Stock> getStocks() {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+            Root<Stock> stockTable = cq.from(Stock.class);
+
+            List<Predicate> predicates = new ArrayList<>();
+
+            predicates.add(cb.notEqual(stockTable.get("qty"), 0));
+
+            predicates.add(cb.notEqual(
+                    stockTable.get("stockStatusId"),
+                    StockStatusCRUD.getStockStatus("inactive")
+            ));
+
+            cq.where(cb.and(predicates.toArray(Predicate[]::new)));
+
+            List<Stock> result = em.createQuery(cq).getResultList();
+
+            System.out.println("Stock founds: " + result.size());
+
+            return result;
+        });
+    }
 }

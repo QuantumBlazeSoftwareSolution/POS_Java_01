@@ -238,6 +238,10 @@ public class PanelAdminController implements Initializable {
     private HBox btnInventoryExpireItems;
     @FXML
     private Group iconInventoryLocationManagement1;
+    @FXML
+    private HBox btnInventoryStockManagement;
+    @FXML
+    private Group iconInventoryStockAdjustment1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -491,6 +495,8 @@ public class PanelAdminController implements Initializable {
             loadCenterPanel("admin/inventory/inventory_stock_adjustment");
         } else if (event.getSource() == btnInventoryExpireItems) {
             loadCenterPanel("fxmlPanel/ExpireTracking");
+        } else if (event.getSource() == btnInventoryStockManagement) {
+            loadCenterPanel("admin/inventory/inventory_stock_management");
         } else if (event.getSource() == btnSupplyCompanyManagement) {
             loadCenterPanel("admin/supply/supply_company_management");
         } else if (event.getSource() == btnSupplyCompanyOverview) {
