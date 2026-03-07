@@ -208,3 +208,17 @@ Mar 07, 2026 1:26:59 AM com.qb.app.controllers.SytemLoginController lambda$check
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
 Mar 07, 2026 1:29:43 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Mar 07, 2026 9:03:34 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Mar 07, 2026 9:05:47 AM com.qb.app.controllers.admin.PanelAdminController setDefaultPanel
+WARNING: javafx.fxml.LoadException: 
+/D:/Quantum%20Blaze/Projects/Research%20Project/POS%20Systems/POS_Java_01/quantumretail_pro/target/classes/com/qb/app/admin/adminDashboard.fxml
+
+Mar 07, 2026 9:14:18 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Mar 07, 2026 9:18:36 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Mar 07, 2026 9:26:35 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Mar 07, 2026 9:34:09 AM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]

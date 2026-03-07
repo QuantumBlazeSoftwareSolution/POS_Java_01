@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" vvalue="0.37" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -74,7 +74,7 @@
                                     </Button>
                                     <VBox fx:id="subMenuEmployee" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox fx:id="btnEmpOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnEmpOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconEmpOverview" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Employee Overview">
@@ -174,7 +174,7 @@
                                     </Button>
                                     <VBox fx:id="subMenuProduct" layoutX="10.0" layoutY="82.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox fx:id="btnProductOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnProductOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductOverview" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product Overview">
@@ -194,7 +194,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnProductAnalytics" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnProductAnalytics" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductAnalytics" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product Analytics">
@@ -390,7 +390,7 @@
                                                 <String fx:value="scale-down-pressed" />
                                              </styleClass>
                                           </HBox>
-                                          <HBox fx:id="btnInventoryStockAdjustment" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnInventoryStockAdjustment" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconInventoryStockAdjustment" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Stock Adjustment">
@@ -490,7 +490,7 @@
                                     </Button>
                                     <VBox fx:id="subMenuSupply" layoutX="10.0" layoutY="516.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox fx:id="btnSupplyCompanyOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
+                                          <HBox fx:id="btnSupplyCompanyOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" opacity="0.5" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconCompanyOverview" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Company Overview">
@@ -607,7 +607,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <Button fx:id="btnCustomer" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@../css/style.css" text="Customer" textFill="#f1f1f1">
+                                    <Button fx:id="btnCustomer" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" opacity="0.5" prefHeight="40.0" stylesheets="@../css/style.css" text="Customer" textFill="#f1f1f1">
                                        <font>
                                           <Font name="Roboto" size="14.0" />
                                        </font>

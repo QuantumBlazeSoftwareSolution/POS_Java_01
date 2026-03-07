@@ -286,12 +286,7 @@ public class PanelAdminController implements Initializable {
             loadCenterPanel("admin/adminDashboard");
         } else if (event.getSource() == btnCustomer) {
 //            loadCenterPanel("admin/customer");
-            CustomAlert.showStyledAlert(
-                    root,
-                    "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
-                    "Access Restricted",
-                    Alert.AlertType.WARNING
-            );
+            showPermissionMessage(false);
         }
     }
 
@@ -459,40 +454,44 @@ public class PanelAdminController implements Initializable {
     @FXML
     private void handleSubMenuItems(MouseEvent event) {
         if (event.getSource() == btnEmpOverview) {
-            loadCenterPanel("admin/employee/employee_overview");
+//            loadCenterPanel("admin/employee/employee_overview");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnEmpRegistration) {
             loadCenterPanel("admin/employee/employee_registration");
         } else if (event.getSource() == btnEmpManagement) {
             loadCenterPanel("admin/employee/employee_management");
         } else if (event.getSource() == btnEmpRoleManagement) {
 //            loadCenterPanel("admin/employee/employee_role_management");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnProductAnalytics) {
-            loadCenterPanel("admin/product/product_analytics");
+//            loadCenterPanel("admin/product/product_analytics");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnProductBrandManagement) {
             loadCenterPanel("admin/product/product_brand_management");
         } else if (event.getSource() == btnProductManagement) {
             loadCenterPanel("admin/product/product_management");
         } else if (event.getSource() == btnProductOverview) {
-            loadCenterPanel("admin/product/product_overview");
+//            loadCenterPanel("admin/product/product_overview");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnProductRegistration) {
             loadCenterPanel("admin/product/product_registration");
         } else if (event.getSource() == btnInventoryDamageItem) {
 //            loadCenterPanel("admin/inventory/inventory_damage_item");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryDistribute) {
 //            loadCenterPanel("admin/inventory/inventory_distribute");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryGRN) {
             loadCenterPanel("admin/inventory/inventory_grn");
         } else if (event.getSource() == btnInventoryLocationManagement) {
 //            loadCenterPanel("admin/inventory/inventory_location_management");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryLocationReturn) {
 //            loadCenterPanel("admin/inventory/inventory_location_return");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryStockAdjustment) {
-            loadCenterPanel("admin/inventory/inventory_stock_adjustment");
+//            loadCenterPanel("admin/inventory/inventory_stock_adjustment");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnInventoryExpireItems) {
             loadCenterPanel("fxmlPanel/ExpireTracking");
         } else if (event.getSource() == btnInventoryStockManagement) {
@@ -500,15 +499,16 @@ public class PanelAdminController implements Initializable {
         } else if (event.getSource() == btnSupplyCompanyManagement) {
             loadCenterPanel("admin/supply/supply_company_management");
         } else if (event.getSource() == btnSupplyCompanyOverview) {
-            loadCenterPanel("admin/supply/supply_company_overview");
+//            loadCenterPanel("admin/supply/supply_company_overview");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnSupplyDamageReturn) {
 //            loadCenterPanel("admin/supply/supply_damage_return");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnSupplySupplierManagement) {
             loadCenterPanel("admin/supply/supply_supplier_management");
         } else if (event.getSource() == btnSupplyOrder) {
 //            loadCenterPanel("admin/supply/supply_order");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnReportBIN) {
             loadCenterPanel("reportFXML/reportBIN");
         } else if (event.getSource() == btnReportCashWithdrawal) {
@@ -542,13 +542,25 @@ public class PanelAdminController implements Initializable {
         }
     }
 
-    private void showPermissionMessage() {
-        CustomAlert.showStyledAlert(
-                root,
-                "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
-                "Access Restricted",
-                Alert.AlertType.WARNING
-        );
+    private void showPermissionMessage(boolean isUpcomingFeature) {
+
+        if (isUpcomingFeature) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "This feature is currently under development and will be available in a future update.",
+                    "Coming Soon",
+                    Alert.AlertType.INFORMATION
+            );
+
+        } else {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
+                    "Access Restricted",
+                    Alert.AlertType.WARNING
+            );
+
+        }
     }
 
 }
