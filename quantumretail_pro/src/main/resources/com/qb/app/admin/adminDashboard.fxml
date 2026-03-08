@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,26 +15,63 @@
     <children>
       <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <VBox minWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS">
                <children>
-                  <Label style="-fx-font-size: 16;" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Expire Alerts">
-                     <font>
-                        <Font name="Aptos" size="16.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="table" minWidth="-Infinity" VBox.vgrow="ALWAYS">
-                    <columns>
-                      <TableColumn fx:id="colBatchId" editable="false" minWidth="100.0" prefWidth="75.0" text="Batch Id" />
-                      <TableColumn fx:id="colItemName" editable="false" minWidth="200.0" prefWidth="75.0" text="Item Name" />
-                        <TableColumn fx:id="colSalePrice" editable="false" minWidth="100.0" prefWidth="75.0" text="Sale Price" />
-                        <TableColumn fx:id="colQty" editable="false" minWidth="100.0" prefWidth="75.0" text="Quantity" />
-                        <TableColumn fx:id="colExpireDate" editable="false" minWidth="100.0" prefWidth="75.0" text="Expire Date" />
-                        <TableColumn fx:id="colAction" editable="false" minWidth="100.0" prefWidth="75.0" text="Action" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
+                  <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                        <Tab text="Overview">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                      <Tab text="Expire Alert">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox minWidth="-Infinity" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label style="-fx-font-size: 16;" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Expire Alerts">
+                                             <font>
+                                                <Font name="Aptos" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="table" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+                                            <columns>
+                                              <TableColumn fx:id="colBatchId" editable="false" minWidth="100.0" prefWidth="75.0" text="Batch Id" />
+                                              <TableColumn fx:id="colItemName" editable="false" minWidth="200.0" prefWidth="75.0" text="Item Name" />
+                                                <TableColumn fx:id="colSalePrice" editable="false" minWidth="100.0" prefWidth="75.0" text="Sale Price" />
+                                                <TableColumn fx:id="colQty" editable="false" minWidth="100.0" prefWidth="75.0" text="Quantity" />
+                                                <TableColumn fx:id="colExpireDate" editable="false" minWidth="100.0" prefWidth="75.0" text="Expire Date" />
+                                                <TableColumn fx:id="colAction" editable="false" minWidth="100.0" prefWidth="75.0" text="Action" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Stock Alert">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
                </children>
             </VBox>
          </children>

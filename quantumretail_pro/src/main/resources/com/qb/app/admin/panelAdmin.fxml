@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" vvalue="0.91" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -87,7 +87,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -107,7 +107,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -127,7 +127,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -147,7 +147,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -187,7 +187,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -207,7 +207,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -227,7 +227,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -247,7 +247,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -267,7 +267,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -323,7 +323,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -343,7 +343,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -363,7 +363,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -383,7 +383,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -403,7 +403,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -412,7 +412,7 @@
                                           </HBox>
                                           <HBox fx:id="btnInventoryStockManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
-                                                <Group fx:id="iconInventoryStockAdjustment1" />
+                                                <Group fx:id="iconInventoryStockManagement" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Stock Management">
                                                    <font>
                                                       <Font size="14.0" />
@@ -423,7 +423,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -443,7 +443,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -452,7 +452,7 @@
                                           </HBox>
                                           <HBox fx:id="btnInventoryExpireItems" alignment="CENTER_LEFT" layoutX="10.0" layoutY="180.0" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" stylesheets="@../css/adminStyle.css">
                                              <children>
-                                                <Group fx:id="iconInventoryLocationManagement1" />
+                                                <Group fx:id="iconInventoryExpireItems" />
                                                 <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Expire Items">
                                                    <font>
                                                       <Font size="14.0" />
@@ -463,7 +463,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -506,7 +506,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -529,7 +529,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -552,7 +552,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -575,7 +575,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -598,7 +598,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -654,7 +654,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -674,7 +674,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -694,7 +694,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -714,7 +714,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -734,7 +734,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -754,7 +754,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -774,7 +774,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -794,7 +794,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -814,7 +814,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -834,7 +834,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -854,7 +854,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -874,7 +874,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -894,7 +894,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -914,7 +914,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />
@@ -934,7 +934,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <padding>
-                                                <Insets left="40.0" />
+                                                <Insets left="20.0" />
                                              </padding>
                                              <styleClass>
                                                 <String fx:value="sub-menu-item" />

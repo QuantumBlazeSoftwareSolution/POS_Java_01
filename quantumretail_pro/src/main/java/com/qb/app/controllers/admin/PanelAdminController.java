@@ -237,11 +237,11 @@ public class PanelAdminController implements Initializable {
     @FXML
     private HBox btnInventoryExpireItems;
     @FXML
-    private Group iconInventoryLocationManagement1;
-    @FXML
     private HBox btnInventoryStockManagement;
     @FXML
-    private Group iconInventoryStockAdjustment1;
+    private Group iconInventoryStockManagement;
+    @FXML
+    private Group iconInventoryExpireItems;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -301,45 +301,48 @@ public class PanelAdminController implements Initializable {
         iconReport.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-report.svg"));
         iconSupplyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-supply-management.svg"));
 
-        iconEmpOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-overview.svg"));
-        iconEmpRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-registration.svg"));
-        iconEmpManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-management.svg"));
-        iconEmpRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-role-management.svg"));
+        iconEmpOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconEmpRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconEmpManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconEmpRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconProductOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-overview.svg"));
-        iconProductAnalytics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-analytics.svg"));
-        iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-registration.svg"));
-        iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-management.svg"));
-        iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/brand-management.svg"));
+        iconProductOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconProductAnalytics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-grn.svg"));
-        iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-distribute.svg"));
-        iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-damage-item.svg"));
-        iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-return.svg"));
-        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-stock-adjustment.svg"));
-        iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-management.svg"));
+        iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyOverview.svg"));
-        iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
-        iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
-        iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyOrder.svg"));
-        iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyDamageReturn.svg"));
+        iconInventoryStockManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryExpireItems.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconReportBIN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCashWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportProductList.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportProfit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale2.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale3.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+
+        iconReportBIN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportCashWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportProductList.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportProfit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSale2.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSale3.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
     }
 
     public void toggleMenu() {
