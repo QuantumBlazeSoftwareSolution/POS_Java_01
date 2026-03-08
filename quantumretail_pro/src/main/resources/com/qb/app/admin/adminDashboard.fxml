@@ -69,7 +69,7 @@
                                                       </Label>
                                                       <BarChart fx:id="topProductsBarChart" VBox.vgrow="ALWAYS">
                                                         <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
+                                                          <CategoryAxis side="BOTTOM" tickLabelRotation="-45" />
                                                         </xAxis>
                                                         <yAxis>
                                                           <NumberAxis side="LEFT" />
@@ -86,7 +86,7 @@
                                                       </Label>
                                                       <LineChart fx:id="revenueLineChart" VBox.vgrow="ALWAYS">
                                                         <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
+                                                          <CategoryAxis side="BOTTOM" tickLabelRotation="-45" />
                                                         </xAxis>
                                                         <yAxis>
                                                           <NumberAxis side="LEFT" />
