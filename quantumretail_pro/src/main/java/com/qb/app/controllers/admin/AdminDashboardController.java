@@ -11,7 +11,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -25,6 +27,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import com.qb.app.database_crud.DashboardCRUD;
 
 public class AdminDashboardController implements Initializable {
 
@@ -61,54 +64,56 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void initializeCharts() {
-        // --- Area Chart Mock Data ---
-        overviewAreaChart.setTitle("Current vs Last Month");
-        XYChart.Series<String, Number> seriesCurrent = new XYChart.Series<>();
-        seriesCurrent.setName("Current Month");
-        seriesCurrent.getData().add(new XYChart.Data<>("Week 1", 5000));
-        seriesCurrent.getData().add(new XYChart.Data<>("Week 2", 7000));
-        seriesCurrent.getData().add(new XYChart.Data<>("Week 3", 8500));
-        seriesCurrent.getData().add(new XYChart.Data<>("Week 4", 12000));
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // Fetch real data from DB asynchronously
+                Map<String, Double> currentMonthData = DashboardCRUD.getMonthlyRevenue(true);
+                Map<String, Double> lastMonthData = DashboardCRUD.getMonthlyRevenue(false);
+                Map<String, Double> categoryData = DashboardCRUD.getSalesByCategory();
+                Map<String, Double> topProductsData = DashboardCRUD.getTopSellingProducts();
+                Map<String, Double> lineData = DashboardCRUD.getRevenueLast7Days();
 
-        XYChart.Series<String, Number> seriesLast = new XYChart.Series<>();
-        seriesLast.setName("Last Month");
-        seriesLast.getData().add(new XYChart.Data<>("Week 1", 4500));
-        seriesLast.getData().add(new XYChart.Data<>("Week 2", 6000));
-        seriesLast.getData().add(new XYChart.Data<>("Week 3", 6500));
-        seriesLast.getData().add(new XYChart.Data<>("Week 4", 9000));
+                // Update UI on JavaFX main thread
+                Platform.runLater(() -> {
+                    // --- Area Chart DB Data ---
+                    overviewAreaChart.setTitle("Current vs Last Month");
+                    XYChart.Series<String, Number> seriesCurrent = new XYChart.Series<>();
+                    seriesCurrent.setName("Current Month");
+                    currentMonthData.forEach((k, v) -> seriesCurrent.getData().add(new XYChart.Data<>(k, v)));
 
-        overviewAreaChart.getData().addAll(seriesCurrent, seriesLast);
+                    XYChart.Series<String, Number> seriesLast = new XYChart.Series<>();
+                    seriesLast.setName("Last Month");
+                    lastMonthData.forEach((k, v) -> seriesLast.getData().add(new XYChart.Data<>(k, v)));
 
-        // --- Pie Chart Mock Data ---
-        salesPieChart.getData().addAll(
-                new PieChart.Data("Electronics", 45),
-                new PieChart.Data("Clothing", 25),
-                new PieChart.Data("Groceries", 20),
-                new PieChart.Data("Furniture", 10));
+                    overviewAreaChart.getData().clear();
+                    overviewAreaChart.getData().addAll(seriesCurrent, seriesLast);
 
-        // --- Bar Chart Mock Data ---
-        topProductsBarChart.setTitle("Units Sold");
-        XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
-        barSeries.setName("Products");
-        barSeries.getData().add(new XYChart.Data<>("Laptop", 120));
-        barSeries.getData().add(new XYChart.Data<>("Smartphone", 250));
-        barSeries.getData().add(new XYChart.Data<>("Headphones", 310));
-        barSeries.getData().add(new XYChart.Data<>("Monitor", 85));
-        barSeries.getData().add(new XYChart.Data<>("Keyboard", 150));
-        topProductsBarChart.getData().add(barSeries);
+                    // --- Pie Chart DB Data ---
+                    salesPieChart.getData().clear();
+                    categoryData.forEach((k, v) -> salesPieChart.getData().add(new PieChart.Data(k, v)));
 
-        // --- Line Chart Mock Data ---
-        revenueLineChart.setTitle("Last 7 Days");
-        XYChart.Series<String, Number> lineSeries = new XYChart.Series<>();
-        lineSeries.setName("Revenue ($)");
-        lineSeries.getData().add(new XYChart.Data<>("Mon", 1200));
-        lineSeries.getData().add(new XYChart.Data<>("Tue", 1500));
-        lineSeries.getData().add(new XYChart.Data<>("Wed", 1100));
-        lineSeries.getData().add(new XYChart.Data<>("Thu", 1800));
-        lineSeries.getData().add(new XYChart.Data<>("Fri", 2200));
-        lineSeries.getData().add(new XYChart.Data<>("Sat", 3100));
-        lineSeries.getData().add(new XYChart.Data<>("Sun", 2800));
-        revenueLineChart.getData().add(lineSeries);
+                    // --- Bar Chart DB Data ---
+                    topProductsBarChart.setTitle("Units Sold");
+                    XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+                    barSeries.setName("Products");
+                    topProductsData.forEach((k, v) -> barSeries.getData().add(new XYChart.Data<>(k, v)));
+                    topProductsBarChart.getData().clear();
+                    topProductsBarChart.getData().add(barSeries);
+
+                    // --- Line Chart DB Data ---
+                    revenueLineChart.setTitle("Last 7 Days");
+                    XYChart.Series<String, Number> lineSeries = new XYChart.Series<>();
+                    lineSeries.setName("Revenue ($)");
+                    lineData.forEach((k, v) -> lineSeries.getData().add(new XYChart.Data<>(k, v)));
+                    revenueLineChart.getData().clear();
+                    revenueLineChart.getData().add(lineSeries);
+                });
+                return null;
+            }
+        };
+
+        new Thread(task).start();
     }
 
     private void fetchExpiringStocks() {
