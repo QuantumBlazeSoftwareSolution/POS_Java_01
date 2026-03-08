@@ -467,8 +467,8 @@
 
 .modern-tab-pane {
     -fx-background-color: transparent;
-    -fx-tab-min-width: 120px;
-    -fx-tab-max-width: 120px;
+    -fx-tab-min-width: 150px;
+    -fx-tab-max-width: 150px;
     -fx-tab-min-height: 40px;
     -fx-tab-max-height: 40px;
 }

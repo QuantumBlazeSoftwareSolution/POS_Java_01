@@ -25,6 +25,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -68,6 +70,11 @@ public class AdminDashboardController implements Initializable {
     private BarChart<String, Number> topProductsBarChart;
     @FXML
     private LineChart<String, Number> revenueLineChart;
+
+    @FXML
+    private Tab expireAlertTab;
+    @FXML
+    private Tab stockAlertTab;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -167,6 +174,7 @@ public class AdminDashboardController implements Initializable {
         task.setOnSucceeded((t) -> {
             List<Stock> stockList = task.getValue();
             addTableItems(stockList);
+            Platform.runLater(() -> updateTabBadge(expireAlertTab, stockList.size()));
         });
 
         new Thread(task).start();
@@ -205,6 +213,7 @@ public class AdminDashboardController implements Initializable {
         task.setOnSucceeded((t) -> {
             List<Stock> stockList = task.getValue();
             addStockAlertTableItems(stockList);
+            Platform.runLater(() -> updateTabBadge(stockAlertTab, stockList.size()));
         });
 
         new Thread(task).start();
@@ -262,5 +271,18 @@ public class AdminDashboardController implements Initializable {
                 }
             }
         });
+    }
+
+    private void updateTabBadge(Tab tab, int count) {
+        if (count > 0) {
+            Label badge = new Label(String.valueOf(count));
+            badge.setStyle("-fx-background-color: #E74C3C; -fx-background-radius: 10px; " +
+                    "-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 11px; " +
+                    "-fx-padding: 0px 5px 0px 5px; -fx-alignment: center;");
+            badge.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+            tab.setGraphic(badge);
+        } else {
+            tab.setGraphic(null);
+        }
     }
 }
