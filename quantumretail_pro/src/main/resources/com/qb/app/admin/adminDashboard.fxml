@@ -17,7 +17,7 @@
          <children>
             <VBox HBox.hgrow="ALWAYS">
                <children>
-                  <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                  <TabPane styleClass="modern-tab-pane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
                         <Tab text="Overview">
                           <content>
@@ -32,11 +32,11 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox minWidth="-Infinity" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <VBox styleClass="card-container" minWidth="-Infinity" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Label style="-fx-font-size: 16;" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Expire Alerts">
+                                          <Label styleClass="card-title" text="Expire Alerts">
                                              <font>
-                                                <Font name="Aptos" size="16.0" />
+                                                <Font name="Aptos" size="18.0" />
                                              </font>
                                           </Label>
                                           <TableView fx:id="table" minWidth="-Infinity" VBox.vgrow="ALWAYS">

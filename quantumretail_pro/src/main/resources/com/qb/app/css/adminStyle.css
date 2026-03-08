@@ -442,4 +442,76 @@
          spread  0.5,
          X 0,
          Y  1);    
-}*/
+/* =====================================================
+   TAB PANE - MODERN DESIGN
+   ===================================================== */
+
+.modern-tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 120px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+.modern-tab-pane .tab-header-area {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.modern-tab-pane .headers-region {
+    -fx-background-color: transparent;
+}
+
+/* Remove borders below tabs */
+.modern-tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.modern-tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent transparent #E5E7EB transparent; /* Bottom border */
+    -fx-border-width: 2px;
+}
+
+.modern-tab-pane .tab-label {
+    -fx-text-fill: #6B7280; /* Gray for unselected */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+}
+
+.modern-tab-pane .tab:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #2C58A6 transparent; /* Blue bottom border for selected */
+    -fx-border-width: 2px;
+}
+
+.modern-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #2C58A6; /* Blue for selected text */
+}
+
+.modern-tab-pane .tab:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgba(44, 88, 166, 0.05); /* Slight blue hover */
+}
+
+/* =====================================================
+   UI CARDS & CONTAINERS
+   ===================================================== */
+
+.card-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);
+    -fx-padding: 20px;
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+    -fx-padding: 0 0 15px 0;
+}
