@@ -1,42 +1,42 @@
-*{
+* {
     -fx-font-family: "Roboto";
     -fx-font-size: 14px;
 }
 
 .text-field,
-.combo-box{
+.combo-box {
     -fx-font-family: "Roboto";
 }
 
-.primary-gradient{
+.primary-gradient {
     -fx-background-color: linear-gradient(to bottom, #243B55, #141E30);
 }
 
-.primary-white{
+.primary-white {
     -fx-text-fill: #f1f1f1;
 }
 
-.admin-primary-blue{
+.admin-primary-blue {
     -fx-text-fill: #2F54FE;
 }
 
-.bg-primary{
+.bg-primary {
     -fx-background-color: rgb(44, 88, 166);
 }
 
-.primary-10{
+.primary-10 {
     -fx-background-color: rgba(44, 88, 166, 0.05);
 }
 
-.primary-25{
+.primary-25 {
     -fx-background-color: rgb(44, 88, 166);
 }
 
-.primary-text{
+.primary-text {
     -fx-text-fill: #2C58A6;
 }
 
-.text-field-label{
+.text-field-label {
     -fx-text-fill: #2C58A6;
 }
 
@@ -47,11 +47,11 @@
     -fx-font-weight: bold;
 }
 
-.sub-menu-item{
+.sub-menu-item {
     -fx-background-radius: 4px 4px 4px 4px;
 }
 
-.sub-menu-item:hover{
+.sub-menu-item:hover {
     -fx-background-color: rgba(241, 241, 241, 0.1);
 }
 
@@ -60,7 +60,7 @@
     -fx-scale-y: 0.95;
 }
 
-.primary-border{
+.primary-border {
     -fx-border-color: #2C58A6;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
@@ -71,12 +71,12 @@
     -fx-background-color: transparent;
 }
 
-.bg-transparent{
+.bg-transparent {
     -fx-background-color: transparent;
 }
 
 .text-field,
-.combo-box{
+.combo-box {
     -fx-border-color: #2C58A6;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
@@ -90,19 +90,19 @@
     -fx-text-fill: #2C58A6;
 }
 
-.button-primary{
+.button-primary {
     -fx-background-color: #2C58A6;
     -fx-font-family: "Roboto";
     -fx-font-size: 14px;
 }
 
-.button-primary:hover{
+.button-primary:hover {
     -fx-background-color: rgba(44, 88, 166, 0.90);
     -fx-font-family: "Roboto";
     -fx-font-size: 14px;
 }
 
-.button-primary-outline{
+.button-primary-outline {
     -fx-background-color: transparent;
     -fx-text-fill: #2C58A6;
     -fx-border-color: #2C58A6;
@@ -113,7 +113,7 @@
     -fx-font-size: 14px;
 }
 
-.button-primary-outline:hover{
+.button-primary-outline:hover {
     -fx-background-color: rgba(44, 88, 166, 0.1);
     -fx-text-fill: #2C58A6;
     -fx-font-family: "Roboto";
@@ -139,15 +139,15 @@
     -fx-padding: 0;
 }
 
-.primary-text-green{
+.primary-text-green {
     -fx-text-fill: #0D9F00;
 }
 
-.primary-text-red{
+.primary-text-red {
     -fx-text-fill: #FF3333;
 }
 
-.hover-white-bg:hover{
+.hover-white-bg:hover {
     -fx-background-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -192,50 +192,64 @@
 
 /* Style for the popup content */
 .date-picker-popup {
-    -fx-background-color: #ffffff; /* White background */
-    -fx-border-color: #004E92; /* Blue border */
+    -fx-background-color: #ffffff;
+    /* White background */
+    -fx-border-color: #004E92;
+    /* Blue border */
     -fx-border-radius: 4px;
 }
 
 /* DatePicker's calendar header (month and year) */
 .date-picker-popup .month-year-pane {
-    -fx-background-color: #004E92; /* Blue background */
+    -fx-background-color: #004E92;
+    /* Blue background */
 }
 
 .date-picker-popup .month-year-pane .label {
-    -fx-text-fill: #f1f1f1; /* White text */
+    -fx-text-fill: #f1f1f1;
+    /* White text */
 }
 
 /* DatePicker's calendar days */
 .date-picker-popup .day-cell {
-    -fx-background-color: #ffffff; /* White background */
-    -fx-text-fill: #004E92; /* Blue text */
+    -fx-background-color: #ffffff;
+    /* White background */
+    -fx-text-fill: #004E92;
+    /* Blue text */
     -fx-border-color: transparent;
 }
 
 .date-picker-popup .day-cell:hover {
-    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* Light blue on hover */
+    -fx-background-color: hsba(208, 100%, 57%, 0.2);
+    /* Light blue on hover */
 }
 
 .date-picker-popup .day-cell:selected {
-    -fx-background-color: #004E92; /* Blue background for selected date */
-    -fx-text-fill: #f1f1f1; /* White text for selected date */
+    -fx-background-color: #004E92;
+    /* Blue background for selected date */
+    -fx-text-fill: #f1f1f1;
+    /* White text for selected date */
 }
 
 /* DatePicker's week number cells */
 .date-picker-popup .week-number-cell {
-    -fx-text-fill: #004E92; /* Blue text */
+    -fx-text-fill: #004E92;
+    /* Blue text */
 }
 
 /* DatePicker's today cell */
 .date-picker-popup .today {
-    -fx-background-color: hsba(208, 100%, 57%, 0.05); /* Light blue background for today */
-    -fx-text-fill: #004E92; /* Blue text */
+    -fx-background-color: hsba(208, 100%, 57%, 0.05);
+    /* Light blue background for today */
+    -fx-text-fill: #004E92;
+    /* Blue text */
 }
 
 .date-picker-popup .today:selected {
-    -fx-background-color: #004E92; /* Blue background for selected today */
-    -fx-text-fill: #f1f1f1; /* White text for selected today */
+    -fx-background-color: #004E92;
+    /* Blue background for selected today */
+    -fx-text-fill: #f1f1f1;
+    /* White text for selected today */
 }
 
 .radio-button .radio {
@@ -248,6 +262,7 @@
 .radio-button:selected .radio {
     -fx-background-color: #2F54FE;
 }
+
 .radio-button:selected .radio .dot {
     -fx-background-color: white;
 }
@@ -373,7 +388,8 @@
     -fx-border-width: 2px;
     -fx-border-radius: 4px;
     -fx-background-radius: 4px;
-    -fx-padding: 3px; /* Internal padding for checkmark */
+    -fx-padding: 3px;
+    /* Internal padding for checkmark */
     -fx-min-width: 20px;
     -fx-max-width: 20px;
     -fx-min-height: 20px;
@@ -387,7 +403,8 @@
     -fx-background-color: white;
     -fx-shape: "M 0 4 L 4 8 L 10 0";
     -fx-scale-shape: false;
-    -fx-padding: 4px 4px 4px 3px; /* Fine-tuned alignment */
+    -fx-padding: 4px 4px 4px 3px;
+    /* Fine-tuned alignment */
     /*    -fx-translate-x: -1px;  Pixel-perfect horizontal adjustment 
         -fx-translate-y: -1px;  Pixel-perfect vertical adjustment */
 }
@@ -396,7 +413,8 @@
 .check-box:selected .box {
     -fx-background-color: #2C58A6;
     -fx-border-color: #2C58A6;
-    -fx-padding: 3px; /* Must match unselected state */
+    -fx-padding: 3px;
+    /* Must match unselected state */
     -fx-min-width: 20px;
     -fx-max-width: 20px;
     -fx-min-height: 20px;
@@ -405,22 +423,23 @@
 
 /* styles.css */
 .scroll-pane .scroll-bar:vertical,
-.scroll-bar:vertical{
-    -fx-pref-width: 20px; /* Set the width of the vertical scroll bar */
+.scroll-bar:vertical {
+    -fx-pref-width: 20px;
+    /* Set the width of the vertical scroll bar */
 }
 
 .scroll-pane .scroll-bar:vertical .thumb,
-.scroll-bar:vertical .thumb{
+.scroll-bar:vertical .thumb {
     -fx-background-color: #004E92;
     /*-fx-background-radius: 10px;*/
 }
 
 .scroll-pane .scroll-bar:vertical .track,
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .track {
     /*-fx-background-color: #f0f0f0;  Color of the scroll bar track */
 }
 
-.anchor-pane{
+.anchor-pane {
     -fx-background-color: rgba(44, 88, 166, 0.05);
 }
 
@@ -442,4 +461,190 @@
          spread  0.5,
          X 0,
          Y  1);    
-}*/
+/* =====================================================
+   TAB PANE - MODERN DESIGN
+   ===================================================== */
+
+.modern-tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 150px;
+    -fx-tab-max-width: 150px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+.modern-tab-pane .tab-header-area {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.modern-tab-pane .headers-region {
+    -fx-background-color: transparent;
+}
+
+/* Remove borders below tabs */
+.modern-tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.modern-tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent transparent #E5E7EB transparent;
+    /* Bottom border */
+    -fx-border-width: 2px;
+}
+
+.modern-tab-pane .tab-label {
+    -fx-text-fill: #6B7280;
+    /* Gray for unselected */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+}
+
+.modern-tab-pane .tab:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #2C58A6 transparent;
+    /* Blue bottom border for selected */
+    -fx-border-width: 2px;
+}
+
+.modern-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #2C58A6;
+    /* Blue for selected text */
+}
+
+.modern-tab-pane .tab:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgba(44, 88, 166, 0.05);
+    /* Slight blue hover */
+}
+
+/* =====================================================
+   UI CARDS & CONTAINERS
+   ===================================================== */
+
+.card-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);
+    -fx-padding: 20px;
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+    -fx-padding: 0 0 15px 0;
+}
+
+/* =====================================================
+   CHART STYLES
+   ===================================================== */
+.chart {
+    -fx-padding: 10px;
+}
+
+.chart-title {
+    -fx-text-fill: #1F2937;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #1F2937;
+}
+
+.axis {
+    -fx-tick-label-fill: #4B5563;
+    /* Dark gray for axis labels */
+    -fx-tick-length: 5;
+    -fx-minor-tick-length: 3;
+}
+
+.axis-label {
+    -fx-text-fill: #1F2937;
+}
+
+.chart-content {
+    -fx-background-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #E5E7EB;
+    -fx-stroke-width: 0.5px;
+    -fx-stroke-dash-array: 5 5;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #E5E7EB;
+    -fx-stroke-width: 0.5px;
+    -fx-stroke-dash-array: 5 5;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+/* Area Chart Specific */
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(44, 88, 166, 0.4);
+}
+
+.default-color1.chart-series-area-fill {
+    -fx-fill: rgba(13, 159, 0, 0.4);
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: #2C58A6;
+    -fx-stroke-width: 2px;
+}
+
+.default-color1.chart-series-area-line {
+    -fx-stroke: #0D9F00;
+    -fx-stroke-width: 2px;
+}
+
+/* Hide symbol on area chart to look cleaner */
+.area-chart .chart-area-symbol {
+    -fx-background-color: transparent, transparent;
+}
+
+/* Bar Chart Specific */
+.default-color0.chart-bar {
+    -fx-bar-fill: #2C58A6;
+}
+
+/* Line Chart Specific */
+.default-color0.chart-line-symbol {
+    -fx-background-color: #2C58A6, white;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #2C58A6;
+    -fx-stroke-width: 2px;
+}
+
+/* Pie Chart Specific */
+.chart-pie-label {
+    -fx-fill: #4B5563;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: #9CA3AF;
+}

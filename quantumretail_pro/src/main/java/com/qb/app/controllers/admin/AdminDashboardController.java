@@ -1,101 +1,288 @@
 package com.qb.app.controllers.admin;
 
+import com.qb.app.controllers.table_models.ExpireAlertTable;
+import com.qb.app.controllers.table_models.StockAlertTable;
+import com.qb.app.database_crud.StockCRUD;
+import com.qb.app.model.entity.Stock;
+import com.qb.app.model.getLogger;
+import com.qb.app.uiComponents.ExpireAlertActionController;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import com.qb.app.database_crud.DashboardCRUD;
 
 public class AdminDashboardController implements Initializable {
 
     @FXML
-    private AreaChart<String, Number> annualChart;
+    private TableView<ExpireAlertTable> table;
     @FXML
-    private BarChart<Number, String> brandChart;
+    private TableColumn<ExpireAlertTable, String> colBatchId;
     @FXML
-    private PieChart systemChart;
+    private TableColumn<ExpireAlertTable, String> colItemName;
+    @FXML
+    private TableColumn<ExpireAlertTable, String> colSalePrice;
+    @FXML
+    private TableColumn<ExpireAlertTable, String> colQty;
+    @FXML
+    private TableColumn<ExpireAlertTable, String> colExpireDate;
+    @FXML
+    private TableColumn<ExpireAlertTable, String> colAction;
+
+    @FXML
+    private TableView<StockAlertTable> stockAlertTable;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColBatchId;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColItemName;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColMeasure;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColOriginQty;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColTotalQty;
+
+    @FXML
+    private AreaChart<String, Number> overviewAreaChart;
+    @FXML
+    private PieChart salesPieChart;
+    @FXML
+    private BarChart<String, Number> topProductsBarChart;
+    @FXML
+    private LineChart<String, Number> revenueLineChart;
+
+    @FXML
+    private Tab expireAlertTab;
+    @FXML
+    private Tab stockAlertTab;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Random random = new Random();
 
-        // Create Data Series for 2025 with random values
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("2025");
-        for (String month : new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}) {
-            series1.getData().add(new XYChart.Data<>(month, random.nextInt(200))); // 0-199
-        }
+        configureTable();
+        fetchExpiringStocks();
+        fetchLowStocks();
+        initializeCharts();
+    }
 
-        // Create Data Series for 2024 with random values
-        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-        series2.setName("2024");
-        for (String month : new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}) {
-            series2.getData().add(new XYChart.Data<>(month, random.nextInt(200))); // 0-199
-        }
+    private void initializeCharts() {
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // Fetch real data from DB asynchronously
+                Map<String, Double> currentMonthData = DashboardCRUD.getMonthlyRevenue(true);
+                Map<String, Double> lastMonthData = DashboardCRUD.getMonthlyRevenue(false);
+                Map<String, Double> categoryData = DashboardCRUD.getSalesByCategory();
+                Map<String, Double> topProductsData = DashboardCRUD.getTopSellingProducts();
+                Map<String, Double> lineData = DashboardCRUD.getRevenueLast7Days();
 
-        annualChart.getData().addAll(series1, series2);
+                // Update UI on JavaFX main thread
+                Platform.runLater(() -> {
+                    // --- Area Chart DB Data ---
+                    overviewAreaChart.setTitle("Current vs Last Month");
+                    XYChart.Series<String, Number> seriesCurrent = new XYChart.Series<>();
+                    seriesCurrent.setName("Current Month");
+                    currentMonthData.forEach((k, v) -> seriesCurrent.getData().add(new XYChart.Data<>(k, v)));
 
-        for (XYChart.Data<String, Number> data : series1.getData()) {
-            Text valueLabel = new Text(data.getYValue().toString());
-            valueLabel.setStyle("-fx-fill: white; -fx-font-weight: bold;");
+                    XYChart.Series<String, Number> seriesLast = new XYChart.Series<>();
+                    seriesLast.setName("Last Month");
+                    lastMonthData.forEach((k, v) -> seriesLast.getData().add(new XYChart.Data<>(k, v)));
 
-            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
-                if (newNode != null) {
-                    StackPane node = (StackPane) newNode;
-                    node.getChildren().add(valueLabel);
-                    valueLabel.translateYProperty().set(-20); // Moves the text above the peak
+                    overviewAreaChart.getData().clear();
+                    overviewAreaChart.getData().addAll(seriesCurrent, seriesLast);
+
+                    // --- Pie Chart DB Data ---
+                    salesPieChart.getData().clear();
+                    categoryData.forEach((k, v) -> salesPieChart.getData().add(new PieChart.Data(k, v)));
+
+                    // --- Bar Chart DB Data ---
+                    topProductsBarChart.setTitle("Units Sold");
+                    XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+                    barSeries.setName("Products");
+                    topProductsData.forEach((k, v) -> barSeries.getData().add(new XYChart.Data<>(k, v)));
+                    topProductsBarChart.getData().clear();
+                    topProductsBarChart.getData().add(barSeries);
+
+                    // --- Line Chart DB Data ---
+                    revenueLineChart.setTitle("Last 7 Days");
+                    XYChart.Series<String, Number> lineSeries = new XYChart.Series<>();
+                    lineSeries.setName("Revenue ($)");
+                    lineData.forEach((k, v) -> lineSeries.getData().add(new XYChart.Data<>(k, v)));
+                    revenueLineChart.getData().clear();
+                    revenueLineChart.getData().add(lineSeries);
+                });
+                return null;
+            }
+        };
+
+        new Thread(task).start();
+    }
+
+    private void fetchExpiringStocks() {
+
+        Task<List<Stock>> task = new Task<>() {
+            @Override
+            protected List<Stock> call() throws Exception {
+
+                List<Stock> stockList = StockCRUD.getStocks();
+
+                Date today = new Date();
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(today);
+                cal.add(Calendar.DAY_OF_MONTH, 15);
+                Date next10Days = cal.getTime();
+
+                List<Stock> expiringStocks = new LinkedList<>();
+
+                for (Stock stock : stockList) {
+
+                    Date expireDate = stock.getExpireDate();
+
+                    if (expireDate != null
+                            && !expireDate.before(today)
+                            && !expireDate.after(next10Days)) {
+
+                        expiringStocks.add(stock);
+                    }
                 }
-            });
-        }
 
-        XYChart.Series<Number, String> series3 = new XYChart.Series<>();
-        series3.setName("2024");
-        series3.getData().add(new XYChart.Data<>(60, "Product A"));
-        series3.getData().add(new XYChart.Data<>(70, "Product B"));
-        series3.getData().add(new XYChart.Data<>(50, "Product C"));
-        series3.getData().add(new XYChart.Data<>(30, "Product D"));
-        series3.getData().add(new XYChart.Data<>(60, "Product E"));
-        series3.getData().add(new XYChart.Data<>(40, "Product F"));
-        series3.getData().add(new XYChart.Data<>(80, "Product G"));
-        series3.getData().add(new XYChart.Data<>(50, "Product H"));
+                return expiringStocks;
+            }
+        };
 
-        brandChart.getData().add(series3);
+        task.setOnSucceeded((t) -> {
+            List<Stock> stockList = task.getValue();
+            addTableItems(stockList);
+            Platform.runLater(() -> updateTabBadge(expireAlertTab, stockList.size()));
+        });
 
-        ObservableList<PieChart.Data> systemChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Employee", getRandomValue()),
-                new PieChart.Data("Cashier", getRandomValue()),
-                new PieChart.Data("Product", getRandomValue()),
-                new PieChart.Data("Category", getRandomValue()),
-                new PieChart.Data("Pending Creditors", getRandomValue()),
-                new PieChart.Data("Supply Companies", getRandomValue()),
-                new PieChart.Data("Suppliers", getRandomValue())
-        );
-
-        systemChart.getData().addAll(systemChartData);
-
-        for (PieChart.Data data : systemChart.getData()) {
-            data.nameProperty().bind(
-                    Bindings.concat(
-                            data.getName(), " (", data.pieValueProperty().intValue(), ")"
-                    )
-            );
-        }
+        new Thread(task).start();
     }
 
-    private int getRandomValue() {
-        Random random = new Random();
-        return random.nextInt(100) + 1;
+    private void addTableItems(List<Stock> stockList) {
+        table.getItems().clear();
+
+        List<ExpireAlertTable> tableItemsList = new LinkedList<>();
+
+        for (Stock stock : stockList) {
+            ExpireAlertTable row = new ExpireAlertTable(stock);
+            tableItemsList.add(row);
+        }
+
+        table.getItems().addAll(tableItemsList);
     }
 
+    private void fetchLowStocks() {
+        Task<List<Stock>> task = new Task<>() {
+            @Override
+            protected List<Stock> call() throws Exception {
+                List<Stock> stockList = StockCRUD.getStocks();
+                List<Stock> lowStocks = new LinkedList<>();
+
+                for (Stock stock : stockList) {
+                    double originQty = stock.getQty() / stock.getProductId().getMeasure();
+                    if (originQty < 50) {
+                        lowStocks.add(stock);
+                    }
+                }
+                return lowStocks;
+            }
+        };
+
+        task.setOnSucceeded((t) -> {
+            List<Stock> stockList = task.getValue();
+            addStockAlertTableItems(stockList);
+            Platform.runLater(() -> updateTabBadge(stockAlertTab, stockList.size()));
+        });
+
+        new Thread(task).start();
+    }
+
+    private void addStockAlertTableItems(List<Stock> stockList) {
+        stockAlertTable.getItems().clear();
+
+        List<StockAlertTable> tableItemsList = new LinkedList<>();
+        for (Stock stock : stockList) {
+            StockAlertTable row = new StockAlertTable(stock);
+            tableItemsList.add(row);
+        }
+
+        stockAlertTable.getItems().addAll(tableItemsList);
+    }
+
+    private void configureTable() {
+        colBatchId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getBatchId()));
+        colItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
+        colQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getQty()));
+        colSalePrice.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSalePrice()));
+        colExpireDate.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getExpireDate()));
+
+        alertColBatchId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getBatchId()));
+        alertColItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
+        alertColMeasure.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMeasure()));
+        alertColOriginQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getOriginQty()));
+        alertColTotalQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTotalQty()));
+
+        colAction.setCellFactory(col -> new javafx.scene.control.TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("/com/qb/app/fxmlPanel/ExpireAlertAction.fxml"));
+                        AnchorPane actionBox = loader.load();
+                        ExpireAlertActionController actionColumn = loader.getController();
+
+                        ExpireAlertTable rowItem = getTableView().getItems().get(getIndex());
+                        actionColumn.injectData(rowItem.getBatchId());
+                        actionColumn.setCallback(() -> {
+                            fetchExpiringStocks();
+                        });
+                        setGraphic(actionBox);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
+                        setGraphic(null);
+                    }
+                }
+            }
+        });
+    }
+
+    private void updateTabBadge(Tab tab, int count) {
+        if (count > 0) {
+            Label badge = new Label(String.valueOf(count));
+            badge.setStyle("-fx-background-color: #E74C3C; -fx-background-radius: 10px; " +
+                    "-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 11px; " +
+                    "-fx-padding: 0px 5px 0px 5px; -fx-alignment: center;");
+            badge.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+            tab.setGraphic(badge);
+        } else {
+            tab.setGraphic(null);
+        }
+    }
 }

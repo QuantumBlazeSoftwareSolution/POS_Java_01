@@ -9,6 +9,7 @@ import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import com.qb.app.uiComponents.ExpireTrackingActionController;
+import com.qb.app.uiComponents.StockManagementActionController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -73,6 +74,8 @@ public class Inventory_stock_managementController implements Initializable {
         colSalePrice.setOnEditCommit(event -> {
             StockManagementTable row = event.getRowValue();
             row.setSalePrice(event.getNewValue());
+
+            table.refresh();
         });
 
         // Action column
@@ -84,13 +87,15 @@ public class Inventory_stock_managementController implements Initializable {
                     setGraphic(null);
                 } else {
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlPanel/ExpireTrackingAction.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlPanel/StockManagementAction.fxml"));
                         AnchorPane actionBox = loader.load();
-                        ExpireTrackingActionController actionColumn = loader.getController();
+                        StockManagementActionController actionColumn = loader.getController();
 
-//                        ExpireTrackingTable rowItem = getTableView().getItems().get(getIndex());
-//                        actionColumn.dataInject(rowItem.getStoc());
-//                        actionColumn.setRefreshCallback(() -> fetchExpireItems());
+                        StockManagementTable rowItem = getTableView().getItems().get(getIndex());
+                        actionColumn.injectData(
+                                rowItem.getBatchId(),
+                                rowItem.getSalePrice()
+                        );
                         setGraphic(actionBox);
                     } catch (IOException e) {
                         e.printStackTrace();

@@ -45,6 +45,21 @@ public class StockCRUD {
         });
     }
 
+    public static Stock getStockByBatchId(String batchId) {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+
+            Root<Stock> stockTable = cq.from(Stock.class);
+
+            cq.where(cb.equal(stockTable.get("batchId"), batchId));
+
+            Stock stock = em.createQuery(cq).getResultList().get(0);
+
+            return stock;
+        });
+    }
+
     public static Stock createSingleTemporaryStock(Product product, String salePrice, String costPrice, LocalDate expireDate, String barcode, double discount) {
 
         Stock stock = new Stock();

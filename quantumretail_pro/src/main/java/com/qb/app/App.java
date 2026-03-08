@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
@@ -20,6 +21,7 @@ public class App extends Application {
     private static Scene scene;
     private static Stage primaryStage;
     private static Object currentController; // Store current controller
+    private static String currentFXML;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -30,6 +32,12 @@ public class App extends Application {
         primaryStage.getIcons()
                 .add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         scene = new Scene(loadFXML("sytemLogin"));
+
+        scene.setOnKeyPressed(event -> {
+            if (event.isControlDown() && event.getCode() == KeyCode.R) {
+                reloadView();
+            }
+        });
 
         // ✨ Fix Sinhala keyboard input issue globally for all text fields
         SinhalaInputNormalizer.enableGlobalFix(scene);
@@ -42,7 +50,25 @@ public class App extends Application {
         stage.show();
     }
 
+    private void reloadView() {
+        try {
+
+            if (currentFXML != null) {
+
+                System.out.println("Reloading: " + currentFXML);
+
+                setRoot(currentFXML);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void setRoot(String fxml) throws IOException {
+        currentFXML = fxml;
+
         if (currentController instanceof ControllerClose controllerClose) {
             // System.out.println("instanceof ControllerClose: Going to trigger close
             // method.");

@@ -237,11 +237,11 @@ public class PanelAdminController implements Initializable {
     @FXML
     private HBox btnInventoryExpireItems;
     @FXML
-    private Group iconInventoryLocationManagement1;
-    @FXML
     private HBox btnInventoryStockManagement;
     @FXML
-    private Group iconInventoryStockAdjustment1;
+    private Group iconInventoryStockManagement;
+    @FXML
+    private Group iconInventoryExpireItems;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -286,12 +286,7 @@ public class PanelAdminController implements Initializable {
             loadCenterPanel("admin/adminDashboard");
         } else if (event.getSource() == btnCustomer) {
 //            loadCenterPanel("admin/customer");
-            CustomAlert.showStyledAlert(
-                    root,
-                    "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
-                    "Access Restricted",
-                    Alert.AlertType.WARNING
-            );
+            showPermissionMessage(false);
         }
     }
 
@@ -306,45 +301,48 @@ public class PanelAdminController implements Initializable {
         iconReport.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-report.svg"));
         iconSupplyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-supply-management.svg"));
 
-        iconEmpOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-overview.svg"));
-        iconEmpRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-registration.svg"));
-        iconEmpManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-management.svg"));
-        iconEmpRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-role-management.svg"));
+        iconEmpOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconEmpRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconEmpManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconEmpRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconProductOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-overview.svg"));
-        iconProductAnalytics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-analytics.svg"));
-        iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-registration.svg"));
-        iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-management.svg"));
-        iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/brand-management.svg"));
+        iconProductOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconProductAnalytics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-grn.svg"));
-        iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-distribute.svg"));
-        iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-damage-item.svg"));
-        iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-return.svg"));
-        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-stock-adjustment.svg"));
-        iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-management.svg"));
+        iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyOverview.svg"));
-        iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
-        iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
-        iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyOrder.svg"));
-        iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyDamageReturn.svg"));
+        iconInventoryStockManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconInventoryExpireItems.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
 
-        iconReportBIN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCashWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportProductList.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportProfit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale2.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale3.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
+        iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+
+        iconReportBIN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportCashWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportProductList.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportProfit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSale2.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSale3.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
+        iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/sub_menu_arrow.svg"));
     }
 
     public void toggleMenu() {
@@ -459,40 +457,44 @@ public class PanelAdminController implements Initializable {
     @FXML
     private void handleSubMenuItems(MouseEvent event) {
         if (event.getSource() == btnEmpOverview) {
-            loadCenterPanel("admin/employee/employee_overview");
+//            loadCenterPanel("admin/employee/employee_overview");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnEmpRegistration) {
             loadCenterPanel("admin/employee/employee_registration");
         } else if (event.getSource() == btnEmpManagement) {
             loadCenterPanel("admin/employee/employee_management");
         } else if (event.getSource() == btnEmpRoleManagement) {
 //            loadCenterPanel("admin/employee/employee_role_management");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnProductAnalytics) {
-            loadCenterPanel("admin/product/product_analytics");
+//            loadCenterPanel("admin/product/product_analytics");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnProductBrandManagement) {
             loadCenterPanel("admin/product/product_brand_management");
         } else if (event.getSource() == btnProductManagement) {
             loadCenterPanel("admin/product/product_management");
         } else if (event.getSource() == btnProductOverview) {
-            loadCenterPanel("admin/product/product_overview");
+//            loadCenterPanel("admin/product/product_overview");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnProductRegistration) {
             loadCenterPanel("admin/product/product_registration");
         } else if (event.getSource() == btnInventoryDamageItem) {
 //            loadCenterPanel("admin/inventory/inventory_damage_item");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryDistribute) {
 //            loadCenterPanel("admin/inventory/inventory_distribute");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryGRN) {
             loadCenterPanel("admin/inventory/inventory_grn");
         } else if (event.getSource() == btnInventoryLocationManagement) {
 //            loadCenterPanel("admin/inventory/inventory_location_management");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryLocationReturn) {
 //            loadCenterPanel("admin/inventory/inventory_location_return");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnInventoryStockAdjustment) {
-            loadCenterPanel("admin/inventory/inventory_stock_adjustment");
+//            loadCenterPanel("admin/inventory/inventory_stock_adjustment");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnInventoryExpireItems) {
             loadCenterPanel("fxmlPanel/ExpireTracking");
         } else if (event.getSource() == btnInventoryStockManagement) {
@@ -500,15 +502,16 @@ public class PanelAdminController implements Initializable {
         } else if (event.getSource() == btnSupplyCompanyManagement) {
             loadCenterPanel("admin/supply/supply_company_management");
         } else if (event.getSource() == btnSupplyCompanyOverview) {
-            loadCenterPanel("admin/supply/supply_company_overview");
+//            loadCenterPanel("admin/supply/supply_company_overview");
+            showPermissionMessage(true);
         } else if (event.getSource() == btnSupplyDamageReturn) {
 //            loadCenterPanel("admin/supply/supply_damage_return");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnSupplySupplierManagement) {
             loadCenterPanel("admin/supply/supply_supplier_management");
         } else if (event.getSource() == btnSupplyOrder) {
 //            loadCenterPanel("admin/supply/supply_order");
-            showPermissionMessage();
+            showPermissionMessage(false);
         } else if (event.getSource() == btnReportBIN) {
             loadCenterPanel("reportFXML/reportBIN");
         } else if (event.getSource() == btnReportCashWithdrawal) {
@@ -542,13 +545,25 @@ public class PanelAdminController implements Initializable {
         }
     }
 
-    private void showPermissionMessage() {
-        CustomAlert.showStyledAlert(
-                root,
-                "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
-                "Access Restricted",
-                Alert.AlertType.WARNING
-        );
+    private void showPermissionMessage(boolean isUpcomingFeature) {
+
+        if (isUpcomingFeature) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "This feature is currently under development and will be available in a future update.",
+                    "Coming Soon",
+                    Alert.AlertType.INFORMATION
+            );
+
+        } else {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "You do not have permission to access this page.\n\nPlease contact your system administrator to request access.",
+                    "Access Restricted",
+                    Alert.AlertType.WARNING
+            );
+
+        }
     }
 
 }

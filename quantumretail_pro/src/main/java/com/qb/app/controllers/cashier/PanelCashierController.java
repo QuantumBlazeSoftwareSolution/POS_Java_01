@@ -175,16 +175,16 @@ public class PanelCashierController implements Initializable {
 //            }
             showPermissionMessage();
         } else if (event.getSource() == btnRefund) {
-//            if (ApplicationSession.getSession() != null) {
-//                if (ApplicationSession.getSession().getStatus().equals("ON")) {
-//                    changeCenterPanel("/com/qb/app/cashier/cashierRefund.fxml", "Refund");
-//                } else {
-//                    CustomAlert.showStyledAlert(root, "Refund operations are currently unavailable. Please ensure your session is active.", "Session Not Active", Alert.AlertType.WARNING);
-//                }
-//            } else {
-//                CustomAlert.showStyledAlert(root, "You must sign in before accessing Refund operations.", "Daily Sign-In Required", Alert.AlertType.WARNING);
-//                changeCenterPanel("/com/qb/app/cashier/cashierSession.fxml", "Session");
-//            }
+            if (ApplicationSession.getSession() != null) {
+                if (ApplicationSession.getSession().getStatus().equals("ON")) {
+                    changeCenterPanel("/com/qb/app/cashier/cashierRefund.fxml", "Refund");
+                } else {
+                    CustomAlert.showStyledAlert(root, "Refund operations are currently unavailable. Please ensure your session is active.", "Session Not Active", Alert.AlertType.WARNING);
+                }
+            } else {
+                CustomAlert.showStyledAlert(root, "You must sign in before accessing Refund operations.", "Daily Sign-In Required", Alert.AlertType.WARNING);
+                changeCenterPanel("/com/qb/app/cashier/cashierSession.fxml", "Session");
+            }
             showPermissionMessage();
         } else if (event.getSource() == btnExpire) {
             changeCenterPanel("/com/qb/app/fxmlPanel/ExpireTracking.fxml", "Expire Items");
