@@ -1,6 +1,7 @@
 package com.qb.app.controllers.admin;
 
 import com.qb.app.controllers.table_models.ExpireAlertTable;
+import com.qb.app.controllers.table_models.StockAlertTable;
 import com.qb.app.database_crud.StockCRUD;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
@@ -47,6 +48,19 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<ExpireAlertTable, String> colAction;
 
     @FXML
+    private TableView<StockAlertTable> stockAlertTable;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColBatchId;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColItemName;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColMeasure;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColOriginQty;
+    @FXML
+    private TableColumn<StockAlertTable, String> alertColTotalQty;
+
+    @FXML
     private AreaChart<String, Number> overviewAreaChart;
     @FXML
     private PieChart salesPieChart;
@@ -60,6 +74,7 @@ public class AdminDashboardController implements Initializable {
 
         configureTable();
         fetchExpiringStocks();
+        fetchLowStocks();
         initializeCharts();
     }
 
@@ -170,12 +185,55 @@ public class AdminDashboardController implements Initializable {
         table.getItems().addAll(tableItemsList);
     }
 
+    private void fetchLowStocks() {
+        Task<List<Stock>> task = new Task<>() {
+            @Override
+            protected List<Stock> call() throws Exception {
+                List<Stock> stockList = StockCRUD.getStocks();
+                List<Stock> lowStocks = new LinkedList<>();
+
+                for (Stock stock : stockList) {
+                    double originQty = stock.getQty() / stock.getProductId().getMeasure();
+                    if (originQty < 50) {
+                        lowStocks.add(stock);
+                    }
+                }
+                return lowStocks;
+            }
+        };
+
+        task.setOnSucceeded((t) -> {
+            List<Stock> stockList = task.getValue();
+            addStockAlertTableItems(stockList);
+        });
+
+        new Thread(task).start();
+    }
+
+    private void addStockAlertTableItems(List<Stock> stockList) {
+        stockAlertTable.getItems().clear();
+
+        List<StockAlertTable> tableItemsList = new LinkedList<>();
+        for (Stock stock : stockList) {
+            StockAlertTable row = new StockAlertTable(stock);
+            tableItemsList.add(row);
+        }
+
+        stockAlertTable.getItems().addAll(tableItemsList);
+    }
+
     private void configureTable() {
         colBatchId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getBatchId()));
         colItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
         colQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getQty()));
         colSalePrice.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSalePrice()));
         colExpireDate.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getExpireDate()));
+
+        alertColBatchId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getBatchId()));
+        alertColItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getItemName()));
+        alertColMeasure.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMeasure()));
+        alertColOriginQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getOriginQty()));
+        alertColTotalQty.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTotalQty()));
 
         colAction.setCellFactory(col -> new javafx.scene.control.TableCell<>() {
             @Override
