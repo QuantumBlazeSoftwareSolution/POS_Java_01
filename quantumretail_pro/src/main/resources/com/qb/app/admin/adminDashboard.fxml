@@ -69,29 +69,12 @@
                                                       </Label>
                                                       <BarChart fx:id="topProductsBarChart" VBox.vgrow="ALWAYS">
                                                         <xAxis>
-                                                          <CategoryAxis side="BOTTOM" tickLabelRotation="-45" />
+                                                          <NumberAxis side="BOTTOM" />
                                                         </xAxis>
                                                         <yAxis>
-                                                          <NumberAxis side="LEFT" />
+                                                          <CategoryAxis side="LEFT" />
                                                         </yAxis>
                                                       </BarChart>
-                                                   </children>
-                                                </VBox>
-                                                <VBox styleClass="card-container" HBox.hgrow="ALWAYS">
-                                                   <children>
-                                                      <Label styleClass="card-title" text="Weekly Revenue Trend">
-                                                         <font>
-                                                            <Font name="Aptos" size="14.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <LineChart fx:id="revenueLineChart" VBox.vgrow="ALWAYS">
-                                                        <xAxis>
-                                                          <CategoryAxis side="BOTTOM" tickLabelRotation="-45" />
-                                                        </xAxis>
-                                                        <yAxis>
-                                                          <NumberAxis side="LEFT" />
-                                                        </yAxis>
-                                                      </LineChart>
                                                    </children>
                                                 </VBox>
                                              </children>

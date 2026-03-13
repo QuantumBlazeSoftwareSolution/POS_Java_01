@@ -22,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -67,9 +66,7 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private PieChart salesPieChart;
     @FXML
-    private BarChart<String, Number> topProductsBarChart;
-    @FXML
-    private LineChart<String, Number> revenueLineChart;
+    private BarChart<Number, String> topProductsBarChart;
 
     @FXML
     private Tab expireAlertTab;
@@ -94,7 +91,6 @@ public class AdminDashboardController implements Initializable {
                 Map<String, Double> lastMonthData = DashboardCRUD.getMonthlyRevenue(false);
                 Map<String, Double> categoryData = DashboardCRUD.getSalesByCategory();
                 Map<String, Double> topProductsData = DashboardCRUD.getTopSellingProducts();
-                Map<String, Double> lineData = DashboardCRUD.getRevenueLast7Days();
 
                 // Update UI on JavaFX main thread
                 Platform.runLater(() -> {
@@ -117,19 +113,11 @@ public class AdminDashboardController implements Initializable {
 
                     // --- Bar Chart DB Data ---
                     topProductsBarChart.setTitle("Units Sold");
-                    XYChart.Series<String, Number> barSeries = new XYChart.Series<>();
+                    XYChart.Series<Number, String> barSeries = new XYChart.Series<>();
                     barSeries.setName("Products");
-                    topProductsData.forEach((k, v) -> barSeries.getData().add(new XYChart.Data<>(k, v)));
+                    topProductsData.forEach((k, v) -> barSeries.getData().add(new XYChart.Data<>(v, k)));
                     topProductsBarChart.getData().clear();
                     topProductsBarChart.getData().add(barSeries);
-
-                    // --- Line Chart DB Data ---
-                    revenueLineChart.setTitle("Last 7 Days");
-                    XYChart.Series<String, Number> lineSeries = new XYChart.Series<>();
-                    lineSeries.setName("Revenue ($)");
-                    lineData.forEach((k, v) -> lineSeries.getData().add(new XYChart.Data<>(k, v)));
-                    revenueLineChart.getData().clear();
-                    revenueLineChart.getData().add(lineSeries);
                 });
                 return null;
             }
