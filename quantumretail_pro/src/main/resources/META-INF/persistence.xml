@@ -68,7 +68,7 @@
     <class>com.qb.app.model.entity.ProductHasBarcode</class>
     <class>com.qb.app.model.entity.StockType</class>
     <properties>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quantum_retail_pro?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quantum_retail_pro_wijayakoon?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="jakarta.persistence.jdbc.user" value="${DB_USER}"/>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.password" value="${DB_PASSWORD}"/>
