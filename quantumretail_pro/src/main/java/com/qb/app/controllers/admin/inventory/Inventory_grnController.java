@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers.admin.inventory;
 
 import com.qb.app.controllers.popup.PopUpProductListController;
@@ -48,21 +44,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
 public class Inventory_grnController implements Initializable {
 
     @FXML
@@ -158,6 +147,14 @@ public class Inventory_grnController implements Initializable {
                     date != null ? date.toString() : "-");
         });
 
+        Date date = new Date();
+
+        LocalDate localDate = date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        ExpireDatePicker.setValue(localDate);
+
         colDiscount.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 String.format("%.2f", data.getValue().getDiscount())));
 
@@ -230,7 +227,6 @@ public class Inventory_grnController implements Initializable {
         double customerDiscount = Double.parseDouble(tfDiscountCustomer.getText());
 
         LocalDate expireDate = ExpireDatePicker.getValue();
-        Amount_TF.setText(String.format("%.2f", amount));
 
         GRNListTable existingRow = checkItemAlreadyExists(selectedProduct, costPrice, salePrice, expireDate,
                 discountPrice);
@@ -515,16 +511,41 @@ public class Inventory_grnController implements Initializable {
 
     private void DiscountAction(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            double amount = calculateProductAmount();
-            Amount_TF.setText(String.format("%.2f", amount));
+            calculateProductAmount();
         }
     }
 
     private double calculateProductAmount() {
-        double enteredQty = Double.parseDouble(Qty_TF.getText());
-        double costPrice = Double.parseDouble(Cost_TF.getText());
-        double discount = Double.parseDouble(PDiscount_TF.getText());
-        double finalAmount = (enteredQty * costPrice) - discount * enteredQty;
+        double enteredQty = 0;
+
+        try {
+            enteredQty = Double.parseDouble(Qty_TF.getText());
+        } catch (Exception e) {
+            enteredQty = 0;
+        }
+
+        double costPrice = 0;
+        try {
+            costPrice = Double.parseDouble(Cost_TF.getText());
+        } catch (Exception e) {
+            costPrice = 0;
+        }
+
+        double discount = 0;
+        try {
+            discount = Double.parseDouble(PDiscount_TF.getText());
+        } catch (Exception e) {
+            discount = 0;
+        }
+
+        double finalAmount = 0;
+        try {
+            finalAmount = (enteredQty * costPrice) - discount * enteredQty;
+        } catch (Exception e) {
+            finalAmount = 0;
+        }
+
+        Amount_TF.setText(String.format("%.2f", finalAmount));
 
         return finalAmount;
     }
@@ -540,23 +561,26 @@ public class Inventory_grnController implements Initializable {
 
         if (src == ExpireDatePicker) {
             Qty_TF.requestFocus();
-        } else if (src == Qty_TF) {
-            setZeroIfEmpty(Qty_TF);
-            Cost_TF.requestFocus();
         } else if (src == Cost_TF) {
             setZeroIfEmpty(Cost_TF);
-            Sale_TF.requestFocus();
+            PDiscount_TF.requestFocus();
         } else if (src == Sale_TF) {
             setZeroIfEmpty(Sale_TF);
-            PDiscount_TF.requestFocus();
+            tfDiscountCustomer.requestFocus();
         } else if (src == PDiscount_TF) {
             setZeroIfEmpty(PDiscount_TF);
-            double amount = calculateProductAmount();
-            Amount_TF.setText(String.format("%.2f", amount));
-            Add_Btn.requestFocus();
+            Qty_TF.requestFocus();
+        } else if (src == Qty_TF) {
+            setZeroIfEmpty(Qty_TF);
+            Sale_TF.requestFocus();
         } else if (src == GRNID_TF) {
             loadGRNDetails();
+        } else if (src == tfDiscountCustomer) {
+            setZeroIfEmpty(tfDiscountCustomer);
+            Add_Btn.requestFocus();
         }
+
+        calculateProductAmount();
     }
 
     private void setZeroIfEmpty(TextField tf) {
@@ -778,6 +802,7 @@ public class Inventory_grnController implements Initializable {
         clearInputs();
         Total_TF.clear();
         Discount_TF.clear();
+        tfDiscountCustomer.clear();
     }
 
     private Date toDate(LocalDate localDate) {
