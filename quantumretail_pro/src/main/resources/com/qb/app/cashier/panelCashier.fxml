@@ -131,7 +131,7 @@
                               <Group fx:id="iconRefund" />
                            </graphic>
                         </Button>
-                        <Button fx:id="BtnRePrint" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" opacity="0.5" prefHeight="40.0" stylesheets="@../css/style.css" text="Re-Print" textFill="#f1f1f1">
+                        <Button fx:id="BtnRePrint" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@../css/style.css" text="Re-Print" textFill="#f1f1f1">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
