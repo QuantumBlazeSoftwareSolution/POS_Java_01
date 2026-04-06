@@ -130,6 +130,14 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private TableColumn<CashierInvoiceTable, String> colAction;
     @FXML
     private TextField tfQty;
+    @FXML
+    private TextField tfCashAmount;
+    @FXML
+    private Button btnProcessPayments;
+    @FXML
+    private Label tfInvoiceBalance;
+    @FXML
+    private Label invoiceMessage;
 
     private Stock selectedStock;
     private SuggestionPopupService suggestionService;
@@ -139,16 +147,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private double billDiscount;
     private double billFinalAmount;
     private double billItemCount;
-    @FXML
-    private TextField tfCashAmount;
-    @FXML
-    private Button btnProcessPayments;
-    @FXML
-    private Label tfInvoiceBalance;
     private boolean canInvoicePaid;
     private double cashAmount;
-    @FXML
-    private Label invoiceMessage;
     private boolean isParent;
 
     @Override
@@ -161,6 +161,22 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         loadSystemConfig();
         interceptQuantityKeys();
         tfBarCode.requestFocus();
+    }
+
+    @FXML
+    private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnAdd) {
+            addItemToTable();
+            calculateInvoiceTotal();
+        } else if (event.getSource() == btnProcessPayments) {
+            processThePayment();
+        } else if (event.getSource() == btnPayment) {
+            completeThePayment();
+        } else if (event.getSource() == btnIncreaseQty) {
+            changeQuantity(true);
+        } else if (event.getSource() == btnDecreaseQty) {
+            changeQuantity(false);
+        }
     }
 
     private static JasperReport INVOICE_REPORT;
@@ -351,6 +367,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     public void setSelectedStock(Stock stock, Product product) {
 
         this.selectedStock = stock;
+        this.selectedProduct = product;
 
         ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
         this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
@@ -412,22 +429,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @FXML
     private void itemCodePressed(KeyEvent event) {
 
-    }
-
-    @FXML
-    private void handleActionEvent(ActionEvent event) {
-        if (event.getSource() == btnAdd) {
-            addItemToTable();
-            calculateInvoiceTotal();
-        } else if (event.getSource() == btnProcessPayments) {
-            processThePayment();
-        } else if (event.getSource() == btnPayment) {
-            completeThePayment();
-        } else if (event.getSource() == btnIncreaseQty) {
-            changeQuantity(true);
-        } else if (event.getSource() == btnDecreaseQty) {
-            changeQuantity(false);
-        }
     }
 
     private void changeQuantity(boolean isPositive) {
@@ -1020,13 +1021,36 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private void searchItemByBarcode(String barcode) {
         StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
 
-        if (stockProduct.getStock() != null) {
-            setSelectedStock(stockProduct.getStock(), stockProduct.getProduct());
-            this.selectedProduct = stockProduct.getProduct();
-            this.selectedStock = stockProduct.getStock();
+        if (stockProduct.getStock() != null && stockProduct.getStock().size() == 1) {
+            Stock stock = stockProduct.getStock().get(0);
+            Product product = stock.getProductId();
+
+            setSelectedStock(stock, product);
+            this.selectedProduct = product;
+            this.selectedStock = stock;
 
             ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(selectedProduct);
             this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
+        } else {
+            openStockPopup(stockProduct.getStock());
+        }
+    }
+
+    private void openStockPopup(List<Stock> stocks) {
+        try {
+            PopUp.showPopupAndWait(
+                    "cashier/stock_popup_barcode.fxml",
+                    root,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (Stock_popup_barcodeController controller) -> {
+                        controller.saveController(this);
+                        controller.setStocks(stocks);
+                    }
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 }

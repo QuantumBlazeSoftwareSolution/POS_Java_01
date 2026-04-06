@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -32,14 +32,16 @@ import javafx.scene.layout.VBox;
  *
  * @author Vihanga
  */
-public class Stock_popupController implements Initializable {
+public class Stock_popup_barcodeController implements Initializable {
 
     @FXML
-    private TilePane productContainer;
+    private AnchorPane root;
     @FXML
     private Button btnClose;
     @FXML
-    private AnchorPane root;
+    private TilePane productContainer;
+    @FXML
+    private Label labelParentName;
     @FXML
     private TextField tfSalePrice;
     @FXML
@@ -47,17 +49,14 @@ public class Stock_popupController implements Initializable {
     @FXML
     private DatePicker dpExpireDate;
     @FXML
+    private TextField tfDiscount;
+    @FXML
     private TextField tfBarcode;
     @FXML
     private Button btnAction;
-    @FXML
-    private Label labelParentName;
-    @FXML
-    private TextField tfDiscount;
-    
+
     public static Object callingController;
     private Product parentProduct;
-    private Product selectedProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,58 +65,8 @@ public class Stock_popupController implements Initializable {
         tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
     }
 
-    private void loadStocks() {
-        System.out.println("Product Name: " + selectedProduct.getProduct());
-
-        Task<List<Stock>> task = new Task<>() {
-            @Override
-            protected List<Stock> call() throws Exception {
-                return StockCRUD.getStockItemsByProduct(selectedProduct);
-            }
-        };
-
-        task.setOnSucceeded(event -> {
-            List<Stock> stocks = task.getValue();
-
-            productContainer.getChildren().clear();
-
-            for (Stock stock : stocks) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("/com/qb/app/cashier/stock_item_card.fxml")
-                    );
-
-                    VBox cardBox = loader.load();
-
-                    Stock_item_cardController controller = loader.getController();
-                    controller.setData(
-                            stock,
-                            stock.getProductId().getProduct(),
-                            stock.getSalePrice(),
-                            DefaultAPI.formatDateObject(
-                                    stock.getExpireDate(),
-                                    "dd MMM, yyyy"
-                            )
-                    );
-                    controller.setParent(this);
-
-                    productContainer.getChildren().add(cardBox);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        task.setOnFailed(event -> {
-            task.getException().printStackTrace();
-        });
-
-        new Thread(task).start();
-    }
-
-    public void saveController(Object object) {
-        Stock_popupController.callingController = object;
+    public void saveController(CashierInvoiceController object) {
+        Stock_popup_barcodeController.callingController = object;
     }
 
     @FXML
@@ -167,7 +116,7 @@ public class Stock_popupController implements Initializable {
             callingController
                     .getClass()
                     .getMethod("setSelectedStock", Stock.class, Product.class)
-                    .invoke(callingController, stock, selectedProduct);
+                    .invoke(callingController, stock, stock.getProductId());
 
             closeWindow(true);
         } catch (Exception e) {
@@ -193,19 +142,45 @@ public class Stock_popupController implements Initializable {
 
     }
 
-    public void setProduct(Product product) {
+    public void setStocks(List<Stock> stocks) {
         this.parentProduct = null;
         labelParentName.setText("");
 
-        this.selectedProduct = product;
-        ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
+        Stock stockItem = stocks.get(0);
+        Product product = stockItem.getProductId();
 
+        ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
         if (productType != null) {
             this.parentProduct = productType.getReferenceId();
             labelParentName.setText(productType.getReferenceId().getProduct());
         }
 
-        loadStocks();
+        for (Stock stock : stocks) {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/qb/app/cashier/stock_item_card.fxml")
+                );
+
+                VBox cardBox = loader.load();
+
+                Stock_item_cardController controller = loader.getController();
+                controller.setData(
+                        stock,
+                        stock.getProductId().getProduct(),
+                        stock.getSalePrice(),
+                        DefaultAPI.formatDateObject(
+                                stock.getExpireDate(),
+                                "dd MMM, yyyy"
+                        )
+                );
+                controller.setParent(this);
+
+                productContainer.getChildren().add(cardBox);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

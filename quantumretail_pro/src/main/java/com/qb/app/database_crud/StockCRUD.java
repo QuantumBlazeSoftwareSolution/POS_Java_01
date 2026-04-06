@@ -107,10 +107,10 @@ public class StockCRUD {
             cq.where(predicateBarcode);
 
             try {
-                Stock stock = em.createQuery(cq).getSingleResult();
-                return new StockProductExport(stock, stock.getProductId());
+                List<Stock> stocks = em.createQuery(cq).getResultList();
+                return new StockProductExport(stocks);
             } catch (Exception e) {
-                return new StockProductExport(null, null);
+                return new StockProductExport(null);
             }
         });
     }

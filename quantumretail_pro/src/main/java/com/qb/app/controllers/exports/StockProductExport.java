@@ -4,8 +4,8 @@
  */
 package com.qb.app.controllers.exports;
 
-import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
+import java.util.List;
 
 /**
  *
@@ -13,22 +13,16 @@ import com.qb.app.model.entity.Stock;
  */
 public class StockProductExport {
 
-    private Stock stock;
-    private Product product;
+    private List<Stock> stocks;
 
     public StockProductExport() {
     }
 
-    public StockProductExport(Stock stock, Product product) {
-        this.stock = stock;
-        this.product = product;
+    public StockProductExport(List<Stock> stock) {
+        this.stocks = stock;
     }
 
-    public Stock getStock() {
-        return this.stock;
-    }
-
-    public Product getProduct() {
-        return this.product;
+    public List<Stock> getStock() {
+        return this.stocks;
     }
 }

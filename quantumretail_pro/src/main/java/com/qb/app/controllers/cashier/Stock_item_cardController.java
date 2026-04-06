@@ -26,10 +26,12 @@ public class Stock_item_cardController implements Initializable {
     private Label priceLabel;
     @FXML
     private Label expLabel;
-    private Stock_popupController parent;
-    private Stock stock;
     @FXML
     private Label priceItem;
+
+    private Stock stock;
+    private Stock_popupController parent;
+    private Stock_popup_barcodeController secondParent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,11 +51,21 @@ public class Stock_item_cardController implements Initializable {
     @FXML
     private void handleMouseClick(MouseEvent event) {
         System.out.println("Selected Name" + itemName);
-        parent.setStock(stock);
+        if (parent != null) {
+            parent.setStock(stock);
+        } else if (secondParent != null) {
+            secondParent.setStock(stock);
+        } else {
+            parent.setStock(stock);
+        }
     }
 
     public void setParent(Stock_popupController parent) {
         this.parent = parent;
+    }
+
+    public void setParent(Stock_popup_barcodeController parent) {
+        this.secondParent = parent;
     }
 
 }
