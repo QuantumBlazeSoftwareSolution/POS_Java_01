@@ -1018,22 +1018,62 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         }
     }
 
+//    private void searchItemByBarcode(String barcode) {
+//        StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
+//
+//        if (stockProduct.getStock() != null && stockProduct.getStock().size() == 1) {
+//            Stock stock = stockProduct.getStock().get(0);
+//            Product product = stock.getProductId();
+//
+//            setSelectedStock(stock, product);
+//            this.selectedProduct = product;
+//            this.selectedStock = stock;
+//
+//            ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(selectedProduct);
+//            this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
+//        } else {
+//            openStockPopup(stockProduct.getStock());
+//        }
+//    }
     private void searchItemByBarcode(String barcode) {
         StockProductExport stockProduct = StockCRUD.getStockItemsByBarcode(barcode);
 
-        if (stockProduct.getStock() != null && stockProduct.getStock().size() == 1) {
-            Stock stock = stockProduct.getStock().get(0);
+        List<Stock> stocks = stockProduct.getStock();
+
+        if (stocks == null || stocks.isEmpty()) {
+            CustomAlert.showStyledAlert(
+                    root,
+                    "No stock found for this barcode.",
+                    "Stock Not Found",
+                    Alert.AlertType.WARNING
+            );
+            tfBarCode.requestFocus();
+            tfBarCode.selectAll();
+            return;
+        }
+
+        if (stocks.size() == 1) {
+            Stock stock = stocks.get(0);
             Product product = stock.getProductId();
 
             setSelectedStock(stock, product);
+
             this.selectedProduct = product;
             this.selectedStock = stock;
 
-            ProductHasProductType productType = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(selectedProduct);
-            this.isParent = productType.getProductTypeId().getType().toLowerCase().equals("parent");
-        } else {
-            openStockPopup(stockProduct.getStock());
+            ProductHasProductType productType
+                    = ProductHasProductTypeCRUD.getProductHasProductTypeByProduct(product);
+
+            this.isParent
+                    = productType.getProductTypeId()
+                            .getType()
+                            .equalsIgnoreCase("parent");
+
+            return;
         }
+
+        // multiple stocks only
+        openStockPopup(stocks);
     }
 
     private void openStockPopup(List<Stock> stocks) {

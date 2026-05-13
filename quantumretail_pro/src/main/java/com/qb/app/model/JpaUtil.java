@@ -13,21 +13,44 @@ public class JpaUtil {
 
     static {
         try {
-            Map<String, String> properties = new HashMap<>();
-            
-            // Get credentials from system environment variables
+
+            String dbUrl = System.getenv("DB_URL");
             String dbUser = System.getenv("DB_USER");
             String dbPassword = System.getenv("DB_PASSWORD");
-            
-            // Validate and add credentials to properties
-            if (dbUser != null && !dbUser.isEmpty()) {
-                properties.put("jakarta.persistence.jdbc.user", dbUser);
+
+            System.out.println("DB URL:" + dbUrl);
+            System.out.println("DB User:" + dbUser);
+            System.out.println("DB Password:" + dbPassword);
+
+            if (dbUrl == null || dbUrl.isBlank()) {
+                throw new RuntimeException("Missing DB_URL");
             }
-            if (dbPassword != null && !dbPassword.isEmpty()) {
-                properties.put("jakarta.persistence.jdbc.password", dbPassword);
+
+            if (dbUser == null || dbUser.isBlank()) {
+                throw new RuntimeException("Missing DB_USER");
             }
-            
-            factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, properties);
+
+            if (dbPassword == null || dbPassword.isBlank()) {
+                throw new RuntimeException("Missing DB_PASSWORD");
+            }
+
+            Map<String, Object> properties = new HashMap<>();
+
+            properties.put(
+                    "jakarta.persistence.jdbc.url",
+                    dbUrl + "?zeroDateTimeBehavior=CONVERT_TO_NULL"
+            );
+            properties.put("jakarta.persistence.jdbc.user", dbUser);
+            properties.put("jakarta.persistence.jdbc.password", dbPassword);
+            properties.put("jakarta.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
+
+            System.out.println("Database URL: " + dbUrl);
+
+            factory = Persistence.createEntityManagerFactory(
+                    PERSISTENCE_UNIT_NAME,
+                    properties
+            );
+
         } catch (Exception e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());

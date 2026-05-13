@@ -18,3 +18,17 @@ Apr 06, 2026 11:08:42 PM com.qb.app.controllers.SytemLoginController lambda$chec
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
 Apr 06, 2026 11:09:51 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
 WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+May 13, 2026 3:42:19 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+May 13, 2026 3:47:35 PM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to make JDBC Connection [?zeroDateTimeBehavior=CONVERT_TO_NULL]
+May 13, 2026 3:54:01 PM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+May 13, 2026 3:58:43 PM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+May 13, 2026 4:00:03 PM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to make JDBC Connection [null?zeroDateTimeBehavior=CONVERT_TO_NULL]
+May 13, 2026 4:05:43 PM com.qb.app.model.JpaUtil <clinit>
+WARNING: java.lang.RuntimeException: Missing DB_URL
+May 13, 2026 4:22:17 PM com.qb.app.controllers.SytemLoginController lambda$checkSession$3
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
